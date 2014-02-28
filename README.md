@@ -17,3 +17,7 @@ Each test file will look for the appropriate module name, but if the test are ru
    EXERCISM=1 perl file.t
 
 then they will expect a file called Example.pm
+## License
+The MIT License (MIT)
+
+Copyright (c) 2014 Katrina Owen, _@kytrinyx.com
