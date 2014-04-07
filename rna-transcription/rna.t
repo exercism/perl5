@@ -6,11 +6,11 @@ my $module = $ENV{EXERCISM} ? 'Example' : 'DNA';
 use Test::More;
 
 my @cases = (
-   ['C', 'C',  'cytidine unchanged'],
-   ['G', 'G',  'guanosine unchanged'],
-   ['A', 'A',  'adenosine unchanged'],
-   ['T', 'U',  'thymidine to uracil'],
-   ['ACGTGGTCTTAA', 'ACGUGGUCUUAA', 'transcribes all occurences'],
+   ['C', 'G',  'cytidine unchanged'],
+   ['G', 'C',  'guanosine unchanged'],
+   ['T', 'A',  'adenosine unchanged'],
+   ['A', 'U',  'thymidine to uracil'],
+   ['ACGTGGTCTTAA', 'UGCACCAGAAUU', 'transcribes all occurences'],
 );
 
 plan tests => 3 + @cases;
