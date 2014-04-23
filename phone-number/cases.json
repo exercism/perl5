@@ -1,0 +1,44 @@
+[
+    {
+        "sub"       : "number",
+        "param"     : "(123) 456-7890",
+        "expected"  : "1234567890",
+        "name"      : "cleans number"
+    },
+    {
+        "sub"       : "number",
+        "param"     : "123.456.7890",
+        "expected"  : "1234567890",
+        "name"      : "cleans the dots"
+    },
+    {
+        "sub"       : "number",
+        "param"     : "11234567890",
+        "expected"  : "1234567890",
+        "name"      : "11-digit number and first digit is 1"
+    },
+    {
+        "sub"       : "number",
+        "param"     : "21234567890",
+        "expected"  : "0000000000",
+        "name"      : "11-digit number and first digit is NOT 1"
+    },
+    {
+        "sub"       : "area_code",
+        "param"     : "1234567890",
+        "expected"  : "123",
+        "name"      : "first 3 digits returned as area_code"
+    },
+    {
+        "sub"       : "pretty",
+        "param"     : "1234567890",
+        "expected"  : "(123) 456-7890",
+        "name"      : "pretty print a 10-digit number"
+    },
+    {
+        "sub"       : "pretty",
+        "param"     : "11234567890",
+        "expected"  : "(123) 456-7890",
+        "name"      : "pretty print a valid 11-digit number"
+    }
+]
