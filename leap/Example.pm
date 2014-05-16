@@ -1,4 +1,4 @@
-package Leap;
+package Example;
 use warnings;
 use strict;
 
