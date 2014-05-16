@@ -18,6 +18,7 @@ prime-factors
 proverb
 queen-attack
 raindrops
+robot-name
 rna-transcription
 say
 triangle
