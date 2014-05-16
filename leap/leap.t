@@ -6,10 +6,10 @@ my $module = $ENV{EXERCISM} ? 'Example' : 'Leap';
 
 my @cases = (
     # input expected output  title
-    [1996,  1,               '1996 is a leap year'],
-    [1997,  0,               '1997 is not a leap year'],
-    [1900,  0,               '1900 is not a leap year'],
-    [2400,  1,               '2400 is a leap year'],
+    [1996,  1,               'Is a leap year'],
+    [1997,  0,               'Is not a leap year'],
+    [1900,  0,               'Is not a leap year'],
+    [2400,  1,               'Is a leap year'],
 );
 
 plan tests => 3 + @cases;
