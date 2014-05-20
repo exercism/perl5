@@ -31,5 +31,8 @@
     "trinary",
     "word-count",
     "wordy"
+  ],
+  "ignore": [
+
   ]
 }
