@@ -32,6 +32,9 @@
     "word-count",
     "wordy"
   ],
+  "deprecated": [
+
+  ],
   "ignore": [
 
   ]
