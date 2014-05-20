@@ -4,22 +4,22 @@ use strict;
 use warnings; 
 
 sub map { 
-   my ($func, @list) = @_;
+   my ($func, $list) = @_;
 
    my @result; 
-   foreach my $elem (@list) {
+   foreach my $elem (@$list) {
       push @result,
          $func->($elem);
    }
 
-   return @result; 
+   return \@result; 
 }
 
 sub reduce {
-   my ($func, $head, @tail) = @_;
-
-   my $result = $head;
-   foreach my $elem (@tail) {
+   my ($func, $list) = @_;
+   
+   my $result = shift @$list;
+   foreach my $elem (@$list) {
       $result = $func->($result, $elem);
    }
 
@@ -27,9 +27,9 @@ sub reduce {
 }
 
 sub length {
-   my @l = @_; 
+   my $list = shift; 
    
-   return _length(\@l, 0);
+   return _length($list, 0);
 }
 
 sub _length {
