@@ -4,21 +4,13 @@ use strict;
 
 sub is_leap {
     my $year = shift;
-
-    if ($year % 4 == 0
-        and $year % 100 == 0
-        and $year % 400 == 0)
-    {
-        return 1;
-    }
-    elsif ($year % 4 == 0
-           and $year % 100 != 0)
-    {
-        return 1;
-    }
-    else {
-        return 0;
-    }
+    divisible_by($year, 400)
+        or divisible_by($year, 4) and !divisible_by($year, 100)
+        ? 1 : 0;
 }
 
-1;
+sub divisible_by {
+    $_[0] % $_[1] == 0 ? 1 : 0;
+}
+
+__PACKAGE__;
