@@ -43,7 +43,8 @@
     "say",
     "meetup",
     "queen-attack",
-    "ocr-numbers"
+    "ocr-numbers",
+    "twelve-days"
   ],
   "deprecated": [
     "binary",
