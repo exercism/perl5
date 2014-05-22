@@ -2,7 +2,7 @@ package Example;
 use strict;
 use warnings;
 use DateTime;
-use List::Util 'any';
+use List::MoreUtils 'any';
 
 my @days_of_week = qw[monday tuesday wednesday thursday friday saturday sunday];
 
@@ -21,7 +21,7 @@ sub _days_until{
 
 sub _days_in_month {
     my ($year, $month_number) = @_;
-    
+
     my $date = DateTime->new(year => $year);
 
     if    (any { $month_number == $_ } qw/1 3 5 7 8 10 12/) { return 31 }
