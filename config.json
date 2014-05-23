@@ -30,6 +30,7 @@
     "allergies",
     "simple-cipher",
     "luhn",
+    "gigasecond",
     "pig-latin",
     "linked-list",
     "list-ops",
@@ -37,14 +38,17 @@
     "hexadecimal",
     "secret-handshake",
     "kindergarten-garden",
+    "nucleotide-count",
     "binary-search",
     "matrix",
     "pascals-triangle",
     "say",
+    "grade-school",
     "meetup",
     "queen-attack",
     "ocr-numbers",
-    "twelve-days"
+    "twelve-days",
+    "binary-search-tree"
   ],
   "deprecated": [
     "binary",
