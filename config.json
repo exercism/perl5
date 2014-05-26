@@ -48,7 +48,8 @@
     "queen-attack",
     "ocr-numbers",
     "twelve-days",
-    "binary-search-tree"
+    "binary-search-tree",
+    "sum-of-multiples"
   ],
   "deprecated": [
     "binary",
