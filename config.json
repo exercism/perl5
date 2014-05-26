@@ -49,7 +49,8 @@
     "ocr-numbers",
     "twelve-days",
     "binary-search-tree",
-    "sum-of-multiples"
+    "sum-of-multiples",
+    "sieve"
   ],
   "deprecated": [
     "binary",
