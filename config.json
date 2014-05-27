@@ -50,7 +50,8 @@
     "twelve-days",
     "binary-search-tree",
     "sum-of-multiples",
-    "sieve"
+    "sieve",
+    "food-chain"
   ],
   "deprecated": [
     "binary",
