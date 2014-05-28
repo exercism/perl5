@@ -51,7 +51,8 @@
     "binary-search-tree",
     "sum-of-multiples",
     "sieve",
-    "food-chain"
+    "food-chain",
+    "saddle-points"
   ],
   "deprecated": [
     "binary",
