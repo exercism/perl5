@@ -52,7 +52,8 @@
     "sum-of-multiples",
     "sieve",
     "food-chain",
-    "saddle-points"
+    "saddle-points",
+    "robot-simulator"
   ],
   "deprecated": [
     "binary",
