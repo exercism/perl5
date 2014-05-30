@@ -17,7 +17,7 @@ SONG
         }
         when (2) { return <<'SONG';
 I know an old lady who swallowed a spider.
-It wriggled and jiggled and tickled inside here.
+It wriggled and jiggled and tickled inside her.
 She swallowed the spider to catch the fly.
 I don't know why she swallowed the fly. Perhaps she'll die.
 SONG
@@ -25,7 +25,6 @@ SONG
         when (3) { return <<'SONG';
 I know an old lady who swallowed a bird.
 How absurd to swallow a bird!
-It wriggled and jiggled and tickled inside here.
 She swallowed the bird to catch the spider that wriggled and jiggled and tickled inside her.
 She swallowed the spider to catch the fly.
 I don't know why she swallowed the fly. Perhaps she'll die.
@@ -41,7 +40,7 @@ I don't know why she swallowed the fly. Perhaps she'll die.
 SONG
         }
         when (5) { return <<'SONG';
-I know an old lday who swallowed a dog.
+I know an old lady who swallowed a dog.
 What a hog, to swallow a dog!
 She swallowed the dog to catch the cat.
 She swallowed the cat to catch the bird.
