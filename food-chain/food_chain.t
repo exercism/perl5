@@ -34,7 +34,7 @@ is $song->verse(1), $expected, "swallow fly at verse(1)";
 
 $expected = <<'SONG';
 I know an old lady who swallowed a spider.
-It wriggled and jiggled and tickled inside here.
+It wriggled and jiggled and tickled inside her.
 She swallowed the spider to catch the fly.
 I don't know why she swallowed the fly. Perhaps she'll die.
 SONG
@@ -43,7 +43,6 @@ is $song->verse(2), $expected, "swallow spider at verse(2)";
 $expected = <<'SONG';
 I know an old lady who swallowed a bird.
 How absurd to swallow a bird!
-It wriggled and jiggled and tickled inside here.
 She swallowed the bird to catch the spider that wriggled and jiggled and tickled inside her.
 She swallowed the spider to catch the fly.
 I don't know why she swallowed the fly. Perhaps she'll die.
@@ -61,7 +60,7 @@ SONG
 is $song->verse(4), $expected, "swallow cat at verse(4)";
 
 $expected = <<'SONG';
-I know an old lday who swallowed a dog.
+I know an old lady who swallowed a dog.
 What a hog, to swallow a dog!
 She swallowed the dog to catch the cat.
 She swallowed the cat to catch the bird.
@@ -107,7 +106,7 @@ I know an old lady who swallowed a fly.
 I don't know why she swallowed the fly. Perhaps she'll die.
 
 I know an old lady who swallowed a spider.
-It wriggled and jiggled and tickled inside here.
+It wriggled and jiggled and tickled inside her.
 She swallowed the spider to catch the fly.
 I don't know why she swallowed the fly. Perhaps she'll die.
 
