@@ -55,7 +55,8 @@
     "food-chain",
     "saddle-points",
     "robot-simulator",
-    "minesweeper"
+    "minesweeper",
+    "series"
   ],
   "deprecated": [
     "binary",
