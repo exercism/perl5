@@ -56,7 +56,8 @@
     "saddle-points",
     "robot-simulator",
     "minesweeper",
-    "series"
+    "series",
+    "custom-set"
   ],
   "deprecated": [
     "binary",
