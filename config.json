@@ -58,7 +58,8 @@
     "robot-simulator",
     "minesweeper",
     "series",
-    "custom-set"
+    "custom-set",
+    "simple-linked-list"
   ],
   "deprecated": [
     "binary",
