@@ -5,7 +5,7 @@ use Test::More;
 
 my $module = $ENV{EXERCISM} ? 'Example' : 'Robot';
 
-plan tests => 44;
+plan tests => 45;
 
 ok -e "$module.pm", "Missing $module.pm"
         or BAIL_OUT "You need to create file: $module.pm";
@@ -125,14 +125,19 @@ is_deeply $robot->coordinates, [-1, 0],
 
 my $sim_module = "Simulator";
 
-can_ok $sim_module, "new"
-        or BAIL_OUT "Missing package $sim_module; or missing sub new()";
+{
+    no strict 'refs';
+    scalar %{ join('::', $sim_module, '') } or 
+      BAIL_OUT "You need to implement the $sim_module class";
+}
 
-can_ok $sim_module, "place"
-        or BAIL_OUT "Missing package $sim_module; or missing sub instructions()";
+can_ok $sim_module, "new" or BAIL_OUT "missing sub ${sim_module}::new()";
 
-can_ok $sim_module, "evaluate"
-        or BAIL_OUT "Missing package $sim_module; or missing sub instructions()";
+can_ok $sim_module, "place" or BAIL_OUT "missing sub ${sim_module}::place()";
+
+can_ok $sim_module, "evaluate" or BAIL_OUT "missing sub ${sim_module}::evaluate()";
+
+can_ok $sim_module, "instructions" or BAIL_OUT "missing sub ${sim_module}::instructions()";
 
 my $simulator = $sim_module->new;
 
