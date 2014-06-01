@@ -59,7 +59,8 @@
     "minesweeper",
     "series",
     "custom-set",
-    "simple-linked-list"
+    "simple-linked-list",
+    "sublist"
   ],
   "deprecated": [
     "binary",
