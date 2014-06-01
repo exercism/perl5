@@ -4,7 +4,7 @@ use warnings;
 use Test::More tests=> 17;
 use Test::Exception;
 
-my $module = $ENV{EXERCISM} ? 'Example' : 'Minesweeper';
+my $module = $ENV{EXERCISM} ? 'Example' : 'Series';
 
 use_ok($module) or BAIL_OUT("You need to create a module called $module.pm");
 can_ok($module, "new") or BAIL_OUT("You need to implement the new(input)-function");
