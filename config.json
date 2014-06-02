@@ -30,6 +30,7 @@
     "rna-transcription",
     "allergies",
     "simple-cipher",
+    "series",
     "luhn",
     "house",
     "gigasecond",
@@ -37,6 +38,7 @@
     "linked-list",
     "list-ops",
     "wordy",
+    "largest-series-product",
     "hexadecimal",
     "secret-handshake",
     "kindergarten-garden",
@@ -57,7 +59,6 @@
     "saddle-points",
     "robot-simulator",
     "minesweeper",
-    "series",
     "custom-set",
     "simple-linked-list",
     "sublist"
