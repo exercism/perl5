@@ -70,7 +70,7 @@
     "binary",
     "point-mutations"
   ],
-  "ignore": [
+  "ignored": [
 
   ]
 }
