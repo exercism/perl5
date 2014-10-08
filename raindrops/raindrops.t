@@ -27,12 +27,10 @@ ok !$@, "Cannot load $module.pm"
 
 can_ok($module, 'convert') or BAIL_OUT("Missing package $module; or missing sub convert()");
 
-my $sub = $module . '::convert';
+my $sub = $module->can('convert');
 
 foreach my $c (@$cases) {
-    no strict 'refs';
-    is_deeply $sub->($c->{input}), $c->{expected}, $c->{name}
+    is $sub->($c->{input}), $c->{expected}, $c->{name}
 }
-
 
 done_testing();
