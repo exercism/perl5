@@ -33,9 +33,9 @@ foreach my $c (@$cases) {
     my $sub = "${module}::" . $c->{sub};
 
     if ($c->{sub} eq 'square') {
-        is $sub->($c->{input}), $c->{expected}, $c->{name};
+        cmp_ok $sub->($c->{input}), '==', $c->{expected}, $c->{name};
     }
     if ($c->{sub} eq 'total') {
-        is $sub->(), $c->{expected}, $c->{name};
+        cmp_ok $sub->(), '==', $c->{expected}, $c->{name};
     }
 }
