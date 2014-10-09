@@ -7,8 +7,14 @@ my $module = $ENV{EXERCISM} ? 'Example' : 'Bob';
 
 use Test::More;
 
-my @cases = (
-    # input                                           expected output        title
+my @cases = map {
+    {
+        input   => $_->[0],
+        expect  => $_->[1],
+        desc    => $_->[2],
+    }
+} (
+    # input                                             expected output       title
     ['Tom-ay-to, tom-aaaah-to.',                       'Whatever.',          'stating something'],
     ['WATCH OUT!',                                     'Whoa, chill out!',   'shouting'],
     ['Does this cryogenic chamber make me look fat?',  'Sure.',              'question'],
@@ -31,24 +37,21 @@ my @cases = (
     ['    ',                                           'Fine. Be that way!', 'prolonged silence'],
 );
 
-
-plan tests => 3 + @cases;
-
 ok -e "$module.pm", "missing $module.pm"
     or BAIL_OUT("You need to create a module called $module.pm with a function called hey() that gets one parameter: The text Bob hears.");
 
-eval "use $module";
-ok !$@, "Cannot load $module.pm"
+use_ok('Bob')
     or BAIL_OUT("Does $module.pm compile?  Does it end with 1; ?");
 
-can_ok($module, 'hey') or BAIL_OUT("Missing package $module; or missing sub hey()");
+can_ok($module, 'hey')
+    or BAIL_OUT("Missing package $module; or missing sub hey()");
 
-my $sub = $module . '::hey';
+my $sub = $module->can('hey');
 
 foreach my $c (@cases) {
-    #diag uc $c->[0];
-    my $title = $c->[2] ? "$c->[2]: $c->[0]" : $c->[0];
-    no strict 'refs';
-    is $sub->($c->[0]), $c->[1], $title;
+    #diag uc $c->{input};
+    my $title = $c->{desc} ? "$c->{desc}: $c->{input}" : $c->{input};
+    is $sub->( $c->{input} ), $c->{expect}, $title;
 }
 
+done_testing();
