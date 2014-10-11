@@ -38,24 +38,21 @@ my @cases = (
     }
 );
 
-plan tests => 3 + @cases;
-
 my $module = $ENV{EXERCISM} ? 'Example' : 'ETL';
 
-ok -e "$module.pm", "Missing $module.pm",
+ok -e "$module.pm", "Find $module.pm",
     or BAIL_OUT "You need to create a class called $module.pm";
 
-eval "use $module";
-
-ok !$@, "Cannot load $module.pm"
+use_ok $module
     or BAIL_OUT "Does $module.pm compile? Does it end with 1;?";
 
-can_ok $module, "transform" or BAIL_OUT "Missing package module $module; or missing sub transform()";
+can_ok $module, "transform"
+    or BAIL_OUT "Missing package module $module; or missing sub transform()";
+
+my $sub = $module->can('transform');
 
 foreach my $c (@cases) {
-    if ($ENV{EXERCISM}) {
-        is_deeply Example::transform($c->{old}), $c->{expected}, $c->{name};
-    } else {
-        is_deeply ETL::transform($c->{old}), $c->{expected}, $c->{name};
-    }
+    is_deeply scalar $sub->($c->{old}), $c->{expected}, $c->{name};
 }
+
+done_testing();
