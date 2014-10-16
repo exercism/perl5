@@ -19,7 +19,7 @@ sub normalize_plaintext {
 
 sub size {
     my $self = shift;
-    my $size = sqrt(length $self->normalize_plaintext);
+    my $size = @_ > 0 ? sqrt(length $_[0]) : sqrt(length $self->normalize_plaintext);
 
     return  int($size) if fmod($size, 1) == 0;
     return ceil($size);
@@ -28,8 +28,9 @@ sub size {
 sub normalize_ciphertext {
     my $self = shift;
     my $cipher = $self->ciphertext;
+    my $size = $self->size($cipher);
 
-    return join qq{ } => unpack '(A5)*', $cipher;
+    return join qq{ } => unpack "(A$size)*", $cipher;
 }
 
 sub ciphertext {

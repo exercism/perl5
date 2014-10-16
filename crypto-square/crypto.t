@@ -51,7 +51,7 @@ my @cases = (
     },
     {
         plain    => 'Madness, and then illumination',
-        expected => 'msemo aanin dninn dlaet ltshu i',
+        expected => 'msemoa anindn inndla etltsh ui',
         sub      => 'normalize_ciphertext'
     },
     {
