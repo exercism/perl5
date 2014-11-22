@@ -3,18 +3,17 @@
 # first exercise more quickly.
 #
 
+use 5.006;
+use strict;
+use warnings;
+
 package Bob;
 
-use strict;
-use Exporter;
-use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
+our $VERSION = '1.000';
 
-$VERSION = 1.00;
-@ISA = qw(Exporter);
-@EXPORT = ();
-@EXPORT_OK = qw(hey);
-%EXPORT_TAGS = ( DEFAULT => [qw(&hey)],
-);
+use Exporter 5.57 qw(import);
+
+our @EXPORT_OK = qw(hey);
 
 sub hey {
 #
