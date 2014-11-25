@@ -1,36 +1,61 @@
 use strict;
 use warnings;
+use 5.10.0;
 
 use Test::More;
 
-my $extension_cases = 0;
-# $extension_cases = 5; # uncomment if you implement extensions
+# set EXERCISM_EXTENDED=1 to run extended test cases
+use constant TEST_EXTENDED => $ENV{EXERCISM_EXTENDED} // 0;
 
-plan tests => 11 + $extension_cases;
+my @cases = map { _make_test_case(@$_) } (
+    [ "",                   0, [], "empty word" ],
+    [ " \t\n",              0, [], "whitespace" ],
+    [ "a",                  1],
+    [ "f",                  4],
+    [ "street",             6],
+    [ "quirky",             22],
+    [ "MULTIBILLIONAIRE",   20],
+);
+
+my @extended_cases = map { _make_test_case(@$_) } (
+    [ "quirky", 44,     [ double => 1 ],                "double 'quirky'" ],
+    [ "quirky", 88,     [ double => 2 ],                "double-double 'quirky'" ],
+    [ "quirky", 66,     [ triple => 1 ],                "triple 'quirky'" ],
+    [ "quirky", 198,    [ triple => 2 ],                "triple-triple 'quirky'" ],
+    [ "quirky", 132,    [ double => 1, triple => 1 ],   "double-triple 'quirky'" ],
+);
 
 my $module = $ENV{EXERCISM} ? 'Example' : 'Word';
 
-ok -e "$module.pm", "Missing $module.pm" or BAIL_OUT "You need to create file: $module.pm";
-eval "use $module";
-ok !$@, "Cannot load $module" or BAIL_OUT "Cannot load $module. Does it compile? Does it end with 1;?";
-can_ok $module, "new"   or BAIL_OUT "Missing package $module; or missing sub new()";
-can_ok $module, "score" or BAIL_OUT "Missing package $module; or missing sub score()";
+ok -e "$module.pm", "Find $module.pm"
+    or die "You need to create file: $module.pm";
+use_ok $module
+    or die "Cannot load $module. Does it compile? Does it end with 1;?";
+can_ok $module, (qw/new score/)
+    or die "Missing package $module or needed sub not found";
 
-
-is $module->new("")->score, 0, "empty word scores zero";
-is $module->new(" \t\n")->score, 0, "whitespaces scores zero";
-is $module->new("a")->score, 1, "'a' scores 1";
-is $module->new("f")->score, 4, "'f' scores 4";
-is $module->new("street")->score, 6, "'street' scores 6";
-is $module->new("quirky")->score, 22, "'quirky' scores 22";
-is $module->new("MULTIBILLIONAIRE")->score, 20, "'MULTIBILLIONAIRE' scores 20";
-
+for my $c (@cases) {
+    is $module->new( $c->{word} )->score(), $c->{score}, $c->{desc};
+}
 
 SKIP: {
-    skip "only if extensions are enabled. double and triple", $extension_cases unless $extension_cases;
-    is $module->new("quirky")->score( double => 1 ), 44, "'quirky x2' scores 44 (double)";
-    is $module->new("quirky")->score( double => 2 ), 88, "'quirky x2 x2' scores 88 (double-double)";
-    is $module->new("quirky")->score( triple => 1 ), 66, "'quirky x3' scores 66 (triple)";
-    is $module->new("quirky")->score( triple => 2 ), 198, "'quirky x3 x3' scores 198 (triple-triple)";
-    is $module->new("quirky")->score( double => 1, triple => 1 ), 132, "'quirky x2 x3' scores 132 (double-triple)";
+    skip "only if extensions are enabled. double and triple", scalar @extended_cases
+        unless TEST_EXTENDED;
+    for my $c (@extended_cases) {
+        is $module->new( $c->{word} )->score(@{ $c->{options} }), $c->{score}, $c->{desc};
+    }
 }
+
+done_testing();
+
+sub _make_test_case {
+    my ($word, $score, $options, $desc) = @_;
+
+    return {
+        word    => $word,
+        score   => $score,
+        options => $options // [],
+        desc    => "score for " . ($desc // "'$word'")
+    };
+}
+
