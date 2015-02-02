@@ -3,6 +3,7 @@
   "language": "Perl 5",
   "repository": "https://github.com/exercism/xperl5",
   "active": true,
+  "test_pattern": ".*t$",
   "problems": [
     "bob",
     "leap",
