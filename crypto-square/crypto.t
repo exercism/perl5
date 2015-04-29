@@ -51,14 +51,24 @@ my @cases = (
     },
     {
         plain    => 'Madness, and then illumination',
-        expected => 'msemoa anindn inndla etltsh ui',
+        expected => 'msemo aanin dnin ndla etlt shui',
         sub      => 'normalize_ciphertext'
     },
     {
         plain    => 'Vampires are people too!',
-        expected => 'vrela epems etpao oirpo',
+        expected => 'vrel aepe mset paoo irpo',
         sub      => 'normalize_ciphertext'
+    },
+    {
+        sub      => 'normalize_ciphertext',
+        plain    => 'All human beings are born free and equal in dignity and rights.
+            They are endowed with reason and conscience and should act towards one another
+            in a spirit of brotherhood.',
+        expected => (join ' ', qw/
+            ageihdsednsh lsagtoonaepe lannswnccair hrditeaetnrh ueethdnatoio mbqyewdnotto aouayicdwhod
+            nranatosaef bnldrhnhrrb efirersodir irnieecusno nedgnailoat/)
     }
+
 );
 
 my $module = $ENV{EXERCISM} ? 'Example' : 'Crypto';

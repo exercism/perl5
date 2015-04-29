@@ -27,25 +27,12 @@ sub size {
 
 sub normalize_ciphertext {
     my $self = shift;
-    my $cipher = $self->ciphertext;
-    my $size = $self->size($cipher);
-
-    return join qq{ } => unpack "(A$size)*", $cipher;
+    join ' ', $self->_columns;
 }
 
 sub ciphertext {
     my $self = shift;
-    my $plaintext_segments = $self->plaintext_segments;
-    my $cipher;
-    
-    no warnings ('uninitialized', 'substr');
-    foreach my $index (0..@$plaintext_segments) {
-        foreach my $seg ( @$plaintext_segments ) {
-           $cipher .= substr $seg, $index, 1;
-        }
-    }
-
-    return $cipher;
+    join '', $self->_columns;
 }
 
 sub plaintext_segments {
@@ -55,15 +42,22 @@ sub plaintext_segments {
 
 sub _segmentize {
     my ($self, $to_segment, $size) = @_;
-    my ($segment, @segments) = ('', );
+    [grep {$_} split /(.{$size})/, $to_segment];
+}
 
-    foreach my $c (split // => $to_segment) {
-         do { push @segments => $segment; $segment = '' } if length $segment == $size;
-         $segment .= $c;
+sub _columns {
+    my $self = shift;
+    my $plaintext_segments = $self->plaintext_segments;
+    my @columns;
+    
+    foreach my $index (0 .. @$plaintext_segments) {
+        my $column;
+        foreach my $seg ( @$plaintext_segments ) {
+            $column .= substr $seg, $index, 1 if $index < length $seg;
+        }
+        push @columns, $column if $column;
     }
-    push @segments => $segment if $segment;
-
-    return \@segments;
+    @columns;
 }
 
 __PACKAGE__;
