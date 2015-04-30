@@ -28,6 +28,10 @@ my @cases = map {
     ['ZOMG THE %^*@#$(*^ ZOMBIES ARE COMING!!11!!1!',  'Whoa, chill out!',   'shouting with special characters'],
     ["ÜMLÄÜTS!",                                       'Whoa, chill out!',   'shouting with umlauts'],
     ["\xdcML\xc4\xdcTS!",                              'Whoa, chill out!',   'shouting with umlauts'],
+    ['_A',                                             'Whoa, chill out!',   'Dollar sign shout - before'],
+    ['A_',                                             'Whoa, chill out!',   'Dollar sign shout - after'],
+    ['$A',                                             'Whoa, chill out!',   'underscore shout - before'],
+    ['A$',                                             'Whoa, chill out!',   'underscore shout - after'],
     ["ÜMLäÜTS!",                                       'Whatever.',          'speaking calmly with umlauts'],
     #["\xdcML\xe4\xdcTS!",                              'Whatever.',          'speaking calmly with umlauts'],
     ['I HATE YOU',                                     'Whoa, chill out!',   'shouting with no exclamation mark'],
@@ -40,7 +44,7 @@ my @cases = map {
 ok -e "$module.pm", "missing $module.pm"
     or BAIL_OUT("You need to create a module called $module.pm with a function called hey() that gets one parameter: The text Bob hears.");
 
-use_ok('Bob')
+use_ok($module)
     or BAIL_OUT("Does $module.pm compile?  Does it end with 1; ?");
 
 can_ok($module, 'hey')
