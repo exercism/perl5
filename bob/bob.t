@@ -28,17 +28,17 @@ my @cases = map {
     ['ZOMG THE %^*@#$(*^ ZOMBIES ARE COMING!!11!!1!',  'Whoa, chill out!',   'shouting with special characters'],
     ["ÜMLÄÜTS!",                                       'Whoa, chill out!',   'shouting with umlauts'],
     ["\xdcML\xc4\xdcTS!",                              'Whoa, chill out!',   'shouting with umlauts'],
-    ['_A',                                             'Whoa, chill out!',   'Dollar sign shout - before'],
-    ['A_',                                             'Whoa, chill out!',   'Dollar sign shout - after'],
-    ['$A',                                             'Whoa, chill out!',   'underscore shout - before'],
-    ['A$',                                             'Whoa, chill out!',   'underscore shout - after'],
+    ['_A',                                             'Whoa, chill out!',   'underscore shout - before'],
+    ['A_',                                             'Whoa, chill out!',   'underscore shout - after'],
+    ['$A',                                             'Whoa, chill out!',   'Dollar sign shout - before'],
+    ['A$',                                             'Whoa, chill out!',   'Dollar sign shout - after'],
     ["ÜMLäÜTS!",                                       'Whatever.',          'speaking calmly with umlauts'],
-    #["\xdcML\xe4\xdcTS!",                              'Whatever.',          'speaking calmly with umlauts'],
     ['I HATE YOU',                                     'Whoa, chill out!',   'shouting with no exclamation mark'],
     ['Ending with ? means a question.',                'Whatever.',          'statement containing question mark'],
     ["Wait! Hang on. Are you going to be OK?",         'Sure.',              'prattling on'],
     ['',                                               'Fine. Be that way!', 'silence'],
     ['    ',                                           'Fine. Be that way!', 'prolonged silence'],
+    ["   \nI just remembered...",                      'Whatever.',          'Silence, then more'],
 );
 
 ok -e "$module.pm", "missing $module.pm"
