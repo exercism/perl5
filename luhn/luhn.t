@@ -16,7 +16,7 @@ can_ok $module, "is_valid"    or BAIL_OUT "Missing package $module; or missing s
 can_ok $module, "create"   or BAIL_OUT "Missing package $module; or missing sub create()";
 
 is_deeply $module->new(12121)->addends, [1, 4, 1, 4, 1],   "add 2 on addends" or diag explain $module->new(12121)->addends;
-is_deeply $module->new(8631)->addends,  [7, 6, 6, 1], "subtract 9 on addends" or diag explain $module->new(8631)->addends,;
+is_deeply $module->new(8631)->addends,  [7, 6, 6, 1], "subtract 9 on addends" or diag explain $module->new(8631)->addends;
 is $module->new(4913)->checksum, 22, "add all addends";
 is $module->new(201773)->checksum, 21, "add all addends again";
 ok !$module->new(738)->is_valid, "not a Luhn number";
