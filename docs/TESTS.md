@@ -1,3 +1,9 @@
+Execute tests with:
+
+```bash
+$ prove bob_test.t
+```
+
 ## Creating Your First Perl5 Module
 
 In order to have your solution work correctly with the test specification,
@@ -19,10 +25,10 @@ $VERSION     = 1.00;
                 );
 
 sub hey {
-        #
-        # Your Perl solution goes here
-        #
+	#
+	# Your Perl solution goes here
+	#
 }
 
 1;
-````   
+````
