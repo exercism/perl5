@@ -19,10 +19,10 @@ can_ok $module, "new"
 can_ok $module, "to"
         or BAIL_OUT "Missing package $module; or missing sub to()";
 
-is $module->new->to(1), 0, "No multiples of 3 or 5 equals zero";
-is $module->new->to(4), 3, "One multiple of 3";
-is $module->new->to(10), 23, "Multiples of 3 and 5";
-is $module->new->to(100), 2_318, "Multiples of 3 and 5 to 100";
-is $module->new->to(1000), 233_168, "A lot of multiples of 3 and 5";
+is $module->new(3, 5)->to(1), 0, "No multiples of 3 or 5 equals zero";
+is $module->new(3, 5)->to(4), 3, "One multiple of 3";
+is $module->new(3, 5)->to(10), 23, "Multiples of 3 and 5";
+is $module->new(3, 5)->to(100), 2_318, "Multiples of 3 and 5 to 100";
+is $module->new(3, 5)->to(1000), 233_168, "A lot of multiples of 3 and 5";
 is $module->new(7, 13, 17)->to(20), 51, "Multiples of 7, 13, 17";
 is $module->new(43, 47)->to(10_000), 2_203_160, "Multiples of 43, 47";

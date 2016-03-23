@@ -6,7 +6,7 @@ use List::Util 'sum';
 
 sub new {
     my ($class, @multiples_of) = @_;
-    @multiples_of = (3, 5) unless @multiples_of;
+    die "no multiples" unless scalar @multiples_of;
 
     bless { multiples_of => [@multiples_of] } => $class;
 }
