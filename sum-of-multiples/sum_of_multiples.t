@@ -85,9 +85,9 @@ can_ok $module, "to"
 
 for my $case (@cases) {
     my @factors = @{$case->{factors}};
-	my $desc = sprintf "Multiples of %s up to %s equals %s",
-					   (scalar @factors ? (join ' and ', @factors) : 'nothing'),
-				       $case->{limit}, $case->{expected};
+    my $desc = sprintf "Multiples of %s up to %s equals %s",
+                       (scalar @factors ? (join ' and ', @factors) : 'nothing'),
+                       $case->{limit}, $case->{expected};
 
     is $module->new(@factors)->to($case->{limit}), $case->{expected}, $desc;
 }
