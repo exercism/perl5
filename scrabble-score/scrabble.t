@@ -14,7 +14,7 @@ my @cases = map { _make_test_case(@$_) } (
     [ "f",                  4],
     [ "street",             6],
     [ "quirky",             22],
-    [ "MULTIBILLIONAIRE",   20],
+    [ "OXYPHENBUTAZONE",    41],
 );
 
 my @extended_cases = map { _make_test_case(@$_) } (
