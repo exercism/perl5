@@ -72,7 +72,8 @@
     "point-mutations"
   ],
   "ignored": [
-    "docs"
+    "docs",
+    "img"
   ],
   "foregone": [
 
