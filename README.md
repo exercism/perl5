@@ -27,3 +27,8 @@ Please see the [contributing guide](https://github.com/exercism/x-api/blob/maste
 The MIT License (MIT)
 
 Copyright (c) 2014 Katrina Owen, _@kytrinyx.com
+
+### Perl 5 icon
+The onion is the logo of the Perl Foundation.
+It is trademarked, and we have adapted it--changing the color--with their permission.
+The Perl Foundation does not support or endorse Exercism.
