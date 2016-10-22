@@ -4,69 +4,6 @@
   "repository": "https://github.com/exercism/xperl5",
   "active": true,
   "test_pattern": ".*t$",
-  "problems": [
-    "bob",
-    "leap",
-    "grains",
-    "raindrops",
-    "hamming",
-    "etl",
-    "scrabble-score",
-    "word-count",
-    "anagram",
-    "difference-of-squares",
-    "proverb",
-    "space-age",
-    "roman-numerals",
-    "clock",
-    "prime-factors",
-    "triangle",
-    "beer-song",
-    "phone-number",
-    "robot-name",
-    "atbash-cipher",
-    "accumulate",
-    "crypto-square",
-    "trinary",
-    "rna-transcription",
-    "allergies",
-    "simple-cipher",
-    "series",
-    "luhn",
-    "house",
-    "gigasecond",
-    "strain",
-    "pig-latin",
-    "linked-list",
-    "list-ops",
-    "wordy",
-    "largest-series-product",
-    "hexadecimal",
-    "secret-handshake",
-    "kindergarten-garden",
-    "nucleotide-count",
-    "binary-search",
-    "matrix",
-    "pascals-triangle",
-    "say",
-    "grade-school",
-    "meetup",
-    "queen-attack",
-    "ocr-numbers",
-    "palindrome-products",
-    "twelve-days",
-    "binary-search-tree",
-    "sum-of-multiples",
-    "sieve",
-    "food-chain",
-    "pythagorean-triplet",
-    "saddle-points",
-    "robot-simulator",
-    "minesweeper",
-    "custom-set",
-    "simple-linked-list",
-    "sublist"
-  ],
   "deprecated": [
     "binary",
     "point-mutations"
@@ -77,5 +14,312 @@
   ],
   "foregone": [
 
+  ],
+  "exercises": [
+    {
+      "difficulty": 1,
+      "slug": "bob",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "leap",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "grains",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "raindrops",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "hamming",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "etl",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "scrabble-score",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "word-count",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "anagram",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "difference-of-squares",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "proverb",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "space-age",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "roman-numerals",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "clock",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "prime-factors",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "triangle",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "beer-song",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "phone-number",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "robot-name",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "atbash-cipher",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "accumulate",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "crypto-square",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "trinary",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "rna-transcription",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "allergies",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "simple-cipher",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "series",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "luhn",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "house",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "gigasecond",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "strain",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "pig-latin",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "linked-list",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "list-ops",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "wordy",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "largest-series-product",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "hexadecimal",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "secret-handshake",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "kindergarten-garden",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "nucleotide-count",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "binary-search",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "matrix",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "pascals-triangle",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "say",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "grade-school",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "meetup",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "queen-attack",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "ocr-numbers",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "palindrome-products",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "twelve-days",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "binary-search-tree",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "sum-of-multiples",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "sieve",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "food-chain",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "pythagorean-triplet",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "saddle-points",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "robot-simulator",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "minesweeper",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "custom-set",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "simple-linked-list",
+      "topics": []
+    },
+    {
+      "difficulty": 1,
+      "slug": "sublist",
+      "topics": []
+    }
   ]
 }
