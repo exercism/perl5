@@ -9,10 +9,10 @@ close $dh;
 $ENV{EXERCISM} = 1;
 foreach my $d (@dirs) {
 	say $d;
-    chdir $d;
-    opendir my $dh, '.' or die;
-    my ($test) = grep { /\.t$/ } readdir $dh;
-    close $dh;
+	chdir $d;
+	opendir my $dh, '.' or die;
+	my ($test) = grep { /\.t$/ } readdir $dh;
+	close $dh;
 	system "prove $test";
-    chdir '..';
+	chdir '..';
 }
