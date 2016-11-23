@@ -3,7 +3,7 @@
   "language": "Perl 5",
   "repository": "https://github.com/exercism/xperl5",
   "active": true,
-  "test_pattern": ".*t$",
+  "test_pattern": ".*\\.t$",
   "deprecated": [
     "binary",
     "point-mutations"
