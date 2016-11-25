@@ -1,12 +1,16 @@
+#!/usr/bin/env perl
 use strict;
 use warnings;
 
-my $module = $ENV{EXERCISM} ? 'Example' : 'Queens';
-
 use Test::More;
 use JSON qw(from_json);
+use Cwd 'realpath';
+my $dir;
+use lib $dir = realpath(__FILE__ . '/..');
 
-my $cases_file = 'cases.json';
+my $module = $ENV{EXERCISM} ? 'Example' : 'Queens';
+
+my $cases_file = "$dir/cases.json";
 my $cases;
 if (open my $fh, '<', $cases_file) {
     local $/ = undef;
@@ -25,7 +29,7 @@ foreach my $c (@$cases) {
 }
 plan tests => $tests;
 
-ok -e "$module.pm", "missing $module.pm"
+ok -e "$dir/$module.pm", "missing $module.pm"
     or BAIL_OUT("You need to create a class called $module.pm with a constructor called new.");
 
 eval "use $module";

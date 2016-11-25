@@ -1,8 +1,12 @@
+#!/usr/bin/env perl
 use warnings;
 use strict;
 
 use DateTime;
 use Test::More tests => 4;
+use Cwd 'realpath';
+my $dir;
+use lib $dir = realpath(__FILE__ . '/..');
 
 my $module = $ENV{EXERCISM} ? 'Example' : 'Gigasecond';
 

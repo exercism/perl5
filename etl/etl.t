@@ -1,7 +1,11 @@
+#!/usr/bin/env perl
 use strict;
 use warnings;
 
 use Test::More;
+use Cwd 'realpath';
+my $dir;
+use lib $dir = realpath(__FILE__ . '/..');
 
 my @cases = (
     {
@@ -40,7 +44,7 @@ my @cases = (
 
 my $module = $ENV{EXERCISM} ? 'Example' : 'ETL';
 
-ok -e "$module.pm", "Find $module.pm",
+ok -e "$dir/$module.pm", "Find $module.pm",
     or BAIL_OUT "You need to create a class called $module.pm";
 
 use_ok $module

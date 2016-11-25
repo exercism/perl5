@@ -1,11 +1,15 @@
+#!/usr/bin/env perl
 use strict;
 use warnings;
 
 use Test::More;
 use JSON::PP;
 use bigint;
+use Cwd 'realpath';
+my $dir;
+use lib $dir = realpath(__FILE__ . '/..');
 
-my $cases_file = 'cases.json';
+my $cases_file = "$dir/cases.json";
 my $cases;
 my $decoder = JSON::PP->new();
 $decoder->allow_bignum(1);
@@ -21,7 +25,7 @@ plan tests => 4 + @$cases;
 
 my $module = $ENV{EXERCISM} ? 'Example' : 'Grains';
 
-ok  -e "$module.pm", "Missing $module.pm" or BAIL_OUT "You need to create a class called $module.pm";
+ok  "$dir/$module.pm", "Missing $module.pm" or BAIL_OUT "You need to create a class called $module.pm";
 
 use_ok($module)
     or BAIL_OUT "Does $module.pm compile? Does it end with 1;?";

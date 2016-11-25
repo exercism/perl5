@@ -1,11 +1,13 @@
-#!/usr/bin/perl 
-
+#!/usr/bin/env perl
 use strict; 
 use warnings; 
 
 use Data::Dumper; 
 use Test::Exception; 
 use Test::More;
+use Cwd 'realpath';
+my $dir;
+use lib $dir = realpath(__FILE__ . '/..');
 
 my $module = $ENV{EXERCISM} ? 'Example' : 'BinarySearch';
 
@@ -90,7 +92,7 @@ foreach my $test_type ( keys %test_cases ) {
 
 plan tests => 3 + $num_test_cases;
 
-ok -e "$module.pm", "missing $module.pm"
+ok -e "$dir/$module.pm", "missing $module.pm"
    or BAIL_OUT("You need to create a class called $module.pm with 1 functions: binary_search");
 
 eval "use $module";

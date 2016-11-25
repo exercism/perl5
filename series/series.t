@@ -1,8 +1,12 @@
+#!/usr/bin/env perl
 use strict;
 use warnings;
 
 use Test::More tests=> 17;
 use Test::Exception;
+use Cwd 'realpath';
+my $dir;
+use lib $dir = realpath(__FILE__ . '/..');
 
 my $module = $ENV{EXERCISM} ? 'Example' : 'Series';
 

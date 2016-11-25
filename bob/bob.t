@@ -1,7 +1,11 @@
+#!/usr/bin/env perl
 use strict;
 use warnings;
 use open ':std', ':encoding(utf8)';
 use utf8;
+use Cwd 'realpath';
+my $dir;
+use lib $dir = realpath(__FILE__ . '/..');
 
 my $module = $ENV{EXERCISM} ? 'Example' : 'Bob';
 
@@ -41,7 +45,7 @@ my @cases = map {
     ["   \nI just remembered...",                      'Whatever.',          'Silence, then more'],
 );
 
-ok -e "$module.pm", "missing $module.pm"
+ok -e "$dir/$module.pm", "missing $module.pm"
     or BAIL_OUT("You need to create a module called $module.pm with a function called hey() that gets one parameter: The text Bob hears.");
 
 use_ok($module)

@@ -1,6 +1,11 @@
+#!/usr/bin/env perl
 use warnings;
 use strict;
+
 use Test::More tests => 7;
+use Cwd 'realpath';
+my $dir;
+use lib $dir = realpath(__FILE__ . '/..');
 
 my $module = $ENV{EXERCISM} ? 'Example' : 'Leap';
 

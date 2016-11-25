@@ -1,13 +1,18 @@
+#!/usr/bin/env perl
 use warnings;
 use strict;
+
 use DateTime;
 use Test::More;
+use Cwd 'realpath';
+my $dir;
+use lib $dir = realpath(__FILE__ . '/..');
 
 my $module = $ENV{EXERCISM} ? 'Example' : 'Meetup';
 
 plan tests => 95;
 
-ok -e "$module.pm", "missing $module.pm"
+ok -e "$dir/$module.pm", "missing $module.pm"
     or BAIL_OUT("You need to create a module called $module.pm with a method called day() that gets two parameters: the day of the week and the schedule and returns a DateTime object for the correct date.");
 
 eval "use $module";

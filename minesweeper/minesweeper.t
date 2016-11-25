@@ -1,8 +1,12 @@
+#!/usr/bin/env perl
 use strict;
 use warnings;
 
 use Test::More tests => 13;
 use Test::Exception;
+use Cwd 'realpath';
+my $dir;
+use lib $dir = realpath(__FILE__ . '/..');
 
 my $module = $ENV{EXERCISM} ? 'Example' : 'Minesweeper';
 my $name = 'count_adjacent_bombs';

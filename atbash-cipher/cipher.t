@@ -1,13 +1,17 @@
+#!/usr/bin/env perl
 use strict;
 use warnings;
 
 use Test::More;
+use Cwd 'realpath';
+my $dir;
+use lib $dir = realpath(__FILE__ . '/..');
 
 my $module = $ENV{EXERCISM} ? 'Example' : 'Cipher';
 
 use JSON qw(from_json);
 
-my $cases_file = 'cases.json';
+my $cases_file = "$dir/cases.json";
 my $cases;
 
 if (open my $fh, '<', $cases_file) {
@@ -19,7 +23,7 @@ if (open my $fh, '<', $cases_file) {
 
 plan tests => 4 + @$cases;
 
-ok -e "$module.pm", "Missing $module.pm",
+ok -e "$dir/$module.pm", "Missing $module.pm",
     or BAIL_OUT "You need to create a class called $module.pm";
 
 eval "use $module";
