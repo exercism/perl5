@@ -8,8 +8,6 @@ perl:
   - '5.14'
   - '5.12'
   - '5.10'
-install:
-  cpanm --quiet --notest JSON DateTime Test::Exception List::MoreUtils
 before_script:
   - bin/fetch-configlet
 script:
