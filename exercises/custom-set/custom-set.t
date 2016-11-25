@@ -1,7 +1,11 @@
+#!/usr/bin/env perl
 use strict;
 use warnings;
 
 use Test::More tests => 27;
+use Cwd 'realpath';
+my $dir;
+use lib $dir = realpath(__FILE__ . '/..');
 
 my $module = $ENV{EXERCISM} ? 'Example' : 'CustomSet';
 

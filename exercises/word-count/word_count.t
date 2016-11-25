@@ -1,11 +1,15 @@
+#!/usr/bin/env perl
 use strict;
 use warnings;
 use open ':std', ':encoding(utf8)';
 use utf8;
 
-my $module = $ENV{EXERCISM} ? 'Example' : 'Phrase';
-
 use Test::More;
+use Cwd 'realpath';
+my $dir;
+use lib $dir = realpath(__FILE__ . '/..');
+
+my $module = $ENV{EXERCISM} ? 'Example' : 'Phrase';
 
 my @cases = (
     # input                                       expected output                  title
@@ -24,7 +28,7 @@ my @cases = (
 
 plan tests => 3 + @cases;
 
-ok -e "$module.pm", "missing $module.pm"
+ok -e "$dir/$module.pm", "missing $module.pm"
     or BAIL_OUT("You need to create a module called $module.pm with a function called word_count() that gets one parameter: the text in which to count the words.");
 
 eval "use $module";

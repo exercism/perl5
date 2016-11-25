@@ -1,7 +1,11 @@
+#!/usr/bin/env perl
 use strict;
 use warnings;
 
 use Test::More;
+use Cwd 'realpath';
+my $dir;
+use lib $dir = realpath(__FILE__ . '/..');
 
 my @cases = (
     # test encode
@@ -85,7 +89,7 @@ plan tests => 5 + @cases;
 
 my $module = $ENV{EXERCISM} ? 'Example' : 'Cipher';
 
-ok -e "$module.pm", "Missing $module.pm"
+ok -e "$dir/$module.pm", "Missing $module.pm"
             or BAIL_OUT "You need to create file: $module.pm";
 
 eval "use $module";

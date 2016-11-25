@@ -1,9 +1,13 @@
+#!/usr/bin/env perl
 use strict;
 use warnings;
 
-my $module = $ENV{EXERCISM} ? 'Example' : 'DNA';
-
 use Test::More;
+use Cwd 'realpath';
+my $dir;
+use lib $dir = realpath(__FILE__ . '/..');
+
+my $module = $ENV{EXERCISM} ? 'Example' : 'DNA';
 
 my @cases = (
    ['C', 'G',  'cytidine unchanged'],
@@ -15,7 +19,7 @@ my @cases = (
 
 plan tests => 3 + @cases;
 
-ok -e "$module.pm", "missing $module.pm"
+ok -e "$dir/$module.pm", "missing $module.pm"
     or BAIL_OUT("You need to create a module called $module.pm with a function called to_rna() that gets one parameter: a DNA sequence");
 
 eval "use $module";

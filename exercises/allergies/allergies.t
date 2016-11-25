@@ -1,12 +1,16 @@
+#!/usr/bin/env perl
 use strict;
 use warnings;
 
 use Test::More;
 use JSON qw(from_json);
+use Cwd 'realpath';
+my $dir;
+use lib $dir = realpath(__FILE__ . '/..');
 
 my $module = $ENV{EXERCISM} ? 'Example' : 'Allergies';
 
-my $cases_file = 'cases.json';
+my $cases_file = "$dir/cases.json";
 my $cases;
 
 if (open my $fh, '<', $cases_file) {
@@ -18,7 +22,7 @@ if (open my $fh, '<', $cases_file) {
 
 plan tests => 4 + @$cases;
 
-ok -e "$module.pm", "Missing $module.pm" or BAIL_OUT "Missing $module.pm";
+ok -e "$dir/$module.pm" or BAIL_OUT "missing $module.pm";
 
 eval "use $module";
 ok !$@, "Cannot load $module.pm"

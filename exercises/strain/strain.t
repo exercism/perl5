@@ -1,13 +1,17 @@
+#!/usr/bin/env perl
 use strict;
 use warnings;
 
 use Test::More;
+use Cwd 'realpath';
+my $dir;
+use lib $dir = realpath(__FILE__ . '/..');
 
 my $module = $ENV{EXERCISM} ? 'Example' : 'Strain';
 
 plan tests => 12;
 
-ok -e "$module.pm", "Missing $module.pm" or BAIL_OUT "You need to create file $module.pm";
+ok -e "$dir/$module.pm", "Missing $module.pm" or BAIL_OUT "You need to create file $module.pm";
 
 eval "use $module";
 ok !$@, "Cannot load $module" or BAIL_OUT "Cannot load $module. Does it compile? Does it end with 1;?";

@@ -1,11 +1,15 @@
+#!/usr/bin/env perl
 use strict;
 use warnings;
 
-use Test::More 'no_plan';
+use Test::More tests => 20;
+use Cwd 'realpath';
+my $dir;
+use lib $dir = realpath(__FILE__ . '/..');
 
 my $module = $ENV{EXERCISM} ? 'Example' : 'TwelveDays';
 
-ok -e "$module.pm", "Missing $module.pm"
+ok -e "$dir/$module.pm", "Missing $module.pm"
         or BAIL_OUT "You need to create file $module.pm";
 
 eval "use $module";
