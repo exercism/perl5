@@ -3,9 +3,10 @@ use warnings;
 use strict;
 
 use Test::More tests => 10;
-use Cwd 'realpath';
+use FindBin;
 my $dir;
-use lib $dir = realpath(__FILE__ . '/..');
+BEGIN { $dir = $FindBin::Bin . '/' };
+use lib $dir;
 
 my $module = $ENV{EXERCISM} ? 'Example' : 'NucleotideCount';
 

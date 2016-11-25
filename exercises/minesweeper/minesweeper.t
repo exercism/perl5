@@ -4,9 +4,10 @@ use warnings;
 
 use Test::More tests => 13;
 use Test::Exception;
-use Cwd 'realpath';
+use FindBin;
 my $dir;
-use lib $dir = realpath(__FILE__ . '/..');
+BEGIN { $dir = $FindBin::Bin . '/' };
+use lib $dir;
 
 my $module = $ENV{EXERCISM} ? 'Example' : 'Minesweeper';
 my $name = 'count_adjacent_bombs';

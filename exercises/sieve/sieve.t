@@ -3,15 +3,16 @@ use strict;
 use warnings;
 
 use Test::More;
-use Cwd 'realpath';
+use FindBin;
 my $dir;
-use lib $dir = realpath(__FILE__ . '/..');
+BEGIN { $dir = $FindBin::Bin . '/' };
+use lib $dir;
 
 my $module = $ENV{EXERCISM} ? 'Example' : 'Sieve';
 
 plan tests => 6;
 
-ok -e "$dir/$module.pm", "Missing $module.pm"
+ok -e "${dir}${module}.pm", "Missing $module.pm"
         or BAIL_OUT "You need to create file: $module.pm";
 
 eval "use $module";

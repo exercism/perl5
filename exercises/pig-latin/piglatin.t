@@ -3,9 +3,10 @@ use strict;
 use warnings;
 
 use Test::More;
-use Cwd 'realpath';
+use FindBin;
 my $dir;
-use lib $dir = realpath(__FILE__ . '/..');
+BEGIN { $dir = $FindBin::Bin . '/' };
+use lib $dir;
 
 my @cases = (
     {
@@ -70,7 +71,7 @@ my $module = $ENV{EXERCISM} ? 'Example' : 'PigLatin';
 
 plan tests => 3 + @cases;
 
-ok -e "$dir/$module.pm", "Missing file $module.pm",
+ok -e "${dir}${module}.pm", "Missing file $module.pm",
         or BAIL_OUT "You need to create file: $module.pm";
 
 eval "use $module";

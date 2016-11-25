@@ -3,9 +3,10 @@ use strict;
 use warnings;
 
 use Test::More;  
-use Cwd 'realpath';
+use FindBin;
 my $dir;
-use lib $dir = realpath(__FILE__ . '/..');
+BEGIN { $dir = $FindBin::Bin . '/' };
+use lib $dir;
 
 my $module = $ENV{EXERCISM} ? 'Example' : 'ListOps';
 
@@ -79,7 +80,7 @@ foreach my $test_type ( keys %test_cases ) {
 
 plan tests => 5 + $num_test_cases;
 
-ok -e "$dir/$module.pm", "missing $module.pm"
+ok -e "${dir}${module}.pm", "missing $module.pm"
    or BAIL_OUT("You need to create a class called $module.pm with 3 functions: map, reduce, and length.");
 
 eval "use $module";

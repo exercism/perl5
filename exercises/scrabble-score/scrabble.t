@@ -3,9 +3,10 @@ use strict;
 use warnings;
 
 use Test::More;
-use Cwd 'realpath';
+use FindBin;
 my $dir;
-use lib $dir = realpath(__FILE__ . '/..');
+BEGIN { $dir = $FindBin::Bin . '/' };
+use lib $dir;
 
 # set EXERCISM_EXTENDED=1 to run extended test cases
 use constant TEST_EXTENDED => $ENV{EXERCISM_EXTENDED} // 0;
@@ -30,7 +31,7 @@ my @extended_cases = map { _make_test_case(@$_) } (
 
 my $module = $ENV{EXERCISM} ? 'Example' : 'Word';
 
-ok -e "$dir/$module.pm", "Find $module.pm"
+ok -e "${dir}${module}.pm", "Find $module.pm"
     or die "You need to create file: $module.pm";
 use_ok $module
     or die "Cannot load $module. Does it compile? Does it end with 1;?";

@@ -4,13 +4,14 @@ use warnings;
 
 use Test::More;
 use JSON qw(from_json);
-use Cwd 'realpath';
+use FindBin;
 my $dir;
-use lib $dir = realpath(__FILE__ . '/..');
+BEGIN { $dir = $FindBin::Bin . '/' };
+use lib $dir;
 
 my $module = $ENV{EXERCISM} ? 'Example' : 'Triangle';
 
-my $cases_file = "$dir/cases.json";
+my $cases_file = "${dir}cases.json";
 my $cases;
 if (open my $fh, '<', $cases_file) {
     local $/ = undef;
@@ -23,7 +24,7 @@ if (open my $fh, '<', $cases_file) {
 #diag explain $cases;
 plan tests => 3 + @$cases;
 
-ok -e "$dir/$module.pm", "missing $module.pm"
+ok -e "${dir}${module}.pm", "missing $module.pm"
     or BAIL_OUT("You need to create a class called $module.pm with an function called kind() that gets 3 numbers - the length of the sides. It should return a single word like equilateral, isosceles, or scalene. Or, it should throw and exception.");
 
 eval "use $module";
