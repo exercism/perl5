@@ -4,7 +4,7 @@ Exercism exercises in Perl 5
 
 ## Dependencies
 
-The tests depend on the JSON.pm module.
+The tests depend on the `JSON` and `DateTime` modules.
 
 ## Testing the Tests
 
@@ -20,7 +20,7 @@ So the sample solutions are all called Example.pm.
 
 Run the full tests with
 
-    perl testall.pl
+    EXERCSIM=1 prove -r
 
 ### Testing a Single Exercise
 
