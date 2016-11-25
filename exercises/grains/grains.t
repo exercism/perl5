@@ -26,7 +26,7 @@ plan tests => 4 + @$cases;
 
 my $module = $ENV{EXERCISM} ? 'Example' : 'Grains';
 
-ok  "${dir}${module}.pm", "Missing $module.pm" or BAIL_OUT "You need to create a class called $module.pm";
+ok -e "${dir}${module}.pm", "Missing $module.pm" or BAIL_OUT "You need to create a class called $module.pm";
 
 use_ok($module)
     or BAIL_OUT "Does $module.pm compile? Does it end with 1;?";

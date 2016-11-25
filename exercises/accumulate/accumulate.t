@@ -59,7 +59,7 @@ my @cases = (
 
 plan tests => 3 + @cases;
 
-ok -e "$dir$module.pm", "missing $module.pm"
+ok -e "${dir}${module}.pm", "missing $module.pm"
     or BAIL_OUT("You need to create a class called $module.pm with a constructor called new.");
 
 eval "use $module";

@@ -23,7 +23,7 @@ if (open my $fh, '<', $cases_file) {
 
 plan tests => 4 + @$cases;
 
-ok -e "$dir$module.pm" or BAIL_OUT "missing $module.pm";
+ok -e "${dir}${module}.pm" or BAIL_OUT "missing $module.pm";
 
 eval "use $module";
 ok !$@, "Cannot load $module.pm"
