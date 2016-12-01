@@ -1,5 +1,7 @@
 # xPerl5
 
+[![Gitter](https://badges.gitter.im/exercism/xperl.svg)](https://gitter.im/exercism/xperl?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
 Exercism exercises in Perl 5
 
 ## Dependencies
