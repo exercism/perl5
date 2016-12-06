@@ -11,10 +11,10 @@ use lib $dir;
 my $module = $ENV{EXERCISM} ? 'Example' : 'DNA';
 
 my @cases = (
-   ['C', 'G',  'cytidine unchanged'],
-   ['G', 'C',  'guanosine unchanged'],
-   ['T', 'A',  'adenosine unchanged'],
-   ['A', 'U',  'thymidine to uracil'],
+   ['C', 'G',  'cytosine unchanged'],
+   ['G', 'C',  'guanine unchanged'],
+   ['T', 'A',  'adenine unchanged'],
+   ['A', 'U',  'thymine to uracil'],
    ['ACGTGGTCTTAA', 'UGCACCAGAAUU', 'transcribes all occurences'],
 );
 
