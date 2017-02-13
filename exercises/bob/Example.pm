@@ -10,7 +10,7 @@ sub hey {
     return 'Whoa, chill out!'
         if uc($text) eq $text and $text =~ /\p{Uppercase}/;
     return 'Sure.'
-        if '?' eq substr $text, -1;
+        if $text =~ /\?\s*$/;
 
     return 'Whatever.';
 }
