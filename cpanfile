@@ -1,4 +1,5 @@
-requires 'JSON', 0;
-requires 'DateTime', 0;
-requires 'Test::Exception', 0;
-requires 'List::MoreUtils', 0;
+requires 'JSON';
+requires 'DateTime';
+requires 'Test::Exception';
+requires 'List::MoreUtils';
+requires 'Path::Tiny';
