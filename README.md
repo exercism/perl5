@@ -12,6 +12,7 @@ The tests depend on the following modules:
     DateTime
     Test::Exception
     List::MoreUtils
+    Path::Tiny (for canonical-data tests)
 
 ## Testing the Tests
 
