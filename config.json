@@ -1,7 +1,7 @@
 {
   "slug": "perl5",
   "language": "Perl 5",
-  "repository": "https://github.com/exercism/xperl5",
+  "repository": "https://github.com/exercism/perl5",
   "active": true,
   "test_pattern": ".*\\.t$",
   "deprecated": [

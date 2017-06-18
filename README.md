@@ -1,6 +1,6 @@
-# xPerl5
+# Exercism Perl 5 Track
 
-[![Gitter](https://badges.gitter.im/exercism/xperl.svg)](https://gitter.im/exercism/xperl?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Gitter](https://badges.gitter.im/exercism/xperl5.svg)](https://gitter.im/exercism/xperl5?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 Exercism exercises in Perl 5
 
