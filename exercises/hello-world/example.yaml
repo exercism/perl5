@@ -1,0 +1,33 @@
+exercise: HelloWorld
+version: 1
+plan: 4
+subs: hello
+tests: |-
+  is $subs{hello}->($_->{input}), $_->{expected}, $_->{description} foreach @{$C_DATA->{cases}};
+
+exercise_comment: '# The name of this exercise.'
+module_comment: "# $ENV{EXERCISM} is for tests not directly for the exercise, don't worry about these :)"
+version_comment: '# The version we will be matching against the exercise.'
+lib_comment: '# Look for the module inside the same directory as this test file.'
+plan_comment: '# This is how many tests we expect to run.'
+use_test_comment: '# Check that the module can be use-d.'
+done_testing_comment: '# There are no more tests after this :)'
+cdata_test_comment: '# Ignore this for your exercise! Tells Exercism folks when exercise cases become out of date.'
+version_test_comment: |-
+  # If the exercise is updated, we want to make sure other people testing
+  # your code don't think you've made a mistake if things have changed!
+INIT_comment: |-
+  # 'INIT' is a phaser, it makes sure that the test data is available before everything else
+  # starts running (otherwise we'd have to shove the test data into the middle of the file!)
+
+example: |-
+  sub hello {
+    return 'Hello, World!';
+  }
+
+stub: |-
+  sub hello {
+    # Remove the comments and write some code here to pass the test suite.
+  }
+
+package_comment: "# Declare package 'HelloWorld' with version"
