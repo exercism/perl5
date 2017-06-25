@@ -1,8 +1,8 @@
 The `exercise-gen.pl` file can be used in the following ways:
 * From within the directory of the exercise you wish to generate a test for.
-* With arguments specifying which exercises you want to generate tests for.  
+* With arguments specifying which exercises you want to generate tests for.
   e.g. `./exercise-gen.pl hello-world leap`.
-* With the argument `--all` to run the generator for all exercises.  
+* With the argument `--all` to run the generator for all exercises.
   i.e `./exercise-gen.pl --all`
 
 You will either need to create a symlink to or clone the
