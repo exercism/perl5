@@ -36,7 +36,7 @@ for my $exercise (@exercises) {
 
   my $data = LoadFile $yaml;
 
-  my $cdata = $base_dir->child("x-common/exercises/$exercise/canonical-data.json");
+  my $cdata = $base_dir->child("problem-specifications/exercises/$exercise/canonical-data.json");
   if ($cdata->is_file) {
     $data->{cdata}{json} = $cdata->slurp;
     $data->{cdata}{perl} = pp decode_json($data->{cdata}{json});

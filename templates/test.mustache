@@ -40,7 +40,7 @@ SKIP: {
   is_deeply eval q{
     use Path::Tiny;
     use JSON::PP 'decode_json';
-    decode_json path("$dir/../../x-common/exercises/".path($dir)->basename.'/canonical-data.json')->realpath->slurp;
+    decode_json path("$dir/../../problem-specifications/exercises/".path($dir)->basename.'/canonical-data.json')->realpath->slurp;
   }, $C_DATA, 'canonical-data';
 }
 {{/cdata}}

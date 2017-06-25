@@ -40,7 +40,7 @@ then they will expect a file called Example.pm
 
 ## Contributing Guide
 
-Please see the [contributing guide](https://github.com/exercism/x-common/blob/master/CONTRIBUTING.md)
+Please see the [contributing guide](https://github.com/exercism/problem-specifications/blob/master/CONTRIBUTING.md)
 
 ### Perl 5 icon
 
