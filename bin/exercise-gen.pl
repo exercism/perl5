@@ -2,7 +2,6 @@
 use feature qw(lexical_subs say);
 use YAML 'LoadFile';
 use JSON::PP 'decode_json';
-use Data::Dump 'pp';
 use Path::Tiny qw(:DEFAULT cwd);
 use Template::Mustache 'render';
 
@@ -37,10 +36,7 @@ for my $exercise (@exercises) {
   my $data = LoadFile $yaml;
 
   my $cdata = $base_dir->child("problem-specifications/exercises/$exercise/canonical-data.json");
-  if ($cdata->is_file) {
-    $data->{cdata}{json} = $cdata->slurp;
-    $data->{cdata}{perl} = pp decode_json($data->{cdata}{json});
-  }
+  if ($cdata->is_file) {$data->{cdata}{json} = $cdata->slurp}
 
   my sub create_file {
     my ($filename, $template) = @_;
