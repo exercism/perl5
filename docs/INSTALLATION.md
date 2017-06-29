@@ -8,7 +8,7 @@
 
 ### Unix/Linux/Mac OSX:
 Perl is likely already installed. Run `perl -v` to check which version you have.
-If your version is older than v5.12.0, or you would like to try out newer versions
+If your version is older than v5.14.0, or you would like to try out newer versions
 of Perl 5, take a look at 'Other Options'.
 
 If you are using Fedora/Red Hat/CentOS, some core modules are not included with Perl.

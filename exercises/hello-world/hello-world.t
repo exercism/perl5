@@ -3,8 +3,8 @@ use strict;
 use warnings;
 use FindBin;
 my $dir;
-BEGIN { $dir = $FindBin::Bin . '/' };
-use lib $dir; # Look for the module inside the same directory as this test file.
+use lib $dir = $FindBin::Bin; # Look for the module inside the same directory as this test file.
+use JSON::PP;
 
 my $exercise = 'HelloWorld'; # The name of this exercise.
 my $test_version = 1; # The version we will be matching against the exercise.
@@ -37,7 +37,6 @@ SKIP: {
   skip '', 1 unless $ENV{EXERCISM};
   is_deeply eval q{
     use Path::Tiny;
-    use JSON::PP 'decode_json';
     decode_json path("$dir/../../problem-specifications/exercises/".path($dir)->basename.'/canonical-data.json')->realpath->slurp;
   }, $C_DATA, 'canonical-data';
 }
@@ -46,14 +45,20 @@ done_testing; # There are no more tests after this :)
 
 # 'INIT' is a phaser, it makes sure that the test data is available before everything else
 # starts running (otherwise we'd have to shove the test data into the middle of the file!)
-INIT { $C_DATA = {
-  cases    => [
-                {
-                  description => "Say Hi!",
-                  expected    => "Hello, World!",
-                  property    => "hello",
-                },
-              ],
-  exercise => "hello-world",
-  version  => "1.0.0",
-} }
+INIT {
+$C_DATA = decode_json <<'EOF';
+
+{
+  "exercise": "hello-world",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "description": "Say Hi!",
+      "property": "hello",
+      "expected": "Hello, World!"
+    }
+  ]
+}
+
+EOF
+}

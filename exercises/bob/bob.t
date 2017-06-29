@@ -3,8 +3,8 @@ use strict;
 use warnings;
 use FindBin;
 my $dir;
-BEGIN { $dir = $FindBin::Bin . '/' };
-use lib $dir; # Look for the module inside the same directory as this test file.
+use lib $dir = $FindBin::Bin; # Look for the module inside the same directory as this test file.
+use JSON::PP;
 
 my $exercise = 'Bob'; # The name of this exercise.
 my $test_version = 2; # The version we will be matching against the exercise.
@@ -37,7 +37,6 @@ SKIP: {
   skip '', 1 unless $ENV{EXERCISM};
   is_deeply eval q{
     use Path::Tiny;
-    use JSON::PP 'decode_json';
     decode_json path("$dir/../../problem-specifications/exercises/".path($dir)->basename.'/canonical-data.json')->realpath->slurp;
   }, $C_DATA, 'canonical-data';
 }
@@ -46,159 +45,165 @@ done_testing; # There are no more tests after this :)
 
 # 'INIT' is a phaser, it makes sure that the test data is available before everything else
 # starts running (otherwise we'd have to shove the test data into the middle of the file!)
-INIT { $C_DATA = {
-  cases    => [
-                {
-                  description => "stating something",
-                  expected    => "Whatever.",
-                  input       => "Tom-ay-to, tom-aaaah-to.",
-                  property    => "response",
-                },
-                {
-                  description => "shouting",
-                  expected    => "Whoa, chill out!",
-                  input       => "WATCH OUT!",
-                  property    => "response",
-                },
-                {
-                  description => "shouting gibberish",
-                  expected    => "Whoa, chill out!",
-                  input       => "FCECDFCAAB",
-                  property    => "response",
-                },
-                {
-                  description => "asking a question",
-                  expected    => "Sure.",
-                  input       => "Does this cryogenic chamber make me look fat?",
-                  property    => "response",
-                },
-                {
-                  description => "asking a numeric question",
-                  expected    => "Sure.",
-                  input       => "You are, what, like 15?",
-                  property    => "response",
-                },
-                {
-                  description => "asking gibberish",
-                  expected    => "Sure.",
-                  input       => "fffbbcbeab?",
-                  property    => "response",
-                },
-                {
-                  description => "talking forcefully",
-                  expected    => "Whatever.",
-                  input       => "Let's go make out behind the gym!",
-                  property    => "response",
-                },
-                {
-                  description => "using acronyms in regular speech",
-                  expected    => "Whatever.",
-                  input       => "It's OK if you don't want to go to the DMV.",
-                  property    => "response",
-                },
-                {
-                  description => "forceful question",
-                  expected    => "Whoa, chill out!",
-                  input       => "WHAT THE HELL WERE YOU THINKING?",
-                  property    => "response",
-                },
-                {
-                  description => "shouting numbers",
-                  expected    => "Whoa, chill out!",
-                  input       => "1, 2, 3 GO!",
-                  property    => "response",
-                },
-                {
-                  description => "only numbers",
-                  expected    => "Whatever.",
-                  input       => "1, 2, 3",
-                  property    => "response",
-                },
-                {
-                  description => "question with only numbers",
-                  expected    => "Sure.",
-                  input       => "4?",
-                  property    => "response",
-                },
-                {
-                  description => "shouting with special characters",
-                  expected    => "Whoa, chill out!",
-                  input       => "ZOMG THE %^*\@#\$(*^ ZOMBIES ARE COMING!!11!!1!",
-                  property    => "response",
-                },
-                {
-                  description => "shouting with no exclamation mark",
-                  expected    => "Whoa, chill out!",
-                  input       => "I HATE YOU",
-                  property    => "response",
-                },
-                {
-                  description => "statement containing question mark",
-                  expected    => "Whatever.",
-                  input       => "Ending with ? means a question.",
-                  property    => "response",
-                },
-                {
-                  description => "non-letters with question",
-                  expected    => "Sure.",
-                  input       => ":) ?",
-                  property    => "response",
-                },
-                {
-                  description => "prattling on",
-                  expected    => "Sure.",
-                  input       => "Wait! Hang on. Are you going to be OK?",
-                  property    => "response",
-                },
-                {
-                  description => "silence",
-                  expected    => "Fine. Be that way!",
-                  input       => "",
-                  property    => "response",
-                },
-                {
-                  description => "prolonged silence",
-                  expected    => "Fine. Be that way!",
-                  input       => "          ",
-                  property    => "response",
-                },
-                {
-                  description => "alternate silence",
-                  expected    => "Fine. Be that way!",
-                  input       => "\t\t\t\t\t\t\t\t\t\t",
-                  property    => "response",
-                },
-                {
-                  description => "multiple line question",
-                  expected    => "Whatever.",
-                  input       => "\nDoes this cryogenic chamber make me look fat?\nno",
-                  property    => "response",
-                },
-                {
-                  description => "starting with whitespace",
-                  expected    => "Whatever.",
-                  input       => "         hmmmmmmm...",
-                  property    => "response",
-                },
-                {
-                  description => "ending with whitespace",
-                  expected    => "Sure.",
-                  input       => "Okay if like my  spacebar  quite a bit?   ",
-                  property    => "response",
-                },
-                {
-                  description => "other whitespace",
-                  expected    => "Fine. Be that way!",
-                  input       => "\n\r \t",
-                  property    => "response",
-                },
-                {
-                  description => "non-question ending with whitespace",
-                  expected    => "Whatever.",
-                  input       => "This is a statement ending with whitespace      ",
-                  property    => "response",
-                },
-              ],
-  exercise => "bob",
-  version  => "1.0.0",
-} }
+INIT {
+$C_DATA = decode_json <<'EOF';
+
+{
+  "exercise": "bob",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "description": "stating something",
+      "property": "response",
+      "input": "Tom-ay-to, tom-aaaah-to.",
+      "expected": "Whatever."
+    },
+    {
+      "description": "shouting",
+      "property": "response",
+      "input": "WATCH OUT!",
+      "expected": "Whoa, chill out!"
+    },
+    {
+      "description": "shouting gibberish",
+      "property": "response",
+      "input": "FCECDFCAAB",
+      "expected": "Whoa, chill out!"
+    },
+    {
+      "description": "asking a question",
+      "property": "response",
+      "input": "Does this cryogenic chamber make me look fat?",
+      "expected": "Sure."
+    },
+    {
+      "description": "asking a numeric question",
+      "property": "response",
+      "input": "You are, what, like 15?",
+      "expected": "Sure."
+    },
+    {
+      "description": "asking gibberish",
+      "property": "response",
+      "input": "fffbbcbeab?",
+      "expected": "Sure."
+    },
+    {
+      "description": "talking forcefully",
+      "property": "response",
+      "input": "Let's go make out behind the gym!",
+      "expected": "Whatever."
+    },
+    {
+      "description": "using acronyms in regular speech",
+      "property": "response",
+      "input": "It's OK if you don't want to go to the DMV.",
+      "expected": "Whatever."
+    },
+    {
+      "description": "forceful question",
+      "property": "response",
+      "input": "WHAT THE HELL WERE YOU THINKING?",
+      "expected": "Whoa, chill out!"
+    },
+    {
+      "description": "shouting numbers",
+      "property": "response",
+      "input": "1, 2, 3 GO!",
+      "expected": "Whoa, chill out!"
+    },
+    {
+      "description": "only numbers",
+      "property": "response",
+      "input": "1, 2, 3",
+      "expected": "Whatever."
+    },
+    {
+      "description": "question with only numbers",
+      "property": "response",
+      "input": "4?",
+      "expected": "Sure."
+    },
+    {
+      "description": "shouting with special characters",
+      "property": "response",
+      "input": "ZOMG THE %^*@#$(*^ ZOMBIES ARE COMING!!11!!1!",
+      "expected": "Whoa, chill out!"
+    },
+    {
+      "description": "shouting with no exclamation mark",
+      "property": "response",
+      "input": "I HATE YOU",
+      "expected": "Whoa, chill out!"
+    },
+    {
+      "description": "statement containing question mark",
+      "property": "response",
+      "input": "Ending with ? means a question.",
+      "expected": "Whatever."
+    },
+    {
+      "description": "non-letters with question",
+      "property": "response",
+      "input": ":) ?",
+      "expected": "Sure."
+    },
+    {
+      "description": "prattling on",
+      "property": "response",
+      "input": "Wait! Hang on. Are you going to be OK?",
+      "expected": "Sure."
+    },
+    {
+      "description": "silence",
+      "property": "response",
+      "input": "",
+      "expected": "Fine. Be that way!"
+    },
+    {
+      "description": "prolonged silence",
+      "property": "response",
+      "input": "          ",
+      "expected": "Fine. Be that way!"
+    },
+    {
+      "description": "alternate silence",
+      "property": "response",
+      "input": "\t\t\t\t\t\t\t\t\t\t",
+      "expected": "Fine. Be that way!"
+    },
+    {
+      "description": "multiple line question",
+      "property": "response",
+      "input": "\nDoes this cryogenic chamber make me look fat?\nno",
+      "expected": "Whatever."
+    },
+    {
+      "description": "starting with whitespace",
+      "property": "response",
+      "input": "         hmmmmmmm...",
+      "expected": "Whatever."
+    },
+    {
+      "description": "ending with whitespace",
+      "property": "response",
+      "input": "Okay if like my  spacebar  quite a bit?   ",
+      "expected": "Sure."
+    },
+    {
+      "description": "other whitespace",
+      "property": "response",
+      "input": "\n\r \t",
+      "expected": "Fine. Be that way!"
+    },
+    {
+      "description": "non-question ending with whitespace",
+      "property": "response",
+      "input": "This is a statement ending with whitespace      ",
+      "expected": "Whatever."
+    }
+  ]
+}
+
+EOF
+}
