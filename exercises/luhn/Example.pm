@@ -1,53 +1,31 @@
-package Example;
-
+package Luhn 2;
 use strict;
 use warnings;
 
-use List::Util 'sum';
+sub is_luhn_valid {
+  my ($input) = @_;
+  $input =~ s/\s+//g;
+  if (length $input < 2 || $input =~ /\D+/) {return 0}
 
-sub new {
-    my ($class, $number) = @_;
+  my @num = split(//, $input);
+  unshift @num, 0 if scalar @num % 2;
 
-    my $self = bless {} => $class;
-    $self->{number} = [ split '' => $number ];
+  my $count = 1;
+  my $sum = 0;
 
-    return $self;
-}
-
-sub addends {
-    my $self = shift;
-    my $addends = $self->{number};
-
-    foreach my $index (1..@{$addends}) {
-        if ($index  % 2 == 0 and $addends->[-$index] < 5) {
-            $addends->[-$index] = $addends->[-$index] * 2;
-        }
-        elsif ($index  % 2 == 0 and $addends->[-$index] >= 5) {
-            $addends->[-$index] = $addends->[-$index] * 2 - 9;
-        }
+  foreach (@num) {
+    if ($count % 2) {
+      $sum += $_ * 2;
+      $sum -= 9 if $_ * 2 > 9;
     }
-    return $self->{addends} = $addends;
+    else {
+      $sum += $_;
+    }
+    $count += 1;
+  }
 
-}
-
-sub checksum {
-    my $self = shift;
-    return sum @{ exists $self->{addends} ? $self->{addends} : $self->addends() };
-}
-
-sub is_valid {
-    my $self = shift;
-    return $self->checksum  % 10 == 0;
-}
-
-sub create {
-    my $self = shift;
-    my $number = join '' => @{$self->{number}};
-
-    # thank you /xpython
-    my $luhn = __PACKAGE__->new($number * 10);
-    my $diff = (10 - $luhn->checksum) % 10;
-    return 10 * $number + $diff;
+  if ($sum % 10) {return 0};
+  return 1;
 }
 
 1;
