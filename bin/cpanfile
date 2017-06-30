@@ -1,4 +1,3 @@
 requires 'YAML';
-requires 'JSON::PP';
 requires 'Path::Tiny';
 requires 'Template::Mustache';

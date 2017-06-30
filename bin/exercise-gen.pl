@@ -1,7 +1,6 @@
 #!/usr/bin/env perl
 use feature qw(lexical_subs say);
 use YAML 'LoadFile';
-use JSON::PP 'decode_json';
 use Path::Tiny qw(:DEFAULT cwd);
 use Template::Mustache 'render';
 
