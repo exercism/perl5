@@ -19,16 +19,23 @@ if (@ARGV) {
   if ( path('example.yaml')->is_file ) {
     push @exercises, cwd->basename;
   } else {
-    say 'example.yaml not found; exiting.';
+    say 'example.yaml not found in current directory; exiting.';
     exit;
   }
 }
 
+my @dir_not_found;
+my @yaml_not_found;
 for my $exercise (@exercises) {
   my $exercise_dir = $base_dir->child("exercises/$exercise");
   my $yaml = $exercise_dir->child('example.yaml');
+
+  unless ($exercise_dir->is_dir) {
+    push @dir_not_found, $exercise;
+    next;
+  }
   unless ($yaml->is_file) {
-    say "No example.yaml found for $exercise.";
+    push @yaml_not_found, $exercise;
     next;
   }
   print "Generating $exercise... ";
@@ -56,5 +63,7 @@ for my $exercise (@exercises) {
   create_file($data->{exercise}.'.pm', 'module');
 
   say 'Generated.';
-
 }
+
+if (@dir_not_found)  {warn 'exercise directory does not exist for: ' . join ' ', @dir_not_found}
+if (@yaml_not_found) {warn 'example.yaml not found for: ' . join ' ', @yaml_not_found}
