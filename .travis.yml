@@ -12,5 +12,5 @@ before_script:
   - git clone https://github.com/exercism/problem-specifications.git
   - bin/fetch-configlet
 script:
-  - bin/configlet .
+  - bin/configlet lint .
   - prove -r exercises/
