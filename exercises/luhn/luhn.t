@@ -1,31 +1,132 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-
-use Test::More tests => 16;
 use FindBin;
 my $dir;
-BEGIN { $dir = $FindBin::Bin . '/' };
-use lib $dir;
+use lib $dir = $FindBin::Bin;
+use JSON::PP;
 
-my $module = $ENV{EXERCISM} ? 'Example' : 'Luhn';
+my $exercise = 'Luhn';
+my $test_version = 2;
+my $module = $ENV{EXERCISM} ? 'Example' : $exercise;
+use Test::More tests => 16;
 
-ok -e "${dir}${module}.pm", "Missing $module.pm" or BAIL_OUT "You need to create file: $module.pm";
-eval "use $module";
-ok !$@, "Cannot load $module" or BAIL_OUT "Cannot load $module; Does it compile? Does it end with 1;?";
+use_ok $module or BAIL_OUT;
 
-can_ok $module, "new"      or BAIL_OUT "Missing package $module; or missing sub new()";
-can_ok $module, "addends"  or BAIL_OUT "Missing package $module; or missing sub addends()";
-can_ok $module, "checksum" or BAIL_OUT "Missing package $module; or missing sub checksum()";
-can_ok $module, "is_valid"    or BAIL_OUT "Missing package $module; or missing sub is_valid()";
-can_ok $module, "create"   or BAIL_OUT "Missing package $module; or missing sub create()";
+my $exercise_version = $exercise->VERSION // 0;
+if ($exercise_version != $test_version) {
+  warn "\nExercise version mismatch. Further tests may fail!"
+    . "\n$exercise is v$exercise_version. "
+    . "Test is v$test_version.\n";
+  BAIL_OUT if $ENV{EXERCISM};
+}
 
-is_deeply $module->new(12121)->addends, [1, 4, 1, 4, 1],   "add 2 on addends" or diag explain $module->new(12121)->addends;
-is_deeply $module->new(8631)->addends,  [7, 6, 6, 1], "subtract 9 on addends" or diag explain $module->new(8631)->addends;
-is $module->new(4913)->checksum, 22, "add all addends";
-is $module->new(201773)->checksum, 21, "add all addends again";
-ok !$module->new(738)->is_valid, "not a Luhn number";
-ok  $module->new(8739567)->is_valid, "valid Luhn number";
-is $module->new(123)->create, 1230, "add digit to create a valid Luhn";
-is $module->new(873956)->create, 8739567, "create a longer Luhn";
-is $module->new(837263756)->create, 8372637564, "create an even longer Luhn";
+my %subs;
+foreach ( qw(is_luhn_valid) ) {
+  can_ok $exercise, $_;
+  $subs{$_} = $exercise->can($_);
+}
+
+my $C_DATA;
+is $subs{is_luhn_valid}->($_->{input}), $_->{expected}, $_->{description} foreach @{$C_DATA->{cases}};
+
+SKIP: {
+  skip '', 1 unless $ENV{EXERCISM};
+  is_deeply eval q{
+    use Path::Tiny;
+    decode_json path("$dir/../../problem-specifications/exercises/".path($dir)->basename.'/canonical-data.json')->realpath->slurp;
+  }, $C_DATA, 'canonical-data';
+}
+
+done_testing;
+
+INIT {
+$C_DATA = decode_json <<'EOF';
+
+{
+  "exercise": "luhn",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "description": "single digit strings can not be valid",
+      "property": "valid",
+      "input": "1",
+      "expected": false
+    },
+    {
+      "description": "A single zero is invalid",
+      "property": "valid",
+      "input": "0",
+      "expected": false
+    },
+    {
+      "description": "a simple valid SIN that remains valid if reversed",
+      "property": "valid",
+      "input": "059",
+      "expected": true
+    },
+    {
+      "description": "a simple valid SIN that becomes invalid if reversed",
+      "property": "valid",
+      "input": "59",
+      "expected": true
+    },
+    {
+      "description": "a valid Canadian SIN",
+      "property": "valid",
+      "input": "055 444 285",
+      "expected": true
+    },
+    {
+      "description": "invalid Canadian SIN",
+      "property": "valid",
+      "input": "055 444 286",
+      "expected": false
+    },
+    {
+      "description": "invalid credit card",
+      "property": "valid",
+      "input": "8273 1232 7352 0569",
+      "expected": false
+    },
+    {
+      "description": "valid strings with a non-digit included become invalid",
+      "property": "valid",
+      "input": "055a 444 285",
+      "expected": false
+    },
+    {
+      "description": "valid strings with punctuation included become invalid",
+      "property": "valid",
+      "input": "055-444-285",
+      "expected": false
+    },
+    {
+      "description": "valid strings with symbols included become invalid",
+      "property": "valid",
+      "input": "055£ 444$ 285",
+      "expected": false
+    },
+    {
+      "description": "single zero with space is invalid",
+      "property": "valid",
+      "input": " 0",
+      "expected": false
+    },
+    {
+      "description": "more than a single zero is valid",
+      "property": "valid",
+      "input": "0000 0",
+      "expected": true
+    },
+    {
+      "description": "input digit 9 is correctly converted to output digit 9",
+      "property": "valid",
+      "input": "091",
+      "expected": true
+    }
+  ]
+}
+
+EOF
+}
