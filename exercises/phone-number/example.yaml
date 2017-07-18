@@ -1,0 +1,15 @@
+exercise: PhoneNumber
+version: 2
+plan: 15
+subs: clean_number
+tests: |-
+  foreach my $subcases (@{$C_DATA->{cases}}) {
+    is $subs{clean_number}->($_->{phrase}), $_->{expected}, $_->{description} foreach @{$subcases->{cases}};
+  }
+
+example: |
+  sub clean_number {
+    my ($number) = @_;
+    $number =~ s/\D//g;
+    return $number =~ /^ 1? ( (?: [2-9] \d{2} ){2} \d{4} ) $/x ? $1 : undef;
+  }
