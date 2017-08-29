@@ -1,5 +1,4 @@
-# Declare package 'HelloWorld' with version
-package HelloWorld 1;
+package HelloWorld;
 use strict;
 use warnings;
 
