@@ -3,6 +3,7 @@ package Example;
 use v5.10.1;
 use strict;
 use warnings;
+no warnings 'experimental::smartmatch';
 
 sub translate {
     my $original = shift;

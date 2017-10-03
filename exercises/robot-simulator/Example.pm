@@ -3,6 +3,7 @@
 use strict;
 use warnings;
 use feature qw(switch);
+no warnings 'experimental::smartmatch';
 
 {
     package Example;
