@@ -13,4 +13,6 @@ before_script:
   - bin/fetch-configlet
 script:
   - bin/configlet lint .
-  - prove -r exercises/
+  - prove exercises/
+    --recurse
+    --jobs 2
