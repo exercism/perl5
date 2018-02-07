@@ -34,10 +34,13 @@ foreach my $subcases (@{$C_DATA->{cases}}) {
 
 SKIP: {
   skip '', 1 unless $ENV{EXERCISM};
-  is_deeply eval q{
-    use Path::Tiny;
-    decode_json path("$dir/../../problem-specifications/exercises/".path($dir)->basename.'/canonical-data.json')->realpath->slurp;
-  }, $C_DATA, 'canonical-data';
+  TODO: {
+    local $TODO = 'update canonical-data';
+    is_deeply eval q{
+      use Path::Tiny;
+      decode_json path("$dir/../../problem-specifications/exercises/".path($dir)->basename.'/canonical-data.json')->realpath->slurp;
+    }, $C_DATA, 'canonical-data';
+  }
 }
 
 done_testing;

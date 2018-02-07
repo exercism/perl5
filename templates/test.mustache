@@ -14,7 +14,6 @@ use Test::More{{#plan}} tests => {{&plan}}{{/plan}};{{#plan_comment}} {{&plan_co
 
 use_ok $module or BAIL_OUT;{{#use_test_comment}} {{&use_test_comment}}{{/use_test_comment}}
 {{#version_test_comment}}
-
 {{&version_test_comment}}{{/version_test_comment}}
 my $exercise_version = $exercise->VERSION // 0;
 if ($exercise_version != $test_version) {
@@ -37,18 +36,19 @@ my $C_DATA;{{/cdata}}
 {{&cdata_test_comment}}{{/cdata_test_comment}}
 SKIP: {
   skip '', 1 unless $ENV{EXERCISM};
-  is_deeply eval q{
-    use Path::Tiny;
-    decode_json path("$dir/../../problem-specifications/exercises/".path($dir)->basename.'/canonical-data.json')->realpath->slurp;
-  }, $C_DATA, 'canonical-data';
+  TODO: {
+    local $TODO = 'update canonical-data';
+    is_deeply eval q{
+      use Path::Tiny;
+      decode_json path("$dir/../../problem-specifications/exercises/".path($dir)->basename.'/canonical-data.json')->realpath->slurp;
+    }, $C_DATA, 'canonical-data';
+  }
 }
 {{/cdata}}
 
-done_testing;{{#done_testing_comment}} {{&done_testing_comment}}{{/done_testing_comment}}{{#after_done_testing}}
-
-{{&after_done_testing}}{{/after_done_testing}}{{#cdata}}
-{{#INIT_comment}}
-
+done_testing;{{#done_testing_comment}} {{&done_testing_comment}}{{/done_testing_comment}}
+{{#after_done_testing}}
+{{&after_done_testing}}{{/after_done_testing}}{{#cdata}}{{#INIT_comment}}
 {{&INIT_comment}}{{/INIT_comment}}
 INIT {
 $C_DATA = decode_json <<'EOF';
