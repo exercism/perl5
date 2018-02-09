@@ -27,7 +27,7 @@ foreach ( qw(clean_number) ) {
   $subs{$_} = $exercise->can($_);
 }
 
-my $C_DATA;
+my $C_DATA = do { local $/; decode_json(<DATA>); };
 foreach my $subcases (@{$C_DATA->{cases}}) {
   is $subs{clean_number}->($_->{phrase}), $_->{expected}, $_->{description} foreach @{$subcases->{cases}};
 }
@@ -43,11 +43,7 @@ SKIP: {
   }
 }
 
-done_testing;
-
-INIT {
-$C_DATA = decode_json <<'EOF';
-
+__DATA__
 {
   "exercise": "phone-number",
   "version": "1.2.0",
@@ -135,7 +131,4 @@ $C_DATA = decode_json <<'EOF';
       ]
     }
   ]
-}
-
-EOF
 }

@@ -29,7 +29,7 @@ foreach ( qw(is_leap) ) {
   $subs{$_} = $exercise->can($_);
 }
 
-my $C_DATA;
+my $C_DATA = do { local $/; decode_json(<DATA>); };
 is $subs{is_leap}->($_->{input}), $_->{expected}, $_->{description} foreach @{$C_DATA->{cases}};
 
 # Ignore this for your exercise! Tells Exercism folks when exercise cases become out of date.
@@ -44,13 +44,7 @@ SKIP: {
   }
 }
 
-done_testing; # There are no more tests after this :)
-
-# 'INIT' is a phaser, it makes sure that the test data is available before everything else
-# starts running (otherwise we'd have to shove the test data into the middle of the file!)
-INIT {
-$C_DATA = decode_json <<'EOF';
-
+__DATA__
 {
   "exercise": "leap",
   "version": "1.0.0",
@@ -80,7 +74,4 @@ $C_DATA = decode_json <<'EOF';
       "expected": true
     }
   ]
-}
-
-EOF
 }

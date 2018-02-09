@@ -27,7 +27,7 @@ foreach ( qw(is_luhn_valid) ) {
   $subs{$_} = $exercise->can($_);
 }
 
-my $C_DATA;
+my $C_DATA = do { local $/; decode_json(<DATA>); };
 is $subs{is_luhn_valid}->($_->{input}), $_->{expected}, $_->{description} foreach @{$C_DATA->{cases}};
 
 SKIP: {
@@ -41,11 +41,7 @@ SKIP: {
   }
 }
 
-done_testing;
-
-INIT {
-$C_DATA = decode_json <<'EOF';
-
+__DATA__
 {
   "exercise": "luhn",
   "version": "1.0.0",
@@ -129,7 +125,4 @@ $C_DATA = decode_json <<'EOF';
       "expected": true
     }
   ]
-}
-
-EOF
 }

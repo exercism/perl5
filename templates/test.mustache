@@ -30,7 +30,7 @@ foreach ( qw({{&subs}}) ) {
   $subs{$_} = $exercise->can($_);
 }
 {{/subs}}{{#cdata}}
-my $C_DATA;{{/cdata}}
+my $C_DATA = do { local $/; decode_json(<DATA>); };{{/cdata}}
 {{&tests}}
 {{#cdata}}{{#cdata_test_comment}}
 {{&cdata_test_comment}}{{/cdata_test_comment}}
@@ -44,15 +44,7 @@ SKIP: {
     }, $C_DATA, 'canonical-data';
   }
 }
-{{/cdata}}
 
-done_testing;{{#done_testing_comment}} {{&done_testing_comment}}{{/done_testing_comment}}
-{{#after_done_testing}}
-{{&after_done_testing}}{{/after_done_testing}}{{#cdata}}{{#INIT_comment}}
-{{&INIT_comment}}{{/INIT_comment}}
-INIT {
-$C_DATA = decode_json <<'EOF';
-
+__DATA__
 {{&json}}
-EOF
-}{{/cdata}}
+{{/cdata}}

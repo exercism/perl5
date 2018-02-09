@@ -42,7 +42,10 @@ for my $exercise (@exercises) {
   my $data = LoadFile $yaml;
 
   my $cdata = $base_dir->child("problem-specifications/exercises/$exercise/canonical-data.json");
-  if ($cdata->is_file) {$data->{cdata}{json} = $cdata->slurp}
+  if ($cdata->is_file) {
+    $data->{cdata}{json} = $cdata->slurp;
+    $data->{cdata}{json} =~ s/^\s+|\s+$//g;
+  }
 
   my sub create_file {
     my ($filename, $template) = @_;
