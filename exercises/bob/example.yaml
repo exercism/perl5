@@ -6,7 +6,6 @@ tests: |-
   is $subs{hey}->($_->{input}), $_->{expected}, $_->{description} foreach @{$C_DATA->{cases}};
 
 exercise_comment: '# The name of this exercise.'
-module_comment: "# $ENV{EXERCISM} is for tests not directly for the exercise, don't worry about these :)"
 version_comment: '# The version we will be matching against the exercise.'
 lib_comment: '# Look for the module inside the same directory as this test file.'
 plan_comment: '# This is how many tests we expect to run.'

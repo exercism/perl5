@@ -9,7 +9,7 @@ my $dir;
 BEGIN { $dir = $FindBin::Bin . '/' };
 use lib $dir;
 
-my $module = $ENV{EXERCISM} ? 'Example' : 'Gigasecond';
+my $module = 'Gigasecond';
 
 use_ok($module) or BAIL_OUT "You need to create a module called $module.pm";
 

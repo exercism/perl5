@@ -9,15 +9,12 @@ my $dir;
 BEGIN { $dir = $FindBin::Bin . '/' };
 use lib $dir;
 
-my $module = $ENV{EXERCISM} ? 'Example' : 'Anagram';
+my $module = 'Anagram';
 
-my $cases_file = "${dir}cases.json";
 my $cases;
-if (open my $fh, '<', $cases_file) {
+{
     local $/ = undef;
-    $cases = from_json scalar <$fh>;
-} else {
-    die "Could not open '$cases_file' $!";
+    $cases = from_json scalar <DATA>;
 }
 
 plan tests => 3 + @$cases;
@@ -39,4 +36,60 @@ foreach my $c (@$cases) {
     is_deeply $sub->($c->{word}, @{ $c->{words} }), $c->{expected}, $c->{name};
 }
 
-
+__DATA__
+[
+  {
+    "word"     : "diaper",
+    "words"    : ["hello", "world", "zombies", "pants"],
+    "expected" : [],
+    "name"     : "no matches"
+  },
+  {
+    "word"     : "ant",
+    "words"    : ["tan", "stand", "at"],
+    "expected" : ["tan"],
+    "name"     : "detect_simple_anagram"
+  },
+  {
+    "word"     : "master",
+    "words"    : ["stream", "pigeon", "maters"],
+    "expected" : ["stream", "maters"],
+    "name"     : "multiple_anagrams"
+  },
+  {
+    "word"     : "galea",
+    "words"    : ["eagle"],
+    "expected" : [],
+    "name"     : "does_not_confuse_different_duplicates"
+  },
+  {
+    "word"     : "good",
+    "words"    : ["dog", "goody"],
+    "expected" : [],
+    "name"     : "eliminate_anagram_subsets"
+  },
+  {
+    "word"     : "listen",
+    "words"    : ["enlists", "google", "inlets", "banana"],
+    "expected" : ["inlets"],
+    "name"     : "detect_anagram"
+  },
+  {
+    "word"     : "allergy",
+    "words"    : ["gallery", "ballerina", "regally", "clergy", "largely", "leading"],
+    "expected" : ["gallery", "regally", "largely"],
+    "name"     : "multiple_anagrams"
+  },
+  {
+    "word"     : "Orchestra",
+    "words"    : ["cashregister", "Carthorse", "radishes"],
+    "expected" : ["Carthorse"],
+    "name"     : "anagrams_are_case_insensitive"
+  },
+  {
+    "word"     : "banana",
+    "words"    : ["banana"],
+    "expected" : [],
+    "name"     : "same_word_isnt_anagram"
+  }
+]

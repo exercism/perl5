@@ -43,7 +43,7 @@ my @cases = (
     }
 );
 
-my $module = $ENV{EXERCISM} ? 'Example' : 'ETL';
+my $module = 'ETL';
 
 ok -e "${dir}${module}.pm", "Find $module.pm",
     or BAIL_OUT "You need to create a class called $module.pm";

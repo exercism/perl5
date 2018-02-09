@@ -9,16 +9,12 @@ my $dir;
 BEGIN { $dir = $FindBin::Bin . '/' };
 use lib $dir;
 
-my $module = $ENV{EXERCISM} ? 'Example' : 'Allergies';
+my $module = 'Allergies';
 
-my $cases_file = "${dir}cases.json";
 my $cases;
-
-if (open my $fh, '<', $cases_file) {
+{
     local $/ = undef;
-    $cases = from_json scalar <$fh>;
-} else {
-    die "Could not open '$cases_file' $!";
+    $cases = from_json scalar <DATA>;
 }
 
 plan tests => 4 + @$cases;
@@ -42,3 +38,74 @@ foreach my $c (@$cases) {
         is_deeply $allergy->list(), $c->{expected}, $c->{name};
     }
 }
+
+__DATA__
+[
+    {
+        "sub"     : "allergic_to",
+        "input"   : [0, "peanuts"],
+        "expected": false,
+        "name"    : "score 0 is not allergic_to peanuts"
+    },
+    {
+        "sub"     : "allergic_to",
+        "input"   : [0, "cats"],
+        "expected": false,
+        "name"    : "score 0 is not allergic_to cats"
+    },
+    {
+        "sub"     : "allergic_to",
+        "input"   : [0, "strawberries"],
+        "expected": false,
+        "name"    : "score 0 is not allergic_to strawberries"
+    },
+    {
+        "sub"     : "allergic_to",
+        "input"   : [1, "eggs"],
+        "expected": true,
+        "name"    : "score 1 is allergic_to eggs"
+    },
+    {
+        "sub"     : "allergic_to",
+        "input"   : [5, "eggs"],
+        "expected": true,
+        "name"    : "score 5 is allergic_to eggs"
+    },
+    {
+        "sub"     : "allergic_to",
+        "input"   : [5, "shellfish"],
+        "expected": true,
+        "name"    : "score 5 is allergic_to shellfish"
+    },
+    {
+        "sub"     : "allergic_to",
+        "input"   : [5, "strawberries"],
+        "expected": false,
+        "name"    : "score 5 is not allergic_to strawberries"
+    },
+    {
+        "sub"     : "list",
+        "input"   : 0,
+        "expected": [],
+        "name"    : "score 0 has empty allergens"
+    },
+    {
+        "sub"     : "list",
+        "input"   : 2,
+        "expected": ["peanuts"],
+        "name"    : "score 2 has one allergen"
+    },
+    {
+        "sub"     : "list",
+        "input"   : 255,
+        "expected": ["eggs", "peanuts", "shellfish", "strawberries", "tomatoes", "chocolate", "pollen", "cats"],
+        "name"    : "score 255 is allergic to everything"
+    },
+    {
+        "sub"     : "list",
+        "input"   : 509,
+        "expected": ["eggs", "shellfish", "strawberries", "tomatoes", "chocolate", "pollen", "cats"],
+        "name"    : "score 509 ignores non allergen score parts"
+    }
+]
+

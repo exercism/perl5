@@ -9,7 +9,7 @@ my $dir;
 BEGIN { $dir = $FindBin::Bin . '/' };
 use lib $dir;
 
-my $module = $ENV{EXERCISM} ? 'Example' : 'Meetup';
+my $module = 'Meetup';
 
 plan tests => 95;
 

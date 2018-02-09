@@ -8,7 +8,7 @@ my $dir;
 BEGIN { $dir = $FindBin::Bin . '/' };
 use lib $dir;
 
-my $module = $ENV{EXERCISM} ? 'Example' : 'TwelveDays';
+my $module = 'TwelveDays';
 
 ok -e "${dir}${module}.pm", "Missing $module.pm"
         or BAIL_OUT "You need to create file $module.pm";

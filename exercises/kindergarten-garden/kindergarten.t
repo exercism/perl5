@@ -171,7 +171,7 @@ my @cases = (
     },
 );
 
-my $module = $ENV{EXERCISM} ? 'Example' : 'Kindergarten';
+my $module = 'Kindergarten';
 
 plan tests => 3 + @cases;
 

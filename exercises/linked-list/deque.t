@@ -9,15 +9,12 @@ my $dir;
 BEGIN { $dir = $FindBin::Bin . '/' };
 use lib $dir;
 
-my $module = $ENV{EXERCISM} ? 'Example' : 'Deque';
+my $module = 'Deque';
 
-my $cases_file = "${dir}cases.json";
 my $cases;
-if (open my $fh, '<', $cases_file) {
+{
     local $/ = undef;
-    $cases = from_json scalar <$fh>;
-} else {
-    die "Could not open '$cases_file' $!";
+    $cases = from_json scalar <DATA>;
 }
 
 #plan tests => 3 + @$cases;
@@ -51,3 +48,59 @@ foreach my $c (@$cases) {
 
 
 done_testing();
+
+__DATA__
+[
+  {
+    "set" : [
+      { "push" : 10 },
+      { "push" : 20 },
+      { "pop"  : 20 },
+      { "pop"  : 10 }
+    ],
+    "name" : "push_pop"
+  },
+  {
+    "set" : [
+      { "push" : 10  },
+      { "push" : 20  },
+      { "shift" : 10 },
+      { "shift" : 20 }
+    ],
+    "name" : "push_shift"
+  },
+  {
+    "set" : [
+      { "unshift" : 10 },
+      { "unshift" : 20 },
+      { "shift"   : 20 },
+      { "shift"   : 10 }
+    ],
+    "name" : "unshift_shift"
+  },
+  {
+    "set" : [
+      { "unshift" : 10 },
+      { "unshift" : 20 },
+      { "pop"     : 10 },
+      { "pop"     : 20 }
+    ],
+    "name" : "unshift_pop"
+  },
+  {
+    "set" : [
+      { "push"    : 10 },
+      { "push"    : 20 },
+      { "pop"     : 20 },
+      { "push"    : 30 },
+      { "shift"   : 10 },
+      { "unshift" : 40 },
+      { "push"    : 50 },
+      { "shift"   : 40 },
+      { "pop"     : 50 },
+      { "shift"   : 30 }
+    ],
+    "name" : "example"
+  }
+]
+

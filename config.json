@@ -2,6 +2,7 @@
   "language": "Perl 5",
   "active": true,
   "test_pattern": ".*\\.t$",
+  "solution_pattern": "\\.meta/solutions/.+\\.pm$",
   "foregone": [
 
   ],

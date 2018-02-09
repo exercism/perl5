@@ -43,7 +43,7 @@ my @cases = (
     },
 );
 
-my $module = $ENV{EXERCISM} ? 'Example' : 'Binary';
+my $module = 'Binary';
 
 plan tests => 4 + @cases;
 

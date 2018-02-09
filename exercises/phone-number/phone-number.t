@@ -8,10 +8,9 @@ use JSON::PP;
 
 my $exercise = 'PhoneNumber';
 my $test_version = 2;
-my $module = $ENV{EXERCISM} ? 'Example' : $exercise;
 use Test::More tests => 15;
 
-use_ok $module or BAIL_OUT;
+use_ok $exercise or BAIL_OUT;
 
 my $exercise_version = $exercise->VERSION // 0;
 if ($exercise_version != $test_version) {

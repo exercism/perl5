@@ -76,7 +76,7 @@ my @cases = (
 
 );
 
-my $module = $ENV{EXERCISM} ? 'Example' : 'Crypto';
+my $module = 'Crypto';
 my @subs = qw(new normalize_ciphertext normalize_plaintext plaintext_segments ciphertext size);
 plan tests => 2 + @subs + @cases;
 

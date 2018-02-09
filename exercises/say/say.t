@@ -77,7 +77,7 @@ my @cases = (
     }
 );
 
-my $module = $ENV{EXERCISM} ? 'Example' : 'Say';
+my $module = 'Say';
 
 plan tests => 3 + @cases;
 

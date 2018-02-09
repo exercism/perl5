@@ -10,7 +10,7 @@ my $dir;
 BEGIN { $dir = $FindBin::Bin . '/' };
 use lib $dir;
 
-my $module = $ENV{EXERCISM} ? 'Example' : 'BinarySearch';
+my $module = 'BinarySearch';
 
 my %test_cases = (
    dies => {

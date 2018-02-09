@@ -8,7 +8,7 @@ my $dir;
 BEGIN { $dir = $FindBin::Bin . '/' };
 use lib $dir;
 
-my $module = $ENV{EXERCISM} ? 'Example' : 'RobotName';
+my $module = 'RobotName';
 
 plan tests => 9;
 

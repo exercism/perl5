@@ -9,16 +9,13 @@ my $dir;
 BEGIN { $dir = $FindBin::Bin . '/' };
 use lib $dir;
 
-my $module = $ENV{EXERCISM} ? 'Example' : 'Proverb';
+my $module = 'Proverb';
 my $sub = 'proverb';
 
-my $cases_file = "${dir}cases.json";
 my $cases;
-if (open my $fh, '<', $cases_file) {
+{
     local $/ = undef;
-    $cases = from_json scalar <$fh>;
-} else {
-    die "Could not open '$cases_file' $!";
+    $cases = from_json scalar <DATA>;
 }
 
 plan tests => 3 + @$cases;
@@ -39,3 +36,57 @@ foreach my $c (@$cases) {
     my $expected = join "" => @{$c->{expected}};
     is $sub->($c->{param}, $c->{qualifier} || ""), $expected, $c->{name};
 }
+
+__DATA__
+[
+    {
+        "param"     : ["nail", "shoe"],
+        "expected"  : ["For want of a nail the shoe was lost.\n",
+                      "And all for the want of a nail."],
+        "name"      : "one consequence"
+    },
+    {
+        "param"     : ["nail", "shoe", "horse"],
+        "expected"  : ["For want of a nail the shoe was lost.\n",
+                       "For want of a shoe the horse was lost.\n",
+                       "And all for the want of a nail."],
+        "name"      : "two consequences"
+    },
+    {
+        "param"     : ["nail", "shoe", "horse", "rider"],
+        "expected"  : ["For want of a nail the shoe was lost.\n",
+                       "For want of a shoe the horse was lost.\n",
+                       "For want of a horse the rider was lost.\n",
+                       "And all for the want of a nail."],
+        "name"      : "three consequences"
+    },
+    {
+        "param"     : ["key", "value"],
+        "expected"  : ["For want of a key the value was lost.\n",
+                      "And all for the want of a key."],
+        "name"      : "one consequence, new items"
+    },
+    {
+        "param"     : ["nail", "shoe", "horse", "rider", "message", "battle", "kingdom"],
+        "expected"  : ["For want of a nail the shoe was lost.\n",
+                       "For want of a shoe the horse was lost.\n",
+                       "For want of a horse the rider was lost.\n",
+                       "For want of a rider the message was lost.\n",
+                       "For want of a message the battle was lost.\n",
+                       "For want of a battle the kingdom was lost.\n",
+                       "And all for the want of a nail."],
+        "name"      : "whole proverb"
+    },
+    {
+        "param"     : ["nail", "shoe", "horse", "rider", "message", "battle", "kingdom"],
+        "qualifier" : "horseshoe",
+        "expected"  : ["For want of a nail the shoe was lost.\n",
+                       "For want of a shoe the horse was lost.\n",
+                       "For want of a horse the rider was lost.\n",
+                       "For want of a rider the message was lost.\n",
+                       "For want of a message the battle was lost.\n",
+                       "For want of a battle the kingdom was lost.\n",
+                       "And all for the want of a horseshoe nail."],
+        "name"      : "whole proverb with qualifier"
+    }
+]

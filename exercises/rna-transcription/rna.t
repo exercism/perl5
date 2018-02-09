@@ -8,7 +8,7 @@ my $dir;
 BEGIN { $dir = $FindBin::Bin . '/' };
 use lib $dir;
 
-my $module = $ENV{EXERCISM} ? 'Example' : 'DNA';
+my $module = 'DNA';
 
 my @cases = (
    ['C', 'G',  'cytosine unchanged'],

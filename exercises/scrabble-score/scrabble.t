@@ -29,7 +29,7 @@ my @extended_cases = map { _make_test_case(@$_) } (
     [ "quirky", 132,    [ double => 1, triple => 1 ],   "double-triple 'quirky'" ],
 );
 
-my $module = $ENV{EXERCISM} ? 'Example' : 'Word';
+my $module = 'Word';
 
 ok -e "${dir}${module}.pm", "Find $module.pm"
     or die "You need to create file: $module.pm";
