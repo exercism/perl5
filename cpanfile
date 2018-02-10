@@ -1,4 +1,3 @@
-requires 'JSON';
 requires 'DateTime';
 requires 'Test::Exception';
 requires 'List::MoreUtils';

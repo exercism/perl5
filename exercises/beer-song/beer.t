@@ -10,12 +10,12 @@ use lib $dir;
 
 my $module = 'Beer';
 
-use JSON qw(from_json);
+use JSON::PP qw(decode_json);
 
 my $cases;
 {
     local $/ = undef;
-    $cases = from_json scalar <DATA>;
+    $cases = decode_json scalar <DATA>;
 }
 
 #diag explain $cases;

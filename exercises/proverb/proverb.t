@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 use Test::More;
-use JSON qw(from_json);
+use JSON::PP qw(decode_json);
 use FindBin;
 my $dir;
 BEGIN { $dir = $FindBin::Bin . '/' };
@@ -15,7 +15,7 @@ my $sub = 'proverb';
 my $cases;
 {
     local $/ = undef;
-    $cases = from_json scalar <DATA>;
+    $cases = decode_json scalar <DATA>;
 }
 
 plan tests => 3 + @$cases;
