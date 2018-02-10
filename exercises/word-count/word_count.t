@@ -10,7 +10,7 @@ my $dir;
 BEGIN { $dir = $FindBin::Bin . '/' };
 use lib $dir;
 
-my $module = $ENV{EXERCISM} ? 'Example' : 'Phrase';
+my $module = 'Phrase';
 
 my @cases = (
     # input                                       expected output                  title

@@ -1,0 +1,1 @@
+../../allergies.t

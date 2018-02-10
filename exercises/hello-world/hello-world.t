@@ -8,10 +8,9 @@ use JSON::PP;
 
 my $exercise = 'HelloWorld'; # The name of this exercise.
 my $test_version = 1; # The version we will be matching against the exercise.
-my $module = $ENV{EXERCISM} ? 'Example' : $exercise; # $ENV{EXERCISM} is for tests not directly for the exercise, don't worry about these :)
 use Test::More tests => 4; # This is how many tests we expect to run.
 
-use_ok $module or BAIL_OUT; # Check that the module can be use-d.
+use_ok $exercise or BAIL_OUT; # Check that the module can be use-d.
 
 # If the exercise is updated, we want to make sure other people testing
 # your code don't think you've made a mistake if things have changed!

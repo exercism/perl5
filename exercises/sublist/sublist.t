@@ -8,7 +8,7 @@ my $dir;
 BEGIN { $dir = $FindBin::Bin . '/' };
 use lib $dir;
 
-my $module = $ENV{EXERCISM} ? 'Example' : 'Sublist';
+my $module = 'Sublist';
 my $name = "check_lists";
 my $sub = join('::', $module, $name);
 

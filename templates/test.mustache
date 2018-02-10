@@ -9,10 +9,9 @@ use {{&use}};{{/modules}}
 
 my $exercise{{#exercise}} = '{{&exercise}}'{{/exercise}};{{#exercise_comment}} {{&exercise_comment}}{{/exercise_comment}}
 my $test_version{{#version}} = {{&version}}{{/version}};{{#version_comment}} {{&version_comment}}{{/version_comment}}
-my $module = $ENV{EXERCISM} ? 'Example' : $exercise;{{#module_comment}} {{&module_comment}}{{/module_comment}}
 use Test::More{{#plan}} tests => {{&plan}}{{/plan}};{{#plan_comment}} {{&plan_comment}}{{/plan_comment}}
 
-use_ok $module or BAIL_OUT;{{#use_test_comment}} {{&use_test_comment}}{{/use_test_comment}}
+use_ok $exercise or BAIL_OUT;{{#use_test_comment}} {{&use_test_comment}}{{/use_test_comment}}
 {{#version_test_comment}}
 {{&version_test_comment}}{{/version_test_comment}}
 my $exercise_version = $exercise->VERSION // 0;

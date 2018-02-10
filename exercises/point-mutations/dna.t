@@ -9,15 +9,12 @@ my $dir;
 BEGIN { $dir = $FindBin::Bin . '/' };
 use lib $dir;
 
-my $module = $ENV{EXERCISM} ? 'Example' : 'DNA'; 
+my $module = 'DNA'; 
 
-my $cases_file = "${dir}cases.json";
 my $cases;
-if (open my $fh, '<', $cases_file) {
+{
     local $/ = undef;
-    $cases = from_json scalar <$fh>;
-} else {
-    die "Could not open '$cases_file' $!";
+    $cases = from_json scalar <DATA>;
 }
 
 plan tests => 4 + @$cases;
@@ -39,3 +36,74 @@ foreach my $c (@$cases) {
       $c->{expected},
       $c->{name};
 }
+
+__DATA__
+[
+    {
+        "strand"   : "",
+        "input"    : "",
+        "expected" : 0,
+        "name"     : "empty strands"
+    },
+    {
+        "strand"   : "GGACGTA",
+        "input"    : "GGACGTA",
+        "expected" : 0,
+        "name"     : "identical strands"
+    },
+    {
+        "strand"   : "ACT",
+        "input"    : "GGA",
+        "expected" : 3,
+        "name"     : "small strands"
+    },
+    {
+        "strand"   : "GGACGGATTCTGACCTGGACTAATTTTGGGG",
+        "input"    : "AGGACGGATTCTGACCTGGACTAATTTTGGGG",
+        "expected" : 19,
+        "name"     : "input strand is longer by one"
+    },
+    {
+        "strand"   : "GGACG",
+        "input"    : "GGTCG",
+        "expected" : 1,
+        "name"     : "distance in the middle"
+    },
+    {
+        "strand"   : "ACCAGGG",
+        "input"    : "ACTATGG",
+        "expected" : 2,
+        "name"     : "longer strands of same length"
+
+    },
+    {
+        "strand"   : "AAACTAGGGG",
+        "input"    : "AGGCTAGCGGTAGGAC",
+        "expected" : 3,
+        "name"     : "input strand is longer"
+    },
+    {
+        "strand"   : "GACTACGGACAGGGTAGGGAAT",
+        "input"    : "GACATCGCACACC",
+        "expected" : 5,
+        "name"     : "original strand is longer"
+    },
+    {
+        "strand"   : "AGACAACAGCCAGCCGCCGGATT",
+        "input"    : "AGGCAA",
+        "expected" : 1,
+        "name"     : "does not shorten original strand test 1"
+    },
+    {
+        "strand"   : "AGACAACAGCCAGCCGCCGGATT",
+        "input"    : "AGACATCTTTCAGCCGCCGGATTAGGCAA",
+        "expected" : 4,
+        "name"     : "does not shorten original strand test 2"
+    },
+    {
+        "strand"   : "AGACAACAGCCAGCCGCCGGATT",
+        "input"    : "AGG",
+        "expected" : 1,
+        "name"     : "does not shorten original strand test 3"
+    }
+]

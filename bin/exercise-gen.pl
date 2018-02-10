@@ -59,7 +59,7 @@ for my $exercise (@exercises) {
   create_file("$exercise.t", 'test');
 
   $data->{module_file} = $data->{example};
-  create_file(qw{Example.pm module});
+  create_file('.meta/solutions/'.$data->{exercise}.'.pm', 'module');
 
   $data->{module_file} = $data->{stub};
   create_file($data->{exercise}.'.pm', 'module');

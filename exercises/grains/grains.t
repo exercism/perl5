@@ -10,21 +10,18 @@ my $dir;
 BEGIN { $dir = $FindBin::Bin . '/' };
 use lib $dir;
 
-my $cases_file = "${dir}cases.json";
 my $cases;
 my $decoder = JSON::PP->new();
 $decoder->allow_bignum(1);
 
-if (open my $fh, '<', $cases_file) {
+{
     local $/ = undef;
-    $cases = $decoder->decode( scalar <$fh> );
-} else {
-    die "Could not open '$cases_file' $!";
+    $cases = $decoder->decode( scalar <DATA> );
 }
 
 plan tests => 4 + @$cases;
 
-my $module = $ENV{EXERCISM} ? 'Example' : 'Grains';
+my $module = 'Grains';
 
 ok -e "${dir}${module}.pm", "Missing $module.pm" or BAIL_OUT "You need to create a class called $module.pm";
 
@@ -44,3 +41,54 @@ foreach my $c (@$cases) {
         cmp_ok $sub->(), '==', 0 + $c->{expected}, $c->{name};
     }
 }
+
+__DATA__
+[
+    {
+        "sub"      : "square",
+        "input"    : 1,
+        "expected" : 1,
+        "name"     : "test square 1"
+    },
+    {
+        "sub"      : "square",
+        "input"    : 2,
+        "expected" : 2,
+        "name"     : "test square 2"
+    },
+    {
+        "sub"      : "square",
+        "input"    : 3,
+        "expected" : 4,
+        "name"     : "test square 3"
+    },
+    {
+        "sub"      : "square",
+        "input"    : 4,
+        "expected" : 8,
+        "name"     : "test square 4"
+    },
+    {
+        "sub"      : "square",
+        "input"    : 16,
+        "expected" : 32768,
+        "name"     : "test square 16"
+    },
+    {
+        "sub"      : "square",
+        "input"    : 32,
+        "expected" : 2147483648,
+        "name"     : "test square 32"
+    },
+    {
+        "sub"      : "square",
+        "input"    : 64,
+        "expected" : 9223372036854775808,
+        "name"     : "test square 64"
+    },
+    {
+        "sub"      : "total",
+        "expected" : 18446744073709551615,
+        "name"     : "test total"
+    }
+]

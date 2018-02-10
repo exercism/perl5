@@ -16,27 +16,24 @@ The tests depend on the following modules:
 
 ## Testing the Tests
 
-When the tests are run they expect a module with some real name (e.g. Anagram.pm)
-but the Exercism system allows us to have example implementations in the directory
+The Exercism system allows us to have example implementations in the directory
 of each exercise.
 
-If they are called /*example.*/i they won't be copied to the users. (which is a good thing).
-
-So the sample solutions are all called Example.pm.
+If they are in the `.meta` directory they won't be copied to the users. (which is a good thing).
 
 ### Testing All the Exercises
 
 Run the full tests with
 
-    EXERCISM=1 prove -r
+    prove -r exercises/*/.meta/solutions
 
 ### Testing a Single Exercise
 
-Each test file will look for the appropriate module name, but if the test are run as
+If a test is run as
 
-    EXERCISM=1 perl file.t
+    prove exercises/example-exercise/.meta/solutions/example-exercise.t
 
-then they will expect a file called Example.pm
+the test will run using the example in the `.meta/solutions` directory.
 
 ## Contributing Guide
 

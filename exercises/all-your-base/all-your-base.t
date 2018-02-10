@@ -8,7 +8,7 @@ my $dir;
 BEGIN { $dir = $FindBin::Bin . '/' };
 use lib $dir;
 
-my $module = $ENV{EXERCISM} ? 'Example' : 'AllYourBase';
+my $module = 'AllYourBase';
 
 my $function = 'convert_base';
 

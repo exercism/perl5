@@ -51,7 +51,7 @@ my @cases = (
     },
 );
 
-my $module = $ENV{EXERCISM} ? 'Example' : 'Hexadecimal';
+my $module = 'Hexadecimal';
 
 plan tests => 4 + @cases;
 

@@ -85,7 +85,7 @@ my @cases = (
 
 plan tests => 4 + @cases;
 
-my $module = $ENV{EXERCISM} ? 'Example' : 'Decimal';
+my $module = 'Decimal';
 
 ok -e "${dir}${module}.pm", "Missing $module.pm"
                 or BAIL_OUT "You need to create file: $module.pm";

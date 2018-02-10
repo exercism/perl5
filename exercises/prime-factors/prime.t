@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-my $module = $ENV{EXERCISM} ? 'Example' : 'Prime';
+my $module = 'Prime';
 
 use Test::More;
 use JSON qw(from_json);
@@ -11,13 +11,10 @@ my $dir;
 BEGIN { $dir = $FindBin::Bin . '/' };
 use lib $dir;
 
-my $cases_file = "${dir}cases.json";
 my $cases;
-if (open my $fh, '<', $cases_file) {
+{
     local $/ = undef;
-    $cases = from_json scalar <$fh>;
-} else {
-    die "Could not open '$cases_file' $!";
+    $cases = from_json scalar <DATA>;
 }
 
 #plan tests => 3 + @$cases;
@@ -41,3 +38,62 @@ foreach my $c (@$cases) {
 
 
 done_testing();
+
+__DATA__
+[
+  {
+     "input" : 1,
+     "expected" : [],
+     "name" : "test_1"
+  },
+  {
+     "input" : 2,
+     "expected" : [2],
+     "name" : "test_2"
+  },
+  {
+     "input" : 3,
+     "expected" : [3],
+     "name" : "test_3"
+  },
+  {
+    "input" : 4,
+    "expected" : [2, 2],
+    "name" : "test_4"
+  },
+  {
+    "input" : 6,
+    "expected" : [2, 3],
+    "name" : "test_6"
+  },
+  {
+    "input" : 8,
+    "expected" : [2, 2, 2],
+    "name" : "test_8"
+  },
+  {
+    "input" : 9,
+    "expected" : [3, 3],
+    "name" : "test_9"
+  },
+  {
+    "input" : 27,
+    "expected" : [3, 3, 3],
+    "name" : "test_27"
+  },
+  {
+    "input" : 625,
+    "expected" : [5, 5, 5, 5],
+    "name" : "test_625"
+  },
+  {
+    "input" : 901255,
+    "expected" : [5, 17, 23, 461],
+    "name" : "test_901255"
+  },
+  {
+    "input" : 93819012551,
+    "expected" : [11, 9539, 894119],
+    "name" : "test_93819012551"
+  }
+]

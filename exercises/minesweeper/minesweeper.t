@@ -9,7 +9,7 @@ my $dir;
 BEGIN { $dir = $FindBin::Bin . '/' };
 use lib $dir;
 
-my $module = $ENV{EXERCISM} ? 'Example' : 'Minesweeper';
+my $module = 'Minesweeper';
 my $name = 'count_adjacent_bombs';
 my $sub = join('::', $module, $name);
 
