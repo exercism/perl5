@@ -8,7 +8,6 @@ Exercism exercises in Perl 5
 
 The tests depend on the following modules:
 
-    JSON
     DateTime
     Test::Exception
     List::MoreUtils
