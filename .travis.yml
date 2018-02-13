@@ -15,4 +15,5 @@ script:
   - bin/configlet lint .
   - prove exercises/*/.meta/solutions
     --recurse
+    --directives
     --jobs 2
