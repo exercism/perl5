@@ -15,10 +15,10 @@ if (@ARGV) {
   }
 } else {
   say 'No args given; working in current directory.';
-  if ( path('example.yaml')->is_file ) {
+  if ( path('.meta/exercise-data.yaml')->is_file ) {
     push @exercises, cwd->basename;
   } else {
-    say 'example.yaml not found in current directory; exiting.';
+    say '.meta/exercise-data.yaml not found in current directory; exiting.';
     exit;
   }
 }
@@ -27,7 +27,7 @@ my @dir_not_found;
 my @yaml_not_found;
 for my $exercise (@exercises) {
   my $exercise_dir = $base_dir->child("exercises/$exercise");
-  my $yaml = $exercise_dir->child('example.yaml');
+  my $yaml = $exercise_dir->child('.meta/exercise-data.yaml');
 
   unless ($exercise_dir->is_dir) {
     push @dir_not_found, $exercise;
@@ -68,4 +68,4 @@ for my $exercise (@exercises) {
 }
 
 if (@dir_not_found)  {warn 'exercise directory does not exist for: ' . join ' ', @dir_not_found}
-if (@yaml_not_found) {warn 'example.yaml not found for: ' . join ' ', @yaml_not_found}
+if (@yaml_not_found) {warn '.meta/exercise-data.yaml not found for: ' . join ' ', @yaml_not_found}
