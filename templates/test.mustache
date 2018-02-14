@@ -1,9 +1,8 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-use FindBin;{{#cdata}}
-my $dir;{{/cdata}}
-use lib{{#cdata}} $dir ={{/cdata}} $FindBin::Bin;{{#lib_comment}} {{&lib_comment}}{{/lib_comment}}{{#cdata}}
+use FindBin;
+use lib $FindBin::Bin;{{#lib_comment}} {{&lib_comment}}{{/lib_comment}}{{#cdata}}
 use JSON::PP;{{/cdata}}{{#modules}}
 use {{&use}};{{/modules}}
 
@@ -31,18 +30,7 @@ foreach ( qw({{&subs}}) ) {
 {{/subs}}{{#cdata}}
 my $C_DATA = do { local $/; decode_json(<DATA>); };{{/cdata}}
 {{&tests}}
-{{#cdata}}{{#cdata_test_comment}}
-{{&cdata_test_comment}}{{/cdata_test_comment}}
-SKIP: {
-  skip '', 1 unless $ENV{EXERCISM};
-  TODO: {
-    local $TODO = 'update canonical-data';
-    is_deeply eval q{
-      use Path::Tiny;
-      decode_json path("$dir/../../problem-specifications/exercises/".path($dir)->basename.'/canonical-data.json')->realpath->slurp;
-    }, $C_DATA, 'canonical-data';
-  }
-}
+{{#cdata}}
 
 __DATA__
 {{&json}}
