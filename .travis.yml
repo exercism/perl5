@@ -13,7 +13,8 @@ before_script:
   - bin/fetch-configlet
 script:
   - bin/configlet lint .
-  - prove exercises/*/.meta/solutions/ t/
+  - prove exercises/*/.meta/solutions/
     --recurse
-    --directives
     --jobs 2
+  - prove t/
+    --directives
