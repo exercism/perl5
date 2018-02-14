@@ -2,9 +2,12 @@
 use feature qw(lexical_subs say);
 use YAML 'LoadFile';
 use Path::Tiny qw(:DEFAULT cwd);
-use Template::Mustache 'render';
+use FindBin;
+use lib "$FindBin::Bin/../lib";
+use Exercism::Generator;
 
-my $base_dir = path($0)->realpath->parent->parent;
+my $base_dir = path(__FILE__)->realpath->parent->parent;
+
 my @exercises;
 
 if (@ARGV) {
@@ -40,29 +43,11 @@ for my $exercise (@exercises) {
   print "Generating $exercise... ";
 
   my $data = LoadFile $yaml;
-
-  my $cdata = $base_dir->child("problem-specifications/exercises/$exercise/canonical-data.json");
-  if ($cdata->is_file) {
-    $data->{cdata}{json} = $cdata->slurp;
-    $data->{cdata}{json} =~ s/^\s+|\s+$//g;
-  }
-
-  my sub create_file {
-    my ($filename, $template) = @_;
-    my $file = $exercise_dir->child($filename);
-    $file->spew(Template::Mustache->render(
-      $base_dir->child("templates/$template.mustache")->slurp, $data
-    ));
-    $file->chmod(0755) if $template eq 'test';
-  }
-
-  create_file("$exercise.t", 'test');
-
-  $data->{module_file} = $data->{example};
-  create_file('.meta/solutions/'.$data->{exercise}.'.pm', 'module');
-
-  $data->{module_file} = $data->{stub};
-  create_file($data->{exercise}.'.pm', 'module');
+  my $generator = Exercism::Generator->new({exercise => $exercise, data => $data});
+  $exercise_dir->child("$exercise.t")->spew($generator->test);
+  $exercise_dir->child("$exercise.t")->chmod(0755);
+  $exercise_dir->child('.meta/solutions/'.$data->{exercise}.'.pm')->spew($generator->example);
+  $exercise_dir->child($data->{exercise}.'.pm')->spew($generator->stub);
 
   say 'Generated.';
 }

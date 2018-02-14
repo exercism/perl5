@@ -11,7 +11,9 @@ The tests depend on the following modules:
     DateTime
     Test::Exception
     List::MoreUtils
-    Path::Tiny (for canonical-data tests)
+    Path::Tiny (for generator tests)
+    Template::Mustache (for generator tests)
+    YAML (for generator tests)
 
 ## Testing the Tests
 
