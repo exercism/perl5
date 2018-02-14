@@ -8,6 +8,11 @@ perl:
   - '5.18'
   - '5.16'
   - '5.14'
+before_install:
+  - curl -sL --compressed https://git.io/cpm > cpm
+  - chmod +x cpm
+install:
+  - ./cpm install -g
 before_script:
   - git clone https://github.com/exercism/problem-specifications.git
   - bin/fetch-configlet
