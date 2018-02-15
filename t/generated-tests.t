@@ -17,7 +17,7 @@ foreach (sort {$a cmp $b} $base_dir->child('exercises')->children) {
     TODO: {
       local $TODO = '#';
       is $_->child($_->basename.'.t')->slurp,
-        Exercism::Generator->new({data => LoadFile $_->child('.meta/exercise-data.yaml'), exercise => $_->basename})->test,
+        Exercism::Generator->new({data => LoadFile($_->child('.meta/exercise-data.yaml')), exercise => $_->basename})->test,
         $_->basename.': test suite matches generated';
     }
   }
