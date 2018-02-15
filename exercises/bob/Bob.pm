@@ -1,5 +1,5 @@
 # Declare package 'Bob' with version
-package Bob 2;
+package Bob 3;
 use strict;
 use warnings;
 
