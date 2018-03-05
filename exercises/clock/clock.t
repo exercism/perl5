@@ -1,107 +1,643 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-
-use Test::More;
 use FindBin;
-my $dir;
-BEGIN { $dir = $FindBin::Bin . '/' };
-use lib $dir;
+use lib $FindBin::Bin;
+use JSON::PP;
 
-my @cases = (
-    {
-        clock    => [8],
-        expected => "08:00"
-    },
-    {
-        clock    => [9],
-        expected => "09:00"
-    },
-    {
-        clock    => [11, 9],
-        expected => "11:09"
-    },
-    {
-        clock    => [10],
-        add      => 3,
-        expected => "10:03"
-    },
-    {
-        clock    => [10],
-        add      => 61,
-        expected => "11:01"
-    },
-    {
-        clock    => [23, 30],
-        add      => 60,
-        expected => "00:30"
-    },
-    {
-        clock    => [10],
-        subtract => 90,
-        expected => "08:30"
-    },
-    {
-        clock    => [0, 30],
-        subtract => 60,
-        expected => "23:30"
-    },
-    {
-        clock    => [15, 37],
-        equal    => [15, 36],
-        expected => 0
-    },
-    {
-        clock    => [15, 37],
-        equal    => [15, 37],
-        expected => 1
-    },
-    {
-        clock    => [15, 37],
-        equal    => [14, 37],
-        expected => 0
+my $exercise = 'Clock';
+my $test_version = 1;
+use Test::More tests => 57;
+
+use_ok $exercise or BAIL_OUT;
+
+my $exercise_version = $exercise->VERSION // 0;
+if ($exercise_version != $test_version) {
+  warn "\nExercise version mismatch. Further tests may fail!"
+    . "\n$exercise is v$exercise_version. "
+    . "Test is v$test_version.\n";
+  BAIL_OUT if $ENV{EXERCISM};
+}
+
+my %subs;
+foreach ( qw(new time add_minutes subtract_minutes) ) {
+  can_ok $exercise, $_;
+  $subs{$_} = $exercise->can($_);
+}
+
+my $C_DATA = do { local $/; decode_json(<DATA>); };
+foreach (@{$C_DATA->{cases}}) {
+  foreach (@{$_->{cases}}) {
+    if ($_->{property} eq 'create') {
+      is Clock->new($_->{input})->time, $_->{expected}, $_->{description};
     }
-);
 
-my $module = 'Clock';
-
-plan tests => 6 + @cases;
-
-ok -e "${dir}${module}.pm", "Missing $module.pm"
-            or BAIL_OUT "You need to create file: $module.pm";
-
-eval "use $module";
-
-ok !$@, "Cannot load $module"
-            or BAIL_OUT "Cannot load $module. Does it compile? Does it end with 1;?";
-
-ok exists $INC{'overload.pm'}, "$module loads overload module; use overload"
-            or BAIL_OUT "You need to overload these operators + - eq";
-
-use overload;
-
-is ref overload::Method($module, '+'), 'CODE', "$module overloads '+' operator"
-            or BAIL_OUT "Missing package $module; or missing 'use overload '+' => sub { ... }";
-is ref overload::Method($module, '-'), 'CODE', "$module overloads '-' operator"
-            or BAIL_OUT "Missing package $module; or missing 'use overload '-' => sub { ... }";
-is ref overload::Method($module, 'eq'), 'CODE', "$module overloads 'eq' operator"
-            or BAIL_OUT "Missing package $module; or missing 'use overload 'eq' => sub { ... }";
-
-
-foreach my $c (@cases) {
-    my $clock = $module->new($c->{clock});
-
-    unless ($c->{add} or $c->{subtract} or $c->{equal}) {
-        is $clock, $c->{expected}, "clock(@{$c->{clock}}) is $c->{expected}";
+    elsif ($_->{property} eq 'add' || $_->{property} eq 'subtract') {
+      my $clock = Clock->new({
+        hour   => $_->{input}{hour},
+        minute => $_->{input}{minute},
+      });
+      if ($_->{property} eq 'subtract') { $clock->subtract_minutes($_->{input}{value}) }
+      elsif ($_->{property} eq 'add'  ) { $clock->add_minutes(     $_->{input}{value}) }
+      is $clock->time, $_->{expected}, $_->{description};
     }
-    if ($c->{add}) {
-        is $clock + $c->{add}, $c->{expected}, "add $c->{add} minutes to clock(@{$c->{clock}})";
+
+    elsif ($_->{property} eq 'equal') {
+      ok $_->{expected} ==
+        (Clock->new($_->{input}{clock1})->time eq Clock->new($_->{input}{clock2})->time), $_->{description};
     }
-    if ($c->{subtract}) {
-        is $clock - $c->{subtract}, $c->{expected}, "subtract $c->{subtract} minutes to clock(@{$c->{clock}})";
+  }
+}
+
+is Clock->new({hour => 0, minute => 0})->add_minutes(65)->time, '01:05', 'add_minutes method can be chained';
+is Clock->new({hour => 0, minute => 0})->subtract_minutes(65)->time, '22:55', 'subtract_minutes method can be chained';
+
+__DATA__
+{
+  "exercise": "clock",
+  "version": "2.2.1",
+  "comments": [
+    "Most languages require constructing a clock with initial values,",
+    "adding or subtracting some number of minutes, and testing equality",
+    "in some language-native way.  Negative and out of range values are",
+    "generally expected to wrap around rather than represent errors."
+  ],
+  "cases": [
+    {
+      "description": "Create a new clock with an initial time",
+      "cases": [
+        {
+          "description": "on the hour",
+          "property": "create",
+          "input": {
+            "hour": 8,
+            "minute": 0
+          },
+          "expected": "08:00"
+        },
+        {
+          "description": "past the hour",
+          "property": "create",
+          "input": {
+            "hour": 11,
+            "minute": 9
+          },
+          "expected": "11:09"
+        },
+        {
+          "description": "midnight is zero hours",
+          "property": "create",
+          "input": {
+            "hour": 24,
+            "minute": 0
+          },
+          "expected": "00:00"
+        },
+        {
+          "description": "hour rolls over",
+          "property": "create",
+          "input": {
+            "hour": 25,
+            "minute": 0
+          },
+          "expected": "01:00"
+        },
+        {
+          "description": "hour rolls over continuously",
+          "property": "create",
+          "input": {
+            "hour": 100,
+            "minute": 0
+          },
+          "expected": "04:00"
+        },
+        {
+          "description": "sixty minutes is next hour",
+          "property": "create",
+          "input": {
+            "hour": 1,
+            "minute": 60
+          },
+          "expected": "02:00"
+        },
+        {
+          "description": "minutes roll over",
+          "property": "create",
+          "input": {
+            "hour": 0,
+            "minute": 160
+          },
+          "expected": "02:40"
+        },
+        {
+          "description": "minutes roll over continuously",
+          "property": "create",
+          "input": {
+            "hour": 0,
+            "minute": 1723
+          },
+          "expected": "04:43"
+        },
+        {
+          "description": "hour and minutes roll over",
+          "property": "create",
+          "input": {
+            "hour": 25,
+            "minute": 160
+          },
+          "expected": "03:40"
+        },
+        {
+          "description": "hour and minutes roll over continuously",
+          "property": "create",
+          "input": {
+            "hour": 201,
+            "minute": 3001
+          },
+          "expected": "11:01"
+        },
+        {
+          "description": "hour and minutes roll over to exactly midnight",
+          "property": "create",
+          "input": {
+            "hour": 72,
+            "minute": 8640
+          },
+          "expected": "00:00"
+        },
+        {
+          "description": "negative hour",
+          "property": "create",
+          "input": {
+            "hour": -1,
+            "minute": 15
+          },
+          "expected": "23:15"
+        },
+        {
+          "description": "negative hour rolls over",
+          "property": "create",
+          "input": {
+            "hour": -25,
+            "minute": 0
+          },
+          "expected": "23:00"
+        },
+        {
+          "description": "negative hour rolls over continuously",
+          "property": "create",
+          "input": {
+            "hour": -91,
+            "minute": 0
+          },
+          "expected": "05:00"
+        },
+        {
+          "description": "negative minutes",
+          "property": "create",
+          "input": {
+            "hour": 1,
+            "minute": -40
+          },
+          "expected": "00:20"
+        },
+        {
+          "description": "negative minutes roll over",
+          "property": "create",
+          "input": {
+            "hour": 1,
+            "minute": -160
+          },
+          "expected": "22:20"
+        },
+        {
+          "description": "negative minutes roll over continuously",
+          "property": "create",
+          "input": {
+            "hour": 1,
+            "minute": -4820
+          },
+          "expected": "16:40"
+        },
+        {
+          "description": "negative hour and minutes both roll over",
+          "property": "create",
+          "input": {
+            "hour": -25,
+            "minute": -160
+          },
+          "expected": "20:20"
+        },
+        {
+          "description": "negative hour and minutes both roll over continuously",
+          "property": "create",
+          "input": {
+            "hour": -121,
+            "minute": -5810
+          },
+          "expected": "22:10"
+        }
+      ]
+    },
+    {
+      "description": "Add minutes",
+      "cases": [
+        {
+          "description": "add minutes",
+          "property": "add",
+          "input": {
+            "hour": 10,
+            "minute": 0,
+            "value": 3
+          },
+          "expected": "10:03"
+        },
+        {
+          "description": "add no minutes",
+          "property": "add",
+          "input": {
+            "hour": 6,
+            "minute": 41,
+            "value": 0
+          },
+          "expected": "06:41"
+        },
+        {
+          "description": "add to next hour",
+          "property": "add",
+          "input": {
+            "hour": 0,
+            "minute": 45,
+            "value": 40
+          },
+          "expected": "01:25"
+        },
+        {
+          "description": "add more than one hour",
+          "property": "add",
+          "input": {
+            "hour": 10,
+            "minute": 0,
+            "value": 61
+          },
+          "expected": "11:01"
+        },
+        {
+          "description": "add more than two hours with carry",
+          "property": "add",
+          "input": {
+            "hour": 0,
+            "minute": 45,
+            "value": 160
+          },
+          "expected": "03:25"
+        },
+        {
+          "description": "add across midnight",
+          "property": "add",
+          "input": {
+            "hour": 23,
+            "minute": 59,
+            "value": 2
+          },
+          "expected": "00:01"
+        },
+        {
+          "description": "add more than one day (1500 min = 25 hrs)",
+          "property": "add",
+          "input": {
+            "hour": 5,
+            "minute": 32,
+            "value": 1500
+          },
+          "expected": "06:32"
+        },
+        {
+          "description": "add more than two days",
+          "property": "add",
+          "input": {
+            "hour": 1,
+            "minute": 1,
+            "value": 3500
+          },
+          "expected": "11:21"
+        }
+      ]
+    },
+    {
+      "description": "Subtract minutes",
+      "cases": [
+        {
+          "description": "subtract minutes",
+          "property": "subtract",
+          "input": {
+            "hour": 10,
+            "minute": 3,
+            "value": 3
+          },
+          "expected": "10:00"
+        },
+        {
+          "description": "subtract to previous hour",
+          "property": "subtract",
+          "input": {
+            "hour": 10,
+            "minute": 3,
+            "value": 30
+          },
+          "expected": "09:33"
+        },
+        {
+          "description": "subtract more than an hour",
+          "property": "subtract",
+          "input": {
+            "hour": 10,
+            "minute": 3,
+            "value": 70
+          },
+          "expected": "08:53"
+        },
+        {
+          "description": "subtract across midnight",
+          "property": "subtract",
+          "input": {
+            "hour": 0,
+            "minute": 3,
+            "value": 4
+          },
+          "expected": "23:59"
+        },
+        {
+          "description": "subtract more than two hours",
+          "property": "subtract",
+          "input": {
+            "hour": 0,
+            "minute": 0,
+            "value": 160
+          },
+          "expected": "21:20"
+        },
+        {
+          "description": "subtract more than two hours with borrow",
+          "property": "subtract",
+          "input": {
+            "hour": 6,
+            "minute": 15,
+            "value": 160
+          },
+          "expected": "03:35"
+        },
+        {
+          "description": "subtract more than one day (1500 min = 25 hrs)",
+          "property": "subtract",
+          "input": {
+            "hour": 5,
+            "minute": 32,
+            "value": 1500
+          },
+          "expected": "04:32"
+        },
+        {
+          "description": "subtract more than two days",
+          "property": "subtract",
+          "input": {
+            "hour": 2,
+            "minute": 20,
+            "value": 3000
+          },
+          "expected": "00:20"
+        }
+      ]
+    },
+    {
+      "description": "Compare two clocks for equality",
+      "cases": [
+        {
+          "description": "clocks with same time",
+          "property": "equal",
+          "input": {
+            "clock1": {
+              "hour": 15,
+              "minute": 37
+            },
+            "clock2": {
+              "hour": 15,
+              "minute": 37
+            }
+          },
+          "expected": true
+        },
+        {
+          "description": "clocks a minute apart",
+          "property": "equal",
+          "input": {
+            "clock1": {
+              "hour": 15,
+              "minute": 36
+            },
+            "clock2": {
+              "hour": 15,
+              "minute": 37
+            }
+          },
+          "expected": false
+        },
+        {
+          "description": "clocks an hour apart",
+          "property": "equal",
+          "input": {
+            "clock1": {
+              "hour": 14,
+              "minute": 37
+            },
+            "clock2": {
+              "hour": 15,
+              "minute": 37
+            }
+          },
+          "expected": false
+        },
+        {
+          "description": "clocks with hour overflow",
+          "property": "equal",
+          "input": {
+            "clock1": {
+              "hour": 10,
+              "minute": 37
+            },
+            "clock2": {
+              "hour": 34,
+              "minute": 37
+            }
+          },
+          "expected": true
+        },
+        {
+          "description": "clocks with hour overflow by several days",
+          "property": "equal",
+          "input": {
+            "clock1": {
+              "hour": 3,
+              "minute": 11
+            },
+            "clock2": {
+              "hour": 99,
+              "minute": 11
+            }
+          },
+          "expected": true
+        },
+        {
+          "description": "clocks with negative hour",
+          "property": "equal",
+          "input": {
+            "clock1": {
+              "hour": 22,
+              "minute": 40
+            },
+            "clock2": {
+              "hour": -2,
+              "minute": 40
+            }
+          },
+          "expected": true
+        },
+        {
+          "description": "clocks with negative hour that wraps",
+          "property": "equal",
+          "input": {
+            "clock1": {
+              "hour": 17,
+              "minute": 3
+            },
+            "clock2": {
+              "hour": -31,
+              "minute": 3
+            }
+          },
+          "expected": true
+        },
+        {
+          "description": "clocks with negative hour that wraps multiple times",
+          "property": "equal",
+          "input": {
+            "clock1": {
+              "hour": 13,
+              "minute": 49
+            },
+            "clock2": {
+              "hour": -83,
+              "minute": 49
+            }
+          },
+          "expected": true
+        },
+        {
+          "description": "clocks with minute overflow",
+          "property": "equal",
+          "input": {
+            "clock1": {
+              "hour": 0,
+              "minute": 1
+            },
+            "clock2": {
+              "hour": 0,
+              "minute": 1441
+            }
+          },
+          "expected": true
+        },
+        {
+          "description": "clocks with minute overflow by several days",
+          "property": "equal",
+          "input": {
+            "clock1": {
+              "hour": 2,
+              "minute": 2
+            },
+            "clock2": {
+              "hour": 2,
+              "minute": 4322
+            }
+          },
+          "expected": true
+        },
+        {
+          "description": "clocks with negative minute",
+          "property": "equal",
+          "input": {
+            "clock1": {
+              "hour": 2,
+              "minute": 40
+            },
+            "clock2": {
+              "hour": 3,
+              "minute": -20
+            }
+          },
+          "expected": true
+        },
+        {
+          "description": "clocks with negative minute that wraps",
+          "property": "equal",
+          "input": {
+            "clock1": {
+              "hour": 4,
+              "minute": 10
+            },
+            "clock2": {
+              "hour": 5,
+              "minute": -1490
+            }
+          },
+          "expected": true
+        },
+        {
+          "description": "clocks with negative minute that wraps multiple times",
+          "property": "equal",
+          "input": {
+            "clock1": {
+              "hour": 6,
+              "minute": 15
+            },
+            "clock2": {
+              "hour": 6,
+              "minute": -4305
+            }
+          },
+          "expected": true
+        },
+        {
+          "description": "clocks with negative hours and minutes",
+          "property": "equal",
+          "input": {
+            "clock1": {
+              "hour": 7,
+              "minute": 32
+            },
+            "clock2": {
+              "hour": -12,
+              "minute": -268
+            }
+          },
+          "expected": true
+        },
+        {
+          "description": "clocks with negative hours and minutes that wrap",
+          "property": "equal",
+          "input": {
+            "clock1": {
+              "hour": 18,
+              "minute": 7
+            },
+            "clock2": {
+              "hour": -54,
+              "minute": -11513
+            }
+          },
+          "expected": true
+        }
+      ]
     }
-    if ($c->{equal}) {
-        is int($clock eq $module->new($c->{equal})), $c->{expected},
-                "clock(@{$c->{clock}}) eq clock(@{$c->{equal}}) ($c->{expected})";
-    }
+  ]
 }
