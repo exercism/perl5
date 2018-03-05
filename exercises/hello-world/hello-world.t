@@ -2,13 +2,12 @@
 use strict;
 use warnings;
 use FindBin;
-my $dir;
-use lib $dir = $FindBin::Bin; # Look for the module inside the same directory as this test file.
+use lib $FindBin::Bin; # Look for the module inside the same directory as this test file.
 use JSON::PP;
 
 my $exercise = 'HelloWorld'; # The name of this exercise.
 my $test_version = 1; # The version we will be matching against the exercise.
-use Test::More tests => 4; # This is how many tests we expect to run.
+use Test::More tests => 3; # This is how many tests we expect to run.
 
 use_ok $exercise or BAIL_OUT; # Check that the module can be use-d.
 
@@ -31,26 +30,15 @@ foreach ( qw(hello) ) {
 my $C_DATA = do { local $/; decode_json(<DATA>); };
 is $subs{hello}->($_->{input}), $_->{expected}, $_->{description} foreach @{$C_DATA->{cases}};
 
-# Ignore this for your exercise! Tells Exercism folks when exercise cases become out of date.
-SKIP: {
-  skip '', 1 unless $ENV{EXERCISM};
-  TODO: {
-    local $TODO = 'update canonical-data';
-    is_deeply eval q{
-      use Path::Tiny;
-      decode_json path("$dir/../../problem-specifications/exercises/".path($dir)->basename.'/canonical-data.json')->realpath->slurp;
-    }, $C_DATA, 'canonical-data';
-  }
-}
-
 __DATA__
 {
   "exercise": "hello-world",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "cases": [
     {
       "description": "Say Hi!",
       "property": "hello",
+      "input": {},
       "expected": "Hello, World!"
     }
   ]
