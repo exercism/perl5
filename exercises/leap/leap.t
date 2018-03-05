@@ -2,13 +2,12 @@
 use strict;
 use warnings;
 use FindBin;
-my $dir;
-use lib $dir = $FindBin::Bin; # Look for the module inside the same directory as this test file.
+use lib $FindBin::Bin; # Look for the module inside the same directory as this test file.
 use JSON::PP;
 
 my $exercise = 'Leap'; # The name of this exercise.
 my $test_version = 2; # The version we will be matching against the exercise.
-use Test::More tests => 7; # This is how many tests we expect to run.
+use Test::More tests => 6; # This is how many tests we expect to run.
 
 use_ok $exercise or BAIL_OUT; # Check that the module can be use-d.
 
@@ -29,47 +28,43 @@ foreach ( qw(is_leap) ) {
 }
 
 my $C_DATA = do { local $/; decode_json(<DATA>); };
-is $subs{is_leap}->($_->{input}), $_->{expected}, $_->{description} foreach @{$C_DATA->{cases}};
-
-# Ignore this for your exercise! Tells Exercism folks when exercise cases become out of date.
-SKIP: {
-  skip '', 1 unless $ENV{EXERCISM};
-  TODO: {
-    local $TODO = 'update canonical-data';
-    is_deeply eval q{
-      use Path::Tiny;
-      decode_json path("$dir/../../problem-specifications/exercises/".path($dir)->basename.'/canonical-data.json')->realpath->slurp;
-    }, $C_DATA, 'canonical-data';
-  }
-}
+is $subs{is_leap}->($_->{input}{year}), $_->{expected}, $_->{description} foreach @{$C_DATA->{cases}};
 
 __DATA__
 {
   "exercise": "leap",
-  "version": "1.0.0",
+  "version": "1.3.0",
   "cases": [
     {
       "description": "year not divisible by 4: common year",
       "property": "leapYear",
-      "input": 2015,
+      "input": {
+        "year": 2015
+      },
       "expected": false
     },
     {
       "description": "year divisible by 4, not divisible by 100: leap year",
       "property": "leapYear",
-      "input": 2016,
+      "input": {
+        "year": 1996
+      },
       "expected": true
     },
     {
       "description": "year divisible by 100, not divisible by 400: common year",
       "property": "leapYear",
-      "input": 2100,
+      "input": {
+        "year": 2100
+      },
       "expected": false
     },
     {
       "description": "year divisible by 400: leap year",
       "property": "leapYear",
-      "input": 2000,
+      "input": {
+        "year": 2000
+      },
       "expected": true
     }
   ]
