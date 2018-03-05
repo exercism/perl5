@@ -1,10 +1,10 @@
 exercise: PhoneNumber
-version: 2
-plan: 15
+version: 3
+plan: 16
 subs: clean_number
 tests: |-
   foreach my $subcases (@{$C_DATA->{cases}}) {
-    is $subs{clean_number}->($_->{phrase}), $_->{expected}, $_->{description} foreach @{$subcases->{cases}};
+    is $subs{clean_number}->($_->{input}{phrase}), $_->{expected}, $_->{description} foreach @{$subcases->{cases}};
   }
 
 example: |
