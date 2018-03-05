@@ -2,13 +2,12 @@
 use strict;
 use warnings;
 use FindBin;
-my $dir;
-use lib $dir = $FindBin::Bin;
+use lib $FindBin::Bin;
 use JSON::PP;
 
 my $exercise = 'Luhn';
 my $test_version = 2;
-use Test::More tests => 16;
+use Test::More tests => 15;
 
 use_ok $exercise or BAIL_OUT;
 
@@ -27,100 +26,115 @@ foreach ( qw(is_luhn_valid) ) {
 }
 
 my $C_DATA = do { local $/; decode_json(<DATA>); };
-is $subs{is_luhn_valid}->($_->{input}), $_->{expected}, $_->{description} foreach @{$C_DATA->{cases}};
-
-SKIP: {
-  skip '', 1 unless $ENV{EXERCISM};
-  TODO: {
-    local $TODO = 'update canonical-data';
-    is_deeply eval q{
-      use Path::Tiny;
-      decode_json path("$dir/../../problem-specifications/exercises/".path($dir)->basename.'/canonical-data.json')->realpath->slurp;
-    }, $C_DATA, 'canonical-data';
-  }
-}
+is $subs{is_luhn_valid}->($_->{input}{value}), $_->{expected}, $_->{description} foreach @{$C_DATA->{cases}};
 
 __DATA__
 {
   "exercise": "luhn",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "cases": [
     {
       "description": "single digit strings can not be valid",
       "property": "valid",
-      "input": "1",
+      "input": {
+        "value": "1"
+      },
       "expected": false
     },
     {
-      "description": "A single zero is invalid",
+      "description": "a single zero is invalid",
       "property": "valid",
-      "input": "0",
+      "input": {
+        "value": "0"
+      },
       "expected": false
     },
     {
       "description": "a simple valid SIN that remains valid if reversed",
       "property": "valid",
-      "input": "059",
+      "input": {
+        "value": "059"
+      },
       "expected": true
     },
     {
       "description": "a simple valid SIN that becomes invalid if reversed",
       "property": "valid",
-      "input": "59",
+      "input": {
+        "value": "59"
+      },
       "expected": true
     },
     {
       "description": "a valid Canadian SIN",
       "property": "valid",
-      "input": "055 444 285",
+      "input": {
+        "value": "055 444 285"
+      },
       "expected": true
     },
     {
       "description": "invalid Canadian SIN",
       "property": "valid",
-      "input": "055 444 286",
+      "input": {
+        "value": "055 444 286"
+      },
       "expected": false
     },
     {
       "description": "invalid credit card",
       "property": "valid",
-      "input": "8273 1232 7352 0569",
+      "input": {
+        "value": "8273 1232 7352 0569"
+      },
       "expected": false
     },
     {
       "description": "valid strings with a non-digit included become invalid",
       "property": "valid",
-      "input": "055a 444 285",
+      "input": {
+        "value": "055a 444 285"
+      },
       "expected": false
     },
     {
       "description": "valid strings with punctuation included become invalid",
       "property": "valid",
-      "input": "055-444-285",
+      "input": {
+        "value": "055-444-285"
+      },
       "expected": false
     },
     {
       "description": "valid strings with symbols included become invalid",
       "property": "valid",
-      "input": "055£ 444$ 285",
+      "input": {
+        "value": "055£ 444$ 285"
+      },
       "expected": false
     },
     {
       "description": "single zero with space is invalid",
       "property": "valid",
-      "input": " 0",
+      "input": {
+        "value": " 0"
+      },
       "expected": false
     },
     {
       "description": "more than a single zero is valid",
       "property": "valid",
-      "input": "0000 0",
+      "input": {
+        "value": "0000 0"
+      },
       "expected": true
     },
     {
       "description": "input digit 9 is correctly converted to output digit 9",
       "property": "valid",
-      "input": "091",
+      "input": {
+        "value": "091"
+      },
       "expected": true
     }
   ]

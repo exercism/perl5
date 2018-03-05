@@ -1,9 +1,9 @@
 exercise: Luhn
 version: 2
-plan: 16
+plan: 15
 subs: is_luhn_valid
 tests: |-
-  is $subs{is_luhn_valid}->($_->{input}), $_->{expected}, $_->{description} foreach @{$C_DATA->{cases}};
+  is $subs{is_luhn_valid}->($_->{input}{value}), $_->{expected}, $_->{description} foreach @{$C_DATA->{cases}};
 
 example: |-
   sub is_luhn_valid {
