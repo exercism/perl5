@@ -20,9 +20,9 @@ ok !$@, "Cannot load $module" or BAIL_OUT "Cannot load $module. Does it compile?
 can_ok $module, "new"    or BAIL_OUT "Missing package $module, or missing sub new()";
 can_ok $module, "largest_product" or BAIL_OUT "Missing package $module, or missing sub largest_product()";
 
-throws_ok { $module->new('012')->largest_product(4) } qr/ArgumentError/, "slice length longer than digits legth throws exception (largest_product)";
+throws_ok { $module->new('012')->largest_product(4) } qr/ArgumentError/, "slice length longer than digits length throws exception (largest_product)";
 
-is $module->new('0123456789')->largest_product(2), 72, "largest  product of 2";
+is $module->new('0123456789')->largest_product(2), 72, "largest product of 2";
 is $module->new('19')->largest_product(2), 9, "largest product of 2 on a tiny number";
 is $module->new('1027839564')->largest_product(3), 270, "largest product of 3";
 is $module->new('52677741234314237566414902593461595376319419139427')->largest_product(6), 28350, "largest product of 6";
