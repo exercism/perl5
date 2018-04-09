@@ -1,4 +1,4 @@
-package Clock 1;
+package Clock 2;
 use strict;
 use warnings;
 

@@ -1,15 +1,14 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
+use JSON::PP;
 use FindBin;
 use lib $FindBin::Bin;
-use JSON::PP;
+use PhoneNumber qw(clean_number);
 
 my $exercise = 'PhoneNumber';
-my $test_version = 3;
-use Test::More tests => 16;
-
-use_ok $exercise or BAIL_OUT;
+my $test_version = 4;
+use Test::More tests => 15;
 
 my $exercise_version = $exercise->VERSION // 0;
 if ($exercise_version != $test_version) {
@@ -19,15 +18,11 @@ if ($exercise_version != $test_version) {
   BAIL_OUT if $ENV{EXERCISM};
 }
 
-my %subs;
-foreach ( qw(clean_number) ) {
-  can_ok $exercise, $_;
-  $subs{$_} = $exercise->can($_);
-}
+can_ok $exercise, 'import' or BAIL_OUT 'Cannot import subroutines from module';
 
 my $C_DATA = do { local $/; decode_json(<DATA>); };
 foreach my $subcases (@{$C_DATA->{cases}}) {
-  is $subs{clean_number}->($_->{input}{phrase}), $_->{expected}, $_->{description} foreach @{$subcases->{cases}};
+  is clean_number($_->{input}{phrase}), $_->{expected}, $_->{description} foreach @{$subcases->{cases}};
 }
 
 __DATA__

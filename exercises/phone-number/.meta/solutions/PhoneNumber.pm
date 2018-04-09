@@ -1,6 +1,8 @@
-package PhoneNumber 3;
+package PhoneNumber 4;
 use strict;
 use warnings;
+use Exporter 'import';
+our @EXPORT_OK = qw(clean_number);
 
 sub clean_number {
   my ($number) = @_;

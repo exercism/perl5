@@ -1,15 +1,14 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
+use JSON::PP;
 use FindBin;
 use lib $FindBin::Bin; # Look for the module inside the same directory as this test file.
-use JSON::PP;
+use Bob qw(hey);
 
 my $exercise = 'Bob'; # The name of this exercise.
-my $test_version = 3; # The version we will be matching against the exercise.
-use Test::More tests => 27; # This is how many tests we expect to run.
-
-use_ok $exercise or BAIL_OUT; # Check that the module can be use-d.
+my $test_version = 4; # The version we will be matching against the exercise.
+use Test::More tests => 26; # This is how many tests we expect to run.
 
 # If the exercise is updated, we want to make sure other people testing
 # your code don't think you've made a mistake if things have changed!
@@ -21,14 +20,10 @@ if ($exercise_version != $test_version) {
   BAIL_OUT if $ENV{EXERCISM};
 }
 
-my %subs;
-foreach ( qw(hey) ) {
-  can_ok $exercise, $_;
-  $subs{$_} = $exercise->can($_);
-}
+can_ok $exercise, 'import' or BAIL_OUT 'Cannot import subroutines from module';
 
 my $C_DATA = do { local $/; decode_json(<DATA>); };
-is $subs{hey}->($_->{input}{heyBob}), $_->{expected}, $_->{description} foreach @{$C_DATA->{cases}};
+is hey($_->{input}{heyBob}), $_->{expected}, $_->{description} foreach @{$C_DATA->{cases}};
 
 __DATA__
 {
