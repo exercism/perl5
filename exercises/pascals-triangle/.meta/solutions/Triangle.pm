@@ -3,6 +3,7 @@ package Triangle;
 use strict;
 use warnings;
 use 5.010; # use smart_match ~~
+no if $] >= 5.018, warnings => 'experimental';
 
 sub triangle {
     my $size = shift;
