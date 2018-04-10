@@ -3,6 +3,7 @@ package PigLatin;
 use v5.10.1;
 use strict;
 use warnings;
+no if $] >= 5.018, warnings => 'experimental';
 
 sub translate {
     my $original = shift;

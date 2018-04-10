@@ -2,6 +2,7 @@ package FoodChainSong;
 
 use strict;
 use warnings;
+no if $] >= 5.018, warnings => 'experimental';
 
 use feature qw(switch);
 
