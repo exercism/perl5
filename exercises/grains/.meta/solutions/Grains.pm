@@ -1,29 +1,21 @@
-package Grains;
-
+package Grains 1;
 use strict;
 use warnings;
+use Exporter 'import';
+our @EXPORT_OK = qw(grains_on_square total_grains);
 
-use bigint;
-use List::Util qw(sum);
-
-sub square {
-    (get_square($_[0]))[-1]
+sub grains_on_square {
+  my ($square) = @_;
+  if ($square < 1 || $square > 64) {
+    die 'invalid square';
+  }
+  return int 2 ** ($square - 1);
 }
 
-sub get_square {
-    my $n = shift;
-    
-    return 1 if $n == 1;
-
-    my @squares = qw(1);
-
-    push @squares => $squares[-1]*2 for 2..$n;
-    
-    return @squares;
+sub total_grains {
+  my $sum;
+  map {$sum += grains_on_square($_)} 1..64;
+  return $sum;
 }
 
-sub total  {
-    sum 0, get_square(64);
-}
-
-__PACKAGE__;
+1;
