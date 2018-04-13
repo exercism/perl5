@@ -1,7 +1,9 @@
 {{#package_comment}}{{&package_comment}}
 {{/package_comment}}package {{&exercise}} {{&version}};
 use strict;
-use warnings;{{#module_file}}
+use warnings;{{#subs}}
+use Exporter 'import';
+our @EXPORT_OK = qw({{&subs}});{{/subs}}{{#module_file}}
 
 {{&module_file}}{{/module_file}}
 

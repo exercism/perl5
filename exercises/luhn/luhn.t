@@ -1,15 +1,14 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
+use JSON::PP;
 use FindBin;
 use lib $FindBin::Bin;
-use JSON::PP;
+use Luhn qw(is_luhn_valid);
 
 my $exercise = 'Luhn';
-my $test_version = 2;
-use Test::More tests => 15;
-
-use_ok $exercise or BAIL_OUT;
+my $test_version = 3;
+use Test::More tests => 14;
 
 my $exercise_version = $exercise->VERSION // 0;
 if ($exercise_version != $test_version) {
@@ -19,14 +18,10 @@ if ($exercise_version != $test_version) {
   BAIL_OUT if $ENV{EXERCISM};
 }
 
-my %subs;
-foreach ( qw(is_luhn_valid) ) {
-  can_ok $exercise, $_;
-  $subs{$_} = $exercise->can($_);
-}
+can_ok $exercise, 'import' or BAIL_OUT 'Cannot import subroutines from module';
 
 my $C_DATA = do { local $/; decode_json(<DATA>); };
-is $subs{is_luhn_valid}->($_->{input}{value}), $_->{expected}, $_->{description} foreach @{$C_DATA->{cases}};
+is is_luhn_valid($_->{input}{value}), $_->{expected}, $_->{description} foreach @{$C_DATA->{cases}};
 
 __DATA__
 {

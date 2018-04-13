@@ -1,16 +1,16 @@
 exercise: Clock
-version: 1
-plan: 57
-subs: new time add_minutes subtract_minutes
+version: 2
+plan: 53
+methods: new time add_minutes subtract_minutes
 tests: |-
   foreach (@{$C_DATA->{cases}}) {
     foreach (@{$_->{cases}}) {
       if ($_->{property} eq 'create') {
-        is Clock->new($_->{input})->time, $_->{expected}, $_->{description};
+        is($exercise->new($_->{input})->time, $_->{expected}, $_->{description});
       }
 
       elsif ($_->{property} eq 'add' || $_->{property} eq 'subtract') {
-        my $clock = Clock->new({
+        my $clock = $exercise->new({
           hour   => $_->{input}{hour},
           minute => $_->{input}{minute},
         });
@@ -21,13 +21,13 @@ tests: |-
 
       elsif ($_->{property} eq 'equal') {
         ok $_->{expected} ==
-          (Clock->new($_->{input}{clock1})->time eq Clock->new($_->{input}{clock2})->time), $_->{description};
+          ($exercise->new($_->{input}{clock1})->time eq $exercise->new($_->{input}{clock2})->time), $_->{description};
       }
     }
   }
 
-  is Clock->new({hour => 0, minute => 0})->add_minutes(65)->time, '01:05', 'add_minutes method can be chained';
-  is Clock->new({hour => 0, minute => 0})->subtract_minutes(65)->time, '22:55', 'subtract_minutes method can be chained';
+  is($exercise->new({hour => 0, minute => 0})->add_minutes(65)->time, '01:05', 'add_minutes method can be chained');
+  is($exercise->new({hour => 0, minute => 0})->subtract_minutes(65)->time, '22:55', 'subtract_minutes method can be chained');
   
 stub: |-
   sub new {
