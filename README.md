@@ -9,8 +9,9 @@ Exercism exercises in Perl 5
 The tests depend on the following modules:
 
     DateTime
-    Test::Exception
     List::MoreUtils
+    Test::Exception
+    Test::Fatal
     Path::Tiny (for generator tests)
     Template::Mustache (for generator tests)
     YAML (for generator tests)

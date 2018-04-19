@@ -1,94 +1,155 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-
-use Test::More;
 use JSON::PP;
-use bigint;
 use FindBin;
-my $dir;
-BEGIN { $dir = $FindBin::Bin . '/' };
-use lib $dir;
+use lib $FindBin::Bin;
+use Grains qw(grains_on_square total_grains);
 
-my $cases;
-my $decoder = JSON::PP->new();
-$decoder->allow_bignum(1);
+my $exercise = 'Grains';
+my $test_version = 1;
+use Test::More tests => 12;
 
-{
-    local $/ = undef;
-    $cases = $decoder->decode( scalar <DATA> );
+my $exercise_version = $exercise->VERSION // 0;
+if ($exercise_version != $test_version) {
+  warn "\nExercise version mismatch. Further tests may fail!"
+    . "\n$exercise is v$exercise_version. "
+    . "Test is v$test_version.\n";
+  BAIL_OUT if $ENV{EXERCISM};
 }
 
-plan tests => 4 + @$cases;
+can_ok $exercise, 'import' or BAIL_OUT 'Cannot import subroutines from module';
 
-my $module = 'Grains';
+my $C_DATA = do { local $/; decode_json(<DATA>); };
+my @exception_cases;
 
-ok -e "${dir}${module}.pm", "Missing $module.pm" or BAIL_OUT "You need to create a class called $module.pm";
-
-use_ok($module)
-    or BAIL_OUT "Does $module.pm compile? Does it end with 1;?";
-
-can_ok $module, "square" or BAIL_OUT "Missing package $module; or missing sub square()";
-can_ok $module, "total"  or BAIL_OUT "Missing package $module; or missing sub total()";
-
-foreach my $c (@$cases) {
-    my $sub = $module->can( $c->{sub} );
-
-    if ($c->{sub} eq 'square') {
-        cmp_ok $sub->($c->{input}), '==', 0 + $c->{expected}, $c->{name};
+foreach (@{$C_DATA->{cases}}) {
+  if (exists $_->{cases}) {
+    foreach my $case (@{$_->{cases}}) {
+      if ($case->{property} eq 'square') {
+        if ($case->{expected} == -1) {
+          push @exception_cases, $case;
+        }
+        else {
+          is grains_on_square($case->{input}{square}), $case->{expected}, 'square no. ' . $case->{description};
+        }
+      }
     }
-    if ($c->{sub} eq 'total') {
-        cmp_ok $sub->(), '==', 0 + $c->{expected}, $c->{name};
-    }
+  }
+  elsif ($_->{property} eq 'total') {
+    is total_grains(), $_->{expected}, $_->{description};
+  }
+}
+
+SKIP: {
+  eval { require Test::Fatal };
+  skip 'Test::Fatal not loaded', scalar @exception_cases if $@;
+  eval q{
+    use Test::Fatal qw(dies_ok);
+    dies_ok {grains_on_square($_->{input}{square})} $_->{description} foreach @exception_cases;
+  };
 }
 
 __DATA__
-[
+{
+  "exercise": "grains",
+  "version": "1.1.0",
+  "comments": [
+    "The final tests of square test error conditions",
+    "The expectation for these tests is -1, indicating an error",
+    "In these cases you should expect an error as is idiomatic for your language"
+  ],
+  "cases": [
     {
-        "sub"      : "square",
-        "input"    : 1,
-        "expected" : 1,
-        "name"     : "test square 1"
+      "description": "returns the number of grains on the square",
+      "cases": [
+        {
+          "description": "1",
+          "property": "square",
+          "input": {
+            "square": 1
+          },
+          "expected": 1
+        },
+        {
+          "description": "2",
+          "property": "square",
+          "input": {
+            "square": 2
+          },
+          "expected": 2
+        },
+        {
+          "description": "3",
+          "property": "square",
+          "input": {
+            "square": 3
+          },
+          "expected": 4
+        },
+        {
+          "description": "4",
+          "property": "square",
+          "input": {
+            "square": 4
+          },
+          "expected": 8
+        },
+        {
+          "description": "16",
+          "property": "square",
+          "input": {
+            "square": 16
+          },
+          "expected": 32768
+        },
+        {
+          "description": "32",
+          "property": "square",
+          "input": {
+            "square": 32
+          },
+          "expected": 2147483648
+        },
+        {
+          "description": "64",
+          "property": "square",
+          "input": {
+            "square": 64
+          },
+          "expected": 9223372036854775808
+        },
+        {
+          "description": "square 0 raises an exception",
+          "property": "square",
+          "input": {
+            "square": 0
+          },
+          "expected": -1
+        },
+        {
+          "description": "negative square raises an exception",
+          "property": "square",
+          "input": {
+            "square": -1
+          },
+          "expected": -1
+        },
+        {
+          "description": "square greater than 64 raises an exception",
+          "property": "square",
+          "input": {
+            "square": 65
+          },
+          "expected": -1
+        }
+      ]
     },
     {
-        "sub"      : "square",
-        "input"    : 2,
-        "expected" : 2,
-        "name"     : "test square 2"
-    },
-    {
-        "sub"      : "square",
-        "input"    : 3,
-        "expected" : 4,
-        "name"     : "test square 3"
-    },
-    {
-        "sub"      : "square",
-        "input"    : 4,
-        "expected" : 8,
-        "name"     : "test square 4"
-    },
-    {
-        "sub"      : "square",
-        "input"    : 16,
-        "expected" : 32768,
-        "name"     : "test square 16"
-    },
-    {
-        "sub"      : "square",
-        "input"    : 32,
-        "expected" : 2147483648,
-        "name"     : "test square 32"
-    },
-    {
-        "sub"      : "square",
-        "input"    : 64,
-        "expected" : 9223372036854775808,
-        "name"     : "test square 64"
-    },
-    {
-        "sub"      : "total",
-        "expected" : 18446744073709551615,
-        "name"     : "test total"
+      "description": "returns the total number of grains on the board",
+      "property": "total",
+      "input": {},
+      "expected": 18446744073709551615
     }
-]
+  ]
+}
