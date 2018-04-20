@@ -1,18 +1,19 @@
-package Raindrops;
+package Raindrops 1;
 use strict;
 use warnings;
+use Exporter 'import';
+our @EXPORT_OK = qw(raindrop);
 
-sub convert {
-   my ($num) = @_;
-
-   my $str = '';
-   $str .= "Pling" if $num / 3 == int($num / 3);
-   $str .= "Plang" if $num / 5 == int($num / 5);
-   $str .= "Plong" if $num / 7 == int($num / 7);
-   return $str if $str;
-
-   return $num;
+sub raindrop {
+  my ($num) = @_;
+  my %sounds = (Pling => 3, Plang => 5, Plong => 7);
+  my $str = '';
+  foreach (qw(Pling Plang Plong)) {
+    if ($num % $sounds{$_} == 0) {
+      $str .= $_;
+    }
+  }
+  return $str || $num;
 }
 
 1;
-
