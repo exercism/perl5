@@ -1,123 +1,178 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-
-use Test::More;
-use JSON::PP qw(decode_json);
+use JSON::PP;
 use FindBin;
-my $dir;
-BEGIN { $dir = $FindBin::Bin . '/' };
-use lib $dir;
+use lib $FindBin::Bin;
+use Raindrops qw(raindrop);
 
-my $module = 'Raindrops';
+my $exercise = 'Raindrops';
+my $test_version = 1;
+use Test::More tests => 19;
 
-my $cases;
-{
-    local $/ = undef;
-    $cases = decode_json scalar <DATA>;
+my $exercise_version = $exercise->VERSION // 0;
+if ($exercise_version != $test_version) {
+  warn "\nExercise version mismatch. Further tests may fail!"
+    . "\n$exercise is v$exercise_version. "
+    . "Test is v$test_version.\n";
+  BAIL_OUT if $ENV{EXERCISM};
 }
 
-#plan tests => 3 + @$cases;
-#diag explain $cases;
+can_ok $exercise, 'import' or BAIL_OUT 'Cannot import subroutines from module';
 
-ok -e "${dir}${module}.pm", "missing $module.pm"
-    or BAIL_OUT("You need to create a class called $module.pm with a constructor called convert.");
-
-eval "use $module";
-ok !$@, "Cannot load $module.pm"
-    or BAIL_OUT("Does $module.pm compile?  Does it end with 1; ? ($@)");
-
-can_ok($module, 'convert') or BAIL_OUT("Missing package $module; or missing sub convert()");
-
-my $sub = $module->can('convert');
-
-foreach my $c (@$cases) {
-    is $sub->($c->{input}), $c->{expected}, $c->{name}
+my $C_DATA = do { local $/; decode_json(<DATA>); };
+foreach (@{$C_DATA->{cases}}) {
+  is raindrop($_->{input}{number}), $_->{expected}, $_->{description};
 }
-
-done_testing();
 
 __DATA__
-[
-  {
-    "input"    : 1,
-    "expected" : 1,
-    "name"     : "test_1"
-  },
-  {
-    "input"    : 3,
-    "expected" : "Pling",
-    "name"     : "test_3"
-  },
-  {
-    "input"    : 5,
-    "expected" : "Plang",
-    "name"     : "test_5"
-  },
-  {
-    "input"    : 7,
-    "expected" : "Plong",
-    "name"     : "test_7"
-  },
-  {
-    "input"    : 6,
-    "expected" : "Pling",
-    "name"     : "test_6"
-  },
-  {
-    "input"    : 9,
-    "expected" : "Pling",
-    "name"     : "test_9"
-  },
-  {
-    "input"    : 10,
-    "expected" : "Plang",
-    "name"     : "test_10"
-  },
-  {
-    "input"    : 14,
-    "expected" : "Plong",
-    "name"     : "test_14"
-  },
-  {
-    "input"    : 15,
-    "expected" : "PlingPlang",
-    "name"     : "test_15"
-  },
-  {
-    "input"    : 21,
-    "expected" : "PlingPlong",
-    "name"     : "test_21"
-  },
-  {
-    "input"    : 25,
-    "expected" : "Plang",
-    "name"     : "test_25"
-  },
-  {
-    "input"    : 35,
-    "expected" : "PlangPlong",
-    "name"     : "test_35"
-  },
-  {
-    "input"    : 49,
-    "expected" : "Plong",
-    "name"     : "test_49"
-  },
-  {
-    "input"    : 52,
-    "expected" : 52,
-    "name"     : "test_52"
-  },
-  {
-    "input"    : 105,
-    "expected" : "PlingPlangPlong",
-    "name"     : "test_105"
-  },
-  {
-    "input"    : 12121,
-    "expected" : 12121,
-    "name"     : "test_12121"
-  }
-]
-
+{
+  "exercise": "raindrops",
+  "version": "1.1.0",
+  "cases": [
+    {
+      "description": "the sound for 1 is 1",
+      "property": "convert",
+      "input": {
+        "number": 1
+      },
+      "expected": "1"
+    },
+    {
+      "description": "the sound for 3 is Pling",
+      "property": "convert",
+      "input": {
+        "number": 3
+      },
+      "expected": "Pling"
+    },
+    {
+      "description": "the sound for 5 is Plang",
+      "property": "convert",
+      "input": {
+        "number": 5
+      },
+      "expected": "Plang"
+    },
+    {
+      "description": "the sound for 7 is Plong",
+      "property": "convert",
+      "input": {
+        "number": 7
+      },
+      "expected": "Plong"
+    },
+    {
+      "description": "the sound for 6 is Pling as it has a factor 3",
+      "property": "convert",
+      "input": {
+        "number": 6
+      },
+      "expected": "Pling"
+    },
+    {
+      "description": "2 to the power 3 does not make a raindrop sound as 3 is the exponent not the base",
+      "property": "convert",
+      "input": {
+        "number": 8
+      },
+      "expected": "8"
+    },
+    {
+      "description": "the sound for 9 is Pling as it has a factor 3",
+      "property": "convert",
+      "input": {
+        "number": 9
+      },
+      "expected": "Pling"
+    },
+    {
+      "description": "the sound for 10 is Plang as it has a factor 5",
+      "property": "convert",
+      "input": {
+        "number": 10
+      },
+      "expected": "Plang"
+    },
+    {
+      "description": "the sound for 14 is Plong as it has a factor of 7",
+      "property": "convert",
+      "input": {
+        "number": 14
+      },
+      "expected": "Plong"
+    },
+    {
+      "description": "the sound for 15 is PlingPlang as it has factors 3 and 5",
+      "property": "convert",
+      "input": {
+        "number": 15
+      },
+      "expected": "PlingPlang"
+    },
+    {
+      "description": "the sound for 21 is PlingPlong as it has factors 3 and 7",
+      "property": "convert",
+      "input": {
+        "number": 21
+      },
+      "expected": "PlingPlong"
+    },
+    {
+      "description": "the sound for 25 is Plang as it has a factor 5",
+      "property": "convert",
+      "input": {
+        "number": 25
+      },
+      "expected": "Plang"
+    },
+    {
+      "description": "the sound for 27 is Pling as it has a factor 3",
+      "property": "convert",
+      "input": {
+        "number": 27
+      },
+      "expected": "Pling"
+    },
+    {
+      "description": "the sound for 35 is PlangPlong as it has factors 5 and 7",
+      "property": "convert",
+      "input": {
+        "number": 35
+      },
+      "expected": "PlangPlong"
+    },
+    {
+      "description": "the sound for 49 is Plong as it has a factor 7",
+      "property": "convert",
+      "input": {
+        "number": 49
+      },
+      "expected": "Plong"
+    },
+    {
+      "description": "the sound for 52 is 52",
+      "property": "convert",
+      "input": {
+        "number": 52
+      },
+      "expected": "52"
+    },
+    {
+      "description": "the sound for 105 is PlingPlangPlong as it has factors 3, 5 and 7",
+      "property": "convert",
+      "input": {
+        "number": 105
+      },
+      "expected": "PlingPlangPlong"
+    },
+    {
+      "description": "the sound for 3125 is Plang as it has a factor 5",
+      "property": "convert",
+      "input": {
+        "number": 3125
+      },
+      "expected": "Plang"
+    }
+  ]
+}
