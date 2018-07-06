@@ -1,9 +1,9 @@
 exercise: Leap
-version: 3
+version: 4
 plan: 5
 subs: is_leap
 tests: |-
-  is is_leap($_->{input}{year}), $_->{expected}, $_->{description} foreach @{$C_DATA->{cases}};
+  ok !(is_leap($_->{input}{year}) xor $_->{expected}), $_->{description} foreach @{$C_DATA->{cases}};
 
 exercise_comment: '# The name of this exercise.'
 version_comment: '# The version we will be matching against the exercise.'
@@ -17,9 +17,7 @@ version_test_comment: |-
 example: |-
   sub is_leap {
     my $year = shift;
-    divisible_by($year, 400)
-      or divisible_by($year, 4) and !divisible_by($year, 100)
-      ? 1 : 0;
+    divisible_by($year, 400) or divisible_by($year, 4) and !divisible_by($year, 100);
   }
 
   sub divisible_by {
