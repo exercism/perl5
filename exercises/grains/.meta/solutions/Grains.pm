@@ -1,4 +1,4 @@
-package Grains 1;
+package Grains;
 use strict;
 use warnings;
 use Exporter 'import';

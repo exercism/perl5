@@ -1,5 +1,5 @@
-# Declare package 'Bob' with version
-package Bob 4;
+# Declare package 'Bob'
+package Bob;
 use strict;
 use warnings;
 use Exporter 'import';

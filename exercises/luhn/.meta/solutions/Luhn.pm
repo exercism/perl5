@@ -1,4 +1,4 @@
-package Luhn 3;
+package Luhn;
 use strict;
 use warnings;
 use Exporter 'import';

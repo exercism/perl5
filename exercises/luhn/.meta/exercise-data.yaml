@@ -1,5 +1,4 @@
 exercise: Luhn
-version: 3
 plan: 14
 subs: is_luhn_valid
 tests: |-
