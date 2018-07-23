@@ -1,23 +1,13 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
+use Test::More tests => 53;
 use JSON::PP;
 use FindBin;
 use lib $FindBin::Bin;
 use Clock ();
 
 my $exercise = 'Clock';
-my $test_version = 2;
-use Test::More tests => 53;
-
-my $exercise_version = $exercise->VERSION // 0;
-if ($exercise_version != $test_version) {
-  warn "\nExercise version mismatch. Further tests may fail!"
-    . "\n$exercise is v$exercise_version. "
-    . "Test is v$test_version.\n";
-  BAIL_OUT if $ENV{EXERCISM};
-}
-
 can_ok $exercise, qw(new time add_minutes subtract_minutes);
 
 my $C_DATA = do { local $/; decode_json(<DATA>); };

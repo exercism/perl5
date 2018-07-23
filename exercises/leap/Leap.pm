@@ -1,5 +1,5 @@
-# Declare package 'Leap' with version
-package Leap 4;
+# Declare package 'Leap'
+package Leap;
 use strict;
 use warnings;
 use Exporter 'import';

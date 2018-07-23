@@ -1,18 +1,13 @@
 exercise: Leap
-version: 4
 plan: 5
 subs: is_leap
 tests: |-
   ok !(is_leap($_->{input}{year}) xor $_->{expected}), $_->{description} foreach @{$C_DATA->{cases}};
 
 exercise_comment: '# The name of this exercise.'
-version_comment: '# The version we will be matching against the exercise.'
 lib_comment: '# Look for the module inside the same directory as this test file.'
 plan_comment: '# This is how many tests we expect to run.'
 use_test_comment: '# Check that the module can be use-d.'
-version_test_comment: |-
-  # If the exercise is updated, we want to make sure other people testing
-  # your code don't think you've made a mistake if things have changed!
 
 example: |-
   sub is_leap {
@@ -30,4 +25,4 @@ stub: |-
     # Remove the comments and write some code here to pass the test suite.
   }
 
-package_comment: "# Declare package 'Leap' with version"
+package_comment: "# Declare package 'Leap'"

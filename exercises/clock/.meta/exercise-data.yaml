@@ -1,5 +1,4 @@
 exercise: Clock
-version: 2
 plan: 53
 methods: new time add_minutes subtract_minutes
 tests: |-

@@ -1,26 +1,14 @@
 #!/usr/bin/env perl
 use strict;
-use warnings;{{#cdata}}
+use warnings;
+use Test::More{{#plan}} tests => {{&plan}}{{/plan}};{{#plan_comment}} {{&plan_comment}}{{/plan_comment}}{{#cdata}}
 use JSON::PP;{{/cdata}}
 use FindBin;
 use lib $FindBin::Bin;{{#lib_comment}} {{&lib_comment}}{{/lib_comment}}
 use {{&exercise}} {{#subs}}qw{{/subs}}({{&subs}});{{#modules}}
 use {{&use}};{{/modules}}
 
-my $exercise{{#exercise}} = '{{&exercise}}'{{/exercise}};{{#exercise_comment}} {{&exercise_comment}}{{/exercise_comment}}
-my $test_version{{#version}} = {{&version}}{{/version}};{{#version_comment}} {{&version_comment}}{{/version_comment}}
-use Test::More{{#plan}} tests => {{&plan}}{{/plan}};{{#plan_comment}} {{&plan_comment}}{{/plan_comment}}
-{{#version_test_comment}}
-{{&version_test_comment}}{{/version_test_comment}}
-my $exercise_version = $exercise->VERSION // 0;
-if ($exercise_version != $test_version) {
-  warn "\nExercise version mismatch. Further tests may fail!"
-    . "\n$exercise is v$exercise_version. "
-    . "Test is v$test_version.\n";
-  BAIL_OUT if $ENV{EXERCISM};
-}
-{{#subs}}
-
+my $exercise{{#exercise}} = '{{&exercise}}'{{/exercise}};{{#exercise_comment}} {{&exercise_comment}}{{/exercise_comment}}{{#subs}}
 can_ok $exercise, 'import' or BAIL_OUT 'Cannot import subroutines from module';{{/subs}}{{#methods}}
 can_ok $exercise, qw({{&methods}});{{/methods}}{{#cdata}}
 

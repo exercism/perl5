@@ -1,23 +1,13 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
+use Test::More tests => 15;
 use JSON::PP;
 use FindBin;
 use lib $FindBin::Bin;
 use PhoneNumber qw(clean_number);
 
 my $exercise = 'PhoneNumber';
-my $test_version = 4;
-use Test::More tests => 15;
-
-my $exercise_version = $exercise->VERSION // 0;
-if ($exercise_version != $test_version) {
-  warn "\nExercise version mismatch. Further tests may fail!"
-    . "\n$exercise is v$exercise_version. "
-    . "Test is v$test_version.\n";
-  BAIL_OUT if $ENV{EXERCISM};
-}
-
 can_ok $exercise, 'import' or BAIL_OUT 'Cannot import subroutines from module';
 
 my $C_DATA = do { local $/; decode_json(<DATA>); };

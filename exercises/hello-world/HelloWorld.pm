@@ -1,5 +1,5 @@
-# Declare package 'HelloWorld' with version
-package HelloWorld 2;
+# Declare package 'HelloWorld'
+package HelloWorld;
 use strict;
 use warnings;
 use Exporter 'import';

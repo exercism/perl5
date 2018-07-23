@@ -1,5 +1,4 @@
 exercise: PhoneNumber
-version: 4
 plan: 15
 subs: clean_number
 tests: |-
