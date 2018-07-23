@@ -1,13 +1,13 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
+use Test::More tests => 19;
 use JSON::PP;
 use FindBin;
 use lib $FindBin::Bin;
 use Raindrops qw(raindrop);
 
 my $exercise = 'Raindrops';
-use Test::More tests => 19;
 
 can_ok $exercise, 'import' or BAIL_OUT 'Cannot import subroutines from module';
 

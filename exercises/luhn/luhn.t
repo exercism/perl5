@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
+use Test::More tests => 14;
 use JSON::PP;
 use FindBin;
 use lib $FindBin::Bin;

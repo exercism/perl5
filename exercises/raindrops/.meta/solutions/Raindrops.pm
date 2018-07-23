@@ -1,4 +1,4 @@
-package Raindrops 1;
+package Raindrops;
 use strict;
 use warnings;
 use Exporter 'import';

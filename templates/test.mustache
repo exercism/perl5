@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 use strict;
-use warnings;{{#cdata}}
+use warnings;
+use Test::More{{#plan}} tests => {{&plan}}{{/plan}};{{#plan_comment}} {{&plan_comment}}{{/plan_comment}}{{#cdata}}
 use JSON::PP;{{/cdata}}
 use FindBin;
 use lib $FindBin::Bin;{{#lib_comment}} {{&lib_comment}}{{/lib_comment}}
