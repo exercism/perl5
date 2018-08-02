@@ -1,8 +1,14 @@
 exercise: HelloWorld
 plan: 2
+ignore_cdata: true
 subs: hello
 tests: |-
-  is hello($_->{input}), $_->{expected}, $_->{description} foreach @{$C_DATA->{cases}};
+  # Run the 'is' subroutine from the 'Test::More' module, with three arguments.
+  is(
+    hello,           # Run the 'hello' subroutine, which is imported from your module.
+    'Hello, World!', # The expected result to compare with 'hello'.
+    'Say Hi!'        # The test description.
+  );
 
 exercise_comment: '# The name of this exercise.'
 lib_comment: '# Look for the module inside the same directory as this test file.'
