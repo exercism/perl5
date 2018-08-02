@@ -7,8 +7,7 @@ use FindBin;
 use lib $FindBin::Bin; # Look for the module inside the same directory as this test file.
 use Bob qw(hey);
 
-my $exercise = 'Bob'; # The name of this exercise.
-can_ok $exercise, 'import' or BAIL_OUT 'Cannot import subroutines from module';
+can_ok 'Bob', 'import' or BAIL_OUT 'Cannot import subroutines from module';
 
 my $C_DATA = do { local $/; decode_json(<DATA>); };
 is hey($_->{input}{heyBob}), $_->{expected}, $_->{description} foreach @{$C_DATA->{cases}};

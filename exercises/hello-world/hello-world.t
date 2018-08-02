@@ -6,8 +6,7 @@ use FindBin;
 use lib $FindBin::Bin; # Look for the module inside the same directory as this test file.
 use HelloWorld qw(hello);
 
-my $exercise = 'HelloWorld'; # The name of this exercise.
-can_ok $exercise, 'import' or BAIL_OUT 'Cannot import subroutines from module';
+can_ok 'HelloWorld', 'import' or BAIL_OUT 'Cannot import subroutines from module';
 
 # Run the 'is' subroutine from the 'Test::More' module, with three arguments.
 is(

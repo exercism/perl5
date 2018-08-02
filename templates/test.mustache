@@ -7,11 +7,10 @@ use FindBin;
 use lib $FindBin::Bin;{{#lib_comment}} {{&lib_comment}}{{/lib_comment}}
 use {{&exercise}} {{#subs}}qw{{/subs}}({{&subs}});{{#modules}}
 use {{&use}};{{/modules}}
-
-my $exercise{{#exercise}} = '{{&exercise}}'{{/exercise}};{{#exercise_comment}} {{&exercise_comment}}{{/exercise_comment}}{{#subs}}
-can_ok $exercise, 'import' or BAIL_OUT 'Cannot import subroutines from module';{{/subs}}{{#methods}}
-can_ok $exercise, qw({{&methods}});{{/methods}}{{#cdata}}
-
+{{#subs}}
+can_ok '{{&exercise}}', 'import' or BAIL_OUT 'Cannot import subroutines from module';{{/subs}}{{#methods}}
+can_ok '{{&exercise}}', qw({{&methods}});{{/methods}}
+{{#cdata}}
 my $C_DATA = do { local $/; decode_json(<DATA>); };{{/cdata}}
 {{&tests}}
 {{#cdata}}

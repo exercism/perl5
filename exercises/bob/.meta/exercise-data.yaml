@@ -4,7 +4,6 @@ subs: hey
 tests: |-
   is hey($_->{input}{heyBob}), $_->{expected}, $_->{description} foreach @{$C_DATA->{cases}};
 
-exercise_comment: '# The name of this exercise.'
 lib_comment: '# Look for the module inside the same directory as this test file.'
 plan_comment: '# This is how many tests we expect to run.'
 use_test_comment: '# Check that the module can be use-d.'

@@ -7,8 +7,7 @@ use FindBin;
 use lib $FindBin::Bin;
 use PhoneNumber qw(clean_number);
 
-my $exercise = 'PhoneNumber';
-can_ok $exercise, 'import' or BAIL_OUT 'Cannot import subroutines from module';
+can_ok 'PhoneNumber', 'import' or BAIL_OUT 'Cannot import subroutines from module';
 
 my $C_DATA = do { local $/; decode_json(<DATA>); };
 foreach my $subcases (@{$C_DATA->{cases}}) {
