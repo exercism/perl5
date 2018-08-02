@@ -10,7 +10,7 @@ sub new {
     data     => $attributes->{data},
     exercise => $attributes->{exercise},
   };
-  if ($self->{exercise}) {
+  if ($self->{exercise} && !$self->{data}{ignore_cdata}) {
     my $cdata_file = $base_dir->child('problem-specifications/exercises/'.$self->{exercise}.'/canonical-data.json');
     if ($cdata_file->is_file) {
       $self->{data}{cdata}{json} = $cdata_file->slurp;
