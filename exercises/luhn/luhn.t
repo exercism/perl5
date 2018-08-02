@@ -7,8 +7,7 @@ use FindBin;
 use lib $FindBin::Bin;
 use Luhn qw(is_luhn_valid);
 
-my $exercise = 'Luhn';
-can_ok $exercise, 'import' or BAIL_OUT 'Cannot import subroutines from module';
+can_ok 'Luhn', 'import' or BAIL_OUT 'Cannot import subroutines from module';
 
 my $C_DATA = do { local $/; decode_json(<DATA>); };
 is is_luhn_valid($_->{input}{value}), $_->{expected}, $_->{description} foreach @{$C_DATA->{cases}};

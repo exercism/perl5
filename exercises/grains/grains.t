@@ -7,8 +7,7 @@ use FindBin;
 use lib $FindBin::Bin;
 use Grains qw(grains_on_square total_grains);
 
-my $exercise = 'Grains';
-can_ok $exercise, 'import' or BAIL_OUT 'Cannot import subroutines from module';
+can_ok 'Grains', 'import' or BAIL_OUT 'Cannot import subroutines from module';
 
 my $C_DATA = do { local $/; decode_json(<DATA>); };
 my @exception_cases;

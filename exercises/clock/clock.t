@@ -7,18 +7,17 @@ use FindBin;
 use lib $FindBin::Bin;
 use Clock ();
 
-my $exercise = 'Clock';
-can_ok $exercise, qw(new time add_minutes subtract_minutes);
+can_ok 'Clock', qw(new time add_minutes subtract_minutes);
 
 my $C_DATA = do { local $/; decode_json(<DATA>); };
 foreach (@{$C_DATA->{cases}}) {
   foreach (@{$_->{cases}}) {
     if ($_->{property} eq 'create') {
-      is($exercise->new($_->{input})->time, $_->{expected}, $_->{description});
+      is(Clock->new($_->{input})->time, $_->{expected}, $_->{description});
     }
 
     elsif ($_->{property} eq 'add' || $_->{property} eq 'subtract') {
-      my $clock = $exercise->new({
+      my $clock = Clock->new({
         hour   => $_->{input}{hour},
         minute => $_->{input}{minute},
       });
@@ -29,13 +28,13 @@ foreach (@{$C_DATA->{cases}}) {
 
     elsif ($_->{property} eq 'equal') {
       ok $_->{expected} ==
-        ($exercise->new($_->{input}{clock1})->time eq $exercise->new($_->{input}{clock2})->time), $_->{description};
+        (Clock->new($_->{input}{clock1})->time eq Clock->new($_->{input}{clock2})->time), $_->{description};
     }
   }
 }
 
-is($exercise->new({hour => 0, minute => 0})->add_minutes(65)->time, '01:05', 'add_minutes method can be chained');
-is($exercise->new({hour => 0, minute => 0})->subtract_minutes(65)->time, '22:55', 'subtract_minutes method can be chained');
+is(Clock->new({hour => 0, minute => 0})->add_minutes(65)->time, '01:05', 'add_minutes method can be chained');
+is(Clock->new({hour => 0, minute => 0})->subtract_minutes(65)->time, '22:55', 'subtract_minutes method can be chained');
 
 __DATA__
 {
