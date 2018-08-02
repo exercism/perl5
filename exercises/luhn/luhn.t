@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-use Test::More tests => 14;
+use Test::More tests => 15;
 use JSON::PP;
 use FindBin;
 use lib $FindBin::Bin;
@@ -16,7 +16,7 @@ is is_luhn_valid($_->{input}{value}), $_->{expected}, $_->{description} foreach 
 __DATA__
 {
   "exercise": "luhn",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "cases": [
     {
       "description": "single digit strings can not be valid",
@@ -121,6 +121,14 @@ __DATA__
         "value": "091"
       },
       "expected": true
+    },
+    {
+      "description": "strings with non-digits is invalid",
+      "property": "valid",
+      "input": {
+        "value": ":9"
+      },
+      "expected": false
     }
   ]
 }
