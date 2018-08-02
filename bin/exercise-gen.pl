@@ -13,10 +13,11 @@ my $base_dir = path(__FILE__)->realpath->parent->parent;
 my @exercises;
 
 if (@ARGV) {
-  if ($ARGV[0] eq '--all') {
+  my %arg_set = map {$_ => 1} @ARGV;
+  if ($arg_set{'--all'}) {
     push @exercises, $_->basename foreach $base_dir->child('exercises')->children;
   } else {
-    @exercises = @ARGV;
+    @exercises = keys %arg_set;
   }
 } else {
   say 'No args given; working in current directory.';
