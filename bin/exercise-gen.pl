@@ -6,16 +6,14 @@ use YAML 'LoadFile';
 use Path::Tiny qw(:DEFAULT cwd);
 use FindBin;
 use lib "$FindBin::Bin/../lib";
-use Exercism::Generator;
-
-my $base_dir = path(__FILE__)->realpath->parent->parent;
+use Exercism::Generator 'BASE_DIR';
 
 my @exercises;
 
 if (@ARGV) {
   my %arg_set = map {$_ => 1} @ARGV;
   if ($arg_set{'--all'}) {
-    push @exercises, $_->basename foreach $base_dir->child('exercises')->children;
+    push @exercises, $_->basename foreach BASE_DIR->child('exercises')->children;
   } else {
     @exercises = keys %arg_set;
   }
@@ -32,7 +30,7 @@ if (@ARGV) {
 my @dir_not_found;
 my @yaml_not_found;
 for my $exercise (@exercises) {
-  my $exercise_dir = $base_dir->child("exercises/$exercise");
+  my $exercise_dir = BASE_DIR->child("exercises/$exercise");
   my $yaml = $exercise_dir->child('.meta/exercise-data.yaml');
 
   unless ($exercise_dir->is_dir) {

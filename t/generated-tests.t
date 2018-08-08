@@ -6,15 +6,13 @@ use Path::Tiny;
 use YAML 'LoadFile';
 use FindBin;
 use lib "$FindBin::Bin/../lib";
-use Exercism::Generator;
+use Exercism::Generator 'BASE_DIR';
 
-my $base_dir = path(__FILE__)->realpath->parent->parent;
-
-if (!$base_dir->child('problem-specifications')->is_dir) {
+if (!BASE_DIR->child('problem-specifications')->is_dir) {
   BAIL_OUT 'problem-specifications directory required';
 }
 
-foreach (sort {$a cmp $b} $base_dir->child('exercises')->children) {
+foreach (sort {$a cmp $b} BASE_DIR->child('exercises')->children) {
   if ($_->child('.meta/exercise-data.yaml')->is_file) {
     TODO: {
       local $TODO = '#';
