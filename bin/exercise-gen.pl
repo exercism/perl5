@@ -1,4 +1,6 @@
 #!/usr/bin/env perl
+use strict;
+use warnings;
 use feature qw(lexical_subs say);
 use YAML 'LoadFile';
 use Path::Tiny qw(:DEFAULT cwd);

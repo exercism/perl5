@@ -1,4 +1,6 @@
 #!/usr/bin/env perl
+use strict;
+use warnings;
 use Test::More;
 use Path::Tiny;
 use YAML 'LoadFile';

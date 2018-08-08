@@ -1,4 +1,6 @@
 package Exercism::Generator;
+use strict;
+use warnings;
 use Template::Mustache 'render';
 use Path::Tiny;
 
