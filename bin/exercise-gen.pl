@@ -55,5 +55,5 @@ for my $exercise (@exercises) {
   say 'Generated.';
 }
 
-if (@dir_not_found)  {warn 'exercise directory does not exist for: ' . join ' ', @dir_not_found}
-if (@yaml_not_found) {warn '.meta/exercise-data.yaml not found for: ' . join ' ', @yaml_not_found}
+if (@dir_not_found)  {warn 'exercise directory does not exist for: '  . join(q| |, @dir_not_found)  . "\n"}
+if (@yaml_not_found) {warn '.meta/exercise-data.yaml not found for: ' . join(q| |, @yaml_not_found) . "\n"}
