@@ -1,24 +1,20 @@
 package GradeSchool;
-
 use strict;
 use warnings;
+use Exporter 'import';
+our @EXPORT_OK = qw(roster);
 
-sub new {
-  my ($class) = @_;
-  return bless {}, $class;
-}
-
-sub add {
-  my ($self, $name, $grade) = @_;
-
-  my @students = @{ $self->grade($grade) };
-  $self->{$grade} = [sort @students, $name];
-}
-
-sub grade {
-  my ($self, $grade) = @_;
-
-  return $self->{$grade} || [];
+sub roster {
+  my ($students, $grade) = @_;
+  my %roster;
+  map {push @{$roster{$_->[1]}}, $_->[0]} @{$students};
+  for (keys %roster) {
+    $roster{$_} = [sort {$a cmp $b} @{$roster{$_}}];
+  }
+  if ($grade) {
+    return $roster{$grade} || [];
+  }
+  return [map {@$_} @roster{sort {$a <=> $b} keys %roster}];
 }
 
 1;
