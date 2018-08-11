@@ -15,7 +15,7 @@ is hey($_->{input}{heyBob}), $_->{expected}, $_->{description} foreach @{$C_DATA
 __DATA__
 {
   "exercise": "bob",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "cases": [
     {
       "description": "stating something",
@@ -98,7 +98,7 @@ __DATA__
       "expected": "Whoa, chill out!"
     },
     {
-      "description": "only numbers",
+      "description": "no letters",
       "property": "response",
       "input": {
         "heyBob": "1, 2, 3"
@@ -106,7 +106,7 @@ __DATA__
       "expected": "Whatever."
     },
     {
-      "description": "question with only numbers",
+      "description": "question with no letters",
       "property": "response",
       "input": {
         "heyBob": "4?"
@@ -125,7 +125,7 @@ __DATA__
       "description": "shouting with no exclamation mark",
       "property": "response",
       "input": {
-        "heyBob": "I HATE YOU"
+        "heyBob": "I HATE THE DMV"
       },
       "expected": "Whoa, chill out!"
     },
