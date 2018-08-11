@@ -5,15 +5,20 @@ use Exporter 'import';
 our @EXPORT_OK = qw(raindrop);
 
 sub raindrop {
-  my ($num) = @_;
-  my %sounds = (Pling => 3, Plang => 5, Plong => 7);
-  my $str = '';
-  foreach (qw(Pling Plang Plong)) {
-    if ($num % $sounds{$_} == 0) {
-      $str .= $_;
-    }
+  my ($number) = @_;
+  my $drops = '';
+  
+  if ($number % 3 == 0) {
+    $drops .= 'Pling';
   }
-  return $str || $num;
+  if ($number % 5 == 0) {
+    $drops .= 'Plang';
+  }
+  if ($number % 7 == 0) {
+    $drops .= 'Plong';
+  }
+
+  return $drops || $number;
 }
 
 1;
