@@ -1,1 +1,0 @@
-../../grade_school.t

@@ -1,0 +1,27 @@
+exercise: GradeSchool
+plan: 8
+subs: roster
+tests: |-
+  foreach my $case (@{$C_DATA->{cases}}) {
+    is_deeply roster($case->{input}{students}, $case->{input}{desiredGrade}), $case->{expected}, $case->{description};
+  }
+
+example: |-
+  sub roster {
+    my ($students, $grade) = @_;
+    my %roster;
+    map {push @{$roster{$_->[1]}}, $_->[0]} @{$students};
+    for (keys %roster) {
+      $roster{$_} = [sort {$a cmp $b} @{$roster{$_}}];
+    }
+    if ($grade) {
+      return $roster{$grade} || [];
+    }
+    return [map {@$_} @roster{sort {$a <=> $b} keys %roster}];
+  }
+
+stub: |-
+  sub roster {
+    my ($students, $grade) = @_;
+    return undef;
+  }
