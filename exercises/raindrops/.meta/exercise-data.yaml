@@ -1,0 +1,31 @@
+exercise: Raindrops
+plan: 19
+subs: raindrop
+tests: |-
+  foreach my $case (@{$C_DATA->{cases}}) {
+    is raindrop($case->{input}{number}), $case->{expected}, $case->{description};
+  }
+
+example: |-
+  sub raindrop {
+    my ($number) = @_;
+    my $drops = '';
+    
+    if ($number % 3 == 0) {
+      $drops .= 'Pling';
+    }
+    if ($number % 5 == 0) {
+      $drops .= 'Plang';
+    }
+    if ($number % 7 == 0) {
+      $drops .= 'Plong';
+    }
+
+    return $drops || $number;
+  }
+
+stub: |-
+  sub raindrop {
+    my ($number) = @_;
+    return undef;
+  }
