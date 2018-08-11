@@ -15,6 +15,14 @@
       "topics": []
     },
     {
+      "slug": "two-fer",
+      "uuid": "749dac4a-a746-4af7-aca6-db9e69ccad8c",
+      "core": false,
+      "unlocked_by": null,
+      "difficulty": 1,
+      "topics": []
+    },
+    {
       "slug": "bob",
       "uuid": "835a4c46-c837-4684-a1ed-7d257c786d77",
       "core": false,
