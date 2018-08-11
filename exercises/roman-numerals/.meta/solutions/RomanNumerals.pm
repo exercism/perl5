@@ -1,7 +1,8 @@
-package Decimal;
-
+package RomanNumerals;
 use strict;
 use warnings;
+use Exporter 'import';
+our @EXPORT_OK = qw(to_roman);
 
 my %ROMANS = qw(
     1000 M
@@ -19,28 +20,21 @@ my %ROMANS = qw(
        1 I 
 );
 
-sub new {
-    return bless {
-       decimal => $_[1] 
-    } => $_[0]
-}
-
 sub to_roman {
-    my $self = shift;
-    my $decimal = $self->{decimal};
+    my ($number) = @_;
     my $roman;
     my @places = sort {$b <=> $a} keys %ROMANS;
 
     use integer;
 
-    while ( $decimal > 0 ) {
+    while ( $number > 0 ) {
         my $key = shift @places;
-        my $repeat = $decimal / $key;
-        $decimal  -= $key * $repeat;
-        $roman    .= $ROMANS{$key} x $repeat;
+        my $repeat = $number / $key;
+        $number  -= $key * $repeat;
+        $roman   .= $ROMANS{$key} x $repeat;
     }
 
     return $roman;
 }
 
-__PACKAGE__;
+1;

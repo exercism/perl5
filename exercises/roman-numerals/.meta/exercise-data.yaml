@@ -1,0 +1,47 @@
+exercise: RomanNumerals
+plan: 20
+subs: to_roman
+tests: |-
+  foreach my $case (@{$C_DATA->{cases}}) {
+    is to_roman($case->{input}{number}), $case->{expected}, $case->{description};
+  }
+
+example: |-
+  my %ROMANS = qw(
+      1000 M
+       900 CM
+       500 D 
+       400 CD 
+       100 C 
+        90 XC 
+        50 L 
+        40 XL 
+        10 X 
+         9 IX 
+         5 V 
+         4 IV 
+         1 I 
+  );
+
+  sub to_roman {
+      my ($number) = @_;
+      my $roman;
+      my @places = sort {$b <=> $a} keys %ROMANS;
+
+      use integer;
+
+      while ( $number > 0 ) {
+          my $key = shift @places;
+          my $repeat = $number / $key;
+          $number  -= $key * $repeat;
+          $roman   .= $ROMANS{$key} x $repeat;
+      }
+
+      return $roman;
+  }
+
+stub: |-
+  sub to_roman {
+    my ($number) = @_;
+    return undef;
+  }
