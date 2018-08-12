@@ -1,0 +1,29 @@
+exercise: NucleotideCount
+plan: 6
+subs: count_nucleotides
+tests: |-
+  foreach my $case (map {@{$_->{cases}}} @{$C_DATA->{cases}}) {
+    if ($case->{expected}{error}) {
+      eval 'count_nucleotides $case->{input}{strand}';
+      like $@, qr/$case->{expected}{error}/, $case->{description};
+      $@ = q();
+    }
+    else {
+      is_deeply count_nucleotides($case->{input}{strand}), $case->{expected}, $case->{description};
+    }
+  }
+
+example: |-
+  sub count_nucleotides {
+    my ($strand) = @_;
+    die 'Invalid nucleotide in strand' if $strand =~ /[^ACGT]/;
+    my %count = qw(A 0 C 0 G 0 T 0);
+    map {$count{$_}++} split(//, $strand);
+    return \%count;
+  }
+
+stub: |-
+  sub count_nucleotides {
+    my ($strand) = @_;
+    return undef;
+  }
