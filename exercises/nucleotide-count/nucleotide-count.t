@@ -10,15 +10,23 @@ use NucleotideCount qw(count_nucleotides);
 can_ok 'NucleotideCount', 'import' or BAIL_OUT 'Cannot import subroutines from module';
 
 my $C_DATA = do { local $/; decode_json(<DATA>); };
+my @exception_cases;
 foreach my $case (map {@{$_->{cases}}} @{$C_DATA->{cases}}) {
   if ($case->{expected}{error}) {
-    eval 'count_nucleotides $case->{input}{strand}';
-    like $@, qr/$case->{expected}{error}/, $case->{description};
-    $@ = q();
+    push @exception_cases, $case;
   }
   else {
     is_deeply count_nucleotides($case->{input}{strand}), $case->{expected}, $case->{description};
   }
+}
+
+SKIP: {
+  eval { require Test::Fatal };
+  skip 'Test::Fatal not loaded', scalar @exception_cases if $@;
+  eval q{
+    use Test::Fatal qw(dies_ok);
+    dies_ok {count_nucleotides $_->{input}{strand}} $_->{description} foreach @exception_cases;
+  };
 }
 
 __DATA__
