@@ -20,13 +20,13 @@ foreach (@{$C_DATA->{cases}}) {
           push @exception_cases, $case;
         }
         else {
-          is grains_on_square($case->{input}{square}), $case->{expected}, 'square no. ' . $case->{description};
+          cmp_ok grains_on_square($case->{input}{square}), '==', $case->{expected}, 'square no. ' . $case->{description};
         }
       }
     }
   }
   elsif ($_->{property} eq 'total') {
-    is total_grains(), $_->{expected}, $_->{description};
+    cmp_ok total_grains(), '==', $_->{expected}, $_->{description};
   }
 }
 
@@ -35,7 +35,7 @@ SKIP: {
   skip 'Test::Fatal not loaded', scalar @exception_cases if $@;
   eval q{
     use Test::Fatal qw(dies_ok);
-    dies_ok {grains_on_square($_->{input}{square})} $_->{description} foreach @exception_cases;
+    dies_ok {grains_on_square $_->{input}{square}} $_->{description} foreach @exception_cases;
   };
 }
 
