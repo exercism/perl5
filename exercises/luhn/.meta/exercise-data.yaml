@@ -2,7 +2,7 @@ exercise: Luhn
 plan: 15
 subs: is_luhn_valid
 tests: |-
-  is is_luhn_valid($_->{input}{value}), $_->{expected}, $_->{description} foreach @{$C_DATA->{cases}};
+  ok !(is_luhn_valid($_->{input}{value}) xor $_->{expected}), $_->{description} foreach @{$C_DATA->{cases}};
 
 example: |-
   sub is_luhn_valid {
@@ -34,4 +34,5 @@ example: |-
 stub: |-
   sub is_luhn_valid {
     my ($input) = @_;
+    return undef;
   }
