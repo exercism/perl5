@@ -3,8 +3,8 @@ use strict;
 use warnings;
 use Test::More tests => 20;
 use JSON::PP;
-use FindBin;
-use lib $FindBin::Bin;
+use FindBin qw($Bin);
+use lib $Bin, "$Bin/local/lib/perl5";
 use RomanNumerals qw(to_roman);
 
 can_ok 'RomanNumerals', 'import' or BAIL_OUT 'Cannot import subroutines from module';

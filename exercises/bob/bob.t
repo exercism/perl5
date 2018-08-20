@@ -3,8 +3,8 @@ use strict;
 use warnings;
 use Test::More tests => 26; # This is how many tests we expect to run.
 use JSON::PP;
-use FindBin;
-use lib $FindBin::Bin; # Look for the module inside the same directory as this test file.
+use FindBin qw($Bin);
+use lib $Bin, "$Bin/local/lib/perl5"; # Look for modules inside the same directory as this test file.
 use Bob qw(hey);
 
 can_ok 'Bob', 'import' or BAIL_OUT 'Cannot import subroutines from module';

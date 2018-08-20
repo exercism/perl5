@@ -4,7 +4,7 @@ subs: is_leap
 tests: |-
   ok !(is_leap($_->{input}{year}) xor $_->{expected}), $_->{description} foreach @{$C_DATA->{cases}};
 
-lib_comment: '# Look for the module inside the same directory as this test file.'
+lib_comment: '# Look for modules inside the same directory as this test file.'
 plan_comment: '# This is how many tests we expect to run.'
 use_test_comment: '# Check that the module can be use-d.'
 

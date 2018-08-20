@@ -3,8 +3,8 @@ use strict;
 use warnings;
 use Test::More tests => 8;
 use JSON::PP;
-use FindBin;
-use lib $FindBin::Bin;
+use FindBin qw($Bin);
+use lib $Bin, "$Bin/local/lib/perl5";
 use GradeSchool qw(roster);
 
 can_ok 'GradeSchool', 'import' or BAIL_OUT 'Cannot import subroutines from module';

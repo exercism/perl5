@@ -3,8 +3,8 @@ use strict;
 use warnings;
 use Test::More tests => 15;
 use JSON::PP;
-use FindBin;
-use lib $FindBin::Bin;
+use FindBin qw($Bin);
+use lib $Bin, "$Bin/local/lib/perl5";
 use PhoneNumber qw(clean_number);
 
 can_ok 'PhoneNumber', 'import' or BAIL_OUT 'Cannot import subroutines from module';
