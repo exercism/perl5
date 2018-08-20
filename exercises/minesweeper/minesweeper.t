@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 use Test::More tests => 13;
-use Test::Exception;
+use Test::Fatal qw(exception);
 use FindBin;
 my $dir;
 BEGIN { $dir = $FindBin::Bin . '/' };
@@ -138,7 +138,7 @@ INPUT
 +-----+
 EXPECTED
 
-throws_ok { $function->( <<'INPUT' ) } qr/ArgumentError/, 'Unaligned board';
+like exception { $function->( <<'INPUT' ) }, qr/ArgumentError/, 'Unaligned board';
 +-+
 | |
 |*  |
@@ -146,13 +146,13 @@ throws_ok { $function->( <<'INPUT' ) } qr/ArgumentError/, 'Unaligned board';
 +-+
 INPUT
 
-throws_ok { $function->( <<'INPUT' ) } qr/ArgumentError/, 'boarderless board';
+like exception { $function->( <<'INPUT' ) }, qr/ArgumentError/, 'boarderless board';
 +-----+
 *   * |
 +-- --+
 INPUT
 
-throws_ok { $function->( <<'INPUT' ) } qr/ArgumentError/, 'Unknwon characters';
+like exception { $function->( <<'INPUT' ) }, qr/ArgumentError/, 'Unknwon characters';
 +-----+
 |X  * |
 +-----+

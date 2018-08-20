@@ -3,7 +3,7 @@ use strict;
 use warnings; 
 
 use Data::Dumper; 
-use Test::Exception; 
+use Test::Fatal qw(exception);
 use Test::More;
 use FindBin;
 my $dir;
@@ -104,14 +104,14 @@ can_ok($module, 'binary_search')
    or BAIL_OUT("Missing package $module; or missing sub binary_search()");
 
 foreach my $test_type (keys %test_cases) {
-   no strict 'refs';
-   my $f = "${module}::binary_search";
-   foreach my $test ( @{ $test_cases{$test_type}->{tests} } ) {
+  no strict 'refs';
+  my $f = "${module}::binary_search";
+  foreach my $test ( @{ $test_cases{$test_type}->{tests} } ) {
       if ( $test_type eq 'dies' ) {
-         dies_ok { 
+          isnt exception {
             $f->($test->{key}, $test->{input})
-         } $test->{name};
-      }     
+          }, undef, $test->{name};
+        }
       elsif ( $test_type =~ m/^search_and/ ) {
          is(
             $f->($test->{key}, $test->{input}),

@@ -10,7 +10,6 @@ The tests depend on the following modules:
 
     DateTime
     List::MoreUtils
-    Test::Exception
     Test::Fatal
     Path::Tiny (for generator tests)
     Template::Mustache (for generator tests)
