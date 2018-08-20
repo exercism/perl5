@@ -9,7 +9,7 @@ sub grains_on_square {
   if ($square < 1 || $square > 64) {
     die 'invalid square';
   }
-  return int 2 ** ($square - 1);
+  return 2 ** ($square - 1);
 }
 
 sub total_grains {
