@@ -3,8 +3,8 @@ use strict;
 use warnings;
 use Test::More tests => 53;
 use JSON::PP;
-use FindBin;
-use lib $FindBin::Bin;
+use FindBin qw($Bin);
+use lib $Bin, "$Bin/local/lib/perl5";
 use Clock ();
 
 can_ok 'Clock', qw(new time add_minutes subtract_minutes);

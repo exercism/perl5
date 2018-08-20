@@ -3,8 +3,8 @@ use strict;
 use warnings;
 use Test::More tests => 15;
 use JSON::PP;
-use FindBin;
-use lib $FindBin::Bin;
+use FindBin qw($Bin);
+use lib $Bin, "$Bin/local/lib/perl5";
 use Luhn qw(is_luhn_valid);
 
 can_ok 'Luhn', 'import' or BAIL_OUT 'Cannot import subroutines from module';
