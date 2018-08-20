@@ -9,12 +9,14 @@ perl:
   - '5.16'
   - '5.14'
 install:
-  - curl -sL --compressed https://git.io/cpm | perl - install -g
+  - curl -sL --compressed https://git.io/cpm | perl - install -g App::cpm
+  - cpm install -g --cpanfile=bin/cpanfile
+  - for i in exercises/*/.meta/solutions/cpanfile; do cpm install -g --cpanfile=$i; done
 before_script:
   - git clone https://github.com/exercism/problem-specifications.git
   - bin/fetch-configlet
 script:
-  - bin/configlet lint .
+  - bin/configlet lint . --track-id=perl5
   - prove exercises/*/.meta/solutions/
     --recurse
     --directives

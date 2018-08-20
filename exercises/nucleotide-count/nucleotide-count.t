@@ -24,8 +24,8 @@ SKIP: {
   eval { require Test::Fatal };
   skip 'Test::Fatal not loaded', scalar @exception_cases if $@;
   eval q{
-    use Test::Fatal qw(dies_ok);
-    dies_ok {count_nucleotides $_->{input}{strand}} $_->{description} foreach @exception_cases;
+    use Test::Fatal qw(exception);
+    isnt exception {count_nucleotides $_->{input}{strand}}, undef, $_->{description} foreach @exception_cases;
   };
 }
 

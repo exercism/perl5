@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 use Test::More tests=> 17;
-use Test::Exception;
+use Test::Fatal qw(exception);
 use FindBin;
 my $dir;
 BEGIN { $dir = $FindBin::Bin . '/' };
@@ -90,7 +90,7 @@ foreach my $case ( @cases ) {
     my $m = $module->new( $case->{input} );
     
     if( $case->{exception} ) {
-	throws_ok { $m->slice($case->{size}) } qr/$case->{exception}/, $case->{name};
+	like exception { $m->slice($case->{size}) }, qr/$case->{exception}/, $case->{name};
     } else {
 	is_deeply $m->slice($case->{size}), $case->{expected}, $case->{name};
     }
