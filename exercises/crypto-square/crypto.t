@@ -3,10 +3,8 @@ use strict;
 use warnings;
 
 use Test::More;
-use FindBin;
-my $dir;
-BEGIN { $dir = $FindBin::Bin . '/' };
-use lib $dir;
+use FindBin qw($Bin);
+use lib $Bin, "$Bin/local/lib/perl5";
 
 my @cases = (
     {
@@ -80,7 +78,7 @@ my $module = 'Crypto';
 my @subs = qw(new normalize_ciphertext normalize_plaintext plaintext_segments ciphertext size);
 plan tests => 2 + @subs + @cases;
 
-ok -e "${dir}${module}.pm", "Missing $module.pm"
+ok -e "$Bin/$module.pm", "Missing $module.pm"
             or BAIL_OUT "You need to create file: $module.pm";
 
 eval "use $module";

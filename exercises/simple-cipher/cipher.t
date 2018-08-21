@@ -3,10 +3,8 @@ use strict;
 use warnings;
 
 use Test::More;
-use FindBin;
-my $dir;
-BEGIN { $dir = $FindBin::Bin . '/' };
-use lib $dir;
+use FindBin qw($Bin);
+use lib $Bin, "$Bin/local/lib/perl5";
 
 my @cases = (
     # test encode
@@ -90,7 +88,7 @@ plan tests => 5 + @cases;
 
 my $module = 'Cipher';
 
-ok -e "${dir}${module}.pm", "Missing $module.pm"
+ok -e "$Bin/$module.pm", "Missing $module.pm"
             or BAIL_OUT "You need to create file: $module.pm";
 
 eval "use $module";

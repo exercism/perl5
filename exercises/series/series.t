@@ -3,11 +3,9 @@ use strict;
 use warnings;
 
 use Test::More tests=> 17;
+use FindBin qw($Bin);
+use lib $Bin, "$Bin/local/lib/perl5";
 use Test::Fatal qw(exception);
-use FindBin;
-my $dir;
-BEGIN { $dir = $FindBin::Bin . '/' };
-use lib $dir;
 
 my $module = 'Series';
 

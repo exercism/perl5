@@ -4,10 +4,8 @@ use warnings;
 
 use Test::More;
 use JSON::PP qw(decode_json);
-use FindBin;
-my $dir;
-BEGIN { $dir = $FindBin::Bin . '/' };
-use lib $dir;
+use FindBin qw($Bin);
+use lib $Bin, "$Bin/local/lib/perl5";
 
 my $module = 'Allergies';
 
@@ -19,7 +17,7 @@ my $cases;
 
 plan tests => 4 + @$cases;
 
-ok -e "${dir}${module}.pm" or BAIL_OUT "missing $module.pm";
+ok -e "$Bin/$module.pm" or BAIL_OUT "missing $module.pm";
 
 eval "use $module";
 ok !$@, "Cannot load $module.pm"

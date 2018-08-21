@@ -3,10 +3,8 @@ use strict;
 use warnings;
 
 use Test::More tests => 17;
-use FindBin;
-my $dir;
-BEGIN { $dir = $FindBin::Bin . '/' };
-use lib $dir;
+use FindBin qw($Bin);
+use lib $Bin, "$Bin/local/lib/perl5";
 
 my $module = 'Sublist';
 my $name = "check_lists";

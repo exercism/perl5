@@ -3,10 +3,8 @@ use strict;
 use warnings;
 
 use Test::More;
-use FindBin;
-my $dir;
-BEGIN { $dir = $FindBin::Bin . '/' };
-use lib $dir;
+use FindBin qw($Bin);
+use lib $Bin, "$Bin/local/lib/perl5";
 
 my $module = 'AllYourBase';
 
@@ -14,7 +12,7 @@ my $function = 'convert_base';
 
 plan tests => 24;
 
-ok -e "${dir}${module}.pm", "$module.pm present"
+ok -e "$Bin/$module.pm", "$module.pm present"
     or BAIL_OUT "You need to create file: $module.pm";
 
 eval "use $module";

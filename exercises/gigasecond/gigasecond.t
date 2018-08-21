@@ -2,12 +2,10 @@
 use warnings;
 use strict;
 
-use DateTime;
 use Test::More tests => 4;
-use FindBin;
-my $dir;
-BEGIN { $dir = $FindBin::Bin . '/' };
-use lib $dir;
+use FindBin qw($Bin);
+use lib $Bin, "$Bin/local/lib/perl5";
+use DateTime;
 
 my $module = 'Gigasecond';
 
