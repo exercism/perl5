@@ -4,10 +4,8 @@ use warnings;
 
 use Test::More;
 use JSON::PP qw(decode_json);
-use FindBin;
-my $dir;
-BEGIN { $dir = $FindBin::Bin . '/' };
-use lib $dir;
+use FindBin qw($Bin);
+use lib $Bin, "$Bin/local/lib/perl5";
 
 my $module = 'Wordy';
 
@@ -20,7 +18,7 @@ my $cases;
 plan tests => 3 + @$cases;
 #diag explain $cases;
 
-ok -e "${dir}${module}.pm", "missing $module.pm"
+ok -e "$Bin/$module.pm", "missing $module.pm"
     or BAIL_OUT("You need to create a class called $module.pm with an function called answer() that gets the original word as the first parameter and a reference to a list of word to check. It should return a referene to a list of words.");
 
 eval "use $module";

@@ -3,10 +3,8 @@ use strict;
 use warnings;
 
 use Test::More;
-use FindBin;
-my $dir;
-BEGIN { $dir = $FindBin::Bin . '/' };
-use lib $dir;
+use FindBin qw($Bin);
+use lib $Bin, "$Bin/local/lib/perl5";
 
 my $module = 'Accumulate';
 
@@ -59,7 +57,7 @@ my @cases = (
 
 plan tests => 3 + @cases;
 
-ok -e "${dir}${module}.pm", "missing $module.pm"
+ok -e "$Bin/$module.pm", "missing $module.pm"
     or BAIL_OUT("You need to create a class called $module.pm with a constructor called new.");
 
 eval "use $module";

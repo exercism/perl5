@@ -3,10 +3,8 @@ use warnings;
 use strict;
 
 use Test::More;
-use FindBin;
-my $dir;
-BEGIN { $dir = $FindBin::Bin . '/' };
-use lib $dir;
+use FindBin qw($Bin);
+use lib $Bin, "$Bin/local/lib/perl5";
 
 my $module = 'BinarySearchTree';
 

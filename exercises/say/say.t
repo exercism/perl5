@@ -3,10 +3,8 @@ use strict;
 use warnings;
 
 use Test::More;
-use FindBin;
-my $dir;
-BEGIN { $dir = $FindBin::Bin . '/' };
-use lib $dir;
+use FindBin qw($Bin);
+use lib $Bin, "$Bin/local/lib/perl5";
 
 my @cases = (
     {
@@ -81,7 +79,7 @@ my $module = 'Say';
 
 plan tests => 3 + @cases;
 
-ok -e "${dir}${module}.pm", "Missing $module.pm" or BAIL_OUT "You need to create file $module.pm";
+ok -e "$Bin/$module.pm", "Missing $module.pm" or BAIL_OUT "You need to create file $module.pm";
 
 eval "use $module";
 ok !$@, "Cannot load $module" or BAIL_OUT "Does $module.pm compile? Does it end with 1;?";

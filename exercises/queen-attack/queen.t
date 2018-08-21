@@ -4,10 +4,8 @@ use warnings;
 
 use Test::More;
 use JSON::PP qw(decode_json);
-use FindBin;
-my $dir;
-BEGIN { $dir = $FindBin::Bin . '/' };
-use lib $dir;
+use FindBin qw($Bin);
+use lib $Bin, "$Bin/local/lib/perl5";
 
 my $module = 'Queens';
 
@@ -27,7 +25,7 @@ foreach my $c (@$cases) {
 }
 plan tests => $tests;
 
-ok -e "${dir}${module}.pm", "missing $module.pm"
+ok -e "$Bin/$module.pm", "missing $module.pm"
     or BAIL_OUT("You need to create a class called $module.pm with a constructor called new.");
 
 eval "use $module";

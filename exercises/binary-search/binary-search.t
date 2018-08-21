@@ -2,13 +2,11 @@
 use strict; 
 use warnings; 
 
-use Data::Dumper; 
-use Test::Fatal qw(exception);
 use Test::More;
-use FindBin;
-my $dir;
-BEGIN { $dir = $FindBin::Bin . '/' };
-use lib $dir;
+use Data::Dumper;
+use FindBin qw($Bin);
+use lib $Bin, "$Bin/local/lib/perl5";
+use Test::Fatal qw(exception);
 
 my $module = 'BinarySearch';
 
@@ -93,7 +91,7 @@ foreach my $test_type ( keys %test_cases ) {
 
 plan tests => 3 + $num_test_cases;
 
-ok -e "${dir}${module}.pm", "missing $module.pm"
+ok -e "$Bin/$module.pm", "missing $module.pm"
    or BAIL_OUT("You need to create a class called $module.pm with 1 functions: binary_search");
 
 eval "use $module";
@@ -107,28 +105,28 @@ foreach my $test_type (keys %test_cases) {
   no strict 'refs';
   my $f = "${module}::binary_search";
   foreach my $test ( @{ $test_cases{$test_type}->{tests} } ) {
-      if ( $test_type eq 'dies' ) {
-          isnt exception {
-            $f->($test->{key}, $test->{input})
-          }, undef, $test->{name};
-        }
-      elsif ( $test_type =~ m/^search_and/ ) {
-         is(
-            $f->($test->{key}, $test->{input}),
-            $test->{expected},
-            $test->{name}
-         );
-      }
-      elsif ( $test_type eq 'phonebook' ) {
-         my $names   = $test_cases{$test_type}->{names};
-         my $numbers = $test_cases{$test_type}->{numbers};
+    if ( $test_type eq 'dies' ) {
+      isnt exception {
+        $f->($test->{key}, $test->{input})
+      }, undef, $test->{name};
+    }
+    elsif ( $test_type =~ m/^search_and/ ) {
+      is(
+        $f->($test->{key}, $test->{input}),
+        $test->{expected},
+        $test->{name}
+      );
+    }
+    elsif ( $test_type eq 'phonebook' ) {
+      my $names   = $test_cases{$test_type}->{names};
+      my $numbers = $test_cases{$test_type}->{numbers};
 
-         my $index = $f->($test->{key}, $names);
-         is(
-            defined $index ? $numbers->[$index] : undef,
-            $test->{expected},
-            $test->{name},
-         );
-      }
-   }
+      my $index = $f->($test->{key}, $names);
+      is(
+        defined $index ? $numbers->[$index] : undef,
+        $test->{expected},
+        $test->{name},
+      );
+    }
+  }
 }

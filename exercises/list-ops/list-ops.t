@@ -3,10 +3,8 @@ use strict;
 use warnings;
 
 use Test::More;  
-use FindBin;
-my $dir;
-BEGIN { $dir = $FindBin::Bin . '/' };
-use lib $dir;
+use FindBin qw($Bin);
+use lib $Bin, "$Bin/local/lib/perl5";
 
 my $module = 'ListOps';
 
@@ -80,7 +78,7 @@ foreach my $test_type ( keys %test_cases ) {
 
 plan tests => 5 + $num_test_cases;
 
-ok -e "${dir}${module}.pm", "missing $module.pm"
+ok -e "$Bin/$module.pm", "missing $module.pm"
    or BAIL_OUT("You need to create a class called $module.pm with 3 functions: map, reduce, and length.");
 
 eval "use $module";

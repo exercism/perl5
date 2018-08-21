@@ -5,10 +5,8 @@ use open ':std', ':encoding(utf8)';
 use utf8;
 
 use Test::More;
-use FindBin;
-my $dir;
-BEGIN { $dir = $FindBin::Bin . '/' };
-use lib $dir;
+use FindBin qw($Bin);
+use lib $Bin, "$Bin/local/lib/perl5";
 
 my $module = 'Phrase';
 
@@ -29,7 +27,7 @@ my @cases = (
 
 plan tests => 3 + @cases;
 
-ok -e "${dir}${module}.pm", "missing $module.pm"
+ok -e "$Bin/$module.pm", "missing $module.pm"
     or BAIL_OUT("You need to create a module called $module.pm with a function called word_count() that gets one parameter: the text in which to count the words.");
 
 eval "use $module";
