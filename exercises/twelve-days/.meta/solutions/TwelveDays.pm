@@ -33,7 +33,7 @@ sub verse {
     $i--;
     my ($nth, $nth_gifts) = ( $days[$i], _slice_gifts($i) );
 
-    "On the $nth day of Christmas my true love gave to me, $nth_gifts.\n";
+    "On the $nth day of Christmas my true love gave to me: $nth_gifts.\n";
 }
 
 sub verses {
