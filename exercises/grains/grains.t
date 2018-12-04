@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-use Test::More tests => 12;
+use Test::More tests => 13;
 use JSON::PP;
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
@@ -20,15 +20,17 @@ foreach (@{$C_DATA->{cases}}) {
           push @exception_cases, $case;
         }
         else {
-          cmp_ok grains_on_square($case->{input}{square}), '==', $case->{expected}, 'square no. ' . $case->{description};
+          cmp_ok grains_on_square($case->{input}{square}), 'eq', $case->{expected}, 'square no. ' . $case->{description};
         }
       }
     }
   }
   elsif ($_->{property} eq 'total') {
-    cmp_ok total_grains(), '==', $_->{expected}, $_->{description};
+    cmp_ok total_grains(), 'eq', $_->{expected}, $_->{description};
   }
 }
+
+unlike total_grains(), qr/e\+/, "Using '**' without 'use bignum;' uses doubles that are too imprecise for this result.";
 
 SKIP: {
   eval { require Test::Fatal };
