@@ -27,24 +27,24 @@ my @extended_cases = map { _make_test_case(@$_) } (
     [ "quirky", 132,    [ double => 1, triple => 1 ],   "double-triple 'quirky'" ],
 );
 
-my $module = 'Word';
+my $module = 'Scrabble';
 
 ok -e "$Bin/$module.pm", "Find $module.pm"
     or die "You need to create file: $module.pm";
 use_ok $module
     or die "Cannot load $module. Does it compile? Does it end with 1;?";
-can_ok $module, (qw/new score/)
+can_ok $module, 'score'
     or die "Missing package $module or needed sub not found";
 
 for my $c (@cases) {
-    is $module->new( $c->{word} )->score(), $c->{score}, $c->{desc};
+    is $module->can('score')->($c->{word}), $c->{score}, $c->{desc};
 }
 
 SKIP: {
     skip "only if extensions are enabled. double and triple", scalar @extended_cases
         unless TEST_EXTENDED;
     for my $c (@extended_cases) {
-        is $module->new( $c->{word} )->score(@{ $c->{options} }), $c->{score}, $c->{desc};
+        is $module->can('score')->($c->{word}, $c->{options}->@*), $c->{score}, $c->{desc}
     }
 }
 
