@@ -44,7 +44,7 @@ SKIP: {
     skip "only if extensions are enabled. double and triple", scalar @extended_cases
         unless TEST_EXTENDED;
     for my $c (@extended_cases) {
-        is $module->can('score')->($c->{word}, $c->{options}->@*), $c->{score}, $c->{desc}
+        is $module->can('score')->($c->{word}, @{$c->{options}}), $c->{score}, $c->{desc}
     }
 }
 
