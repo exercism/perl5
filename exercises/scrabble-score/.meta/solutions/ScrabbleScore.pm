@@ -1,4 +1,4 @@
-package Scrabble;
+package ScrabbleScore;
 use strict;
 use warnings;
 use Exporter 'import';
