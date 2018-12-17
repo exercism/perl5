@@ -15,7 +15,7 @@ ok !(is_luhn_valid($_->{input}{value}) xor $_->{expected}), $_->{description} fo
 __DATA__
 {
   "exercise": "luhn",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "cases": [
     {
       "description": "single digit strings can not be valid",
@@ -72,6 +72,14 @@ __DATA__
         "value": "8273 1232 7352 0569"
       },
       "expected": false
+    },
+    {
+      "description": "valid number with an even number of digits",
+      "property": "valid",
+      "input": {
+        "value": "095 245 88"
+      },
+      "expected": true
     },
     {
       "description": "valid strings with a non-digit included become invalid",

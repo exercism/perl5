@@ -15,7 +15,7 @@ ok !(is_leap($_->{input}{year}) xor $_->{expected}), $_->{description} foreach @
 __DATA__
 {
   "exercise": "leap",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "cases": [
     {
       "description": "year not divisible by 4: common year",
@@ -48,6 +48,14 @@ __DATA__
         "year": 2000
       },
       "expected": true
+    },
+    {
+      "description": "year divisible by 200, not divisible by 400: common year",
+      "property": "leapYear",
+      "input": {
+        "year": 1800
+      },
+      "expected": false
     }
   ]
 }
