@@ -15,7 +15,7 @@ is hey($_->{input}{heyBob}), $_->{expected}, $_->{description} foreach @{$C_DATA
 __DATA__
 {
   "exercise": "bob",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "cases": [
     {
       "description": "stating something",
@@ -181,7 +181,7 @@ __DATA__
       "description": "multiple line question",
       "property": "response",
       "input": {
-        "heyBob": "\nDoes this cryogenic chamber make me look fat?\nno"
+        "heyBob": "\nDoes this cryogenic chamber make me look fat?\nNo."
       },
       "expected": "Whatever."
     },
