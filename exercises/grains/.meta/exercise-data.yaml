@@ -8,7 +8,7 @@ tests: |-
     if (exists $_->{cases}) {
       foreach my $case (@{$_->{cases}}) {
         if ($case->{property} eq 'square') {
-          if ($case->{expected} == -1) {
+          if (ref $case->{expected} eq 'HASH' && exists $case->{expected}{error}) {
             push @exception_cases, $case;
           }
           else {

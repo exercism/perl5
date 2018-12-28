@@ -16,7 +16,7 @@ foreach (@{$C_DATA->{cases}}) {
   if (exists $_->{cases}) {
     foreach my $case (@{$_->{cases}}) {
       if ($case->{property} eq 'square') {
-        if ($case->{expected} == -1) {
+        if (ref $case->{expected} eq 'HASH' && exists $case->{expected}{error}) {
           push @exception_cases, $case;
         }
         else {
@@ -42,10 +42,9 @@ SKIP: {
 __DATA__
 {
   "exercise": "grains",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "comments": [
     "The final tests of square test error conditions",
-    "The expectation for these tests is -1, indicating an error",
     "In these cases you should expect an error as is idiomatic for your language"
   ],
   "cases": [
@@ -114,7 +113,7 @@ __DATA__
           "input": {
             "square": 0
           },
-          "expected": -1
+          "expected": {"error": "square must be between 1 and 64"}
         },
         {
           "description": "negative square raises an exception",
@@ -122,7 +121,7 @@ __DATA__
           "input": {
             "square": -1
           },
-          "expected": -1
+          "expected": {"error": "square must be between 1 and 64"}
         },
         {
           "description": "square greater than 64 raises an exception",
@@ -130,7 +129,7 @@ __DATA__
           "input": {
             "square": 65
           },
-          "expected": -1
+          "expected": {"error": "square must be between 1 and 64"}
         }
       ]
     },
