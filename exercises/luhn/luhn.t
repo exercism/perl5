@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-use Test::More tests => 15;
+use Test::More tests => 17;
 use JSON::PP;
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
@@ -15,7 +15,7 @@ ok !(is_luhn_valid($_->{input}{value}) xor $_->{expected}), $_->{description} fo
 __DATA__
 {
   "exercise": "luhn",
-  "version": "1.2.0",
+  "version": "1.4.0",
   "cases": [
     {
       "description": "single digit strings can not be valid",
@@ -74,10 +74,26 @@ __DATA__
       "expected": false
     },
     {
+      "description": "valid number with an even number of digits",
+      "property": "valid",
+      "input": {
+        "value": "095 245 88"
+      },
+      "expected": true
+    },
+    {
       "description": "valid strings with a non-digit included become invalid",
       "property": "valid",
       "input": {
         "value": "055a 444 285"
+      },
+      "expected": false
+    },
+    {
+      "description": "valid strings with a non-digit added at the end become invalid",
+      "property": "valid",
+      "input": {
+        "value": "059a"
       },
       "expected": false
     },
