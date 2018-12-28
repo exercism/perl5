@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-use Test::More tests => 53;
+use Test::More tests => 55;
 use JSON::PP;
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
@@ -39,7 +39,7 @@ is(Clock->new({hour => 0, minute => 0})->subtract_minutes(65)->time, '22:55', 's
 __DATA__
 {
   "exercise": "clock",
-  "version": "2.2.1",
+  "version": "2.4.0",
   "comments": [
     "Most languages require constructing a clock with initial values,",
     "adding or subtracting some number of minutes, and testing equality",
@@ -202,6 +202,15 @@ __DATA__
             "minute": -4820
           },
           "expected": "16:40"
+        },
+        {
+          "description": "negative sixty minutes is previous hour",
+          "property": "create",
+          "input": {
+            "hour": 2,
+            "minute": -60
+          },
+          "expected": "01:00"
         },
         {
           "description": "negative hour and minutes both roll over",
@@ -617,6 +626,21 @@ __DATA__
             "clock2": {
               "hour": -54,
               "minute": -11513
+            }
+          },
+          "expected": true
+        },
+        {
+          "description": "full clock and zeroed clock",
+          "property": "equal",
+          "input": {
+            "clock1": {
+              "hour": 24,
+              "minute": 0
+            },
+            "clock2": {
+              "hour": 0,
+              "minute": 0
             }
           },
           "expected": true
