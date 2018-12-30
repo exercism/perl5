@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-use Test::More tests => 15;
+use Test::More tests => 19;
 use JSON::PP;
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
@@ -10,20 +10,39 @@ use PhoneNumber qw(clean_number);
 can_ok 'PhoneNumber', 'import' or BAIL_OUT 'Cannot import subroutines from module';
 
 my $C_DATA = do { local $/; decode_json(<DATA>); };
-foreach my $subcases (@{$C_DATA->{cases}}) {
-  is clean_number($_->{input}{phrase}), $_->{expected}, $_->{description} foreach @{$subcases->{cases}};
+my @exception_cases;
+foreach my $case (map { @{$_->{cases}} } @{$C_DATA->{cases}}) {
+  if (ref $case->{expected} eq 'HASH' && exists $case->{expected}{error}) {
+    push @exception_cases, $case;
+  }
+  else {
+    is clean_number($case->{input}{phrase}), $case->{expected}, $case->{description};
+  }
+}
+
+SKIP: {
+  eval { require Test::Fatal };
+  skip 'Test::Fatal not loaded', scalar @exception_cases if $@;
+  eval q{
+    use Test::Fatal qw(exception);
+    like(
+      exception {clean_number $_->{input}{phrase}},
+      qr/$_->{expected}{error}/,
+      $_->{description}
+    ) foreach @exception_cases;
+  };
 }
 
 __DATA__
 {
   "exercise": "phone-number",
-  "version": "1.4.0",
+  "version": "1.7.0",
   "cases": [
     {
       "description": "Cleanup user-entered phone numbers",
       "comments": [
         " Returns the cleaned phone number if given number is valid, "
-      , " else returns nil. Note that number is not formatted,       "
+      , " else returns error object. Note that number is not formatted,"
       , " just a 10-digit number is returned.                        "
       ],
       "cases": [
@@ -57,7 +76,7 @@ __DATA__
           "input": {
             "phrase": "123456789"
           },
-          "expected": null
+          "expected": {"error": "incorrect number of digits"}
         },
         {
           "description": "invalid when 11 digits does not start with a 1",
@@ -65,7 +84,7 @@ __DATA__
           "input": {
             "phrase": "22234567890"
           },
-          "expected": null
+          "expected": {"error": "11 digits must start with 1"}
         },
         {
           "description": "valid when 11 digits and starting with 1",
@@ -89,7 +108,7 @@ __DATA__
           "input": {
             "phrase": "321234567890"
           },
-          "expected": null
+          "expected": {"error": "more than 11 digits"}
         },
         {
           "description": "invalid with letters",
@@ -97,7 +116,7 @@ __DATA__
           "input": {
             "phrase": "123-abc-7890"
           },
-          "expected": null
+          "expected": {"error": "letters not permitted"}
         },
         {
           "description": "invalid with punctuations",
@@ -105,7 +124,7 @@ __DATA__
           "input": {
             "phrase": "123-@:!-7890"
           },
-          "expected": null
+          "expected": {"error": "punctuations not permitted"}
         },
         {
           "description": "invalid if area code starts with 0",
@@ -113,7 +132,7 @@ __DATA__
           "input": {
             "phrase": "(023) 456-7890"
           },
-          "expected": null
+          "expected": {"error": "area code cannot start with zero"}
         },
         {
           "description": "invalid if area code starts with 1",
@@ -121,7 +140,7 @@ __DATA__
           "input": {
             "phrase": "(123) 456-7890"
           },
-          "expected": null
+          "expected": {"error": "area code cannot start with one"}
         },
         {
           "description": "invalid if exchange code starts with 0",
@@ -129,7 +148,7 @@ __DATA__
           "input": {
             "phrase": "(223) 056-7890"
           },
-          "expected": null
+          "expected": {"error": "exchange code cannot start with zero"}
         },
         {
           "description": "invalid if exchange code starts with 1",
@@ -137,7 +156,39 @@ __DATA__
           "input": {
             "phrase": "(223) 156-7890"
           },
-          "expected": null
+          "expected": {"error": "exchange code cannot start with one"}
+        },
+        {
+          "description": "invalid if area code starts with 0 on valid 11-digit number",
+          "property": "clean",
+          "input": {
+            "phrase": "1 (023) 456-7890"
+          },
+          "expected": {"error": "area code cannot start with zero"}
+        },
+        {
+          "description": "invalid if area code starts with 1 on valid 11-digit number",
+          "property": "clean",
+          "input": {
+            "phrase": "1 (123) 456-7890"
+          },
+          "expected": {"error": "area code cannot start with one"}
+        },
+        {
+          "description": "invalid if exchange code starts with 0 on valid 11-digit number",
+          "property": "clean",
+          "input": {
+            "phrase": "1 (223) 056-7890"
+          },
+          "expected": {"error": "exchange code cannot start with zero"}
+        },
+        {
+          "description": "invalid if exchange code starts with 1 on valid 11-digit number",
+          "property": "clean",
+          "input": {
+            "phrase": "1 (223) 156-7890"
+          },
+          "expected": {"error": "exchange code cannot start with one"}
         }
       ]
     }

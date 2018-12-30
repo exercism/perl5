@@ -1,14 +1,45 @@
 exercise: PhoneNumber
-plan: 15
+plan: 19
 subs: clean_number
 tests: |-
-  foreach my $subcases (@{$C_DATA->{cases}}) {
-    is clean_number($_->{input}{phrase}), $_->{expected}, $_->{description} foreach @{$subcases->{cases}};
+  my @exception_cases;
+  foreach my $case (map { @{$_->{cases}} } @{$C_DATA->{cases}}) {
+    if (ref $case->{expected} eq 'HASH' && exists $case->{expected}{error}) {
+      push @exception_cases, $case;
+    }
+    else {
+      is clean_number($case->{input}{phrase}), $case->{expected}, $case->{description};
+    }
+  }
+
+  SKIP: {
+    eval { require Test::Fatal };
+    skip 'Test::Fatal not loaded', scalar @exception_cases if $@;
+    eval q{
+      use Test::Fatal qw(exception);
+      like(
+        exception {clean_number $_->{input}{phrase}},
+        qr/$_->{expected}{error}/,
+        $_->{description}
+      ) foreach @exception_cases;
+    };
   }
 
 example: |
   sub clean_number {
     my ($number) = @_;
-    $number =~ s/\D//g;
-    return $number =~ /^ 1? ( (?: [2-9] \d{2} ){2} \d{4} ) $/x ? $1 : undef;
+    $number =~ s/[()-. ]//g;
+    if ($number =~ /^ 1? (\d{10}) $/x) {
+      for ([area => substr($1, 0, 1)], [exchange => substr($1, 3, 1)]) {
+        die $_->[0] . ' code cannot start with ' . ($_->[1] ? 'one' : 'zero') if $_->[1] < 2;
+      }
+    }
+    else {
+      die 'more than 11 digits'        if length $number > 11;
+      die 'incorrect number of digits' if length $number < 10;
+      die 'letters not permitted'      if $number =~ /[a-z]/i;
+      die 'punctuations not permitted' if $number =~ /\W/;
+      die '11 digits must start with 1';
+    }
+    return $1;
   }
