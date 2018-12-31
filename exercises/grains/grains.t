@@ -1,11 +1,12 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-use Test::More tests => 13;
+use Test::More tests => 12;
 use JSON::PP;
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
 use Grains qw(grains_on_square total_grains);
+use Math::BigInt;
 
 can_ok 'Grains', 'import' or BAIL_OUT 'Cannot import subroutines from module';
 
@@ -16,21 +17,29 @@ foreach (@{$C_DATA->{cases}}) {
   if (exists $_->{cases}) {
     foreach my $case (@{$_->{cases}}) {
       if ($case->{property} eq 'square') {
-        if ($case->{expected} == -1) {
+        if (ref $case->{expected} eq 'HASH' && $case->{expected}{error}) {
           push @exception_cases, $case;
         }
         else {
-          cmp_ok grains_on_square($case->{input}{square}), 'eq', $case->{expected}, 'square no. ' . $case->{description};
+          cmp_ok(
+            Math::BigInt->new(grains_on_square $case->{input}{square}),
+            '==',
+            $case->{expected},
+            'square no. ' . $case->{description}
+          );
         }
       }
     }
   }
   elsif ($_->{property} eq 'total') {
-    cmp_ok total_grains(), 'eq', $_->{expected}, $_->{description};
+    cmp_ok(
+      Math::BigInt->new(total_grains),
+      '==',
+      $_->{expected},
+      $_->{description}
+    );
   }
 }
-
-unlike total_grains(), qr/e\+/, "Using '**' without 'use bignum;' uses doubles that are too imprecise for this result.";
 
 SKIP: {
   eval { require Test::Fatal };
@@ -44,10 +53,9 @@ SKIP: {
 __DATA__
 {
   "exercise": "grains",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "comments": [
     "The final tests of square test error conditions",
-    "The expectation for these tests is -1, indicating an error",
     "In these cases you should expect an error as is idiomatic for your language"
   ],
   "cases": [
@@ -116,7 +124,7 @@ __DATA__
           "input": {
             "square": 0
           },
-          "expected": -1
+          "expected": {"error": "square must be between 1 and 64"}
         },
         {
           "description": "negative square raises an exception",
@@ -124,7 +132,7 @@ __DATA__
           "input": {
             "square": -1
           },
-          "expected": -1
+          "expected": {"error": "square must be between 1 and 64"}
         },
         {
           "description": "square greater than 64 raises an exception",
@@ -132,7 +140,7 @@ __DATA__
           "input": {
             "square": 65
           },
-          "expected": -1
+          "expected": {"error": "square must be between 1 and 64"}
         }
       ]
     },
