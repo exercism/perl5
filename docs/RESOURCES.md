@@ -8,11 +8,11 @@ To prettify your code, you can use the module
 
 To install with [cpanminus][]:
 
-    cpanm Perl-Tidy
+    cpanm Perl::Tidy
 
 or via the regular `cpan` install utility:
 
-    cpan Perl-Tidy
+    cpan Perl::Tidy
 
 And then, you can use the provided `perltidy` utility program 
 to reformat your code.
@@ -35,10 +35,10 @@ rules.
 To install:
 
     # via cpanminus
-    cpanm Perl-Critic
+    cpanm Perl::Critic
 
     # via the classic 'cpan' installation tool
-    cpan Perl-Critic
+    cpan Perl::Critic
 
 To use:
 

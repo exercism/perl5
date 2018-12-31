@@ -17,7 +17,7 @@ foreach (@{$C_DATA->{cases}}) {
   if (exists $_->{cases}) {
     foreach my $case (@{$_->{cases}}) {
       if ($case->{property} eq 'square') {
-        if (ref $case->{expected} eq 'HASH' && $case->{expected}{error}) {
+        if (ref $case->{expected} eq 'HASH' && exists $case->{expected}{error}) {
           push @exception_cases, $case;
         }
         else {
