@@ -10,8 +10,8 @@ perl:
   - '5.16'
   - '5.14'
 install:
-  - curl -sL --compressed https://git.io/cpm | perl - install -g App::cpm
-  - cpm install
+  - wget -P ~/bin https://git.io/cpm
+  - chmod +x ~/bin/cpm
   - for i in exercises/*/.meta/solutions; do cd $i; if [ -f cpanfile ]; then echo "$i"; cpm install; fi; cd - > /dev/null; done
 before_script:
   - git clone https://github.com/exercism/problem-specifications.git
@@ -22,5 +22,7 @@ script:
     --recurse
     --directives
     --jobs 2
-  - prove -I local/lib/perl5
-    --directives
+  - cpm install
+  - perl -Ilocal/lib/perl5 local/bin/yath test exercises/*/.meta/solutions/
+  - TS_MAX_DELTA=3 perl -Ilocal/lib/perl5 local/bin/yath test t/
+    --verbose
