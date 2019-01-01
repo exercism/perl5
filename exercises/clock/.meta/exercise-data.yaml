@@ -1,5 +1,5 @@
 exercise: Clock
-plan: 53
+plan: 55
 methods: new time add_minutes subtract_minutes
 tests: |-
   foreach (@{$C_DATA->{cases}}) {

@@ -1,5 +1,5 @@
 exercise: Leap
-plan: 5
+plan: 6
 subs: is_leap
 tests: |-
   ok !(is_leap($_->{input}{year}) xor $_->{expected}), $_->{description} foreach @{$C_DATA->{cases}};

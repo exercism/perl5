@@ -1,5 +1,5 @@
 exercise: Luhn
-plan: 15
+plan: 17
 subs: is_luhn_valid
 tests: |-
   ok !(is_luhn_valid($_->{input}{value}) xor $_->{expected}), $_->{description} foreach @{$C_DATA->{cases}};
