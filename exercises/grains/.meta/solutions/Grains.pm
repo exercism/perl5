@@ -15,7 +15,7 @@ sub grains_on_square {
 }
 
 sub total_grains {
-  my $sum;
+  my $sum = 0;
   $sum += grains_on_square($_) for 1..64;
   return $sum;
 }
