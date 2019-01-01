@@ -8,6 +8,15 @@ use FindBin;
 use lib "$FindBin::Bin/../lib";
 use Exercism::Generator 'BASE_DIR';
 
+for (BASE_DIR) {
+  if ( not $_->child('problem-specifications')->is_dir ) {
+    warn "problem-specifications directory not found; exercise(s) may generate incorrectly.\n";
+  }
+  if ( not $_->child('bin/configlet')->is_file ) {
+    warn "configlet not found; README.md file(s) will not be generated.\n";
+  }
+}
+
 my @exercises;
 
 if (@ARGV) {
@@ -49,6 +58,10 @@ for my $exercise (@exercises) {
   $exercise_dir->child("$exercise.t")->chmod(0755);
   $exercise_dir->child('.meta/solutions/'.$data->{exercise}.'.pm')->spew($generator->example);
   $exercise_dir->child($data->{exercise}.'.pm')->spew($generator->stub);
+
+  for ( BASE_DIR->child('bin/configlet') ) {
+    system $_->realpath, 'generate', BASE_DIR, '--only', $exercise if $_->is_file;
+  }
 
   say 'Generated.';
 }
