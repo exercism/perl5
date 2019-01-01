@@ -6,7 +6,7 @@ use Test::More;
 use Data::Dumper;
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
-use Test::Fatal qw(exception);
+use Test2::Tools::Exception qw(dies);
 
 my $module = 'BinarySearch';
 
@@ -106,9 +106,9 @@ foreach my $test_type (keys %test_cases) {
   my $f = "${module}::binary_search";
   foreach my $test ( @{ $test_cases{$test_type}->{tests} } ) {
     if ( $test_type eq 'dies' ) {
-      isnt exception {
+      ok dies {
         $f->($test->{key}, $test->{input})
-      }, undef, $test->{name};
+      }, $test->{name};
     }
     elsif ( $test_type =~ m/^search_and/ ) {
       is(

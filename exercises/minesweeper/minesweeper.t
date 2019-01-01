@@ -5,7 +5,7 @@ use warnings;
 use Test::More tests => 13;
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
-use Test::Fatal qw(exception);
+use Test2::Tools::Exception qw(dies);
 
 my $module = 'Minesweeper';
 my $name = 'count_adjacent_bombs';
@@ -136,7 +136,7 @@ INPUT
 +-----+
 EXPECTED
 
-like exception { $function->( <<'INPUT' ) }, qr/ArgumentError/, 'Unaligned board';
+like dies { $function->( <<'INPUT' ) }, qr/ArgumentError/, 'Unaligned board';
 +-+
 | |
 |*  |
@@ -144,13 +144,13 @@ like exception { $function->( <<'INPUT' ) }, qr/ArgumentError/, 'Unaligned board
 +-+
 INPUT
 
-like exception { $function->( <<'INPUT' ) }, qr/ArgumentError/, 'boarderless board';
+like dies { $function->( <<'INPUT' ) }, qr/ArgumentError/, 'boarderless board';
 +-----+
 *   * |
 +-- --+
 INPUT
 
-like exception { $function->( <<'INPUT' ) }, qr/ArgumentError/, 'Unknwon characters';
+like dies { $function->( <<'INPUT' ) }, qr/ArgumentError/, 'Unknwon characters';
 +-----+
 |X  * |
 +-----+

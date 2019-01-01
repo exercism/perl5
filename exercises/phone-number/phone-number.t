@@ -21,10 +21,10 @@ foreach my $case (map { @{$_->{cases}} } @{$C_DATA->{cases}}) {
 }
 
 SKIP: {
-  eval { require Test::Fatal };
-  skip 'Test::Fatal not loaded', scalar @exception_cases if $@;
+  eval { require Test2::Tools::Exception };
+  skip 'Test2::Tools::Exception not loaded', scalar @exception_cases if $@;
   eval q{
-    use Test::Fatal qw(exception);
+    use Test2::Tools::Exception qw(dies);
     like(
       exception {clean_number $_->{input}{phrase}},
       qr/$_->{expected}{error}/,

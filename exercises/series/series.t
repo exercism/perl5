@@ -5,7 +5,7 @@ use warnings;
 use Test::More tests=> 17;
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
-use Test::Fatal qw(exception);
+use Test2::Tools::Exception qw(dies);
 
 my $module = 'Series';
 
@@ -88,7 +88,7 @@ foreach my $case ( @cases ) {
     my $m = $module->new( $case->{input} );
     
     if( $case->{exception} ) {
-	like exception { $m->slice($case->{size}) }, qr/$case->{exception}/, $case->{name};
+	like dies { $m->slice($case->{size}) }, qr/$case->{exception}/, $case->{name};
     } else {
 	is_deeply $m->slice($case->{size}), $case->{expected}, $case->{name};
     }
