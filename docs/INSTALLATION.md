@@ -1,10 +1,7 @@
 ### Windows:
-* [Strawberry Perl](http://strawberryperl.com/): A 100% Open Source Perl for
-  Windows that is exactly the same as Perl everywhere else; this includes using
-  modules from CPAN, without the need for binary packages.
-* [DWIM Perl](http://dwimperl.com/windows.html): A 100% Open Source Perl for
-  Windows, based on Strawberry Perl. It aims to include as many useful CPAN
-  modules as possible. It even comes with [Padre](http://padre.perlide.org/), the Perl IDE.
+[Strawberry Perl](http://strawberryperl.com/): A 100% Open Source Perl for
+Windows that is exactly the same as Perl everywhere else; this includes using
+modules from CPAN, without the need for binary packages.
 
 ### Unix/Linux/Mac OSX:
 Perl is likely already installed. Run `perl -v` to check which version you have.
