@@ -26,7 +26,7 @@ SKIP: {
   eval q{
     use Test2::Tools::Exception qw(dies);
     like(
-      exception {clean_number $_->{input}{phrase}},
+      dies {clean_number $_->{input}{phrase}},
       qr/$_->{expected}{error}/,
       $_->{description}
     ) foreach @exception_cases;
