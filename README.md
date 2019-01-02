@@ -6,14 +6,8 @@ Exercism exercises in Perl 5
 
 ## Dependencies
 
-The tests depend on the following modules:
-
-    DateTime
-    List::MoreUtils
-    Test2::Tools::Exception
-    Path::Tiny (for generator tests)
-    Template::Mustache (for generator tests)
-    YAML (for generator tests)
+Each exercise has its own cpanfile (if necessary) for any dependencies it might have.
+Other dependencies can be found in and installed with the top level cpanfile.
 
 ## Testing the Tests
 
