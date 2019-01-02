@@ -21,8 +21,8 @@ script:
   - prove exercises/*/.meta/solutions/
     --recurse
     --directives
-    --jobs 2
   - cpm install
   - perl -Ilocal/lib/perl5 local/bin/yath test exercises/*/.meta/solutions/
+    --jobs 2
   - TS_MAX_DELTA=3 perl -Ilocal/lib/perl5 local/bin/yath test t/
     --verbose
