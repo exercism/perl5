@@ -1,32 +1,31 @@
 package Allergies;
-
 use strict;
 use warnings;
+use Exporter qw<import>;
+our @EXPORT_OK = qw<allergic_to list_allergies>;
 
-use List::Util 'first';
-
-my @allergens
-  = qw(eggs peanuts shellfish strawberries tomatoes chocolate pollen cats);
-
-sub new {
-  my ( $class, $score ) = @_;
-  my $self = bless {} => $class;
-  $self->{score} = reverse sprintf "%08b", $score;
-
-  return $self;
-}
+use constant ALLERGENS => {
+  eggs         => 1,
+  peanuts      => 2,
+  shellfish    => 4,
+  strawberries => 8,
+  tomatoes     => 16,
+  chocolate    => 32,
+  pollen       => 64,
+  cats         => 128,
+};
 
 sub allergic_to {
-  my ( $self, $allergen ) = @_;
-
-  my $index = first { $allergens[$_] eq $allergen } 0 .. $#allergens;
-
-  return substr $self->{score}, $index, 1;
+  my ($input) = @_;
+  ALLERGENS->{ $input->{item} } & $input->{score};
 }
 
-sub list {
-  [ grep { $_[0]->allergic_to($_) } @allergens ]
+sub list_allergies {
+  my ($score) = @_;
+  return [
+    grep { allergic_to { item => $_, score => $score } }
+      keys %{ +ALLERGENS }
+  ];
 }
 
-__PACKAGE__;
-
+1;

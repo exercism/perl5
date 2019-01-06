@@ -1,114 +1,499 @@
 #!/usr/bin/env perl
-use strict;
-use warnings;
+use Test2::V0;
+use JSON::PP;
+use constant JSON => JSON::PP->new;
 
-use Test2::Bundle::More;
-use JSON::PP qw(decode_json);
-use FindBin qw($Bin);
+use FindBin qw<$Bin>;
 use lib $Bin, "$Bin/local/lib/perl5";
 
-my $module = 'Allergies';
+use Allergies qw(allergic_to list_allergies);
 
-my $cases;
-{
-  local $/ = undef;
-  $cases = decode_json scalar <DATA>;
-}
+my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };
+plan 50;
 
-plan 4 + @$cases;
+imported_ok qw<allergic_to list_allergies> or bail_out;
 
-ok -e "$Bin/$module.pm" or BAIL_OUT "missing $module.pm";
-
-eval "use $module";
-ok !$@, "Cannot load $module.pm"
-  or BAIL_OUT("Does $module.pm compile?  Does it end with 1; ?");
-
-can_ok $module, "allergic_to"
-  or
-  BAIL_OUT("Missing package $module; or missing sub allergic_to()");
-can_ok $module, "list"
-  or BAIL_OUT("Missing package $module; or missing sub list()");
-
-foreach my $c (@$cases) {
-  if ( $c->{sub} eq 'allergic_to' ) {
-    my $allergy = $module->new( $c->{input}->[0] );
-    cmp_ok $allergy->allergic_to( $c->{input}->[1] ), '==',
-      $c->{expected},
-      $c->{name};
+for my $case (@test_cases) {
+  if ( $case->{property} eq 'allergicTo' ) {
+    is allergic_to( $case->{input} ), $case->{expected} ? T : DF,
+      $case->{description};
   }
-  if ( $c->{sub} eq 'list' ) {
-    my $allergy = $module->new( $c->{input} );
-    is_deeply $allergy->list(), $c->{expected}, $c->{name};
+  elsif ( $case->{property} eq 'list' ) {
+    is
+      list_allergies( $case->{input}{score} ), bag {
+      item $_ for @{ $case->{expected} };
+      end;
+      }, $case->{description};
   }
 }
 
 __DATA__
 [
-    {
-        "sub"     : "allergic_to",
-        "input"   : [0, "peanuts"],
-        "expected": false,
-        "name"    : "score 0 is not allergic_to peanuts"
-    },
-    {
-        "sub"     : "allergic_to",
-        "input"   : [0, "cats"],
-        "expected": false,
-        "name"    : "score 0 is not allergic_to cats"
-    },
-    {
-        "sub"     : "allergic_to",
-        "input"   : [0, "strawberries"],
-        "expected": false,
-        "name"    : "score 0 is not allergic_to strawberries"
-    },
-    {
-        "sub"     : "allergic_to",
-        "input"   : [1, "eggs"],
-        "expected": true,
-        "name"    : "score 1 is allergic_to eggs"
-    },
-    {
-        "sub"     : "allergic_to",
-        "input"   : [5, "eggs"],
-        "expected": true,
-        "name"    : "score 5 is allergic_to eggs"
-    },
-    {
-        "sub"     : "allergic_to",
-        "input"   : [5, "shellfish"],
-        "expected": true,
-        "name"    : "score 5 is allergic_to shellfish"
-    },
-    {
-        "sub"     : "allergic_to",
-        "input"   : [5, "strawberries"],
-        "expected": false,
-        "name"    : "score 5 is not allergic_to strawberries"
-    },
-    {
-        "sub"     : "list",
-        "input"   : 0,
-        "expected": [],
-        "name"    : "score 0 has empty allergens"
-    },
-    {
-        "sub"     : "list",
-        "input"   : 2,
-        "expected": ["peanuts"],
-        "name"    : "score 2 has one allergen"
-    },
-    {
-        "sub"     : "list",
-        "input"   : 255,
-        "expected": ["eggs", "peanuts", "shellfish", "strawberries", "tomatoes", "chocolate", "pollen", "cats"],
-        "name"    : "score 255 is allergic to everything"
-    },
-    {
-        "sub"     : "list",
-        "input"   : 509,
-        "expected": ["eggs", "shellfish", "strawberries", "tomatoes", "chocolate", "pollen", "cats"],
-        "name"    : "score 509 ignores non allergen score parts"
-    }
+   {
+      "description": "testing for eggs allergy: not allergic to anything",
+      "expected": false,
+      "input": {
+         "item": "eggs",
+         "score": 0
+      },
+      "property": "allergicTo"
+   },
+   {
+      "description": "testing for eggs allergy: allergic only to eggs",
+      "expected": true,
+      "input": {
+         "item": "eggs",
+         "score": 1
+      },
+      "property": "allergicTo"
+   },
+   {
+      "description": "testing for eggs allergy: allergic to eggs and something else",
+      "expected": true,
+      "input": {
+         "item": "eggs",
+         "score": 3
+      },
+      "property": "allergicTo"
+   },
+   {
+      "description": "testing for eggs allergy: allergic to something, but not eggs",
+      "expected": false,
+      "input": {
+         "item": "eggs",
+         "score": 2
+      },
+      "property": "allergicTo"
+   },
+   {
+      "description": "testing for eggs allergy: allergic to everything",
+      "expected": true,
+      "input": {
+         "item": "eggs",
+         "score": 255
+      },
+      "property": "allergicTo"
+   },
+   {
+      "description": "testing for peanuts allergy: not allergic to anything",
+      "expected": false,
+      "input": {
+         "item": "peanuts",
+         "score": 0
+      },
+      "property": "allergicTo"
+   },
+   {
+      "description": "testing for peanuts allergy: allergic only to peanuts",
+      "expected": true,
+      "input": {
+         "item": "peanuts",
+         "score": 2
+      },
+      "property": "allergicTo"
+   },
+   {
+      "description": "testing for peanuts allergy: allergic to peanuts and something else",
+      "expected": true,
+      "input": {
+         "item": "peanuts",
+         "score": 7
+      },
+      "property": "allergicTo"
+   },
+   {
+      "description": "testing for peanuts allergy: allergic to something, but not peanuts",
+      "expected": false,
+      "input": {
+         "item": "peanuts",
+         "score": 5
+      },
+      "property": "allergicTo"
+   },
+   {
+      "description": "testing for peanuts allergy: allergic to everything",
+      "expected": true,
+      "input": {
+         "item": "peanuts",
+         "score": 255
+      },
+      "property": "allergicTo"
+   },
+   {
+      "description": "testing for shellfish allergy: not allergic to anything",
+      "expected": false,
+      "input": {
+         "item": "shellfish",
+         "score": 0
+      },
+      "property": "allergicTo"
+   },
+   {
+      "description": "testing for shellfish allergy: allergic only to shellfish",
+      "expected": true,
+      "input": {
+         "item": "shellfish",
+         "score": 4
+      },
+      "property": "allergicTo"
+   },
+   {
+      "description": "testing for shellfish allergy: allergic to shellfish and something else",
+      "expected": true,
+      "input": {
+         "item": "shellfish",
+         "score": 14
+      },
+      "property": "allergicTo"
+   },
+   {
+      "description": "testing for shellfish allergy: allergic to something, but not shellfish",
+      "expected": false,
+      "input": {
+         "item": "shellfish",
+         "score": 10
+      },
+      "property": "allergicTo"
+   },
+   {
+      "description": "testing for shellfish allergy: allergic to everything",
+      "expected": true,
+      "input": {
+         "item": "shellfish",
+         "score": 255
+      },
+      "property": "allergicTo"
+   },
+   {
+      "description": "testing for strawberries allergy: not allergic to anything",
+      "expected": false,
+      "input": {
+         "item": "strawberries",
+         "score": 0
+      },
+      "property": "allergicTo"
+   },
+   {
+      "description": "testing for strawberries allergy: allergic only to strawberries",
+      "expected": true,
+      "input": {
+         "item": "strawberries",
+         "score": 8
+      },
+      "property": "allergicTo"
+   },
+   {
+      "description": "testing for strawberries allergy: allergic to strawberries and something else",
+      "expected": true,
+      "input": {
+         "item": "strawberries",
+         "score": 28
+      },
+      "property": "allergicTo"
+   },
+   {
+      "description": "testing for strawberries allergy: allergic to something, but not strawberries",
+      "expected": false,
+      "input": {
+         "item": "strawberries",
+         "score": 20
+      },
+      "property": "allergicTo"
+   },
+   {
+      "description": "testing for strawberries allergy: allergic to everything",
+      "expected": true,
+      "input": {
+         "item": "strawberries",
+         "score": 255
+      },
+      "property": "allergicTo"
+   },
+   {
+      "description": "testing for tomatoes allergy: not allergic to anything",
+      "expected": false,
+      "input": {
+         "item": "tomatoes",
+         "score": 0
+      },
+      "property": "allergicTo"
+   },
+   {
+      "description": "testing for tomatoes allergy: allergic only to tomatoes",
+      "expected": true,
+      "input": {
+         "item": "tomatoes",
+         "score": 16
+      },
+      "property": "allergicTo"
+   },
+   {
+      "description": "testing for tomatoes allergy: allergic to tomatoes and something else",
+      "expected": true,
+      "input": {
+         "item": "tomatoes",
+         "score": 56
+      },
+      "property": "allergicTo"
+   },
+   {
+      "description": "testing for tomatoes allergy: allergic to something, but not tomatoes",
+      "expected": false,
+      "input": {
+         "item": "tomatoes",
+         "score": 40
+      },
+      "property": "allergicTo"
+   },
+   {
+      "description": "testing for tomatoes allergy: allergic to everything",
+      "expected": true,
+      "input": {
+         "item": "tomatoes",
+         "score": 255
+      },
+      "property": "allergicTo"
+   },
+   {
+      "description": "testing for chocolate allergy: not allergic to anything",
+      "expected": false,
+      "input": {
+         "item": "chocolate",
+         "score": 0
+      },
+      "property": "allergicTo"
+   },
+   {
+      "description": "testing for chocolate allergy: allergic only to chocolate",
+      "expected": true,
+      "input": {
+         "item": "chocolate",
+         "score": 32
+      },
+      "property": "allergicTo"
+   },
+   {
+      "description": "testing for chocolate allergy: allergic to chocolate and something else",
+      "expected": true,
+      "input": {
+         "item": "chocolate",
+         "score": 112
+      },
+      "property": "allergicTo"
+   },
+   {
+      "description": "testing for chocolate allergy: allergic to something, but not chocolate",
+      "expected": false,
+      "input": {
+         "item": "chocolate",
+         "score": 80
+      },
+      "property": "allergicTo"
+   },
+   {
+      "description": "testing for chocolate allergy: allergic to everything",
+      "expected": true,
+      "input": {
+         "item": "chocolate",
+         "score": 255
+      },
+      "property": "allergicTo"
+   },
+   {
+      "description": "testing for pollen allergy: not allergic to anything",
+      "expected": false,
+      "input": {
+         "item": "pollen",
+         "score": 0
+      },
+      "property": "allergicTo"
+   },
+   {
+      "description": "testing for pollen allergy: allergic only to pollen",
+      "expected": true,
+      "input": {
+         "item": "pollen",
+         "score": 64
+      },
+      "property": "allergicTo"
+   },
+   {
+      "description": "testing for pollen allergy: allergic to pollen and something else",
+      "expected": true,
+      "input": {
+         "item": "pollen",
+         "score": 224
+      },
+      "property": "allergicTo"
+   },
+   {
+      "description": "testing for pollen allergy: allergic to something, but not pollen",
+      "expected": false,
+      "input": {
+         "item": "pollen",
+         "score": 160
+      },
+      "property": "allergicTo"
+   },
+   {
+      "description": "testing for pollen allergy: allergic to everything",
+      "expected": true,
+      "input": {
+         "item": "pollen",
+         "score": 255
+      },
+      "property": "allergicTo"
+   },
+   {
+      "description": "testing for cats allergy: not allergic to anything",
+      "expected": false,
+      "input": {
+         "item": "cats",
+         "score": 0
+      },
+      "property": "allergicTo"
+   },
+   {
+      "description": "testing for cats allergy: allergic only to cats",
+      "expected": true,
+      "input": {
+         "item": "cats",
+         "score": 128
+      },
+      "property": "allergicTo"
+   },
+   {
+      "description": "testing for cats allergy: allergic to cats and something else",
+      "expected": true,
+      "input": {
+         "item": "cats",
+         "score": 192
+      },
+      "property": "allergicTo"
+   },
+   {
+      "description": "testing for cats allergy: allergic to something, but not cats",
+      "expected": false,
+      "input": {
+         "item": "cats",
+         "score": 64
+      },
+      "property": "allergicTo"
+   },
+   {
+      "description": "testing for cats allergy: allergic to everything",
+      "expected": true,
+      "input": {
+         "item": "cats",
+         "score": 255
+      },
+      "property": "allergicTo"
+   },
+   {
+      "description": "list when: no allergies",
+      "expected": [],
+      "input": {
+         "score": 0
+      },
+      "property": "list"
+   },
+   {
+      "description": "list when: just eggs",
+      "expected": [
+         "eggs"
+      ],
+      "input": {
+         "score": 1
+      },
+      "property": "list"
+   },
+   {
+      "description": "list when: just peanuts",
+      "expected": [
+         "peanuts"
+      ],
+      "input": {
+         "score": 2
+      },
+      "property": "list"
+   },
+   {
+      "description": "list when: just strawberries",
+      "expected": [
+         "strawberries"
+      ],
+      "input": {
+         "score": 8
+      },
+      "property": "list"
+   },
+   {
+      "description": "list when: eggs and peanuts",
+      "expected": [
+         "eggs",
+         "peanuts"
+      ],
+      "input": {
+         "score": 3
+      },
+      "property": "list"
+   },
+   {
+      "description": "list when: more than eggs but not peanuts",
+      "expected": [
+         "eggs",
+         "shellfish"
+      ],
+      "input": {
+         "score": 5
+      },
+      "property": "list"
+   },
+   {
+      "description": "list when: lots of stuff",
+      "expected": [
+         "strawberries",
+         "tomatoes",
+         "chocolate",
+         "pollen",
+         "cats"
+      ],
+      "input": {
+         "score": 248
+      },
+      "property": "list"
+   },
+   {
+      "description": "list when: everything",
+      "expected": [
+         "eggs",
+         "peanuts",
+         "shellfish",
+         "strawberries",
+         "tomatoes",
+         "chocolate",
+         "pollen",
+         "cats"
+      ],
+      "input": {
+         "score": 255
+      },
+      "property": "list"
+   },
+   {
+      "description": "list when: no allergen score parts",
+      "expected": [
+         "eggs",
+         "shellfish",
+         "strawberries",
+         "tomatoes",
+         "chocolate",
+         "pollen",
+         "cats"
+      ],
+      "input": {
+         "score": 509
+      },
+      "property": "list"
+   }
 ]
-
