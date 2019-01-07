@@ -1,0 +1,26 @@
+exercise: BeerSong
+plan: 9
+subs: sing
+tests: |-
+  foreach my $case (map { @{$_->{cases}} } map { @{$_->{cases}} } @{$C_DATA->{cases}}) {
+    is(
+      sing({
+        bottles => $case->{input}{startBottles},
+        verses  => $case->{input}{takeDown},
+      }),
+      join("\n", @{$case->{expected}}),
+      $case->{description}
+    );
+  }
+
+example: |-
+  sub sing {
+    my ($input) = @_;
+    return undef;
+  }
+
+stub: |-
+  sub sing {
+    my ($input) = @_;
+    return undef;
+  }
