@@ -1,26 +1,30 @@
 exercise: Leap
 plan: 6
-subs: is_leap
+subs: is_leap_year
 tests: |-
-  ok !(is_leap($_->{input}{year}) xor $_->{expected}), $_->{description} foreach @{$C_DATA->{cases}};
+  foreach (@{$C_DATA->{cases}}) {
+    my $result = is_leap_year $_->{input}{year};
+    ok(
+      defined $result && !($result xor $_->{expected}),
+      $_->{description}
+    );
+  }
 
 lib_comment: '# Look for modules inside the same directory as this test file.'
 plan_comment: '# This is how many tests we expect to run.'
 use_test_comment: '# Check that the module can be use-d.'
 
 example: |-
-  sub is_leap {
-    my $year = shift;
-    divisible_by($year, 400) or divisible_by($year, 4) and !divisible_by($year, 100);
+  sub is_leap_year {
+    my ($year) = @_;
+    return $year % 4 == 0 && $year % 100 != 0 || $year % 400 == 0;
   }
 
-  sub divisible_by {
-    $_[0] % $_[1] == 0 ? 1 : 0;
-  }
 
 stub: |-
-  sub is_leap {
+  sub is_leap_year {
     my ($year) = @_;
+    return undef;
     # Remove the comments and write some code here to pass the test suite.
   }
 
