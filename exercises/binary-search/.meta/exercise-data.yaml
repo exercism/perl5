@@ -1,0 +1,43 @@
+exercise: BinarySearch
+plan: 12
+subs: binary_search
+tests: |-
+  my @exception_cases;
+
+  foreach my $case (@{$C_DATA->{cases}}) {
+    if (ref $case->{expected} eq 'HASH' && exists $case->{expected}{error}) {
+      push @exception_cases, $case;
+    }
+    else {
+      cmp_ok binary_search($case->{input}), '==', $case->{expected}, $case->{description};
+    }
+  }
+
+  SKIP: {
+    if (eval { require Test2::Tools::Exception }) {
+      eval q{
+        use Test2::Tools::Exception qw(dies);
+        ok(dies { binary_search $_->{input} }, $_->{description}) foreach @exception_cases;
+        1;
+      } or warn $@;
+    }
+    else {
+      skip 'Test2::Tools::Exception not loaded', scalar @exception_cases;
+    }
+  }
+
+example: |-
+  sub binary_search {
+    my ($input) = @_;
+    #TODO: Not a proper solution
+    foreach ( 0 .. $#{ $input->{array} } ) {
+      return $_ if ${ $input->{array} }[$_] == $input->{value};
+    }
+    die;
+  }
+
+stub: |-
+  sub binary_search {
+    my ($input) = @_;
+    return undef;
+  }
