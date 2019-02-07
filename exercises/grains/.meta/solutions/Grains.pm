@@ -4,6 +4,8 @@ use warnings;
 use Exporter 'import';
 our @EXPORT_OK = qw(grains_on_square total_grains);
 
+use bignum;
+
 sub grains_on_square {
   my ($square) = @_;
   if ($square < 1 || $square > 64) {
@@ -13,8 +15,8 @@ sub grains_on_square {
 }
 
 sub total_grains {
-  my $sum;
-  map {$sum += grains_on_square($_)} 1..64;
+  my $sum = 0;
+  $sum += grains_on_square($_) for 1..64;
   return $sum;
 }
 

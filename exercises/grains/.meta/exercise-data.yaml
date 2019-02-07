@@ -1,6 +1,8 @@
 exercise: Grains
 plan: 12
 subs: grains_on_square total_grains
+modules:
+  - use: Math::BigInt
 tests: |-
   my @exception_cases;
 
@@ -12,13 +14,23 @@ tests: |-
             push @exception_cases, $case;
           }
           else {
-            cmp_ok grains_on_square($case->{input}{square}), '==', $case->{expected}, 'square no. ' . $case->{description};
+            cmp_ok(
+              Math::BigInt->new(grains_on_square $case->{input}{square}),
+              '==',
+              $case->{expected},
+              'square no. ' . $case->{description}
+            );
           }
         }
       }
     }
     elsif ($_->{property} eq 'total') {
-      cmp_ok total_grains(), '==', $_->{expected}, $_->{description};
+      cmp_ok(
+        Math::BigInt->new(total_grains),
+        '==',
+        $_->{expected},
+        $_->{description}
+      );
     }
   }
 
@@ -32,6 +44,8 @@ tests: |-
   }
 
 example: |-
+  use bignum;
+
   sub grains_on_square {
     my ($square) = @_;
     if ($square < 1 || $square > 64) {
@@ -41,8 +55,8 @@ example: |-
   }
 
   sub total_grains {
-    my $sum;
-    map {$sum += grains_on_square($_)} 1..64;
+    my $sum = 0;
+    $sum += grains_on_square($_) for 1..64;
     return $sum;
   }
 

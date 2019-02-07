@@ -6,6 +6,7 @@ use JSON::PP;
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
 use Grains qw(grains_on_square total_grains);
+use Math::BigInt;
 
 can_ok 'Grains', 'import' or BAIL_OUT 'Cannot import subroutines from module';
 
@@ -20,13 +21,23 @@ foreach (@{$C_DATA->{cases}}) {
           push @exception_cases, $case;
         }
         else {
-          cmp_ok grains_on_square($case->{input}{square}), '==', $case->{expected}, 'square no. ' . $case->{description};
+          cmp_ok(
+            Math::BigInt->new(grains_on_square $case->{input}{square}),
+            '==',
+            $case->{expected},
+            'square no. ' . $case->{description}
+          );
         }
       }
     }
   }
   elsif ($_->{property} eq 'total') {
-    cmp_ok total_grains(), '==', $_->{expected}, $_->{description};
+    cmp_ok(
+      Math::BigInt->new(total_grains),
+      '==',
+      $_->{expected},
+      $_->{description}
+    );
   }
 }
 
