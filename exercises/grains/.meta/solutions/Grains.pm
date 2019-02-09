@@ -5,6 +5,7 @@ use Exporter 'import';
 our @EXPORT_OK = qw(grains_on_square total_grains);
 
 use bignum;
+use List::Util qw(sum);
 
 sub grains_on_square {
   my ($square) = @_;
@@ -15,9 +16,7 @@ sub grains_on_square {
 }
 
 sub total_grains {
-  my $sum = 0;
-  $sum += grains_on_square($_) for 1..64;
-  return $sum;
+  return sum map {grains_on_square($_)} 1..64;
 }
 
 1;

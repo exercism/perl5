@@ -42,12 +42,15 @@ foreach (@{$C_DATA->{cases}}) {
 }
 
 SKIP: {
-  eval { require Test2::Tools::Exception };
-  skip 'Test2::Tools::Exception not loaded', scalar @exception_cases if $@;
-  eval q{
-    use Test2::Tools::Exception qw(dies);
-    ok dies {grains_on_square $_->{input}{square}}, $_->{description} foreach @exception_cases;
-  };
+  if ( eval { require Test2::Tools::Exception } ) {
+    ok(
+      Test2::Tools::Exception::dies( sub { grains_on_square $_->{input}{square} } ),
+      $_->{description}
+    ) foreach @exception_cases;
+  }
+  else {
+    skip 'Test2::Tools::Exception not loaded', scalar @exception_cases;
+  }
 }
 
 __DATA__
