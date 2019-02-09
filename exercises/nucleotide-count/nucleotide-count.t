@@ -21,12 +21,15 @@ foreach my $case (map {@{$_->{cases}}} @{$C_DATA->{cases}}) {
 }
 
 SKIP: {
-  eval { require Test2::Tools::Exception };
-  skip 'Test2::Tools::Exception not loaded', scalar @exception_cases if $@;
-  eval q{
-    use Test2::Tools::Exception qw(dies);
-    ok dies {count_nucleotides $_->{input}{strand}}, $_->{description} foreach @exception_cases;
-  };
+  if ( eval { require Test2::Tools::Exception } ) {
+    ok(
+      Test2::Tools::Exception::dies( sub { count_nucleotides $_->{input}{strand} } ),
+      $_->{description}
+    ) foreach @exception_cases;
+  }
+  else {
+    skip 'Test2::Tools::Exception not loaded', scalar @exception_cases;
+  }
 }
 
 __DATA__

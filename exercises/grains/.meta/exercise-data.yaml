@@ -35,16 +35,20 @@ tests: |-
   }
 
   SKIP: {
-    eval { require Test2::Tools::Exception };
-    skip 'Test2::Tools::Exception not loaded', scalar @exception_cases if $@;
-    eval q{
-      use Test2::Tools::Exception qw(dies);
-      ok dies {grains_on_square $_->{input}{square}}, $_->{description} foreach @exception_cases;
-    };
+    if ( eval { require Test2::Tools::Exception } ) {
+      ok(
+        Test2::Tools::Exception::dies( sub { grains_on_square $_->{input}{square} } ),
+        $_->{description}
+      ) foreach @exception_cases;
+    }
+    else {
+      skip 'Test2::Tools::Exception not loaded', scalar @exception_cases;
+    }
   }
 
 example: |-
   use bignum;
+  use List::Util qw(sum);
 
   sub grains_on_square {
     my ($square) = @_;
@@ -55,9 +59,7 @@ example: |-
   }
 
   sub total_grains {
-    my $sum = 0;
-    $sum += grains_on_square($_) for 1..64;
-    return $sum;
+    return sum map {grains_on_square($_)} 1..64;
   }
 
 stub: |-

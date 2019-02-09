@@ -22,12 +22,11 @@ foreach my $case (@{$C_DATA->{cases}}) {
 }
 
 SKIP: {
-  if (eval { require Test2::Tools::Exception }) {
-    eval q{
-      use Test2::Tools::Exception qw(dies);
-      ok(dies { binary_search $_->{input} }, $_->{description}) foreach @exception_cases;
-      1;
-    } or warn $@;
+  if ( eval { require Test2::Tools::Exception } ) {
+    ok(
+      Test2::Tools::Exception::dies( sub { binary_search $_->{input} } ),
+      $_->{description}
+    ) foreach @exception_cases;
   }
   else {
     skip 'Test2::Tools::Exception not loaded', scalar @exception_cases;
