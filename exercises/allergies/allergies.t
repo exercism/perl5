@@ -29,7 +29,7 @@ can_ok $module, "list"        or BAIL_OUT("Missing package $module; or missing s
 foreach my $c (@$cases) {
     if ($c->{sub} eq 'allergic_to'){
         my $allergy = $module->new($c->{input}->[0]);
-        is $allergy->allergic_to($c->{input}->[1]),  $c->{expected}, $c->{name};
+        cmp_ok $allergy->allergic_to($c->{input}->[1]), '==', $c->{expected}, $c->{name};
     }
     if ($c->{sub} eq 'list'){
         my $allergy = $module->new($c->{input});

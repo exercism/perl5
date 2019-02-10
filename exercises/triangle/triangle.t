@@ -33,12 +33,12 @@ my $sub = $module . '::kind';
 foreach my $c (@$cases) {
     my $kind;
     eval {
-    	no strict 'refs';
+      no strict 'refs';
         $kind = $sub->(@{ $c->{input} });
     };
     if ($c->{exception}) {
-		like $@, qr/^$c->{exception}/, "Exception $c->{name}";
-	} else {
+    like $@, qr/^$c->{exception}/, "Exception $c->{name}";
+  } else {
         is $kind, $c->{expected}, $c->{name};
     }
 }
