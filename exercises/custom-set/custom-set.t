@@ -21,7 +21,7 @@ sub set { return $module->new(@_) };
 subtest 'Tested new()' => sub {
     plan 1;
 
-    isa_ok( $module->new(), $module, "return value of new()" );
+    isa_ok( $module->new(), $module );
 };
 
 subtest 'Tested equal()' => sub {
@@ -38,19 +38,19 @@ subtest 'Tested equal()' => sub {
 subtest 'Tested intersect()' => sub {
     plan 7;
 
-    isa_ok( set()->intersect( set() ), $module, "return value of intersect()" );
+    isa_ok( set()->intersect( set() ), $module );
     ok( set(1..10)->intersect( set(5..10) )->is_equal( set(5..10) ), "intersect with subset returns subset" );
     ok( set(3..6)->intersect( set(5..8) )->is_equal( set(5,6) ), "intersect non-subset" );
     ok( set(1..3)->intersect( set(4..6) )->is_equal( set() ), "nothing in common" );
     ok( set(1,3,5,7,9)->intersect( set(3..7) )->is_equal( set(3,5,7) ), "intersect with odd numbers" );
     ok( set()->intersect( set() )->is_equal( set() ), "an empty set is an empty set" );
-    ok( set(1..3)->intersect( set(3) )->is_equal( set(3) ), "Intersect with unary set results in unary set" );  
+    ok( set(1..3)->intersect( set(3) )->is_equal( set(3) ), "Intersect with unary set results in unary set" );
 };
 
 subtest 'Tested delete()' => sub {
     plan 3;
 
-    isa_ok( set(3,2,1)->delete(2), $module, "return value of delete()" );
+    isa_ok( set(3,2,1)->delete(2), $module );
     ok( set(3,2,1)->delete(2)->is_equal( set(1,3) ), "removing single element" );
     ok( set(3,2,1)->delete(4)->is_equal( set(1..3) ), "removing non-existant element" );
 };
@@ -58,7 +58,7 @@ subtest 'Tested delete()' => sub {
 subtest 'Tested add()' => sub {
     plan 4;
 
-    isa_ok( set()->add(1), $module, "return value of add()" );
+    isa_ok( set()->add(1), $module );
     ok( set()->add(1)->is_equal( set(1) ), "adding to empty set" );
     ok( set(1,2,4)->add(3)->is_equal( set(1..4) ), "adding to non-empty set" );
     ok( set(1,2,3)->add(3)->is_equal( set(1..3) ), "adding existing member is noop" );
@@ -67,7 +67,7 @@ subtest 'Tested add()' => sub {
 subtest 'Tested difference()' => sub {
     plan 6;
 
-    isa_ok( set()->difference( set() ), $module, "return value of difference()" );
+    isa_ok( set()->difference( set() ), $module );
     ok( set()->difference( set() )->is_equal( set() ), "difference of two empty sets is an empty set" );
     ok( set()->difference( set(1..3) )->is_equal( set() ), "difference between empty set and non-empty set" );
     ok( set(1..3)->difference( set() )->is_equal( set(1..3) ), "difference between non-empty set and empty set" );
@@ -88,13 +88,13 @@ subtest 'Tested is_disjoint()' => sub {
 subtest 'Tested empty()' => sub {
     plan 4;
 
-    isa_ok( set()->empty(), $module, "return value of empty()" );
+    isa_ok( set()->empty(), $module );
     ok( set()->empty()->is_equal( set() ), "emptying empty set results in an empty set" );
     ok( set(1..3)->empty()->is_equal( set() ), "set empty after emptying (duh!)" );
-    
+
     my $set = set(1..3);
     $set->empty();
-    ok( $set->is_equal( set() ), "not just an empty set returned, but set was emptied" ); 
+    ok( $set->is_equal( set() ), "not just an empty set returned, but set was emptied" );
 };
 
 subtest 'Tested is_member()' => sub {
@@ -129,8 +129,8 @@ subtest 'Tested is_subset()' => sub {
 
 subtest 'Tested union()' => sub {
     plan 7;
-    
-    isa_ok( set()->union( set() ), $module, "return value of union()" );
+
+    isa_ok( set()->union( set() ), $module );
     ok( set()->union( set() )->is_equal( set() ), "union of empty sets is an empty set" );
     ok( set(2)->union( set() )->is_equal( set(2) ), "union of non-empty set and empty set is non-empty set" );
     ok( set()->union( set(2) )->is_equal( set(2) ), "union of empty set and non-empty set is non-empty set" );

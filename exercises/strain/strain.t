@@ -26,47 +26,47 @@ $input    = [];
 $expected = [];
 $function = sub { my $x = shift; $x % 2 == 0};
 is_deeply( $keep->($input, $function), $expected,
-    "empty list" ) or diag explain $keep->($input, $function);
+    "empty list" );
 
 $input    = [2, 4, 6, 8, 10];
 $expected = [];
 $function = sub { my $x = shift; $x % 2 == 1 };
 is_deeply( $keep->($input, $function), $expected,
-    "keep odd numbers. empty result " ) or diag explain $keep->($input, $function);
+    "keep odd numbers. empty result " );
 
 $input    = [2, 4, 6, 8, 10];
 $expected = [];
 $function = sub { my $x = shift; $x % 2 == 0 };
 is_deeply( $discard->($input, $function), $expected,
-    "discard even numbers. empty result" ) or diag explain $discard->($input, $function);
+    "discard even numbers. empty result" );
 
 $input    = [2, 4, 6, 8, 10];
 $expected = [2, 4, 6, 8, 10];
 $function = sub { my $x = shift; $x % 2 == 0 };
 is_deeply( $keep->($input, $function), $expected,
-    "keep even numbers. result == input" ) or diag explain $keep->($input, $function);
+    "keep even numbers. result == input" );
 
 $input    = [qw(dough cash plough though through enough)];
 $expected = ['cash'];
 $function = sub { my $x = shift; $x =~ m/ough$/ };
 is_deeply( $discard->($input, $function), $expected,
-    "discard input endswith 'ough'" ) or diag explain $discard->($input, $function);
+    "discard input endswith 'ough'" );
 
 $input    = [qw(zebra arizona apple google mozilla)];
 $expected = [qw(zebra arizona mozilla)];
 $function = sub { my $x = shift; $x =~ /z/ };
 is_deeply( $keep->($input, $function), $expected,
-    "keep input with 'z'" ) or diag explain $keep->($input, $function);
+    "keep input with 'z'" );
 
 $input    = ['1,2,3', 'one', 'almost!', 'love'];
 $expected = [];
 $function = sub { my $x = shift; $x =~ /\p{IsAlpha}/ };
 is_deeply( $discard->($keep->($input, $function), $function), $expected,
-    "keep then discard" ) or diag explain $discard->($keep->($input, $function), $function);
+    "keep then discard" );
 
 $input    = ['1,2,3', 'one', 'almost!', 'love'];
 $expected = ['1,2,3', 'one', 'almost!', 'love'];
 $function = sub { my $x = shift; $x =~ /\p{Alpha}/ };
-my $combined = [@{ $keep->($input, $function) }, @{ $discard->($input, $function) }]; 
+my $combined = [@{ $keep->($input, $function) }, @{ $discard->($input, $function) }];
 is_deeply( [sort @$combined], [sort @$expected],
-    "combine keep and discard results. keep + discard" ) or diag explain [sort @$combined];
+    "combine keep and discard results. keep + discard" );

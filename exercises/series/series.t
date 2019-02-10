@@ -3,14 +3,14 @@ use strict;
 use warnings;
 
 use Test2::Bundle::More;
-plan 17;
+plan 16;
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
 use Series;
 use Test2::Tools::Exception qw(dies);
 
-can_ok(Series, "new") or BAIL_OUT("You need to implement the new(input)-function");
-can_ok(Series, "slice") or BAIL_OUT("You need to implement the slice(size)-function");
+can_ok('Series', "new") or BAIL_OUT("You need to implement the new(input)-function");
+can_ok('Series', "slice") or BAIL_OUT("You need to implement the slice(size)-function");
 
 my @cases = ({ name      => "Simple slices of one",
     input     => "01234",

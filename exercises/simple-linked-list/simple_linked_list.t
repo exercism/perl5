@@ -21,7 +21,7 @@ sub array { $module->from_array( [@_] ) }
 subtest 'Tested new()' => sub {
     plan 1;
 
-    isa_ok( elem(1), $module, "return value of new()" );    
+    isa_ok( elem(1), $module );
 };
 
 subtest 'Tested data()' => sub {
