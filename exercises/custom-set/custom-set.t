@@ -3,17 +3,16 @@ use strict;
 use warnings;
 
 use Test2::Bundle::More;
-plan 27;
+plan 26;
 
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
+use CustomSet;
 
 my $module = 'CustomSet';
 
-use_ok($module) or BAIL_OUT("You need to create a module called $module.pm");
-
 foreach my $f (qw/new delete difference is_disjoint empty intersect
-		  is_member add size is_subset to_list union is_equal/) {
+    is_member add size is_subset to_list union is_equal/) {
     can_ok($module, $f) or BAIL_OUT("You need to implement the function '$f'");
 }
 

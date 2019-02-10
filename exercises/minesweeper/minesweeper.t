@@ -3,17 +3,17 @@ use strict;
 use warnings;
 
 use Test2::Bundle::More;
-plan 13;
+plan 12;
 
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
+use Minesweeper;
 use Test2::Tools::Exception qw(dies);
 
 my $module = 'Minesweeper';
 my $name = 'count_adjacent_bombs';
 my $sub = join('::', $module, $name);
 
-use_ok($module) or BAIL_OUT("You need to create a module called $module.pm.");
 can_ok($module, $name) or BAIL_OUT("You need to implement the $name()-function");
 
 my $function = \&{"${module}::$name"};

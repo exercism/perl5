@@ -5,6 +5,7 @@ use warnings;
 use Test2::Bundle::More;
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
+use ETL;
 
 my @cases = (
     {
@@ -42,12 +43,6 @@ my @cases = (
 );
 
 my $module = 'ETL';
-
-ok -e "$Bin/$module.pm", "Find $module.pm",
-    or BAIL_OUT "You need to create a class called $module.pm";
-
-use_ok $module
-    or BAIL_OUT "Does $module.pm compile? Does it end with 1;?";
 
 can_ok $module, "transform"
     or BAIL_OUT "Missing package module $module; or missing sub transform()";

@@ -3,14 +3,13 @@ use strict;
 use warnings;
 
 use Test2::Bundle::More;
-plan 14;
+plan 13;
 
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
+use LinkedList;
 
 my $module = 'LinkedList';
-
-use_ok($module) or BAIL_OUT("You need to create a module called $module.pm");
 
 foreach my $f (qw/new from_array to_array next reverse data/ ) {
     can_ok($module, $f) or BAIL_OUT("You need to implement the function '$f'");
@@ -36,7 +35,7 @@ subtest 'Tested next()' => sub {
 
     my $two = elem(2);
     my $one = elem(1, $two);
-    
+
     is( $one->data(), 1, "first element is 1" );
     is( $one->next(), $two, "next is two" );
     is( $one->next()->data(), 2, "two is 2" );
