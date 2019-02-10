@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More;
+use Test2::Bundle::More;
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
 
@@ -76,7 +76,7 @@ my @cases = (
 
 my $module = 'Crypto';
 my @subs = qw(new normalize_ciphertext normalize_plaintext plaintext_segments ciphertext size);
-plan tests => 2 + @subs + @cases;
+plan 2 + @subs + @cases;
 
 ok -e "$Bin/$module.pm", "Missing $module.pm"
             or BAIL_OUT "You need to create file: $module.pm";

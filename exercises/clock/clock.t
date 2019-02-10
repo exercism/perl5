@@ -1,7 +1,9 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-use Test::More tests => 55;
+use Test2::Bundle::More;
+plan 55;
+
 use JSON::PP;
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";

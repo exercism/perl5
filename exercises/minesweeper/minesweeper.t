@@ -2,7 +2,9 @@
 use strict;
 use warnings;
 
-use Test::More tests => 13;
+use Test2::Bundle::More;
+plan 13;
+
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
 use Test2::Tools::Exception qw(dies);

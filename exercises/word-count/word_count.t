@@ -4,7 +4,7 @@ use warnings;
 use open ':std', ':encoding(utf8)';
 use utf8;
 
-use Test::More;
+use Test2::Bundle::More;
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
 
@@ -25,7 +25,7 @@ my @cases = (
 );
 
 
-plan tests => 3 + @cases;
+plan 3 + @cases;
 
 ok -e "$Bin/$module.pm", "missing $module.pm"
     or BAIL_OUT("You need to create a module called $module.pm with a function called word_count() that gets one parameter: the text in which to count the words.");

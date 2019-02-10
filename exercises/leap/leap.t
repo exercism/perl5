@@ -1,7 +1,9 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-use Test::More tests => 6; # This is how many tests we expect to run.
+use Test2::Bundle::More;
+plan 6; # This is how many tests we expect to run.
+
 use JSON::PP;
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5"; # Look for modules inside the same directory as this test file.

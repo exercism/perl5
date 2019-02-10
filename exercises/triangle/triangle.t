@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More;
+use Test2::Bundle::More;
 use JSON::PP qw(decode_json);
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
@@ -17,7 +17,7 @@ my $cases;
 
 
 #diag explain $cases;
-plan tests => 3 + @$cases;
+plan 3 + @$cases;
 
 ok -e "$Bin/$module.pm", "missing $module.pm"
     or BAIL_OUT("You need to create a class called $module.pm with an function called kind() that gets 3 numbers - the length of the sides. It should return a single word like equilateral, isosceles, or scalene. Or, it should throw and exception.");

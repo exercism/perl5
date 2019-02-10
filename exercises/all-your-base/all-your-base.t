@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More;
+use Test2::Bundle::More;
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
 
@@ -10,7 +10,7 @@ my $module = 'AllYourBase';
 
 my $function = 'convert_base';
 
-plan tests => 24;
+plan 24;
 
 ok -e "$Bin/$module.pm", "$module.pm present"
     or BAIL_OUT "You need to create file: $module.pm";

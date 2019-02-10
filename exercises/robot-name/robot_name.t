@@ -2,13 +2,13 @@
 use strict;
 use warnings;
 
-use Test::More;
+use Test2::Bundle::More;
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
 
 my $module = 'RobotName';
 
-plan tests => 9;
+plan 9;
 
 ok -e "$Bin/$module.pm", "Missing $module.pm"
     or BAIL_OUT("You need to create a module called $module.pm with a constructor and methods called name() and reset_name().");

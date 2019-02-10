@@ -2,7 +2,9 @@
 use strict;
 use warnings;
 
-use Test::More tests => 14;
+use Test2::Bundle::More;
+plan 14;
+
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
 
@@ -18,19 +20,19 @@ sub elem { $module->new( @_ ) }
 sub array { $module->from_array( [@_] ) }
 
 subtest 'Tested new()' => sub {
-    plan tests => 1;
+    plan 1;
 
     isa_ok( elem(1), $module, "return value of new()" );    
 };
 
 subtest 'Tested data()' => sub {
-    plan tests => 1;
+    plan 1;
 
     is( elem(42)->data(), 42, "element returns the correct data" );
 };
 
 subtest 'Tested next()' => sub {
-    plan tests => 3;
+    plan 3;
 
     my $two = elem(2);
     my $one = elem(1, $two);
@@ -41,7 +43,7 @@ subtest 'Tested next()' => sub {
 };
 
 subtest 'Tested from_array()' => sub {
-    plan tests => 7;
+    plan 7;
 
     is( array(), undef, "from_array creates nothing from nothing" );
 
@@ -59,7 +61,7 @@ subtest 'Tested from_array()' => sub {
 };
 
 subtest 'Tested to_array()' => sub {
-    plan tests => 3;
+    plan 3;
 
     is_deeply( array(1)->to_array(), [1], "to_array on a one element list" );
     is_deeply( elem(2, array(1))->to_array(), [2,1], "to_array on 2 element-list" );
@@ -67,7 +69,7 @@ subtest 'Tested to_array()' => sub {
 };
 
 subtest 'Tested reverse()' => sub {
-    plan tests => 3;
+    plan 3;
 
     is( array(1)->reverse()->data(), 1, "reverse of single element" );
     is( array(1..10)->reverse()->data(), 10, "reverse of large list, first element is last element" );
@@ -75,7 +77,7 @@ subtest 'Tested reverse()' => sub {
 };
 
 subtest 'Tested all the things!' => sub {
-    plan tests => 1;
+    plan 1;
 
     is_deeply( array(1..10)->reverse()->reverse()->to_array(), [1..10], "double reverse" );
 };

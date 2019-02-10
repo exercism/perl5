@@ -2,7 +2,9 @@
 use strict;
 use warnings;
 
-use Test::More tests => 27;
+use Test2::Bundle::More;
+plan 27;
+
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
 
@@ -18,13 +20,13 @@ foreach my $f (qw/new delete difference is_disjoint empty intersect
 sub set { return $module->new(@_) };
 
 subtest 'Tested new()' => sub {
-    plan tests => 1;
+    plan 1;
 
     isa_ok( $module->new(), $module, "return value of new()" );
 };
 
 subtest 'Tested equal()' => sub {
-    plan tests => 6;
+    plan 6;
 
     ok( set(1,3)->is_equal( set(3,1) ), "order doesn't matter" );
     ok( set()->is_equal( set() ), "empty sets are equal" );
@@ -35,7 +37,7 @@ subtest 'Tested equal()' => sub {
 };
 
 subtest 'Tested intersect()' => sub {
-    plan tests => 7;
+    plan 7;
 
     isa_ok( set()->intersect( set() ), $module, "return value of intersect()" );
     ok( set(1..10)->intersect( set(5..10) )->is_equal( set(5..10) ), "intersect with subset returns subset" );
@@ -47,7 +49,7 @@ subtest 'Tested intersect()' => sub {
 };
 
 subtest 'Tested delete()' => sub {
-    plan tests => 3;
+    plan 3;
 
     isa_ok( set(3,2,1)->delete(2), $module, "return value of delete()" );
     ok( set(3,2,1)->delete(2)->is_equal( set(1,3) ), "removing single element" );
@@ -55,7 +57,7 @@ subtest 'Tested delete()' => sub {
 };
 
 subtest 'Tested add()' => sub {
-    plan tests => 4;
+    plan 4;
 
     isa_ok( set()->add(1), $module, "return value of add()" );
     ok( set()->add(1)->is_equal( set(1) ), "adding to empty set" );
@@ -64,7 +66,7 @@ subtest 'Tested add()' => sub {
 };
 
 subtest 'Tested difference()' => sub {
-    plan tests => 6;
+    plan 6;
 
     isa_ok( set()->difference( set() ), $module, "return value of difference()" );
     ok( set()->difference( set() )->is_equal( set() ), "difference of two empty sets is an empty set" );
@@ -75,7 +77,7 @@ subtest 'Tested difference()' => sub {
 };
 
 subtest 'Tested is_disjoint()' => sub {
-    plan tests => 5;
+    plan 5;
 
     ok( set(1,2)->is_disjoint( set(3,4) ), "disjointed sets are disjoint" );
     ok( ! set(1,2)->is_disjoint( set(2,3) ), "sets sharing elements are not disjoint" );
@@ -85,7 +87,7 @@ subtest 'Tested is_disjoint()' => sub {
 };
 
 subtest 'Tested empty()' => sub {
-    plan tests => 4;
+    plan 4;
 
     isa_ok( set()->empty(), $module, "return value of empty()" );
     ok( set()->empty()->is_equal( set() ), "emptying empty set results in an empty set" );
@@ -97,7 +99,7 @@ subtest 'Tested empty()' => sub {
 };
 
 subtest 'Tested is_member()' => sub {
-    plan tests => 4;
+    plan 4;
 
     ok( set(1,2,3)->is_member(2), "element is member" );
     ok( set(1..10)->is_member(10), "edge element is also member" );
@@ -106,7 +108,7 @@ subtest 'Tested is_member()' => sub {
 };
 
 subtest 'Tested size()' => sub {
-    plan tests => 3;
+    plan 3;
 
     is( set()->size(), 0, "size of empty set is 0" );
     is( set(1..3)->size(), 3, "size of set with 3 members is 3!" );
@@ -114,7 +116,7 @@ subtest 'Tested size()' => sub {
 };
 
 subtest 'Tested is_subset()' => sub {
-    plan tests => 8;
+    plan 8;
 
     ok( set()->is_subset( set() ), "empty set is a subset of the empty set" );
     ok( ! set()->is_subset( set(1..3) ), "non-empty set can not be subset of empty set" );
@@ -127,7 +129,7 @@ subtest 'Tested is_subset()' => sub {
 };
 
 subtest 'Tested union()' => sub {
-    plan tests => 7;
+    plan 7;
     
     isa_ok( set()->union( set() ), $module, "return value of union()" );
     ok( set()->union( set() )->is_equal( set() ), "union of empty sets is an empty set" );
@@ -139,7 +141,7 @@ subtest 'Tested union()' => sub {
 };
 
 subtest 'Tested to_list()' => sub {
-    plan tests => 3;
+    plan 3;
 
     is_deeply( [ sort +set()->to_list() ], [], "empty set results in empty list" );
     is_deeply( [ sort +set(1..3)->to_list() ], [1,2,3], "set with elements results in list with elements" );
