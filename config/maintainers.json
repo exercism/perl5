@@ -20,6 +20,17 @@
       "link_url": null,
       "avatar_url": null,
       "bio": null
+    },
+    {
+      "github_username": "rfilipo",
+      "alumnus": false,
+      "show_on_website": true,
+      "name": "Monsenhor",
+      "link_text": "Monsenhor Ricardo Filipo",
+      "link_url": "https://github.com/rfilipo",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/225425?s=460&v=4",
+      "bio": "Under development. Perl Monger since 1998."
     }
+
   ]
 }
