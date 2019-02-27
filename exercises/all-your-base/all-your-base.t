@@ -2,26 +2,27 @@
 use strict;
 use warnings;
 
-use Test::More;
+use Test2::Bundle::More;
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
+use AllYourBase;
 
 my $module = 'AllYourBase';
 
 my $function = 'convert_base';
 
-plan tests => 24;
+plan 24;
 
 ok -e "$Bin/$module.pm", "$module.pm present"
     or BAIL_OUT "You need to create file: $module.pm";
 
-eval "use $module";
 ok !$@, "can load $module"
     or BAIL_OUT "Cannot load $module. Does it compile? Does it end with 1;?";
+
 can_ok $module, $function
     or BAIL_OUT "Missing package $module; or missing sub $function()?";
 
-my $sub = \&{ join '::', $module, $function }; 
+my $sub = \&{ join '::', $module, $function };
 
 sub testcase {
     my %test = @_;
@@ -29,10 +30,10 @@ sub testcase {
     my $r = eval {
         # cloning the input_digits to make sure the sub doesn't modify the
         # original array
-        $sub->( [ @{$test{input_digits}} ], $test{input_base}, $test{output_base} ) 
+        $sub->( [ @{$test{input_digits}} ], $test{input_base}, $test{output_base} )
     };
 
-    my $success = $test{error} 
+    my $success = $test{error}
         ? like( $@ => $test{error}, $test{description} )
         : is_deeply( $r, $test{output_digits}, $test{description} )
         ;
@@ -40,11 +41,10 @@ sub testcase {
     return if $success;
 
     $test{got} = $r;
-    diag explain \%test;
     BAIL_OUT( 'a test failed, try again!' );
 }
 
-testcase(%$_) for 
+testcase(%$_) for
         { "description"  => "single bit one to decimal"
         , "input_base"   => 2
         , "input_digits" => [1]

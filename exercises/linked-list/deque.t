@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More;
+use Test2::Bundle::More;
 use JSON::PP qw(decode_json);
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
@@ -15,7 +15,7 @@ my $cases;
     $cases = decode_json scalar <DATA>;
 }
 
-#plan tests => 3 + @$cases;
+#plan 3 + @$cases;
 #diag explain $cases;
 
 ok -e "$Bin/$module.pm", "missing $module.pm"
