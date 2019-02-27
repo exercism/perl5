@@ -3,7 +3,7 @@ plan: 2
 ignore_cdata: true
 subs: hello
 tests: |-
-  # Run the 'is' subroutine from the 'Test::More' module, with three arguments.
+  # Run the 'is' subroutine from the 'Test2::Bundle::More' module, with three arguments.
   is(
     hello,           # Run the 'hello' subroutine, which is imported from your module.
     'Hello, World!', # The expected result to compare with 'hello'.

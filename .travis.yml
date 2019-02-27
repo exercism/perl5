@@ -13,7 +13,7 @@ install:
   - wget -P ~/bin https://git.io/cpm
   - chmod +x ~/bin/cpm
   - cpm install
-  - cpm install -g App::Yath Carton
+  - cpm install -g App::Yath Carton Test2::Suite
   - carton install
   - for i in exercises/*/.meta/solutions; do cd $i; if [ -f cpanfile ]; then echo "$i"; cpm install; fi; cd - > /dev/null; done
   - git clone https://github.com/exercism/problem-specifications.git
@@ -23,7 +23,7 @@ script:
   - TS_MAX_DELTA=3 carton exec 'yath test t/
     --verbose'
   - yath test exercises/*/.meta/solutions/
-    --jobs 2
+    --jobs 2 || perl -e '$^V =~ /^v5\.20\./ or die' # exception for bug in v5.20
   - prove exercises/*/.meta/solutions/
     --recurse
     --directives

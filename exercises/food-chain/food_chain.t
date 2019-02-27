@@ -2,7 +2,9 @@
 use strict;
 use warnings;
 
-use Test::More tests => 16;
+use Test2::Bundle::More;
+plan 16;
+
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
 
