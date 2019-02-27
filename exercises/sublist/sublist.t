@@ -2,15 +2,16 @@
 use strict;
 use warnings;
 
-use Test::More tests => 17;
+use Test2::Bundle::More;
+plan 16;
+
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
+use Sublist;
 
 my $module = 'Sublist';
 my $name = "check_lists";
 my $sub = join('::', $module, $name);
-
-use_ok($module) or BAIL_OUT("You need to create a module called $module.pm");
 
 can_ok($module, $name) or BAIL_OUT("You need to implement the function '$name'");
 

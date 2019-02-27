@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More;
+use Test2::Bundle::More;
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
 
@@ -67,7 +67,7 @@ my @cases = (
 
 my $module = 'PigLatin';
 
-plan tests => 3 + @cases;
+plan 3 + @cases;
 
 ok -e "$Bin/$module.pm", "Missing file $module.pm",
         or BAIL_OUT "You need to create file: $module.pm";

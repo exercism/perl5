@@ -3,13 +3,13 @@ use warnings;
 use strict;
 
 use DateTime;
-use Test::More;
+use Test2::Bundle::More;
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
 
 my $module = 'Meetup';
 
-plan tests => 95;
+plan 95;
 
 ok -e "$Bin/$module.pm", "missing $module.pm"
     or BAIL_OUT("You need to create a module called $module.pm with a method called day() that gets two parameters: the day of the week and the schedule and returns a DateTime object for the correct date.");

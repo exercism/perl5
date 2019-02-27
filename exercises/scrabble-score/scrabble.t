@@ -2,9 +2,10 @@
 use strict;
 use warnings;
 
-use Test::More;
+use Test2::Bundle::More;
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
+use Word;
 
 # set EXERCISM_EXTENDED=1 to run extended test cases
 use constant TEST_EXTENDED => $ENV{EXERCISM_EXTENDED} // 0;
@@ -31,8 +32,6 @@ my $module = 'Word';
 
 ok -e "$Bin/$module.pm", "Find $module.pm"
     or die "You need to create file: $module.pm";
-use_ok $module
-    or die "Cannot load $module. Does it compile? Does it end with 1;?";
 can_ok $module, (qw/new score/)
     or die "Missing package $module or needed sub not found";
 

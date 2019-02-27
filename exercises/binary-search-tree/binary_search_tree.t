@@ -2,17 +2,14 @@
 use warnings;
 use strict;
 
-use Test::More;
+use Test2::Bundle::More;
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
-
-my $module = 'BinarySearchTree';
-
-use_ok($module) or BAIL_OUT "You need to create a module called $module.pm";
+use BinarySearchTree;
 
 sub new_bst {
   no strict 'refs';
-  $module->new(@_);
+  BinarySearchTree->new(@_);
 }
 
 for (1) {
