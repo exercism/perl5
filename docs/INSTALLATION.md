@@ -47,8 +47,8 @@ xcode-select --install
 ```
 
 ### Install Test Suite
-The Perl 5 track in Exercism uses Test2 Suite to verify the codes. 
-It's mandatory installing this suite to have your tests verifyied.
+The Perl 5 track in Exercism uses [Test2 Suite](https://metacpan.org/pod/Test2::V0) 
+to verify the codes. It's mandatory installing this suite to have your tests verifyied.
 
 
 We strongly recommend you installing local::lib and cpanminus, 
