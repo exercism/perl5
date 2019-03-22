@@ -34,7 +34,7 @@ sudo dnf groupinstall "Development Tools"
 ```shell
 
 sudo apt update
-sudo apt install build-essentials
+sudo apt install build-essential
 
 ```
 
@@ -47,13 +47,11 @@ xcode-select --install
 ```
 
 ### Install Test Suite
-The Perl 5 track in Exercism uses [Test2 Suite](https://metacpan.org/pod/Test2::V0) 
+The Perl 5 track in Exercism uses [Test2 Suite](https://metacpan.org/pod/Test2::Suite) 
 to verify the codes. It's mandatory installing this suite to have your tests verifyied.
 
-
 We strongly recommend you installing local::lib and cpanminus, 
-so you could install packages and work under your own workspace.
- 
+so you could install packages and work under your own workspace. 
 
 ```shell
 
@@ -61,7 +59,7 @@ wget -O- http://cpanmin.us | perl - -l ~/perl5 App::cpanminus local::lib
 eval `perl -I ~/perl5/lib/perl5 -Mlocal::lib`
 echo 'eval `perl -I ~/perl5/lib/perl5 -Mlocal::lib`' >> ~/.profile
 echo 'export MANPATH=$HOME/perl5/man:$MANPATH' >> ~/.profile
-cpanm install Test::V0 
+cpanm install Test2::Suite 
 
 ```
 
@@ -70,46 +68,57 @@ the command bellow to install the Test2 Suite globally:
 
 ```shell
 
-sudo cpan install Test::V0 
+sudo cpan install Test2::Suite 
 
 ```
 
-
-
 Otherwise use one of the options bellow:
 
-### Other Options:
+### Other Options for installing Perl5:
+
 * [perlbrew](https://perlbrew.pl/): A tool to manage multiple perl installations
   in your `$HOME` directory. They are completely isolated perl universes.
 * [plenv](https://github.com/tokuhirom/plenv): Installs perls under your home
   directory and lets you install modules locally, and allows you to switch to
   arbitrary perl versions on your shell.
-* [App::cpm](https://metacpan.org/pod/App::cpm::Tutorial): cpm is yet another CPAN client (like cpan, cpanp, and cpanm), which is fast!
 * [ActivePerl Community Edition](https://www.activestate.com/activeperl/downloads):
   A free, ready-to-install Perl distribution for Windows, Linux and Mac OS X, designed 
   for community developers or open source projects that are not business- or mission-critical.
   
+### Other Options for installing modules:
+
+* [CPANPLUS](https://metacpan.org/pod/CPANPLUS): The CPANPLUS library is an API to the CPAN mirrors and a collection of interactive shells, commandline programs, etc, that use this API.
+* [App::cpm](https://metacpan.org/pod/App::cpm::Tutorial): cpm is yet another CPAN client (like cpan, cpanp, and cpanm), which is fast!
+
 #### Install Test2::V0 under alternative environments
 
 1. Using cpm
 ```shell
+
 cpm install -g Test2::Suite, 
+
 ```
+
 or local installation:
 
 ```shell
+
 cpm install Test2::Suite 
+
 ```
 
 2. Ubuntu (18.04)
 
 ```shell
-sudo apt install libtest2-suite-perl 
-```
 
+sudo apt install libtest2-suite-perl 
+
+```
 
 3. Arch Linux
     
 ```shell
+
 sudo pacman -S perl-test2-suite 
+
 ```
