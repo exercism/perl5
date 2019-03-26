@@ -11,6 +11,8 @@ of Perl 5, take a look at 'Other Options'.
 If you are using Fedora/Red Hat/CentOS, some core modules are not included with Perl.
 Use the `yum install perl-core` command to install them.
 
+---
+
 ### Install Basic Development Tools
 
 #### RedHat, CentOS, Fedora and similar
@@ -46,9 +48,13 @@ xcode-select --install
 
 ```
 
+---
+
 ### Install Test Suite
 The Perl 5 track in Exercism uses [Test2 Suite](https://metacpan.org/pod/Test2::Suite) 
-to verify the codes. It's mandatory installing this suite to have your tests verifyied.
+to verify the codes. It's mandatory installing this suite to have your tests verified.
+
+The last bundle is _Test2::V0_.
 
 We strongly recommend you installing local::lib and cpanminus, 
 so you could install packages and work under your own workspace. 
@@ -72,6 +78,8 @@ sudo cpan install Test2::Suite
 
 ```
 
+---
+
 Otherwise use one of the options bellow:
 
 ### Other Options for installing Perl5:
@@ -90,9 +98,11 @@ Otherwise use one of the options bellow:
 * [CPANPLUS](https://metacpan.org/pod/CPANPLUS): The CPANPLUS library is an API to the CPAN mirrors and a collection of interactive shells, commandline programs, etc, that use this API.
 * [App::cpm](https://metacpan.org/pod/App::cpm::Tutorial): cpm is yet another CPAN client (like cpan, cpanp, and cpanm), which is fast!
 
-#### Install Test2::V0 under alternative environments
+---
 
-1. Using cpm
+### Install Test2::V0 under alternative environments
+
+0. Using cpm
 ```shell
 
 cpm install -g Test2::Suite, 
@@ -107,11 +117,25 @@ cpm install Test2::Suite
 
 ```
 
-2. Ubuntu (18.04)
+1. Centos
 
 ```shell
 
-sudo apt install libtest2-suite-perl 
+sudo yum install centos-release-scl
+sudo yum install rh-perl526 rh-perl526-perl-Test2-Suite
+scl enable rh-perl526 bash
+
+```
+
+2. Ubuntu, Debian and similar
+
+On Debian stable the libtest2-suite-perl package doesn't contain the Test2::V0 module, so using a backport:
+
+```shell
+
+sudo echo 'deb http://deb.debian.org/debian stretch-backports main' >> /etc/apt/sources.list
+sudo apt update
+sudo apt -t stretch-backports install libtest2-suite-perl 
 
 ```
 
