@@ -14,13 +14,9 @@ Use the `yum install perl-core` command to install them.
 ---
 
 ### Install Basic Development Tools
-
 #### RedHat, CentOS, Fedora and similar
-
 Use the following set of commands to install development packages on your RedHat and their derivative systems.
-
 ```shell
-
 ### CentOS/RHEL 7/6/5 
 sudo yum update
 sudo yum groupinstall "Development Tools"
@@ -28,26 +24,18 @@ sudo yum groupinstall "Development Tools"
 ### Fedora 28/27/26/25/24/23 
 sudo dnf update
 sudo dnf groupinstall "Development Tools"
-
 ```
 
 #### Debian, Ubuntu and similar
-
 ```shell
-
 sudo apt update
 sudo apt install build-essential
-
 ```
 
 #### Mac OSX
-
 ```shell
-
 xcode-select --install
-
 ```
-
 ---
 
 ### Install Test Suite
@@ -58,32 +46,25 @@ The last bundle is _Test2::V0_.
 
 We strongly recommend you installing local::lib and cpanminus, 
 so you could install packages and work under your own workspace. 
-
 ```shell
-
 wget -O- http://cpanmin.us | perl - -l ~/perl5 App::cpanminus local::lib
 eval `perl -I ~/perl5/lib/perl5 -Mlocal::lib`
 echo 'eval `perl -I ~/perl5/lib/perl5 -Mlocal::lib`' >> ~/.profile
 echo 'export MANPATH=$HOME/perl5/man:$MANPATH' >> ~/.profile
 cpanm install Test2::Suite 
-
 ```
 
 Optionally and if Perl 5 is up and running in your system just use 
 the command bellow to install the Test2 Suite globally:
 
 ```shell
-
 sudo cpan install Test2::Suite 
-
 ```
 
 ---
 
 Otherwise use one of the options bellow:
-
 ### Other Options for installing Perl5:
-
 * [perlbrew](https://perlbrew.pl/): A tool to manage multiple perl installations
   in your `$HOME` directory. They are completely isolated perl universes.
 * [plenv](https://github.com/tokuhirom/plenv): Installs perls under your home
@@ -94,55 +75,38 @@ Otherwise use one of the options bellow:
   for community developers or open source projects that are not business- or mission-critical.
   
 ### Other Options for installing modules:
-
 * [CPANPLUS](https://metacpan.org/pod/CPANPLUS): The CPANPLUS library is an API to the CPAN mirrors and a collection of interactive shells, commandline programs, etc, that use this API.
 * [App::cpm](https://metacpan.org/pod/App::cpm::Tutorial): cpm is yet another CPAN client (like cpan, cpanp, and cpanm), which is fast!
 
 ---
 
 ### Install Test2::V0 under alternative environments
-
 0. Using cpm
 ```shell
-
 cpm install -g Test2::Suite, 
-
 ```
-
 or local installation:
-
 ```shell
-
 cpm install Test2::Suite 
-
 ```
 
 1. Centos
-
 ```shell
-
 sudo yum install centos-release-scl
 sudo yum install rh-perl526 rh-perl526-perl-Test2-Suite
 scl enable rh-perl526 bash
-
 ```
 
 2. Ubuntu, Debian and similar
 
 On Debian stable the libtest2-suite-perl package doesn't contain the Test2::V0 module, so using a backport:
-
 ```shell
-
 sudo echo 'deb http://deb.debian.org/debian stretch-backports main' >> /etc/apt/sources.list
 sudo apt update
 sudo apt -t stretch-backports install libtest2-suite-perl 
-
 ```
 
 3. Arch Linux
-    
 ```shell
-
 sudo pacman -S perl-test2-suite 
-
 ```
