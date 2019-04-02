@@ -4,23 +4,23 @@ use strict;
 use warnings;
 
 sub new {
-    my ($class, $trinary) = @_;
-    my $self = bless {} => $class;
-    $self->{trinary} = $trinary;
-    return $self;
+  my ( $class, $trinary ) = @_;
+  my $self = bless {} => $class;
+  $self->{trinary} = $trinary;
+  return $self;
 }
 
 sub to_decimal {
-    my $self = shift;
+  my $self = shift;
 
-    return 0 unless $self->{trinary} =~ /[012]/g;
+  return 0 unless $self->{trinary} =~ /[012]/g;
 
-    my ($sum, $index) = (0, length $self->{trinary});
+  my ( $sum, $index ) = ( 0, length $self->{trinary} );
 
-    foreach my $digit (split // => $self->{trinary}) {
-        $sum += $digit * 3 ** --$index;
-    }
+  foreach my $digit ( split // => $self->{trinary} ) {
+    $sum += $digit * 3** --$index;
+  }
 
-    return $sum;
+  return $sum;
 }
 __PACKAGE__;

@@ -11,21 +11,20 @@ can_ok 'NucleotideCount', 'import' or BAIL_OUT 'Cannot import subroutines from m
 
 my $C_DATA = do { local $/; decode_json(<DATA>); };
 my @exception_cases;
-foreach my $case (map {@{$_->{cases}}} @{$C_DATA->{cases}}) {
-  if ($case->{expected}{error}) {
+foreach my $case ( map { @{ $_->{cases} } } @{ $C_DATA->{cases} } ) {
+  if ( $case->{expected}{error} ) {
     push @exception_cases, $case;
   }
   else {
-    is_deeply count_nucleotides($case->{input}{strand}), $case->{expected}, $case->{description};
+    is_deeply count_nucleotides( $case->{input}{strand} ), $case->{expected}, $case->{description};
   }
 }
 
 SKIP: {
   if ( eval { require Test2::Tools::Exception } ) {
-    ok(
-      Test2::Tools::Exception::dies( sub { count_nucleotides $_->{input}{strand} } ),
-      $_->{description}
-    ) foreach @exception_cases;
+    ok( Test2::Tools::Exception::dies( sub { count_nucleotides $_->{input}{strand} } ),
+      $_->{description} )
+      foreach @exception_cases;
   }
   else {
     skip 'Test2::Tools::Exception not loaded', scalar @exception_cases;

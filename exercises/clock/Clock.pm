@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 sub new {
-  my ($class, $attributes) = @_;
+  my ( $class, $attributes ) = @_;
   return bless $attributes, $class;
 }
 
@@ -12,11 +12,11 @@ sub time {
 }
 
 sub add_minutes {
-  my ($self, $amount) = @_;
+  my ( $self, $amount ) = @_;
 }
 
 sub subtract_minutes {
-  my ($self, $amount) = @_;
+  my ( $self, $amount ) = @_;
 }
 
 1;

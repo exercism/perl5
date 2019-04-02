@@ -4,7 +4,7 @@ use warnings;
 use strict;
 
 sub new {
-  my ($class, $value) = @_;
+  my ( $class, $value ) = @_;
 
   $class = ref $class if ref $class;
   bless { data => $value, }, $class;
@@ -30,24 +30,26 @@ sub right {
 }
 
 sub insert {
-  my ($self, $value) = @_;
+  my ( $self, $value ) = @_;
 
-  if ($self->{data}) {
-    if ($value <= $self->{data}) {
+  if ( $self->{data} ) {
+    if ( $value <= $self->{data} ) {
       $self->left->insert($value);
-    } else {
+    }
+    else {
       $self->right->insert($value);
     }
-  } else {
+  }
+  else {
     $self->{data} = $value;
   }
 }
 
 sub each {
-  my ($self, $sub) = @_;
+  my ( $self, $sub ) = @_;
 
   $self->left->each($sub)  if $self->{left};
-  $sub->($self->{data})    if $self->{data};
+  $sub->( $self->{data} )  if $self->{data};
   $self->right->each($sub) if $self->{right};
 }
 

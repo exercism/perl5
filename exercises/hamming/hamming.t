@@ -12,19 +12,22 @@ can_ok 'Hamming', 'import' or BAIL_OUT 'Cannot import subroutines from module';
 my $C_DATA = do { local $/; decode_json(<DATA>); };
 my @exception_cases;
 
-foreach my $case (@{$C_DATA->{cases}}) {
-  if (ref $case->{expected} eq 'HASH' && exists $case->{expected}{error}) {
+foreach my $case ( @{ $C_DATA->{cases} } ) {
+  if ( ref $case->{expected} eq 'HASH' && exists $case->{expected}{error} ) {
     push @exception_cases, $case;
   }
   else {
-    is hamming_distance(@{$case->{input}}{qw(strand1 strand2)}), $case->{expected}, $case->{description};
+    is hamming_distance( @{ $case->{input} }{qw(strand1 strand2)} ), $case->{expected},
+      $case->{description};
   }
 }
 
 SKIP: {
   if ( eval { require Test2::Tools::Exception } ) {
     ok(
-      Test2::Tools::Exception::dies( sub { hamming_distance @{$_->{input}}{qw(strand1 strand2)} } ),
+      Test2::Tools::Exception::dies(
+        sub { hamming_distance @{ $_->{input} }{qw(strand1 strand2)} }
+      ),
       $_->{description}
     ) foreach @exception_cases;
   }

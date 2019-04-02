@@ -11,22 +11,20 @@ can_ok 'PhoneNumber', 'import' or BAIL_OUT 'Cannot import subroutines from modul
 
 my $C_DATA = do { local $/; decode_json(<DATA>); };
 my @exception_cases;
-foreach my $case ( map { @{$_->{cases}} } @{$C_DATA->{cases}} ) {
+foreach my $case ( map { @{ $_->{cases} } } @{ $C_DATA->{cases} } ) {
   if ( ref $case->{expected} eq 'HASH' && exists $case->{expected}{error} ) {
     push @exception_cases, $case;
   }
   else {
-    is clean_number($case->{input}{phrase}), $case->{expected}, $case->{description};
+    is clean_number( $case->{input}{phrase} ), $case->{expected}, $case->{description};
   }
 }
 
 SKIP: {
   if ( eval { require Test2::Tools::Exception } ) {
-    like(
-      Test2::Tools::Exception::dies( sub { clean_number $_->{input}{phrase} } ),
-      qr/$_->{expected}{error}/,
-      $_->{description}
-    ) foreach @exception_cases;
+    like( Test2::Tools::Exception::dies( sub { clean_number $_->{input}{phrase} } ),
+      qr/$_->{expected}{error}/, $_->{description} )
+      foreach @exception_cases;
   }
   else {
     skip 'Test2::Tools::Exception not loaded', scalar @exception_cases;
