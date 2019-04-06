@@ -12,8 +12,8 @@ use RomanNumerals qw(to_roman);
 can_ok 'RomanNumerals', 'import' or BAIL_OUT 'Cannot import subroutines from module';
 
 my $C_DATA = do { local $/; decode_json(<DATA>); };
-foreach my $case (@{$C_DATA->{cases}}) {
-  is to_roman($case->{input}{number}), $case->{expected}, $case->{description};
+foreach my $case ( @{ $C_DATA->{cases} } ) {
+  is to_roman( $case->{input}{number} ), $case->{expected}, $case->{description};
 }
 
 __DATA__

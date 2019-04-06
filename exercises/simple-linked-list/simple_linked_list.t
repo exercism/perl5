@@ -11,72 +11,74 @@ use LinkedList;
 
 my $module = 'LinkedList';
 
-foreach my $f (qw/new from_array to_array next reverse data/ ) {
-    can_ok($module, $f) or BAIL_OUT("You need to implement the function '$f'");
+foreach my $f (qw/new from_array to_array next reverse data/) {
+  can_ok( $module, $f ) or BAIL_OUT("You need to implement the function '$f'");
 }
 
-sub elem { $module->new( @_ ) }
+sub elem { $module->new(@_) }
 sub array { $module->from_array( [@_] ) }
 
 subtest 'Tested new()' => sub {
-    plan 1;
+  plan 1;
 
-    isa_ok( elem(1), $module );
+  isa_ok( elem(1), $module );
 };
 
 subtest 'Tested data()' => sub {
-    plan 1;
+  plan 1;
 
-    is( elem(42)->data(), 42, "element returns the correct data" );
+  is( elem(42)->data(), 42, "element returns the correct data" );
 };
 
 subtest 'Tested next()' => sub {
-    plan 3;
+  plan 3;
 
-    my $two = elem(2);
-    my $one = elem(1, $two);
+  my $two = elem(2);
+  my $one = elem( 1, $two );
 
-    is( $one->data(), 1, "first element is 1" );
-    is( $one->next(), $two, "next is two" );
-    is( $one->next()->data(), 2, "two is 2" );
+  is( $one->data(),         1,    "first element is 1" );
+  is( $one->next(),         $two, "next is two" );
+  is( $one->next()->data(), 2,    "two is 2" );
 };
 
 subtest 'Tested from_array()' => sub {
-    plan 7;
+  plan 7;
 
-    is( array(), undef, "from_array creates nothing from nothing" );
+  is( array(), undef, "from_array creates nothing from nothing" );
 
-    my $one = array(1);
-    is( $one->data(), 1, "from_array with 1 element" );
-    is( $one->next(), undef, "only one element was created" );
+  my $one = array(1);
+  is( $one->data(), 1,     "from_array with 1 element" );
+  is( $one->next(), undef, "only one element was created" );
 
-    my $e = array(1..5);
-    is( $e->data(), 1, "first element is 1" );
-    is( $e->next()->data(), 2, "second element is 2" );
+  my $e = array( 1 .. 5 );
+  is( $e->data(),         1, "first element is 1" );
+  is( $e->next()->data(), 2, "second element is 2" );
 
-    my $five = $e->next()->next()->next()->next();
-    is( $five->data(), 5, "fifth element is 5" );
-    is( $five->next(), undef, "fifth element is the last element" );
+  my $five = $e->next()->next()->next()->next();
+  is( $five->data(), 5,     "fifth element is 5" );
+  is( $five->next(), undef, "fifth element is the last element" );
 };
 
 subtest 'Tested to_array()' => sub {
-    plan 3;
+  plan 3;
 
-    is_deeply( array(1)->to_array(), [1], "to_array on a one element list" );
-    is_deeply( elem(2, array(1))->to_array(), [2,1], "to_array on 2 element-list" );
-    is_deeply( array(1..10)->to_array(), [1..10], "to_array() works" );
+  is_deeply( array(1)->to_array(), [1], "to_array on a one element list" );
+  is_deeply( elem( 2, array(1) )->to_array(), [ 2, 1 ], "to_array on 2 element-list" );
+  is_deeply( array( 1 .. 10 )->to_array(), [ 1 .. 10 ], "to_array() works" );
 };
 
 subtest 'Tested reverse()' => sub {
-    plan 3;
+  plan 3;
 
-    is( array(1)->reverse()->data(), 1, "reverse of single element" );
-    is( array(1..10)->reverse()->data(), 10, "reverse of large list, first element is last element" );
-    is_deeply( array(1..10)->reverse()->to_array(), [reverse 1..10], "all elements reversed" );
+  is( array(1)->reverse()->data(), 1, "reverse of single element" );
+  is( array( 1 .. 10 )->reverse()->data(),
+    10, "reverse of large list, first element is last element" );
+  is_deeply( array( 1 .. 10 )->reverse()->to_array(), [ reverse 1 .. 10 ],
+    "all elements reversed" );
 };
 
 subtest 'Tested all the things!' => sub {
-    plan 1;
+  plan 1;
 
-    is_deeply( array(1..10)->reverse()->reverse()->to_array(), [1..10], "double reverse" );
+  is_deeply( array( 1 .. 10 )->reverse()->reverse()->to_array(), [ 1 .. 10 ], "double reverse" );
 };
