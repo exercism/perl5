@@ -11,23 +11,23 @@ use lib $Bin, "$Bin/local/lib/perl5";
 my $module = 'FoodChainSong';
 
 ok -e "$Bin/$module.pm", "Missing $module.pm"
-        or BAIL_OUT "You need to create file: $module.pm";
+  or BAIL_OUT "You need to create file: $module.pm";
 
 eval "use $module";
 ok !$@, "Cannot load $module"
-        or BAIL_OUT "Cannot load $module; Does it compile? Does it end with 1;?";
+  or BAIL_OUT "Cannot load $module; Does it compile? Does it end with 1;?";
 
 can_ok $module, "new"
-        or BAIL_OUT "Missing package $module; or missing sub new()";
+  or BAIL_OUT "Missing package $module; or missing sub new()";
 
 can_ok $module, "verse"
-        or BAIL_OUT "Missing package $module; or missing sub verse()";
+  or BAIL_OUT "Missing package $module; or missing sub verse()";
 
 can_ok $module, "verses"
-        or BAIL_OUT "Missing package $module; or missing sub verses()";
+  or BAIL_OUT "Missing package $module; or missing sub verses()";
 
 can_ok $module, "sing"
-        or BAIL_OUT "Missing package $module; or missing sub sing()";
+  or BAIL_OUT "Missing package $module; or missing sub sing()";
 
 my $song = $module->new;
 
@@ -52,7 +52,7 @@ She swallowed the bird to catch the spider that wriggled and jiggled and tickled
 She swallowed the spider to catch the fly.
 I don't know why she swallowed the fly. Perhaps she'll die.
 SONG
-is $song->verse(3), $expected , "swallow bird at verse(3)";
+is $song->verse(3), $expected, "swallow bird at verse(3)";
 
 $expected = <<'SONG';
 I know an old lady who swallowed a cat.
@@ -116,6 +116,6 @@ She swallowed the spider to catch the fly.
 I don't know why she swallowed the fly. Perhaps she'll die.
 
 SONG
-is $song->verses(1, 2), $expected, "verses(1, 2): swallow fly, swallow spider";
+is $song->verses( 1, 2 ), $expected, "verses(1, 2): swallow fly, swallow spider";
 
-is $song->verses(1, 8), $song->sing, "verses(1, 8): whole song";
+is $song->verses( 1, 8 ), $song->sing, "verses(1, 8): whole song";

@@ -12,7 +12,8 @@ use Luhn qw(is_luhn_valid);
 can_ok 'Luhn', 'import' or BAIL_OUT 'Cannot import subroutines from module';
 
 my $C_DATA = do { local $/; decode_json(<DATA>); };
-ok !(is_luhn_valid($_->{input}{value}) xor $_->{expected}), $_->{description} foreach @{$C_DATA->{cases}};
+ok !( is_luhn_valid( $_->{input}{value} ) xor $_->{expected} ), $_->{description}
+  foreach @{ $C_DATA->{cases} };
 
 __DATA__
 {

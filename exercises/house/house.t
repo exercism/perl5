@@ -11,11 +11,11 @@ my $module = 'House';
 plan 5;
 
 ok -e "$Bin/$module.pm", "Missing $module.pm"
-    or BAIL_OUT "You need to create file: $module.pm";
+  or BAIL_OUT "You need to create file: $module.pm";
 
 eval "use $module";
 ok !$@, "Cannot load $module"
-    or BAIL_OUT "Cannot load $module. Does it compile? Does it end with 1;?"; 
+  or BAIL_OUT "Cannot load $module. Does it compile? Does it end with 1;?";
 
 can_ok $module, "new"    or BAIL_OUT "Missing package $module; or missing sub new()";
 can_ok $module, "recite" or BAIL_OUT "Missing package $module; or missing sub recite()";

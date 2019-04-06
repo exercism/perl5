@@ -11,10 +11,10 @@ use Minesweeper;
 use Test2::Tools::Exception qw(dies);
 
 my $module = 'Minesweeper';
-my $name = 'count_adjacent_bombs';
-my $sub = join('::', $module, $name);
+my $name   = 'count_adjacent_bombs';
+my $sub    = join( '::', $module, $name );
 
-can_ok($module, $name) or BAIL_OUT("You need to implement the $name()-function");
+can_ok( $module, $name ) or BAIL_OUT("You need to implement the $name()-function");
 
 my $function = \&{"${module}::$name"};
 
@@ -138,7 +138,8 @@ INPUT
 +-----+
 EXPECTED
 
-like dies { $function->( <<'INPUT' ) }, qr/ArgumentError/, 'Unaligned board';
+like dies {
+  $function->( <<'INPUT' ) }, qr/ArgumentError/, 'Unaligned board';
 +-+
 | |
 |*  |
@@ -146,13 +147,15 @@ like dies { $function->( <<'INPUT' ) }, qr/ArgumentError/, 'Unaligned board';
 +-+
 INPUT
 
-like dies { $function->( <<'INPUT' ) }, qr/ArgumentError/, 'boarderless board';
+like dies {
+  $function->( <<'INPUT' ) }, qr/ArgumentError/, 'boarderless board';
 +-----+
 *   * |
 +-- --+
 INPUT
 
-like dies { $function->( <<'INPUT' ) }, qr/ArgumentError/, 'Unknwon characters';
+like dies {
+  $function->( <<'INPUT' ) }, qr/ArgumentError/, 'Unknwon characters';
 +-----+
 |X  * |
 +-----+
