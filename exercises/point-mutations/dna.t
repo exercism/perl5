@@ -7,32 +7,32 @@ use JSON::PP qw(decode_json);
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
 
-my $module = 'DNA'; 
+my $module = 'DNA';
 
 my $cases;
 {
-    local $/ = undef;
-    $cases = decode_json scalar <DATA>;
+  local $/ = undef;
+  $cases = decode_json scalar <DATA>;
 }
 
 plan 4 + @$cases;
 
 ok -e "$Bin/$module.pm", "missing $module.pm"
-    or BAIL_OUT("You need to create a class called $module.pm with a constructor called new.");
+  or BAIL_OUT("You need to create a class called $module.pm with a constructor called new.");
 
 eval "use $module";
 ok !$@, "Cannot load $module.pm"
-    or BAIL_OUT("Does $module.pm compile?  Does it end with 1; ? ($@)");
+  or BAIL_OUT("Does $module.pm compile?  Does it end with 1; ? ($@)");
 
-can_ok($module, 'new') or BAIL_OUT("Missing package $module; or missing sub new()");
-can_ok($module, 'hamming_distance') or BAIL_OUT("Missing package $module; or
+can_ok( $module, 'new' ) or BAIL_OUT("Missing package $module; or missing sub new()");
+can_ok( $module, 'hamming_distance' ) or BAIL_OUT(
+  "Missing package $module; or
 
-missing sub hamming_distance()");
+missing sub hamming_distance()"
+);
 
 foreach my $c (@$cases) {
-   is $module->new($c->{strand})->hamming_distance($c->{input}),
-      $c->{expected},
-      $c->{name};
+  is $module->new( $c->{strand} )->hamming_distance( $c->{input} ), $c->{expected}, $c->{name};
 }
 
 __DATA__

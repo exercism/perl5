@@ -7,9 +7,9 @@ our @EXPORT_OK = qw(clean_number);
 sub clean_number {
   my ($number) = @_;
   $number =~ s/[()-. ]//g;
-  if ($number =~ /^ 1? (\d{10}) $/x) {
-    for ([area => substr($1, 0, 1)], [exchange => substr($1, 3, 1)]) {
-      die $_->[0] . ' code cannot start with ' . ($_->[1] ? 'one' : 'zero') if $_->[1] < 2;
+  if ( $number =~ /^ 1? (\d{10}) $/x ) {
+    for ( [ area => substr( $1, 0, 1 ) ], [ exchange => substr( $1, 3, 1 ) ] ) {
+      die $_->[0] . ' code cannot start with ' . ( $_->[1] ? 'one' : 'zero' ) if $_->[1] < 2;
     }
   }
   else {
@@ -21,6 +21,5 @@ sub clean_number {
   }
   return $1;
 }
-
 
 1;
