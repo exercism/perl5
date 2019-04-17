@@ -1,90 +1,70 @@
 package CustomSet;
-
 use strict;
 use warnings;
+use 5.020;
+use experimental 'signatures';
+use Exporter 'import';
+our @EXPORT_OK = qw(
+    new add remove is_empty
+    is_member size to_list
+    union intersect difference
+    is_disjoint is_equal is_subset
+);
 
-sub new {
-    my $class = shift;
-
+sub new ($class, @members) {
     my %set;
-    @set{ @_ } = ();
-
+    @set{ @members } = ();
     bless \%set, $class;
 }
 
-sub add {
-    my( $self, $new ) = @_;
-
-    $self->{$new} = 1;
+sub add ($self, $member) {
+    $self->{$member} = 1;
     return $self;
 }
 
-sub remove {
-    my( $self, $member ) = @_;
-
+sub remove ($self, $member) {
     delete $self->{$member};
     return $self;
 }
 
-sub union {
-    my( $self, $other ) = @_;
-
-    return __PACKAGE__->new( keys %$self, keys %$other );
-}
-
-sub difference {
-    my( $self, $other ) = @_;
-
-    return __PACKAGE__->new( grep { ! $other->is_member($_) } keys %$self );
-}
-
-
-sub is_disjoint {
-    my( $self, $other ) = @_;
-
-    return $self->intersect( $other )->size() == 0;
-}
-
-sub is_empty {
-    my $self = shift;
-
+sub is_empty ($self) {
     return !%$self;
 }
 
-sub intersect {
-    my( $self, $other ) = @_;
-
-    return __PACKAGE__->new( grep { $self->is_member($_) } keys %$other );
-}
-
-sub is_member {
-    my( $self, $member ) = @_;
-
+sub is_member ($self, $member) {
     return exists $self->{$member};
 }
 
-sub size {
-    my $self = shift;
-
+sub size ($self) {
     return scalar keys %$self;
 }
 
-sub is_subset {
-    my( $self, $other ) = @_;
-
-    return $self->intersect( $other )->size() == $other->size();
-}
-
-sub to_list {
-    my $self = shift;
-
+sub to_list ($self) {
     return keys %$self;
 }
 
-sub is_equal {
-    my( $self, $other ) = @_;
+sub union ($self, $other) {
+    return __PACKAGE__->new( keys %$self, keys %$other );
+}
 
-    return $self->intersect($other)->size() == $self->size() && $self->size() == $other->size();
+sub intersect ($self, $other) {
+    return __PACKAGE__->new( grep { $self->is_member($_) } keys %$other );
+}
+
+sub difference ($self, $other) {
+    return __PACKAGE__->new( grep { !$other->is_member($_) } keys %$self );
+}
+
+sub is_disjoint ($self, $other) {
+    return $self->intersect($other)->is_empty;
+}
+
+sub is_subset ($self, $other) {
+    return $other->difference($self)->is_empty;
+}
+
+sub is_equal ($self, $other) {
+    return $self->is_subset($other) && $other->is_subset($self);
 }
 
 1;
