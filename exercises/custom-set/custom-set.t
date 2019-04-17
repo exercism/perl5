@@ -11,7 +11,7 @@ my $module = 'CustomSet';
 use_ok($module) or BAIL_OUT("You need to create a module called $module.pm");
 
 foreach my $f (qw/new remove difference is_disjoint is_empty intersect
-		  is_member add size is_subset to_list union is_equal/) {
+                  is_member add size is_subset to_list union is_equal/) {
     can_ok($module, $f) or BAIL_OUT("You need to implement the function '$f'");
 }
 
@@ -43,7 +43,7 @@ subtest 'Tested intersect()' => sub {
     ok( set(1..3)->intersect( set(4..6) )->is_equal( set() ), "nothing in common" );
     ok( set(1,3,5,7,9)->intersect( set(3..7) )->is_equal( set(3,5,7) ), "intersect with odd numbers" );
     ok( set()->intersect( set() )->is_equal( set() ), "an empty set is an empty set" );
-    ok( set(1..3)->intersect( set(3) )->is_equal( set(3) ), "Intersect with unary set results in unary set" );  
+    ok( set(1..3)->intersect( set(3) )->is_equal( set(3) ), "Intersect with unary set results in unary set" );
 };
 
 subtest 'Tested remove()' => sub {
@@ -123,7 +123,7 @@ subtest 'Tested is_subset()' => sub {
 
 subtest 'Tested union()' => sub {
     plan tests => 7;
-    
+
     isa_ok( set()->union( set() ), $module, "return value of union()" );
     ok( set()->union( set() )->is_equal( set() ), "union of empty sets is an empty set" );
     ok( set(2)->union( set() )->is_equal( set(2) ), "union of non-empty set and empty set is non-empty set" );
