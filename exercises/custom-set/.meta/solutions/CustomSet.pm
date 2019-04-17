@@ -45,11 +45,10 @@ sub is_disjoint {
     return $self->intersect( $other )->size() == 0;
 }
 
-sub empty {
+sub is_empty {
     my $self = shift;
 
-    %$self = ();
-    return $self;
+    return !%$self;
 }
 
 sub intersect {

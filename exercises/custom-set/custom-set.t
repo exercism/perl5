@@ -10,7 +10,7 @@ my $module = 'CustomSet';
 
 use_ok($module) or BAIL_OUT("You need to create a module called $module.pm");
 
-foreach my $f (qw/new delete difference is_disjoint empty intersect
+foreach my $f (qw/new delete difference is_disjoint is_empty intersect
 		  is_member add size is_subset to_list union is_equal/) {
     can_ok($module, $f) or BAIL_OUT("You need to implement the function '$f'");
 }
@@ -84,16 +84,11 @@ subtest 'Tested is_disjoint()' => sub {
     ok( set(1..3)->is_disjoint( set() ), "a non-empty set is disjoint to an empty set" );
 };
 
-subtest 'Tested empty()' => sub {
-    plan tests => 4;
+subtest 'Tested is_empty()' => sub {
+    plan tests => 2;
 
-    isa_ok( set()->empty(), $module, "return value of empty()" );
-    ok( set()->empty()->is_equal( set() ), "emptying empty set results in an empty set" );
-    ok( set(1..3)->empty()->is_equal( set() ), "set empty after emptying (duh!)" );
-    
-    my $set = set(1..3);
-    $set->empty();
-    ok( $set->is_equal( set() ), "not just an empty set returned, but set was emptied" ); 
+    ok( set()->is_empty(), "sets with no elements are empty" );
+    ok( !set(1)->is_empty(), "sets with elements are not empty" );
 };
 
 subtest 'Tested is_member()' => sub {
