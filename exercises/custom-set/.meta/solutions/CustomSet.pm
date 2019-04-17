@@ -19,7 +19,7 @@ sub add {
     return $self;
 }
 
-sub delete :method {
+sub remove {
     my( $self, $member ) = @_;
 
     delete $self->{$member};

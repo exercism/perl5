@@ -10,7 +10,7 @@ my $module = 'CustomSet';
 
 use_ok($module) or BAIL_OUT("You need to create a module called $module.pm");
 
-foreach my $f (qw/new delete difference is_disjoint is_empty intersect
+foreach my $f (qw/new remove difference is_disjoint is_empty intersect
 		  is_member add size is_subset to_list union is_equal/) {
     can_ok($module, $f) or BAIL_OUT("You need to implement the function '$f'");
 }
@@ -46,12 +46,12 @@ subtest 'Tested intersect()' => sub {
     ok( set(1..3)->intersect( set(3) )->is_equal( set(3) ), "Intersect with unary set results in unary set" );  
 };
 
-subtest 'Tested delete()' => sub {
+subtest 'Tested remove()' => sub {
     plan tests => 3;
 
-    isa_ok( set(3,2,1)->delete(2), $module, "return value of delete()" );
-    ok( set(3,2,1)->delete(2)->is_equal( set(1,3) ), "removing single element" );
-    ok( set(3,2,1)->delete(4)->is_equal( set(1..3) ), "removing non-existant element" );
+    isa_ok( set(3,2,1)->remove(2), $module, "return value of remove()" );
+    ok( set(3,2,1)->remove(2)->is_equal( set(1,3) ), "removing single element" );
+    ok( set(3,2,1)->remove(4)->is_equal( set(1..3) ), "removing non-existant element" );
 };
 
 subtest 'Tested add()' => sub {
