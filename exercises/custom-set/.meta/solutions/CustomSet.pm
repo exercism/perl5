@@ -1,8 +1,6 @@
 package CustomSet;
 use strict;
 use warnings;
-use 5.020;
-use experimental 'signatures';
 use Exporter 'import';
 our @EXPORT_OK = qw(
     new add remove is_empty
@@ -11,59 +9,72 @@ our @EXPORT_OK = qw(
     is_disjoint is_equal is_subset
 );
 
-sub new ($class, @members) {
+sub new {
+    my ($class, @members) = @_;
     my %set;
     @set{ @members } = ();
     bless \%set, $class;
 }
 
-sub add ($self, $member) {
+sub add {
+    my ($self, $member) = @_;
     $self->{$member} = 1;
     return $self;
 }
 
-sub remove ($self, $member) {
+sub remove {
+    my ($self, $member) = @_;
     delete $self->{$member};
     return $self;
 }
 
-sub is_empty ($self) {
+sub is_empty {
+    my ($self) = @_;
     return !%$self;
 }
 
-sub is_member ($self, $member) {
+sub is_member {
+    my ($self, $member) = @_;
     return exists $self->{$member};
 }
 
-sub size ($self) {
+sub size {
+    my ($self) = @_;
     return scalar keys %$self;
 }
 
-sub to_list ($self) {
+sub to_list {
+    my ($self) = @_;
     return keys %$self;
 }
 
-sub union ($self, $other) {
+sub union {
+    my ($self, $other) = @_;
     return __PACKAGE__->new( keys %$self, keys %$other );
 }
 
-sub intersect ($self, $other) {
+sub intersect {
+    my ($self, $other) = @_;
     return __PACKAGE__->new( grep { $self->is_member($_) } keys %$other );
 }
 
-sub difference ($self, $other) {
+sub difference {
+    my ($self, $other) = @_;
     return __PACKAGE__->new( grep { !$other->is_member($_) } keys %$self );
 }
 
-sub is_disjoint ($self, $other) {
+sub is_disjoint {
+    my ($self, $other) = @_;
     return $self->intersect($other)->is_empty;
 }
 
-sub is_subset ($self, $other) {
+sub is_subset {
+    my ($self, $other) = @_;
     return $other->difference($self)->is_empty;
 }
 
-sub is_equal ($self, $other) {
+sub is_equal {
+    my ($self, $other) = @_;
     return $self->is_subset($other) && $other->is_subset($self);
 }
 
