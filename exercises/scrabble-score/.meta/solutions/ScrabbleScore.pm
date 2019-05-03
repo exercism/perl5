@@ -4,7 +4,6 @@ use warnings;
 use Exporter 'import';
 our @EXPORT_OK = qw(score);
 
-use experimental 'signatures';
 use List::Util qw(sum0 pairmap);
 
 my $scores = {
@@ -19,7 +18,8 @@ my $scores = {
     )
 };
 
-sub score ($word, %extensions) {
+sub score {
+    my ($word, %extensions) = @_;
     my $double = $extensions{double} // 0;
     my $triple = $extensions{triple} // 0;
     return sum0 map {
