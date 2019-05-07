@@ -1,7 +1,6 @@
 package CustomSet;
 use strict;
 use warnings;
-use Exporter 'import';
 our @EXPORT_OK = qw(
     new add remove is_empty
     is_member size to_list
