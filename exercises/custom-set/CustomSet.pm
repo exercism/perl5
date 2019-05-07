@@ -8,6 +8,9 @@ our @EXPORT_OK = qw(
     is_disjoint is_equal is_subset
 );
 
+# Replace `...` with a correct implementation.
+# https://perldoc.pl/perlsyn#The-Ellipsis-Statement
+
 sub new {
     my ($class, @members) = @_;
     ...;
