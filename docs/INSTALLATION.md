@@ -45,10 +45,9 @@ perl -I"$(exercism workspace)/perl5/lib/perl5"
   -M"local::lib=--shelltype=powershell,$(exercism workspace)/perl5" | Invoke-Expression
 ```
 
-The environment changes from the above command will not persist.
-If you would like your environment to be set up automatically each time,
-modify your `.bashrc` (or \*nix equivalent) or your `PowerShell_profile.ps1`
-to include the above command.
+The environment changes from the above command will not persist, and will
+need to be rerun if you restart your shell. If you would like your environment
+to be set up automatically each time, modify your `.bashrc` (or \*nix equivalent) or your `PowerShell_profile.ps1` to include the above command.
 
 ### Other Options:
 * [perlbrew](https://perlbrew.pl/): A tool to manage multiple perl installations
