@@ -9,28 +9,40 @@ use PhoneNumber qw(clean_number);
 
 can_ok 'PhoneNumber', 'import' or BAIL_OUT 'Cannot import subroutines from module';
 
-my $C_DATA = do { local $/; decode_json(<DATA>); };
-my @exception_cases;
-foreach my $case ( map { @{$_->{cases}} } @{$C_DATA->{cases}} ) {
-  if ( ref $case->{expected} eq 'HASH' && exists $case->{expected}{error} ) {
-    push @exception_cases, $case;
-  }
-  else {
-    is clean_number($case->{input}{phrase}), $case->{expected}, $case->{description};
-  }
+my $JSON_TESTS = decode_json( join '', <DATA>);
+
+my @cases =
+    map {
+        $_->[2] .= ' - ' . $_->[0];
+        $_;
+    }
+    map {
+        my @test = ( $_->{input}{phrase}, $_->{expected}, $_->{description} );
+
+        if ( ref $test[1] ) {
+            $test[1] = $test[1]->{error};
+            push @test, 1;
+        }
+
+        \@test;
+    }
+    map { @$_ }
+    map { $_->{cases} }
+    map { @$_ }
+        $JSON_TESTS->{cases};
+
+$_->[3] ? error_test(@$_) : regular_test(@$_) for @cases;
+
+sub regular_test {
+    my( $input, $expected, $desc ) = @_;
+    is clean_number($input), $expected, $desc;
 }
 
-SKIP: {
-  if ( eval { require Test2::Tools::Exception } ) {
-    like(
-      Test2::Tools::Exception::dies( sub { clean_number $_->{input}{phrase} } ),
-      qr/$_->{expected}{error}/,
-      $_->{description}
-    ) foreach @exception_cases;
-  }
-  else {
-    skip 'Test2::Tools::Exception not loaded', scalar @exception_cases;
-  }
+sub error_test {
+    my( $input, $error, $desc ) = @_;
+    eval { clean_number($input) };
+
+    like $@, qr/$error/, $desc;
 }
 
 __DATA__
