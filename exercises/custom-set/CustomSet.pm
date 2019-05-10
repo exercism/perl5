@@ -1,12 +1,6 @@
 package CustomSet;
 use strict;
 use warnings;
-our @EXPORT_OK = qw(
-    new add remove is_empty
-    is_member size to_list
-    union intersect difference
-    is_disjoint is_equal is_subset
-);
 
 # Replace `...` with a correct implementation.
 # https://perldoc.pl/perlsyn#The-Ellipsis-Statement
