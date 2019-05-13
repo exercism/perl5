@@ -19,6 +19,7 @@ In addition to Perl 5, you will also need to install the `Test2::V0` testing bun
 Use the following instructions to set this up (or feel free to use your favorite
 module installer if you are already familiar with Perl):
 
+#### local::lib
 * Ensure that the exercism CLI has already been installed and configured.
 Running `exercism workspace` should show you the appropriate path.
 
@@ -50,6 +51,13 @@ need to be rerun if you restart your shell. If you would like your environment
 to be set up automatically each time, modify your `.bashrc` (or \*nix equivalent)
 or your `PowerShell_profile.ps1` to include the above command.
 
+#### OS Packages
+Alternatively, the package manager for your OS may have a Test2 Suite package
+available for you to install. Available options include:
+
+* Ubuntu: [libtest2-suite-perl](https://launchpad.net/ubuntu/+source/libtest2-suite-perl)
+* Debian: [libtest2-suite-perl (via backports)](https://packages.debian.org/stretch-backports/libtest2-suite-perl)
+* Arch: [perl-test2-suite](https://www.archlinux.org/packages/community/any/perl-test2-suite/)
 
 ### Other Options:
 * [perlbrew](https://perlbrew.pl/): A tool to manage multiple perl installations
