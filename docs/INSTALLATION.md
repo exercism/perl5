@@ -25,7 +25,7 @@ Running `exercism workspace` should show you the appropriate path.
 * Download the `cpm` module installer and use it to install itself,
 `local::lib`, and `Test2::V0` into your `exercism/perl5` directory:
 ```
-# *nix:
+# *nix
 curl -sL --compressed https://git.io/cpm | \
   perl - install -L $(exercism workspace)/perl5 App::cpm local::lib Test2::V0
 
@@ -47,7 +47,9 @@ perl -I"$(exercism workspace)/perl5/lib/perl5"
 
 The environment changes from the above command will not persist, and will
 need to be rerun if you restart your shell. If you would like your environment
-to be set up automatically each time, modify your `.bashrc` (or \*nix equivalent) or your `PowerShell_profile.ps1` to include the above command.
+to be set up automatically each time, modify your `.bashrc` (or \*nix equivalent)
+or your `PowerShell_profile.ps1` to include the above command.
+
 
 ### Other Options:
 * [perlbrew](https://perlbrew.pl/): A tool to manage multiple perl installations
