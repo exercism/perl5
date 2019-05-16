@@ -66,7 +66,8 @@ ok -e "$Bin/$module.pm", "Missing $module.pm"
 
 eval "use $module";
 ok !$@, "Cannot load $module"
-  or BAIL_OUT "Cannot load $module; Does it compile? Does it end with 1;?";
+  or BAIL_OUT
+  "Cannot load $module; Does it compile? Does it end with 1;?";
 
 can_ok $module, "new"
   or BAIL_OUT "Missing package $module; or missing sub new()";
@@ -79,6 +80,7 @@ for my $case (@cases) {
     ( scalar @factors ? ( join ' and ', @factors ) : 'nothing' ),
     $case->{limit}, $case->{expected};
 
-  is $module->new(@factors)->to( $case->{limit} ), $case->{expected}, $desc;
+  is $module->new(@factors)->to( $case->{limit} ), $case->{expected},
+    $desc;
 }
 

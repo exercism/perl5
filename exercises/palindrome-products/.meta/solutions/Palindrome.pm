@@ -23,7 +23,9 @@ sub smallest {
 
 sub _filter_factors {
   my ( $self, $filter ) = @_;
-  my @all_factors   = @{ _palindrome_factors( $self->{min_factor}, $self->{max_factor} ) };
+  my @all_factors
+    = @{ _palindrome_factors( $self->{min_factor},
+      $self->{max_factor} ) };
   my @factors       = ( shift @all_factors );
   my $extreme_value = $factors[0]->[0] * $factors[0]->[1];
 

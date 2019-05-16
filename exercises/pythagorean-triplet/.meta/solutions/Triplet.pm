@@ -56,7 +56,8 @@ sub products {
     foreach my $j ( $i .. $max ) {
       foreach my $k ( $j .. $max ) {
         my $temp_triplet = __PACKAGE__->new( $i, $j, $k );
-        push @pytha_triplets, $temp_triplet if $temp_triplet->is_pythagorean;
+        push @pytha_triplets, $temp_triplet
+          if $temp_triplet->is_pythagorean;
       }
     }
     push @triplets, @pytha_triplets;
@@ -64,7 +65,8 @@ sub products {
 
   if ( $self->{sum} ) {
     foreach my $triplet (@triplets) {
-      push @product_triplets, $triplet if $self->{sum} == $triplet->sum;
+      push @product_triplets, $triplet
+        if $self->{sum} == $triplet->sum;
     }
   }
   else {

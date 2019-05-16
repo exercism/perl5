@@ -15,12 +15,17 @@ ok -e "$Bin/$module.pm", "Missing $module.pm"
 
 eval "use $module";
 ok !$@, "Cannot load $module"
-  or BAIL_OUT "Cannot load $module; Does it compile? Does it end with 1;?";
+  or BAIL_OUT
+  "Cannot load $module; Does it compile? Does it end with 1;?";
 
-can_ok $module, "new"    or BAIL_OUT "Missing package $module; or missing sub new()";
-can_ok $module, "verse"  or BAIL_OUT "Missing package $module; or missing sub verse()";
-can_ok $module, "verses" or BAIL_OUT "Missing package $module; or missing sub verses()";
-can_ok $module, "sing"   or BAIL_OUT "Missing package $module; or missing sub sing()";
+can_ok $module, "new"
+  or BAIL_OUT "Missing package $module; or missing sub new()";
+can_ok $module, "verse"
+  or BAIL_OUT "Missing package $module; or missing sub verse()";
+can_ok $module, "verses"
+  or BAIL_OUT "Missing package $module; or missing sub verses()";
+can_ok $module, "sing"
+  or BAIL_OUT "Missing package $module; or missing sub sing()";
 
 my $song = $module->new;
 
@@ -73,7 +78,7 @@ is $song->verse(12),
   "twelve Drummers Drumming...and a Partridge in a Pear Tree.";
 
 is $song->verses( 1, 3 ),
-    "On the first day of Christmas my true love gave to me: a Partridge in a Pear Tree.\n\n"
+  "On the first day of Christmas my true love gave to me: a Partridge in a Pear Tree.\n\n"
   . "On the second day of Christmas my true love gave to me: two Turtle Doves, and a Partridge in a Pear Tree.\n\n"
   . "On the third day of Christmas my true love gave to me: three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n\n",
   "test multiple verse";

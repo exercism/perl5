@@ -11,7 +11,8 @@ sub new {
   my ( $class, $garden, $students ) = @_;
 
   my $self = bless { garden => $garden } => $class;
-  @students = $students ? map {lc} sort @$students : @default_students;
+  @students
+    = $students ? map {lc} sort @$students : @default_students;
 
   return $self;
 }

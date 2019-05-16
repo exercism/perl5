@@ -28,7 +28,8 @@ eval "use $module";
 ok !$@, "Cannot load $module.pm"
   or BAIL_OUT('Does $module.pm compile?  Does it end with 1; ?');
 
-can_ok( $module, 'answer' ) or BAIL_OUT("Missing package $module; or missing sub answer()");
+can_ok( $module, 'answer' )
+  or BAIL_OUT("Missing package $module; or missing sub answer()");
 
 my $sub = $module . '::answer';
 

@@ -8,7 +8,8 @@ use DateTime;
 sub new {
   my ( $class, $year, $month, $day ) = @_;
 
-  my $date = DateTime->new( year => $year, month => $month, day => $day );
+  my $date
+    = DateTime->new( year => $year, month => $month, day => $day );
   my $giga = DateTime::Duration->new( seconds => 1_000_000_000 );
   bless { date => $date->add_duration($giga) }, $class;
 }

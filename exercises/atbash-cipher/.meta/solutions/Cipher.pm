@@ -11,7 +11,8 @@ sub encode {
   $cipher = lc $cipher;
 
   # translate
-  $cipher =~ tr/abcdefghijklmnopqrstuvwxyz/zyxwvutsrqponmlkjihgfedcba/;
+  $cipher
+    =~ tr/abcdefghijklmnopqrstuvwxyz/zyxwvutsrqponmlkjihgfedcba/;
 
   # wordify
   $cipher =~ s/(\p{Alnum}{5})(?=\p{Alnum})/$1 /g;
@@ -23,7 +24,8 @@ sub decode {
   my $cipher = shift;
 
   ( my $plaintext = $cipher ) =~ s/[^\p{Alnum}]//g;
-  $plaintext =~ tr/zyxwvutsrqponmlkjihgfedcba/abcdefghijklmnopqrstuvwxyz/;
+  $plaintext
+    =~ tr/zyxwvutsrqponmlkjihgfedcba/abcdefghijklmnopqrstuvwxyz/;
 
   return $plaintext;
 }

@@ -31,7 +31,8 @@ my @cases = (
     key      => 'qgbvno',
     input    => 'cof-FEE, 123!',
     expected => 'sugars',
-    name     => 'normalize input. remove non-alpha characters, lowercase alpha',
+    name =>
+      'normalize input. remove non-alpha characters, lowercase alpha',
   },
   { encode   => 1,
     input    => 'adaywithoutlaughterisadaywasted',
@@ -86,11 +87,15 @@ ok -e "$Bin/$module.pm", "Missing $module.pm"
 eval "use $module";
 
 ok !$@, "Cannot load $module"
-  or BAIL_OUT "Cannot load $module. Does it compile? Does it end with 1;?";
+  or BAIL_OUT
+  "Cannot load $module. Does it compile? Does it end with 1;?";
 
-can_ok $module, "new"    or BAIL_OUT "Missing package $module; or missing sub new()";
-can_ok $module, "encode" or BAIL_OUT "Missing package $module; or missing sub encode()";
-can_ok $module, "decode" or BAIL_OUT "Missing package $module; or missing sub decode()";
+can_ok $module, "new"
+  or BAIL_OUT "Missing package $module; or missing sub new()";
+can_ok $module, "encode"
+  or BAIL_OUT "Missing package $module; or missing sub encode()";
+can_ok $module, "decode"
+  or BAIL_OUT "Missing package $module; or missing sub decode()";
 
 foreach my $c (@cases) {
   if ( exists $c->{exception} ) {
@@ -99,12 +104,15 @@ foreach my $c (@cases) {
     next;
   }
 
-  my $cipher = exists $c->{key} ? $module->new( $c->{key} ) : $module->new;
+  my $cipher
+    = exists $c->{key} ? $module->new( $c->{key} ) : $module->new;
 
   if ( exists $c->{encode} ) {
-    is $cipher->encode( $c->{input} ), $c->{expected}, "encode " . $c->{name};
+    is $cipher->encode( $c->{input} ), $c->{expected},
+      "encode " . $c->{name};
   }
   if ( exists $c->{decode} ) {
-    is $cipher->decode( $c->{input} ), $c->{expected}, "decode " . $c->{name};
+    is $cipher->decode( $c->{input} ), $c->{expected},
+      "decode " . $c->{name};
   }
 }

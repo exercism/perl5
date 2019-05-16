@@ -47,14 +47,20 @@ my @cases = (
       }
     },
     input    => [ 'a', 'b', 'c' ],
-    expected => [ [ 'a1', 'a2', 'a3' ], [ 'b1', 'b2', 'b3' ], [ 'c1', 'c2', 'c3' ] ],
+    expected => [
+      [ 'a1', 'a2', 'a3' ],
+      [ 'b1', 'b2', 'b3' ],
+      [ 'c1', 'c2', 'c3' ]
+    ],
   }
 );
 
 plan 3 + @cases;
 
 ok -e "$Bin/$module.pm", "missing $module.pm"
-  or BAIL_OUT("You need to create a class called $module.pm with a constructor called new.");
+  or BAIL_OUT(
+  "You need to create a class called $module.pm with a constructor called new."
+  );
 
 eval "use $module";
 ok !$@, "Cannot load $module.pm"
@@ -69,12 +75,16 @@ foreach my $c (@cases) {
   no strict 'refs';
 
   if ( ref $c->{function} eq 'CODE' ) {
-    is_deeply $accumulate->( $c->{input}, $c->{function} ), $c->{expected}, $c->{name};
+    is_deeply $accumulate->( $c->{input}, $c->{function} ),
+      $c->{expected},
+      $c->{name};
   }
 
   # test case: composition
   if ( ref $c->{function} eq 'ARRAY' ) {
     my ( $fn1, $fn2 ) = @{ $c->{function} };
-    is_deeply $accumulate->( $accumulate->( $c->{input}, $fn1 ), $fn2 ), $c->{expected}, $c->{name};
+    is_deeply $accumulate->( $accumulate->( $c->{input}, $fn1 ),
+      $fn2 ),
+      $c->{expected}, $c->{name};
   }
 }

@@ -12,7 +12,8 @@ use LinkedList;
 my $module = 'LinkedList';
 
 foreach my $f (qw/new from_array to_array next reverse data/) {
-  can_ok( $module, $f ) or BAIL_OUT("You need to implement the function '$f'");
+  can_ok( $module, $f )
+    or BAIL_OUT("You need to implement the function '$f'");
 }
 
 sub elem { $module->new(@_) }
@@ -62,9 +63,18 @@ subtest 'Tested from_array()' => sub {
 subtest 'Tested to_array()' => sub {
   plan 3;
 
-  is_deeply( array(1)->to_array(), [1], "to_array on a one element list" );
-  is_deeply( elem( 2, array(1) )->to_array(), [ 2, 1 ], "to_array on 2 element-list" );
-  is_deeply( array( 1 .. 10 )->to_array(), [ 1 .. 10 ], "to_array() works" );
+  is_deeply( array(1)->to_array(),
+    [1], "to_array on a one element list" );
+  is_deeply(
+    elem( 2, array(1) )->to_array(),
+    [ 2, 1 ],
+    "to_array on 2 element-list"
+  );
+  is_deeply(
+    array( 1 .. 10 )->to_array(),
+    [ 1 .. 10 ],
+    "to_array() works"
+  );
 };
 
 subtest 'Tested reverse()' => sub {
@@ -73,12 +83,19 @@ subtest 'Tested reverse()' => sub {
   is( array(1)->reverse()->data(), 1, "reverse of single element" );
   is( array( 1 .. 10 )->reverse()->data(),
     10, "reverse of large list, first element is last element" );
-  is_deeply( array( 1 .. 10 )->reverse()->to_array(), [ reverse 1 .. 10 ],
-    "all elements reversed" );
+  is_deeply(
+    array( 1 .. 10 )->reverse()->to_array(),
+    [ reverse 1 .. 10 ],
+    "all elements reversed"
+  );
 };
 
 subtest 'Tested all the things!' => sub {
   plan 1;
 
-  is_deeply( array( 1 .. 10 )->reverse()->reverse()->to_array(), [ 1 .. 10 ], "double reverse" );
+  is_deeply(
+    array( 1 .. 10 )->reverse()->reverse()->to_array(),
+    [ 1 .. 10 ],
+    "double reverse"
+  );
 };

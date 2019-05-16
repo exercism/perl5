@@ -48,11 +48,15 @@ ok -e "$Bin/$module.pm", "Missing $module.pm"
 eval "use $module";
 
 ok !$@, "Cannot load $module"
-  or BAIL_OUT "Cannot load $module. Does it compile? Does it end with 1;?";
-can_ok $module, "new"        or BAIL_OUT "Missing package $module; or missing sub new()";
-can_ok $module, "to_decimal" or BAIL_OUT "Missing package $module; or missing sub to_decimal()";
+  or BAIL_OUT
+  "Cannot load $module. Does it compile? Does it end with 1;?";
+can_ok $module, "new"
+  or BAIL_OUT "Missing package $module; or missing sub new()";
+can_ok $module, "to_decimal"
+  or BAIL_OUT "Missing package $module; or missing sub to_decimal()";
 
 foreach my $c (@cases) {
   my $hex = $module->new( $c->{hex} );
-  is $hex->to_decimal, $c->{decimal}, "convert $c->{hex} to $c->{decimal}";
+  is $hex->to_decimal, $c->{decimal},
+    "convert $c->{hex} to $c->{decimal}";
 }

@@ -20,10 +20,14 @@ sub new {
 sub encode {
   my ( $self, $plaintext ) = @_;
   my $cipher;
-  my @plain_chars
-    = split '' => do { $plaintext = lc $plaintext; $plaintext =~ s/[^a-z]//g; $plaintext };
+  my @plain_chars = split '' => do {
+    $plaintext = lc $plaintext;
+    $plaintext =~ s/[^a-z]//g;
+    $plaintext;
+  };
 
-  $cipher .= $self->_shift_char( $plain_chars[$_], $_ ) for 0 .. $#plain_chars;
+  $cipher .= $self->_shift_char( $plain_chars[$_], $_ )
+    for 0 .. $#plain_chars;
 
   return $cipher;
 }
@@ -33,7 +37,8 @@ sub decode {
   my $plaintext;
   my @cipher_chars = split '' => $cipher;
 
-  $plaintext .= $self->_shift_char( $cipher_chars[$_], $_ * -1 ) for 0 .. $#cipher_chars;
+  $plaintext .= $self->_shift_char( $cipher_chars[$_], $_ * -1 )
+    for 0 .. $#cipher_chars;
 
   return $plaintext;
 }
@@ -41,9 +46,11 @@ sub decode {
 sub _shift_char {
   my ( $self, $plain, $index ) = @_;
 
-  my $char_key    = $self->{keys}->[ abs($index) ] || 'a';
-  my $shift_index = first { [ ( 'a' .. 'z' ) ]->[$_] eq $char_key } ( 0 .. 26 );
-  my $plain_index = first { [ ( 'a' .. 'z' ) ]->[$_] eq $plain } ( 0 .. 26 );
+  my $char_key = $self->{keys}->[ abs($index) ] || 'a';
+  my $shift_index
+    = first { [ ( 'a' .. 'z' ) ]->[$_] eq $char_key } ( 0 .. 26 );
+  my $plain_index
+    = first { [ ( 'a' .. 'z' ) ]->[$_] eq $plain } ( 0 .. 26 );
 
   return [ ( 'a' .. 'z' ) ]->[ ( $plain_index - $shift_index ) % 26 ]
     if ( ( caller(1) )[3] ) =~ /decode/;

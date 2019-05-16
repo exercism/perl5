@@ -17,7 +17,8 @@ ok -e "$Bin/$module.pm", "$module.pm present"
   or BAIL_OUT "You need to create file: $module.pm";
 
 ok !$@, "can load $module"
-  or BAIL_OUT "Cannot load $module. Does it compile? Does it end with 1;?";
+  or BAIL_OUT
+  "Cannot load $module. Does it compile? Does it end with 1;?";
 
 can_ok $module, $function
   or BAIL_OUT "Missing package $module; or missing sub $function()?";
@@ -31,7 +32,10 @@ sub testcase {
 
     # cloning the input_digits to make sure the sub doesn't modify the
     # original array
-    $sub->( [ @{ $test{input_digits} } ], $test{input_base}, $test{output_base} );
+    $sub->(
+      [ @{ $test{input_digits} } ],
+      $test{input_base}, $test{output_base}
+    );
   };
 
   my $success

@@ -51,10 +51,14 @@ eval "use $module";
 ok !$@, "Cannot load $module",
   or BAIL_OUT "Cannot load $module; Does it end with 1;?";
 
-can_ok $module, "to_decimal" or BAIL_OUT "Missing $module; or missing sub to_decimal()";
+can_ok $module, "to_decimal"
+  or BAIL_OUT "Missing $module; or missing sub to_decimal()";
 
 foreach my $c (@cases) {
   my $trinary = $module->new( $c->{input} );
   is $trinary->to_decimal, $c->{expected},
-    "test Trinary(" . $c->{input} . ") to_decimal(" . $c->{expected} . ")";
+      "test Trinary("
+    . $c->{input}
+    . ") to_decimal("
+    . $c->{expected} . ")";
 }

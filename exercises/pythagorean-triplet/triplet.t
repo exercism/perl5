@@ -9,18 +9,25 @@ use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
 
 my $module = 'Triplet';
-ok -e "$Bin/$module.pm", "Missing $module.pm" or BAIL_OUT "You need to create file: $module.pm";
+ok -e "$Bin/$module.pm", "Missing $module.pm"
+  or BAIL_OUT "You need to create file: $module.pm";
 
 eval "use $module";
 ok !$@, "Cannot load $module"
-  or BAIL_OUT "Cannot load $module. Does it compile? Does it end with 1;?";
+  or BAIL_OUT
+  "Cannot load $module. Does it compile? Does it end with 1;?";
 
-can_ok $module, "new", or BAIL_OUT "Missing package $module; or missing sub new()";
+can_ok $module, "new",
+  or BAIL_OUT "Missing package $module; or missing sub new()";
 can_ok $module, "is_pythagorean",
-  or BAIL_OUT "Missing package $module; or missing sub is_pythagorean()";
-can_ok $module, "sum",      or BAIL_OUT "Missing package $module; or missing sub sum()";
-can_ok $module, "product",  or BAIL_OUT "Missing package $module; or missing sub product()";
-can_ok $module, "products", or BAIL_OUT "Missing package $module; or missing sub products()";
+  or BAIL_OUT
+  "Missing package $module; or missing sub is_pythagorean()";
+can_ok $module, "sum",
+  or BAIL_OUT "Missing package $module; or missing sub sum()";
+can_ok $module, "product",
+  or BAIL_OUT "Missing package $module; or missing sub product()";
+can_ok $module, "products",
+  or BAIL_OUT "Missing package $module; or missing sub products()";
 
 my $triplet;
 
@@ -40,7 +47,8 @@ is_deeply(
 ) or diag explain $triplet->products;
 
 $triplet = $module->new( { min_factor => 11, max_factor => 20 } );
-is_deeply( $triplet->products, [3840], "products of triplets where factor in 11-20" )
+is_deeply( $triplet->products, [3840],
+  "products of triplets where factor in 11-20" )
   or diag explain $triplet->products;
 
 $triplet = $module->new( { sum => 180, max_factor => 100 } );

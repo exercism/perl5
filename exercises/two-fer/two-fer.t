@@ -9,11 +9,13 @@ use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
 use TwoFer qw(two_fer);
 
-can_ok 'TwoFer', 'import' or BAIL_OUT 'Cannot import subroutines from module';
+can_ok 'TwoFer', 'import'
+  or BAIL_OUT 'Cannot import subroutines from module';
 
 my $C_DATA = do { local $/; decode_json(<DATA>); };
 foreach my $case ( @{ $C_DATA->{cases} } ) {
-  is two_fer( $case->{input}{name} ), $case->{expected}, $case->{description};
+  is two_fer( $case->{input}{name} ), $case->{expected},
+    $case->{description};
 }
 
 __DATA__

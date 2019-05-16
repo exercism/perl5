@@ -63,10 +63,12 @@ eval "use $module";
 ok !$@, "Cannot load $module.pm",
   or BAIL_OUT "Does $module.pm compile? Does it end with 1;?";
 
-can_ok $module, "translate" or BAIL_OUT "Missing packge $module; or missing sub translate()";
+can_ok $module, "translate"
+  or BAIL_OUT "Missing packge $module; or missing sub translate()";
 
 foreach my $c (@cases) {
   no strict 'refs';
   my $sub = "${module}::translate";
-  is $sub->( $c->{input} ), $c->{expected}, "translate " . $c->{input} . " to " . $c->{expected};
+  is $sub->( $c->{input} ), $c->{expected},
+    "translate " . $c->{input} . " to " . $c->{expected};
 }

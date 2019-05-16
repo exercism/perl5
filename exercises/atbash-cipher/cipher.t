@@ -26,8 +26,10 @@ eval "use $module";
 ok !$@, "Cannot load $module.pm"
   or BAIL_OUT "Does $module.pm compile? Does it end with 1;?";
 
-can_ok $module, "encode" or BAIL_OUT "Missing package $module; or missing sub encode()";
-can_ok $module, "decode" or BAIL_OUT "Missing package $module; or missing sub decode()";
+can_ok $module, "encode"
+  or BAIL_OUT "Missing package $module; or missing sub encode()";
+can_ok $module, "decode"
+  or BAIL_OUT "Missing package $module; or missing sub decode()";
 
 foreach my $c (@$cases) {
   no strict 'refs';

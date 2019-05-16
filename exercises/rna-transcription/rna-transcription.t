@@ -9,11 +9,13 @@ use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
 use RNA qw(to_rna);
 
-can_ok 'RNA', 'import' or BAIL_OUT 'Cannot import subroutines from module';
+can_ok 'RNA', 'import'
+  or BAIL_OUT 'Cannot import subroutines from module';
 
 my $C_DATA = do { local $/; decode_json(<DATA>); };
 foreach my $case ( @{ $C_DATA->{cases} } ) {
-  is to_rna( $case->{input}{dna} ), $case->{expected}, $case->{description};
+  is to_rna( $case->{input}{dna} ), $case->{expected},
+    $case->{description};
 }
 
 __DATA__

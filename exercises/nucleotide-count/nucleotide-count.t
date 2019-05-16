@@ -9,7 +9,8 @@ use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
 use NucleotideCount qw(count_nucleotides);
 
-can_ok 'NucleotideCount', 'import' or BAIL_OUT 'Cannot import subroutines from module';
+can_ok 'NucleotideCount', 'import'
+  or BAIL_OUT 'Cannot import subroutines from module';
 
 my $C_DATA = do { local $/; decode_json(<DATA>); };
 my @exception_cases;
@@ -18,18 +19,23 @@ foreach my $case ( map { @{ $_->{cases} } } @{ $C_DATA->{cases} } ) {
     push @exception_cases, $case;
   }
   else {
-    is_deeply count_nucleotides( $case->{input}{strand} ), $case->{expected}, $case->{description};
+    is_deeply count_nucleotides( $case->{input}{strand} ),
+      $case->{expected}, $case->{description};
   }
 }
 
 SKIP: {
   if ( eval { require Test2::Tools::Exception } ) {
-    ok( Test2::Tools::Exception::dies( sub { count_nucleotides $_->{input}{strand} } ),
-      $_->{description} )
-      foreach @exception_cases;
+    ok(
+      Test2::Tools::Exception::dies(
+        sub { count_nucleotides $_->{input}{strand} }
+      ),
+      $_->{description}
+    ) foreach @exception_cases;
   }
   else {
-    skip 'Test2::Tools::Exception not loaded', scalar @exception_cases;
+    skip 'Test2::Tools::Exception not loaded',
+      scalar @exception_cases;
   }
 }
 

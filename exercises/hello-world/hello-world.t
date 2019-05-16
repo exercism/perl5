@@ -6,14 +6,15 @@ plan 2;    # This is how many tests we expect to run.
 
 use FindBin qw($Bin);
 use lib $Bin,
-  "$Bin/local/lib/perl5";    # Look for modules inside the same directory as this test file.
+  "$Bin/local/lib/perl5"; # Find modules in the same dir as this file.
 use HelloWorld qw(hello);
 
-can_ok 'HelloWorld', 'import' or BAIL_OUT 'Cannot import subroutines from module';
+can_ok 'HelloWorld', 'import'
+  or BAIL_OUT 'Cannot import subroutines from module';
 
-# Run the 'is' subroutine from the 'Test2::Bundle::More' module, with three arguments.
+# Run the 'is' sub from 'Test2::Bundle::More' with three arguments.
 is(
-  hello,                     # Run the 'hello' subroutine, which is imported from your module.
-  'Hello, World!',           # The expected result to compare with 'hello'.
-  'Say Hi!'                  # The test description.
+  hello,              # Run the 'hello' sub imported from the module.
+  'Hello, World!',    # The expected result to compare with 'hello'.
+  'Say Hi!'           # The test description.
 );

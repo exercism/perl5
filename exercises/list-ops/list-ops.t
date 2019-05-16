@@ -80,7 +80,8 @@ plan 5 + $num_test_cases;
 
 ok -e "$Bin/$module.pm", "missing $module.pm"
   or BAIL_OUT(
-  "You need to create a class called $module.pm with 3 functions: map, reduce, and length.");
+  "You need to create a class called $module.pm with 3 functions: map, reduce, and length."
+  );
 
 eval "use $module";
 ok !$@, "Cannot load $module.pm"
@@ -100,10 +101,12 @@ foreach my $test_type ( keys %test_cases ) {
   my $f = "${module}::$test_type";
   foreach my $test ( @{ $test_cases{$test_type}->{tests} } ) {
     if ( exists $test->{function} ) {
-      is_deeply( $f->( $test->{function}, $test->{input} ), $test->{expected}, $test->{name}, );
+      is_deeply( $f->( $test->{function}, $test->{input} ),
+        $test->{expected}, $test->{name}, );
     }
     else {    # length tests
-      is_deeply( $f->( $test->{input} ), $test->{expected}, $test->{name}, );
+      is_deeply( $f->( $test->{input} ),
+        $test->{expected}, $test->{name}, );
     }
 
   }

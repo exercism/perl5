@@ -26,8 +26,10 @@ eval "use $module";
 ok !$@, "Cannot load $module.pm"
   or BAIL_OUT("Does $module.pm compile?  Does it end with 1; ?");
 
-can_ok( $module, 'verse' ) or BAIL_OUT("Missing package $module; or missing sub verse()");
-can_ok( $module, 'sing' )  or BAIL_OUT("Missing package $module; or missing sub sing()");
+can_ok( $module, 'verse' )
+  or BAIL_OUT("Missing package $module; or missing sub verse()");
+can_ok( $module, 'sing' )
+  or BAIL_OUT("Missing package $module; or missing sub sing()");
 
 foreach my $c (@$cases) {
   no strict 'refs';

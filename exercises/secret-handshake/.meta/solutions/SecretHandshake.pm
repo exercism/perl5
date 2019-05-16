@@ -3,7 +3,8 @@ package SecretHandshake;
 use strict;
 use warnings;
 
-my @com_strings = ( 'wink', 'double blink', 'close your eyes', 'jump' );
+my @com_strings
+  = ( 'wink', 'double blink', 'close your eyes', 'jump' );
 
 sub new {
   my ( $class, $number ) = @_;
@@ -16,7 +17,9 @@ sub commands {
   return [] if $self->{number} !~ /\d/;
 
   my @commands;
-  my @binary = split '' => reverse( substr( sprintf( "%b", $self->{number} ), -5 ) );
+  my @binary
+    = split '' =>
+    reverse( substr( sprintf( "%b", $self->{number} ), -5 ) );
 
   foreach my $on ( 0 .. $#binary ) {
     push @commands => $com_strings[$on] if $binary[$on] and $on < 4;

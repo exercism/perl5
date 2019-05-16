@@ -43,12 +43,16 @@ ok -e "$Bin/$module.pm", "Missing $module.pm",
 eval "use $module";
 
 ok !$@, "Cannot load $module",
-  or BAIL_OUT "Cannot load $module. Does it compile? Does it end with 1;?";
+  or BAIL_OUT
+  "Cannot load $module. Does it compile? Does it end with 1;?";
 
-can_ok $module, "new"        or BAIL_OUT "Missing package $module; or missing sub new()";
-can_ok $module, "to_decimal" or BAIL_OUT "Missing package $module; or missing sub to_decimal()";
+can_ok $module, "new"
+  or BAIL_OUT "Missing package $module; or missing sub new()";
+can_ok $module, "to_decimal"
+  or BAIL_OUT "Missing package $module; or missing sub to_decimal()";
 
 foreach my $c (@cases) {
   my $binary = $module->new( $c->{input} );
-  is $binary->to_decimal, $c->{expected}, "Binary($c->{input}) to_decimal $c->{expected}";
+  is $binary->to_decimal, $c->{expected},
+    "Binary($c->{input}) to_decimal $c->{expected}";
 }

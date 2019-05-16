@@ -19,7 +19,10 @@ sub normalize_plaintext {
 
 sub size {
   my $self = shift;
-  my $size = @_ > 0 ? sqrt( length $_[0] ) : sqrt( length $self->normalize_plaintext );
+  my $size
+    = @_ > 0
+    ? sqrt( length $_[0] )
+    : sqrt( length $self->normalize_plaintext );
 
   return int($size) if fmod( $size, 1 ) == 0;
   return ceil($size);
@@ -37,7 +40,8 @@ sub ciphertext {
 
 sub plaintext_segments {
   my $self = shift;
-  return $self->_segmentize( $self->normalize_plaintext, $self->size );
+  return $self->_segmentize( $self->normalize_plaintext,
+    $self->size );
 }
 
 sub _segmentize {

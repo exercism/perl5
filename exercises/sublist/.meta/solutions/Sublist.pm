@@ -52,7 +52,9 @@ sub is_sublist {
     return if @$l1 > @$l2 - $idx;
 
     my @l2_rest = @{$l2}[ $idx .. $idx + @$l1 - 1 ];
-    return 1 if all { $_->[0] == $_->[1] } pairwise { [ $a, $b ] } @$l1, @l2_rest;
+    return 1
+      if all { $_->[0] == $_->[1] } pairwise { [ $a, $b ] } @$l1,
+      @l2_rest;
   }
 }
 

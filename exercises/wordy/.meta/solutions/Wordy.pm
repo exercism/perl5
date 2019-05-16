@@ -14,7 +14,9 @@ my $NUMBER    = qr/[\d-]+/;
 sub answer {
   my ($str) = @_;
 
-  if ( $str =~ m{^What\s+is\s+((?:$NUMBER\s+($OPERATORS)\s+)+$NUMBER)\s*\?} ) {
+  if ( $str
+    =~ m{^What\s+is\s+((?:$NUMBER\s+($OPERATORS)\s+)+$NUMBER)\s*\?} )
+  {
     my $expression = $1;
     $expression =~ s/($OPERATORS)/$operators{$1}/g;
 

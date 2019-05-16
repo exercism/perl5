@@ -9,7 +9,8 @@ sub discard { [ _filter( @_, 0 ) ] }
 sub _filter {
   my ( $list, $function, $is_keeping ) = @_;
 
-  die "ArgumentError: 2nd parameter must be a function reference" unless ref $function eq 'CODE';
+  die "ArgumentError: 2nd parameter must be a function reference"
+    unless ref $function eq 'CODE';
 
   my @result;
 

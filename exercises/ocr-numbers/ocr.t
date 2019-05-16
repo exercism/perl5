@@ -10,13 +10,17 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 my $module = 'OCR';
 
-ok -e "$Bin/$module.pm", "Missing $module.pm" or BAIL_OUT "You need to create file: $module.pm";
+ok -e "$Bin/$module.pm", "Missing $module.pm"
+  or BAIL_OUT "You need to create file: $module.pm";
 
 eval "use $module";
 ok !$@, "Cannot load $module"
-  or BAIL_OUT "Cannot load $module. Does it compile? Does it end with 1;?";
-can_ok $module, "new"     or BAIL_OUT "Missing package $module; or missing sub new()";
-can_ok $module, "convert" or BAIL_OUT "Missing package $module; or missing sub convert()";
+  or BAIL_OUT
+  "Cannot load $module. Does it compile? Does it end with 1;?";
+can_ok $module, "new"
+  or BAIL_OUT "Missing package $module; or missing sub new()";
+can_ok $module, "convert"
+  or BAIL_OUT "Missing package $module; or missing sub convert()";
 
 chomp( my $zero = <<'ZERO');
  _ 
@@ -120,7 +124,8 @@ chomp( my $long_binary = <<'BINARY');
   |  ||_|  ||_|  |  ||_||_|
                            
 BINARY
-is $module->new($long_binary)->convert, '110101100', "convert a long binary number";
+is $module->new($long_binary)->convert, '110101100',
+  "convert a long binary number";
 
 chomp( my $mixed = <<'MIXED');
        _     _           _ 
@@ -128,7 +133,8 @@ chomp( my $mixed = <<'MIXED');
   |  | _|  ||_|  |  ||_||_|
                            
 MIXED
-is $module->new($mixed)->convert, '11?10?1?0', "convert 1 and 0 mixed with invalid input";
+is $module->new($mixed)->convert, '11?10?1?0',
+  "convert 1 and 0 mixed with invalid input";
 
 chomp( my $all = <<'ALL');
     _  _     _  _  _  _  _  _ 
@@ -152,4 +158,5 @@ chomp( my $multiline = <<'MULTILINE');
   ||_| _|
          
 MULTILINE
-is $module->new($multiline)->convert, '123,456,789', "multiline input";
+is $module->new($multiline)->convert, '123,456,789',
+  "multiline input";

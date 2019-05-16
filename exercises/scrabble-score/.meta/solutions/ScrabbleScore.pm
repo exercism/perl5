@@ -25,7 +25,8 @@ sub score {
   my ( $word, %extensions ) = @_;
   my $double = $extensions{double} // 0;
   my $triple = $extensions{triple} // 0;
-  return sum0 map { $scores->{$_} * 2**$double * 3**$triple } split //, lc $word;
+  return sum0 map { $scores->{$_} * 2**$double * 3**$triple }
+    split //, lc $word;
 }
 
 1;

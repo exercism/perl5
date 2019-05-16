@@ -9,8 +9,10 @@ use lib $Bin, "$Bin/local/lib/perl5";
 use Series;
 use Test2::Tools::Exception qw(dies);
 
-can_ok( 'Series', "new" )   or BAIL_OUT("You need to implement the new(input)-function");
-can_ok( 'Series', "slice" ) or BAIL_OUT("You need to implement the slice(size)-function");
+can_ok( 'Series', "new" )
+  or BAIL_OUT("You need to implement the new(input)-function");
+can_ok( 'Series', "slice" )
+  or BAIL_OUT("You need to implement the slice(size)-function");
 
 my @cases = (
   { name     => "Simple slices of one",
@@ -31,7 +33,10 @@ my @cases = (
   { name     => "Other slices of two",
     input    => "98273463",
     size     => 2,
-    expected => [ [ 9, 8 ], [ 8, 2 ], [ 2, 7 ], [ 7, 3 ], [ 3, 4 ], [ 4, 6 ], [ 6, 3 ] ],
+    expected => [
+      [ 9, 8 ], [ 8, 2 ], [ 2, 7 ], [ 7, 3 ],
+      [ 3, 4 ], [ 4, 6 ], [ 6, 3 ]
+    ],
   },
   { name     => "Simple slices of two - again",
     input    => "37103",
@@ -48,10 +53,11 @@ my @cases = (
     size     => 3,
     expected => [ [ 3, 1, 0 ], [ 1, 0, 0 ], [ 0, 0, 1 ] ],
   },
-  { name     => "Other slices of three",
-    input    => "982347",
-    size     => 3,
-    expected => [ [ 9, 8, 2 ], [ 8, 2, 3 ], [ 2, 3, 4 ], [ 3, 4, 7 ] ],
+  { name  => "Other slices of three",
+    input => "982347",
+    size  => 3,
+    expected =>
+      [ [ 9, 8, 2 ], [ 8, 2, 3 ], [ 2, 3, 4 ], [ 3, 4, 7 ] ],
   },
   { name     => "Simple slices of four",
     input    => "01234",
@@ -89,9 +95,11 @@ foreach my $case (@cases) {
   my $m = Series->new( $case->{input} );
 
   if ( $case->{exception} ) {
-    like dies { $m->slice( $case->{size} ) }, qr/$case->{exception}/, $case->{name};
+    like dies { $m->slice( $case->{size} ) }, qr/$case->{exception}/,
+      $case->{name};
   }
   else {
-    is_deeply $m->slice( $case->{size} ), $case->{expected}, $case->{name};
+    is_deeply $m->slice( $case->{size} ), $case->{expected},
+      $case->{name};
   }
 }

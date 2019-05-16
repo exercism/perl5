@@ -27,7 +27,8 @@ eval "use $module";
 ok !$@, "Cannot load $module.pm"
   or BAIL_OUT("Does $module.pm compile?  Does it end with 1; ?");
 
-can_ok( $module, 'kind' ) or BAIL_OUT("Missing package $module; or missing sub kind()");
+can_ok( $module, 'kind' )
+  or BAIL_OUT("Missing package $module; or missing sub kind()");
 
 my $sub = $module . '::kind';
 

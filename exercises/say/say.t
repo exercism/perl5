@@ -64,12 +64,15 @@ my $module = 'Say';
 
 plan 3 + @cases;
 
-ok -e "$Bin/$module.pm", "Missing $module.pm" or BAIL_OUT "You need to create file $module.pm";
+ok -e "$Bin/$module.pm", "Missing $module.pm"
+  or BAIL_OUT "You need to create file $module.pm";
 
 eval "use $module";
-ok !$@, "Cannot load $module" or BAIL_OUT "Does $module.pm compile? Does it end with 1;?";
+ok !$@, "Cannot load $module"
+  or BAIL_OUT "Does $module.pm compile? Does it end with 1;?";
 
-can_ok $module, "in_english" or BAIL_OUT "Missing package $module; or missing sub in_english()";
+can_ok $module, "in_english"
+  or BAIL_OUT "Missing package $module; or missing sub in_english()";
 
 foreach my $c (@cases) {
   my $say;

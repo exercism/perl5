@@ -10,10 +10,12 @@ use Exercism::Generator 'BASE_DIR';
 
 for (BASE_DIR) {
   if ( not $_->child('problem-specifications')->is_dir ) {
-    warn "problem-specifications directory not found; exercise(s) may generate incorrectly.\n";
+    warn
+      "problem-specifications directory not found; exercise(s) may generate incorrectly.\n";
   }
   if ( not $_->child('bin/configlet')->is_file ) {
-    warn "configlet not found; README.md file(s) will not be generated.\n";
+    warn
+      "configlet not found; README.md file(s) will not be generated.\n";
   }
 }
 
@@ -22,7 +24,8 @@ my @exercises;
 if (@ARGV) {
   my %arg_set = map { $_ => 1 } @ARGV;
   if ( $arg_set{'--all'} ) {
-    push @exercises, $_->basename foreach BASE_DIR->child('exercises')->children;
+    push @exercises, $_->basename
+      foreach BASE_DIR->child('exercises')->children;
   }
   else {
     @exercises = keys %arg_set;
@@ -34,7 +37,8 @@ else {
     push @exercises, cwd->basename;
   }
   else {
-    say '.meta/exercise-data.yaml not found in current directory; exiting.';
+    say
+      '.meta/exercise-data.yaml not found in current directory; exiting.';
     exit;
   }
 }
@@ -55,24 +59,31 @@ for my $exercise (@exercises) {
   }
   print "Generating $exercise... ";
 
-  my $data      = LoadFile $yaml;
-  my $generator = Exercism::Generator->new( { exercise => $exercise, data => $data } );
+  my $data = LoadFile $yaml;
+  my $generator
+    = Exercism::Generator->new(
+    { exercise => $exercise, data => $data } );
   $exercise_dir->child("$exercise.t")->spew( $generator->test );
   $exercise_dir->child("$exercise.t")->chmod(0755);
-  $exercise_dir->child( '.meta/solutions/' . $data->{exercise} . '.pm' )
+  $exercise_dir->child(
+    '.meta/solutions/' . $data->{exercise} . '.pm' )
     ->spew( $generator->example );
-  $exercise_dir->child( $data->{exercise} . '.pm' )->spew( $generator->stub );
+  $exercise_dir->child( $data->{exercise} . '.pm' )
+    ->spew( $generator->stub );
 
   for ( BASE_DIR->child('bin/configlet') ) {
-    system $_->realpath, 'generate', BASE_DIR, '--only', $exercise if $_->is_file;
+    system $_->realpath, 'generate', BASE_DIR, '--only', $exercise
+      if $_->is_file;
   }
 
   say 'Generated.';
 }
 
 if (@dir_not_found) {
-  warn 'exercise directory does not exist for: ' . join( q| |, @dir_not_found ) . "\n";
+  warn 'exercise directory does not exist for: '
+    . join( q| |, @dir_not_found ) . "\n";
 }
 if (@yaml_not_found) {
-  warn '.meta/exercise-data.yaml not found for: ' . join( q| |, @yaml_not_found ) . "\n";
+  warn '.meta/exercise-data.yaml not found for: '
+    . join( q| |, @yaml_not_found ) . "\n";
 }

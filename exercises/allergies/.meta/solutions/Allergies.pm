@@ -5,7 +5,8 @@ use warnings;
 
 use List::Util 'first';
 
-my @allergens = qw(eggs peanuts shellfish strawberries tomatoes chocolate pollen cats);
+my @allergens
+  = qw(eggs peanuts shellfish strawberries tomatoes chocolate pollen cats);
 
 sub new {
   my ( $class, $score ) = @_;

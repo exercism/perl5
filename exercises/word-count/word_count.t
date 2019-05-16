@@ -12,7 +12,7 @@ my $module = 'Phrase';
 
 my @cases = (
 
-  # input                                       expected output                  title
+# input                                       expected output                  title
   [ 'word', { word => 1 }, 'one word' ],
   [ 'one of each', { one => 1, of => 1, each => 1 }, 'one of each' ],
   [ 'one fish two fish red fish blue fish',
@@ -23,7 +23,10 @@ my @cases = (
     { car => 1, carpet => 1, as => 1, java => 1, javascript => 1 },
     'ignore punctuation'
   ],
-  [ 'testing, 1, 2 testing', { testing => 2, 1 => 1, 2 => 1 }, 'include numbers' ],
+  [ 'testing, 1, 2 testing',
+    { testing => 2, 1 => 1, 2 => 1 },
+    'include numbers'
+  ],
   [ 'go Go GO', { go => 3 }, 'normalize case' ],
 );
 
@@ -38,7 +41,8 @@ eval "use $module";
 ok !$@, "Cannot load $module.pm"
   or BAIL_OUT("Does $module.pm compile?  Does it end with 1; ?");
 
-can_ok( $module, 'word_count' ) or BAIL_OUT("Missing package Phrase; or missing sub word_count()");
+can_ok( $module, 'word_count' )
+  or BAIL_OUT("Missing package Phrase; or missing sub word_count()");
 
 my $sub = $module . '::word_count';
 

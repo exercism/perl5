@@ -6,7 +6,8 @@ use Test2::Bundle::More;
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
 
-my $full_garden = "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV";
+my $full_garden
+  = "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV";
 
 my @cases = (
   { garden   => "RC\nGG",
@@ -154,9 +155,11 @@ ok -e "$Bin/$module.pm", "Missing $module.pm"
 eval "use $module";
 
 ok !$@, "Cannot load $module"
-  or BAIL_OUT "Cannot load $module. Does it compile? Does it end with 1;?";
+  or BAIL_OUT
+  "Cannot load $module. Does it compile? Does it end with 1;?";
 
-can_ok $module, "new" or BAIL_OUT "Missing package $module; or missing sub new()";
+can_ok $module, "new"
+  or BAIL_OUT "Missing package $module; or missing sub new()";
 
 foreach my $c (@cases) {
   my $garden = do {

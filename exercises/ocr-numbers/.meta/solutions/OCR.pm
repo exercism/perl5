@@ -52,7 +52,9 @@ sub _list_ocr {
   my $index = 0;
 
   while ( $index < $len ) {
-    $ocrs[ $index / 3 ] = join "\n" => ( map { substr( $lines[$_], $index, 3 ) } 0 .. 3 );
+    $ocrs[ $index / 3 ]
+      = join "\n" =>
+      ( map { substr( $lines[$_], $index, 3 ) } 0 .. 3 );
 
     $index += 3;
   }
@@ -77,7 +79,8 @@ sub _create_ocr_rows {
   my @indexes = grep { $_ % 4 == 0 } 0 .. $#ocrs;
 
   foreach my $i (@indexes) {
-    push @{ $self->{ocr_rows} } => join "\n", @ocrs[ $i .. ( $i + 3 ) ];
+    push @{ $self->{ocr_rows} } => join "\n",
+      @ocrs[ $i .. ( $i + 3 ) ];
   }
 }
 

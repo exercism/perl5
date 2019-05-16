@@ -18,21 +18,26 @@ my $cases;
 plan 4 + @$cases;
 
 ok -e "$Bin/$module.pm", "missing $module.pm"
-  or BAIL_OUT("You need to create a class called $module.pm with a constructor called new.");
+  or BAIL_OUT(
+  "You need to create a class called $module.pm with a constructor called new."
+  );
 
 eval "use $module";
 ok !$@, "Cannot load $module.pm"
   or BAIL_OUT("Does $module.pm compile?  Does it end with 1; ? ($@)");
 
-can_ok( $module, 'new' ) or BAIL_OUT("Missing package $module; or missing sub new()");
-can_ok( $module, 'hamming_distance' ) or BAIL_OUT(
+can_ok( $module, 'new' )
+  or BAIL_OUT("Missing package $module; or missing sub new()");
+can_ok( $module, 'hamming_distance' )
+  or BAIL_OUT(
   "Missing package $module; or
 
 missing sub hamming_distance()"
-);
+  );
 
 foreach my $c (@$cases) {
-  is $module->new( $c->{strand} )->hamming_distance( $c->{input} ), $c->{expected}, $c->{name};
+  is $module->new( $c->{strand} )->hamming_distance( $c->{input} ),
+    $c->{expected}, $c->{name};
 }
 
 __DATA__

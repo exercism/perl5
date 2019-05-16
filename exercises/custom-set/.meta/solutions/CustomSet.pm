@@ -48,12 +48,14 @@ sub union {
 
 sub intersect {
   my ( $self, $other ) = @_;
-  return __PACKAGE__->new( grep { $self->is_member($_) } keys %$other );
+  return __PACKAGE__->new( grep { $self->is_member($_) }
+      keys %$other );
 }
 
 sub difference {
   my ( $self, $other ) = @_;
-  return __PACKAGE__->new( grep { !$other->is_member($_) } keys %$self );
+  return __PACKAGE__->new( grep { !$other->is_member($_) }
+      keys %$self );
 }
 
 sub is_disjoint {

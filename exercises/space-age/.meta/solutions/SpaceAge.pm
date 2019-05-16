@@ -24,7 +24,8 @@ sub _on_planet {
   my ( $self, $planet ) = @_;
   my $earth_years = $self->seconds / 31_557_600;
 
-  return sprintf "%.2f" => ( $earth_years / $orbital_period{$planet} );
+  return
+    sprintf "%.2f" => ( $earth_years / $orbital_period{$planet} );
 }
 
 sub AUTOLOAD {

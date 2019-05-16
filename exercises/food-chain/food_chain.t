@@ -15,7 +15,8 @@ ok -e "$Bin/$module.pm", "Missing $module.pm"
 
 eval "use $module";
 ok !$@, "Cannot load $module"
-  or BAIL_OUT "Cannot load $module; Does it compile? Does it end with 1;?";
+  or BAIL_OUT
+  "Cannot load $module; Does it compile? Does it end with 1;?";
 
 can_ok $module, "new"
   or BAIL_OUT "Missing package $module; or missing sub new()";
@@ -116,6 +117,7 @@ She swallowed the spider to catch the fly.
 I don't know why she swallowed the fly. Perhaps she'll die.
 
 SONG
-is $song->verses( 1, 2 ), $expected, "verses(1, 2): swallow fly, swallow spider";
+is $song->verses( 1, 2 ), $expected,
+  "verses(1, 2): swallow fly, swallow spider";
 
 is $song->verses( 1, 8 ), $song->sing, "verses(1, 8): whole song";

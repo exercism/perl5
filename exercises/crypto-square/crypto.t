@@ -51,8 +51,9 @@ my @cases = (
     expected => 'vrel aepe mset paoo irpo',
     sub      => 'normalize_ciphertext'
   },
-  { sub   => 'normalize_ciphertext',
-    plain => 'All human beings are born free and equal in dignity and rights.
+  { sub => 'normalize_ciphertext',
+    plain =>
+      'All human beings are born free and equal in dignity and rights.
             They are endowed with reason and conscience and should act towards one another
             in a spirit of brotherhood.',
     expected => (
@@ -65,7 +66,8 @@ my @cases = (
 );
 
 my $module = 'Crypto';
-my @subs   = qw(new normalize_ciphertext normalize_plaintext plaintext_segments ciphertext size);
+my @subs
+  = qw(new normalize_ciphertext normalize_plaintext plaintext_segments ciphertext size);
 plan 2 + @subs + @cases;
 
 ok -e "$Bin/$module.pm", "Missing $module.pm"
@@ -74,10 +76,12 @@ ok -e "$Bin/$module.pm", "Missing $module.pm"
 eval "use $module";
 
 ok !$@, "Cannot load $module"
-  or BAIL_OUT "Cannot load $module. Does it compile? Does it end with 1;?";
+  or BAIL_OUT
+  "Cannot load $module. Does it compile? Does it end with 1;?";
 
 foreach my $sub (@subs) {
-  can_ok $module, $sub or BAIL_OUT "Missing package $module; or missing sub $sub()";
+  can_ok $module, $sub
+    or BAIL_OUT "Missing package $module; or missing sub $sub()";
 }
 
 foreach my $c (@cases) {
@@ -86,9 +90,11 @@ foreach my $c (@cases) {
   my $sub    = $c->{sub};
 
   if ( ref $c->{expected} eq 'ARRAY' ) {
-    is_deeply $crypto->$sub, $c->{expected}, $c->{sub} . " $c->{plain} to @{$c->{expected}}";
+    is_deeply $crypto->$sub, $c->{expected},
+      $c->{sub} . " $c->{plain} to @{$c->{expected}}";
   }
   else {
-    is $crypto->$sub, $c->{expected}, $c->{sub} . " $c->{plain} to $c->{expected}";
+    is $crypto->$sub, $c->{expected},
+      $c->{sub} . " $c->{plain} to $c->{expected}";
   }
 }

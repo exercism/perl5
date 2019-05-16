@@ -42,9 +42,11 @@ sub count_adjacent_bombs {
     }
   }
 
-  return ( join "\n", map { join '', @board[ $_ .. $_ + $length - 1 ] }
-    map { $_ * $length } 0 .. @lines - 1 )
-    . "\n";
+  return (
+    join "\n",
+    map { join '', @board[ $_ .. $_ + $length - 1 ] }
+      map { $_ * $length } 0 .. @lines - 1
+  ) . "\n";
 }
 
 1;

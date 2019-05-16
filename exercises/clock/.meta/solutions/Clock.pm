@@ -31,7 +31,8 @@ sub subtract_minutes {
 
 sub BUILD {
   my ($self) = @_;
-  $self->{hour} = ( $self->{hour} + floor( $self->{minute} / 60 ) ) % 24;
+  $self->{hour}
+    = ( $self->{hour} + floor( $self->{minute} / 60 ) ) % 24;
   $self->{minute} %= 60;
   return $self;
 }

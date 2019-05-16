@@ -9,11 +9,13 @@ use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
 use Raindrops qw(raindrop);
 
-can_ok 'Raindrops', 'import' or BAIL_OUT 'Cannot import subroutines from module';
+can_ok 'Raindrops', 'import'
+  or BAIL_OUT 'Cannot import subroutines from module';
 
 my $C_DATA = do { local $/; decode_json(<DATA>); };
 foreach my $case ( @{ $C_DATA->{cases} } ) {
-  is raindrop( $case->{input}{number} ), $case->{expected}, $case->{description};
+  is raindrop( $case->{input}{number} ), $case->{expected},
+    $case->{description};
 }
 
 __DATA__

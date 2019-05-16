@@ -64,7 +64,8 @@ my @cases = (
 my $module = 'ETL';
 
 can_ok $module, "transform"
-  or BAIL_OUT "Missing package module $module; or missing sub transform()";
+  or BAIL_OUT
+  "Missing package module $module; or missing sub transform()";
 
 my $sub = $module->can('transform');
 

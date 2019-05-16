@@ -26,7 +26,8 @@ sub in_english {
       if ( $number >= $places[$index] ) {
         $english .= $self->in_hundreds( $number / $places[$index] );
         $english .= " $place_names[$index]";
-        $self->{number} -= int( $number / $places[$index] ) * $places[$index];
+        $self->{number}
+          -= int( $number / $places[$index] ) * $places[$index];
         $english .= " " . $self->in_english if $self->{number} > 0;
       }
     }
@@ -42,10 +43,12 @@ sub in_hundreds {
   my ( $self, $num ) = @_;
   my @ones  = qw(zero one two three four five six seven eight nine);
   my @teens = @ones;
-  push @teens => qw(ten eleven twelve thirteen fourteen fifteen sixteen
+  push @teens =>
+    qw(ten eleven twelve thirteen fourteen fifteen sixteen
     seventeen eighteen nineteen);
   my @tens = ( '', '' );
-  push @tens => qw(twenty thirty forty fifty sixty seventy eighty ninety);
+  push @tens =>
+    qw(twenty thirty forty fifty sixty seventy eighty ninety);
 
   my $english;
 

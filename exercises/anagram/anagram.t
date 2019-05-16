@@ -28,13 +28,15 @@ eval "use $module";
 ok !$@, "Cannot load $module.pm"
   or BAIL_OUT("Does $module.pm compile?  Does it end with 1; ?");
 
-can_ok( $module, 'match' ) or BAIL_OUT("Missing package $module; or missing sub match()");
+can_ok( $module, 'match' )
+  or BAIL_OUT("Missing package $module; or missing sub match()");
 
 my $sub = $module . '::match';
 
 foreach my $c (@$cases) {
   no strict 'refs';
-  is_deeply $sub->( $c->{word}, @{ $c->{words} } ), $c->{expected}, $c->{name};
+  is_deeply $sub->( $c->{word}, @{ $c->{words} } ), $c->{expected},
+    $c->{name};
 }
 
 __DATA__

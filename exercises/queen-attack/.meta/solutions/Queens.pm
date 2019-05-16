@@ -48,7 +48,8 @@ sub can_attack {
   return 1 if $self->white->[0] == $self->black->[0];
   return 1 if $self->white->[1] == $self->black->[1];
   return 1
-    if abs( $self->white->[0] - $self->black->[0] ) == abs( $self->white->[1] - $self->black->[1] );
+    if abs( $self->white->[0] - $self->black->[0] )
+    == abs( $self->white->[1] - $self->black->[1] );
 
   return;
 }

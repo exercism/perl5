@@ -4,7 +4,8 @@ use warnings;
 use DateTime;
 use List::MoreUtils 'any';
 
-my @days_of_week = qw[monday tuesday wednesday thursday friday saturday sunday];
+my @days_of_week
+  = qw[monday tuesday wednesday thursday friday saturday sunday];
 
 sub _weekday_number {
   my $weekday = lc shift;
@@ -37,37 +38,52 @@ sub new {
   my ( $class, $month, $year ) = @_;
 
   bless {
-    year         => $year,
-    month        => $month,
-    first        => DateTime->new( year => $year, month => $month, day => 1 ),
-    eighth       => DateTime->new( year => $year, month => $month, day => 8 ),
-    thirteenth   => DateTime->new( year => $year, month => $month, day => 13 ),
-    fifteenth    => DateTime->new( year => $year, month => $month, day => 15 ),
-    twentysecond => DateTime->new( year => $year, month => $month, day => 22 ),
-    last => DateTime->new( year => $year, month => $month, day => _days_in_month( $year, $month ) ),
+    year  => $year,
+    month => $month,
+    first =>
+      DateTime->new( year => $year, month => $month, day => 1 ),
+    eighth =>
+      DateTime->new( year => $year, month => $month, day => 8 ),
+    thirteenth =>
+      DateTime->new( year => $year, month => $month, day => 13 ),
+    fifteenth =>
+      DateTime->new( year => $year, month => $month, day => 15 ),
+    twentysecond =>
+      DateTime->new( year => $year, month => $month, day => 22 ),
+    last => DateTime->new(
+      year  => $year,
+      month => $month,
+      day   => _days_in_month( $year, $month )
+    ),
   }, $class;
 }
 
 sub day {
   my ( $self, $weekday, $schedule ) = @_;
   if ( $schedule eq 'teenth' ) {
-    $self->{thirteenth}->add( days => _days_until( $weekday, $self->{thirteenth} ) );
+    $self->{thirteenth}
+      ->add( days => _days_until( $weekday, $self->{thirteenth} ) );
   }
   elsif ( $schedule eq 'first' ) {
-    $self->{first}->add( days => _days_until( $weekday, $self->{first} ) );
+    $self->{first}
+      ->add( days => _days_until( $weekday, $self->{first} ) );
   }
   elsif ( $schedule eq 'second' ) {
-    $self->{eighth}->add( days => _days_until( $weekday, $self->{eighth} ) );
+    $self->{eighth}
+      ->add( days => _days_until( $weekday, $self->{eighth} ) );
   }
   elsif ( $schedule eq 'third' ) {
-    $self->{fifteenth}->add( days => _days_until( $weekday, $self->{fifteenth} ) );
+    $self->{fifteenth}
+      ->add( days => _days_until( $weekday, $self->{fifteenth} ) );
   }
   elsif ( $schedule eq 'fourth' ) {
-    $self->{twentysecond}->add( days => _days_until( $weekday, $self->{twentysecond} ) );
+    $self->{twentysecond}
+      ->add( days => _days_until( $weekday, $self->{twentysecond} ) );
   }
   elsif ( $schedule eq 'last' ) {
-    $self->{last}
-      ->subtract( days => ( 7 - ( _weekday_number($weekday) - $self->{last}->dow ) ) % 7 );
+    $self->{last}->subtract( days =>
+        ( 7 - ( _weekday_number($weekday) - $self->{last}->dow ) )
+        % 7 );
   }
 }
 

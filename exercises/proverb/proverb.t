@@ -25,14 +25,16 @@ eval "use $module";
 ok !$@, "Cannot load $module.pm"
   or BAIL_OUT("Does $module.pm compile?  Does it end with 1; ?");
 
-can_ok( $module, 'proverb' ) or BAIL_OUT("Missing package $module; or missing sub proverb()");
+can_ok( $module, 'proverb' )
+  or BAIL_OUT("Missing package $module; or missing sub proverb()");
 
 $sub = "${module}::proverb";
 
 foreach my $c (@$cases) {
   no strict 'refs';
   my $expected = join "" => @{ $c->{expected} };
-  is $sub->( $c->{param}, $c->{qualifier} || "" ), $expected, $c->{name};
+  is $sub->( $c->{param}, $c->{qualifier} || "" ), $expected,
+    $c->{name};
 }
 
 __DATA__

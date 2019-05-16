@@ -72,20 +72,23 @@ for (1) {
 for (1) {
   my $bst = new_bst(4);
   $bst->insert(2);
-  is_deeply record_all_data $bst, [ 2, 4 ], 'iterating over smaller element';
+  is_deeply record_all_data $bst, [ 2, 4 ],
+    'iterating over smaller element';
 }
 
 for (1) {
   my $bst = new_bst(4);
   $bst->insert(5);
-  is_deeply record_all_data $bst, [ 4, 5 ], 'iterating over larger element';
+  is_deeply record_all_data $bst, [ 4, 5 ],
+    'iterating over larger element';
 }
 
 for (1) {
   my $bst = new_bst(4);
   $bst->insert($_) for 2, 6, 1, 3, 7, 5;
 
-  is_deeply record_all_data $bst, [ 1 .. 7 ], 'iterating over complex tree';
+  is_deeply record_all_data $bst, [ 1 .. 7 ],
+    'iterating over complex tree';
 }
 
 done_testing;

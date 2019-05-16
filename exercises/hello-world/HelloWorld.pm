@@ -7,7 +7,7 @@ our @EXPORT_OK = qw(hello);
 
 sub hello {
 
-  # Remove the comments and write some code here to pass the test suite.
+# Remove the comments and write some code here to pass the test suite.
 }
 
 1;
