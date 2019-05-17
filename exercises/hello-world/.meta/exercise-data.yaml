@@ -12,7 +12,6 @@ tests: |-
 
 lib_comment: '# Find modules in the same dir as this file.'
 plan_comment: '# This is how many tests we expect to run.'
-use_test_comment: '# Check that the module can be use-d.'
 
 example: |-
   sub hello {
