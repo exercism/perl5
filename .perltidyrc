@@ -1,5 +1,5 @@
--pbp  # Perl Best Practices
--nst  # No STDOUT (allows generator to use config)
--i=2  # Indent 2
--ci=2 # Continuous Indent 2
--l=70 # 70 characters per line
+--perl-best-practices
+--nostandard-output
+--indent-columns=2
+--continuation-indentation=2
+--maximum-line-length=70

@@ -10,7 +10,7 @@ if ( !BASE_DIR->child('problem-specifications')->is_dir ) {
   bail_out 'problem-specifications directory required';
 }
 
-foreach ( sort { $a cmp $b } BASE_DIR->child('exercises')->children ) {
+for ( sort { $a cmp $b } BASE_DIR->child('exercises')->children ) {
   if ( $_->child('.meta/exercise-data.yaml')->is_file ) {
     todo '' => sub {
       is(
@@ -18,7 +18,8 @@ foreach ( sort { $a cmp $b } BASE_DIR->child('exercises')->children ) {
         [ split(
             /\n/,
             Exercism::Generator->new(
-              { data     => LoadFile( $_->child('.meta/exercise-data.yaml') ),
+              { data =>
+                  LoadFile( $_->child('.meta/exercise-data.yaml') ),
                 exercise => $_->basename,
               }
             )->test
