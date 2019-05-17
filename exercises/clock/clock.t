@@ -1,40 +1,58 @@
 #!/usr/bin/env perl
-use strict;
-use warnings;
-use Test::More tests => 55;
+use Test2::V0;
+plan 53;
+
 use JSON::PP;
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
 use Clock ();
+use List::Util qw(any);
 
 can_ok 'Clock', qw(new time add_minutes subtract_minutes);
 
 my $C_DATA = do { local $/; decode_json(<DATA>); };
-foreach (@{$C_DATA->{cases}}) {
-  foreach (@{$_->{cases}}) {
-    if ($_->{property} eq 'create') {
-      is(Clock->new($_->{input})->time, $_->{expected}, $_->{description});
-    }
+for my $case ( map { @{ $_->{cases} } } @{ $C_DATA->{cases} } ) {
+  if ( $case->{property} eq 'create' ) {
+    is(
+      Clock->new( $case->{input} ),
+      object {
+        prop blessed => 'Clock';
+        call time    => $case->{expected};
+      },
+      $case->{description}
+    );
+  }
 
-    elsif ($_->{property} eq 'add' || $_->{property} eq 'subtract') {
-      my $clock = Clock->new({
-        hour   => $_->{input}{hour},
-        minute => $_->{input}{minute},
-      });
-      if ($_->{property} eq 'subtract') { $clock->subtract_minutes($_->{input}{value}) }
-      elsif ($_->{property} eq 'add'  ) { $clock->add_minutes(     $_->{input}{value}) }
-      is $clock->time, $_->{expected}, $_->{description};
-    }
+  elsif ( any { $case->{property} eq $_ } qw( add subtract ) ) {
+    is(
+      Clock->new(
+        { hour   => $case->{input}{hour},
+          minute => $case->{input}{minute},
+        }
+      ),
 
-    elsif ($_->{property} eq 'equal') {
-      ok $_->{expected} ==
-        (Clock->new($_->{input}{clock1})->time eq Clock->new($_->{input}{clock2})->time), $_->{description};
-    }
+      # Check that the add/subtract_minutes methods
+      # return a Clock object with the correct time
+      object {
+        call [ $case->{property} . '_minutes',
+          $case->{input}{value} ] => object {
+          prop blessed => 'Clock';
+          call time    => $case->{expected};
+          };
+      },
+      $case->{description}
+    );
+  }
+
+  elsif ( $case->{property} eq 'equal' ) {
+    my ( $clock1, $clock2 )
+      = ( map { Clock->new($_) }
+        @{ $case->{input} }{qw(clock1 clock2)} );
+    $case->{expected}
+      ? is $clock1, $clock2, $case->{description}
+      : isnt $clock1, $clock2, $case->{description};
   }
 }
-
-is(Clock->new({hour => 0, minute => 0})->add_minutes(65)->time, '01:05', 'add_minutes method can be chained');
-is(Clock->new({hour => 0, minute => 0})->subtract_minutes(65)->time, '22:55', 'subtract_minutes method can be chained');
 
 __DATA__
 {
