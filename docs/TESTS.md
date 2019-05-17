@@ -21,7 +21,7 @@ Failed 1/2 subtests
 
 Test Summary Report
 -------------------
-exercises/hello-world/hello-world.t (Wstat: 256 Tests: 2 Failed: 1)
+./hello-world.t (Wstat: 256 Tests: 2 Failed: 1)
   Failed test:  2
   Non-zero exit status: 1
 Files=1, Tests=2,  0 wallclock secs ( 0.03 usr  0.00 sys +  0.18 cusr  0.02 csys =  0.23 CPU)
