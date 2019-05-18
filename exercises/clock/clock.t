@@ -8,7 +8,7 @@ use lib $Bin, "$Bin/local/lib/perl5";
 use Clock ();
 use List::Util qw(any);
 
-can_ok 'Clock', qw(new time add_minutes subtract_minutes);
+can_ok 'Clock', qw(new time add_minutes subtract_minutes) or bail_out;
 
 my $C_DATA = do { local $/; decode_json(<DATA>); };
 my @cases  = ( map { @{ $_->{cases} } } @{ $C_DATA->{cases} } );
