@@ -1,11 +1,14 @@
 exercise: Clock
-plan: 53
+plan: 4
 methods: new time add_minutes subtract_minutes
 modules:
   - use: List::Util qw(any)
 tests: |-
-  for my $case ( map { @{ $_->{cases} } } @{ $C_DATA->{cases} } ) {
-    if ( $case->{property} eq 'create' ) {
+  my @cases = ( map { @{ $_->{cases} } } @{ $C_DATA->{cases} } );
+
+  subtest create => sub {
+    plan 20;
+    for my $case ( grep { $_->{property} eq 'create' } @cases ) {
       is(
         Clock->new( $case->{input} ),
         object {
@@ -15,8 +18,11 @@ tests: |-
         $case->{description}
       );
     }
+  };
 
-    elsif ( any { $case->{property} eq $_ } qw( add subtract ) ) {
+  subtest 'add/subtract' => sub {
+    plan 16;
+    for my $case ( grep { my $case = $_; any { $case->{property} eq $_ } qw( add subtract ) } @cases ) {
       is(
         Clock->new(
           { hour   => $case->{input}{hour},
@@ -37,15 +43,18 @@ tests: |-
         $case->{description}
       );
     }
+  };
 
-    elsif ( $case->{property} eq 'equal' ) {
+  subtest equal => sub {
+    plan 16;
+    for my $case ( grep { $_->{property} eq 'equal' } @cases ) {
       my ( $clock1, $clock2 )
         = ( map { Clock->new($_) } @{ $case->{input} }{qw(clock1 clock2)} );
       $case->{expected}
         ? is $clock1, $clock2, $case->{description}
         : isnt $clock1, $clock2, $case->{description};
     }
-  }
+  };
 
 stub: |-
   sub new {

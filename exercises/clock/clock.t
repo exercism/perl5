@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 use Test2::V0;
-plan 53;
+plan 4;
 
 use JSON::PP;
 use FindBin qw($Bin);
@@ -11,8 +11,11 @@ use List::Util qw(any);
 can_ok 'Clock', qw(new time add_minutes subtract_minutes);
 
 my $C_DATA = do { local $/; decode_json(<DATA>); };
-for my $case ( map { @{ $_->{cases} } } @{ $C_DATA->{cases} } ) {
-  if ( $case->{property} eq 'create' ) {
+my @cases  = ( map { @{ $_->{cases} } } @{ $C_DATA->{cases} } );
+
+subtest create => sub {
+  plan 20;
+  for my $case ( grep { $_->{property} eq 'create' } @cases ) {
     is(
       Clock->new( $case->{input} ),
       object {
@@ -22,8 +25,17 @@ for my $case ( map { @{ $_->{cases} } } @{ $C_DATA->{cases} } ) {
       $case->{description}
     );
   }
+};
 
-  elsif ( any { $case->{property} eq $_ } qw( add subtract ) ) {
+subtest 'add/subtract' => sub {
+  plan 16;
+  for my $case (
+    grep {
+      my $case = $_;
+      any { $case->{property} eq $_ } qw( add subtract )
+    } @cases
+    )
+  {
     is(
       Clock->new(
         { hour   => $case->{input}{hour},
@@ -43,8 +55,11 @@ for my $case ( map { @{ $_->{cases} } } @{ $C_DATA->{cases} } ) {
       $case->{description}
     );
   }
+};
 
-  elsif ( $case->{property} eq 'equal' ) {
+subtest equal => sub {
+  plan 16;
+  for my $case ( grep { $_->{property} eq 'equal' } @cases ) {
     my ( $clock1, $clock2 )
       = ( map { Clock->new($_) }
         @{ $case->{input} }{qw(clock1 clock2)} );
@@ -52,7 +67,7 @@ for my $case ( map { @{ $_->{cases} } } @{ $C_DATA->{cases} } ) {
       ? is $clock1, $clock2, $case->{description}
       : isnt $clock1, $clock2, $case->{description};
   }
-}
+};
 
 __DATA__
 {
