@@ -8,8 +8,7 @@ use lib $Bin,
   "$Bin/local/lib/perl5"; # Find modules in the same dir as this file.
 use Bob qw(hey);
 
-can_ok 'Bob', 'import'
-  or bail_out 'Cannot import subroutines from module';
+imported_ok qw(hey) or bail_out;
 
 my $C_DATA = do { local $/; decode_json(<DATA>); };
 is hey( $_->{input}{heyBob} ), $_->{expected}, $_->{description}
