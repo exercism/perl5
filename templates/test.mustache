@@ -8,8 +8,8 @@ use lib $Bin, "$Bin/local/lib/perl5";{{#lib_comment}} {{&lib_comment}}{{/lib_com
 use {{&exercise}} {{#subs}}qw{{/subs}}({{&subs}});{{#modules}}
 use {{&use}};{{/modules}}
 {{#subs}}
-can_ok '{{&exercise}}', 'import' or bail_out 'Cannot import subroutines from module';{{/subs}}{{#methods}}
-can_ok '{{&exercise}}', qw({{&methods}});{{/methods}}
+imported_ok qw({{&subs}}) or bail_out;{{/subs}}{{#methods}}
+can_ok '{{&exercise}}', qw({{&methods}}) or bail_out;{{/methods}}
 {{#cdata}}
 my $C_DATA = do { local $/; decode_json(<DATA>); };{{/cdata}}
 {{&tests}}
