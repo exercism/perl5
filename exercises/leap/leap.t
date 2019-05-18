@@ -8,8 +8,7 @@ use lib $Bin,
   "$Bin/local/lib/perl5"; # Find modules in the same dir as this file.
 use Leap qw(is_leap_year);
 
-can_ok 'Leap', 'import'
-  or bail_out 'Cannot import subroutines from module';
+imported_ok qw(is_leap_year) or bail_out;
 
 my $C_DATA = do { local $/; decode_json(<DATA>); };
 for ( @{ $C_DATA->{cases} } ) {
