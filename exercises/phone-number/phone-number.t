@@ -1,48 +1,44 @@
 #!/usr/bin/env perl
-use strict;
-use warnings;
-use Test::More tests => 19;
+use Test2::V0;
+plan 19;
+
 use JSON::PP;
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
 use PhoneNumber qw(clean_number);
 
-can_ok 'PhoneNumber', 'import' or BAIL_OUT 'Cannot import subroutines from module';
+imported_ok qw(clean_number) or bail_out;
 
-my $JSON_TESTS = decode_json( join '', <DATA>);
+my $C_DATA = do { local $/; decode_json(<DATA>); };
+my @cases  = map {
+  $_->[2] .= ' - ' . $_->[0];
+  $_;
+  }
+  map {
+  my @test
+    = ( $_->{input}{phrase}, $_->{expected}, $_->{description} );
 
-my @cases =
-    map {
-        $_->[2] .= ' - ' . $_->[0];
-        $_;
-    }
-    map {
-        my @test = ( $_->{input}{phrase}, $_->{expected}, $_->{description} );
+  if ( ref $test[1] ) {
+    $test[1] = $test[1]->{error};
+    push @test, 1;
+  }
 
-        if ( ref $test[1] ) {
-            $test[1] = $test[1]->{error};
-            push @test, 1;
-        }
-
-        \@test;
-    }
-    map { @$_ }
-    map { $_->{cases} }
-    map { @$_ }
-        $JSON_TESTS->{cases};
+  \@test;
+  }
+  map {@$_}
+  map { $_->{cases} }
+  map {@$_} $C_DATA->{cases};
 
 $_->[3] ? error_test(@$_) : regular_test(@$_) for @cases;
 
 sub regular_test {
-    my( $input, $expected, $desc ) = @_;
-    is clean_number($input), $expected, $desc;
+  my ( $input, $expected, $desc ) = @_;
+  is clean_number($input), $expected, $desc;
 }
 
 sub error_test {
-    my( $input, $error, $desc ) = @_;
-    eval { clean_number($input) };
-
-    like $@, qr/$error/, $desc;
+  my ( $input, $error, $desc ) = @_;
+  like dies( sub { clean_number($input) } ), qr/$error/, $desc;
 }
 
 __DATA__
