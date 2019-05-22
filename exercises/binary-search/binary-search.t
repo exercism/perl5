@@ -1,35 +1,44 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-use Test::More tests => 12;
+use Test2::Bundle::More;
+plan 12;
+
 use JSON::PP;
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
 use BinarySearch qw(binary_search);
 
-can_ok 'BinarySearch', 'import' or BAIL_OUT 'Cannot import subroutines from module';
+can_ok 'BinarySearch', 'import'
+  or BAIL_OUT 'Cannot import subroutines from module';
 
 my $C_DATA = do { local $/; decode_json(<DATA>); };
 my @exception_cases;
 
-foreach my $case (@{$C_DATA->{cases}}) {
-  if (ref $case->{expected} eq 'HASH' && exists $case->{expected}{error}) {
+foreach my $case ( @{ $C_DATA->{cases} } ) {
+  if ( ref $case->{expected} eq 'HASH'
+    && exists $case->{expected}{error} )
+  {
     push @exception_cases, $case;
   }
   else {
-    cmp_ok binary_search($case->{input}), '==', $case->{expected}, $case->{description};
+    cmp_ok binary_search( $case->{input} ), '==', $case->{expected},
+      $case->{description};
   }
 }
 
 SKIP: {
   if ( eval { require Test2::Tools::Exception } ) {
     ok(
-      Test2::Tools::Exception::dies( sub { binary_search $_->{input} } ),
+      Test2::Tools::Exception::dies(
+        sub { binary_search $_->{input} }
+      ),
       $_->{description}
     ) foreach @exception_cases;
   }
   else {
-    skip 'Test2::Tools::Exception not loaded', scalar @exception_cases;
+    skip 'Test2::Tools::Exception not loaded',
+      scalar @exception_cases;
   }
 }
 
