@@ -1,15 +1,15 @@
 #!/usr/bin/env perl
-use strict;
-use warnings;
-use Test::More{{#plan}} tests => {{&plan}}{{/plan}};{{#plan_comment}} {{&plan_comment}}{{/plan_comment}}{{#cdata}}
+use Test2::V0;{{#plan}}
+plan {{&plan}};{{#plan_comment}} {{&plan_comment}}{{/plan_comment}}{{/plan}}
+{{#cdata}}
 use JSON::PP;{{/cdata}}
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";{{#lib_comment}} {{&lib_comment}}{{/lib_comment}}
 use {{&exercise}} {{#subs}}qw{{/subs}}({{&subs}});{{#modules}}
 use {{&use}};{{/modules}}
 {{#subs}}
-can_ok '{{&exercise}}', 'import' or BAIL_OUT 'Cannot import subroutines from module';{{/subs}}{{#methods}}
-can_ok '{{&exercise}}', qw({{&methods}});{{/methods}}
+imported_ok qw({{&subs}}) or bail_out;{{/subs}}{{#methods}}
+can_ok '{{&exercise}}', qw({{&methods}}) or bail_out;{{/methods}}
 {{#cdata}}
 my $C_DATA = do { local $/; decode_json(<DATA>); };{{/cdata}}
 {{&tests}}

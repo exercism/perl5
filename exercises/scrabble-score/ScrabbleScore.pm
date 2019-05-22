@@ -5,7 +5,7 @@ use Exporter 'import';
 our @EXPORT_OK = qw(score);
 
 sub score {
-  my ($word, %extensions) = @_;
+  my ( $word, %extensions ) = @_;
   return undef;
 }
 

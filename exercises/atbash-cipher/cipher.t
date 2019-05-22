@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More;
+use Test2::Bundle::More;
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
 
@@ -12,27 +12,29 @@ use JSON::PP qw(decode_json);
 
 my $cases;
 {
-    local $/ = undef;
-    $cases = decode_json scalar <DATA>;
+  local $/ = undef;
+  $cases = decode_json scalar <DATA>;
 }
 
-plan tests => 4 + @$cases;
+plan 4 + @$cases;
 
 ok -e "$Bin/$module.pm", "Missing $module.pm",
-    or BAIL_OUT "You need to create a class called $module.pm";
+  or BAIL_OUT "You need to create a class called $module.pm";
 
 eval "use $module";
 
 ok !$@, "Cannot load $module.pm"
-    or BAIL_OUT "Does $module.pm compile? Does it end with 1;?";
+  or BAIL_OUT "Does $module.pm compile? Does it end with 1;?";
 
-can_ok $module, "encode" or BAIL_OUT "Missing package $module; or missing sub encode()";
-can_ok $module, "decode" or BAIL_OUT "Missing package $module; or missing sub decode()";
+can_ok $module, "encode"
+  or BAIL_OUT "Missing package $module; or missing sub encode()";
+can_ok $module, "decode"
+  or BAIL_OUT "Missing package $module; or missing sub decode()";
 
 foreach my $c (@$cases) {
-    no strict 'refs';
-    my $sub = "${module}::" . $c->{sub};
-    is $sub->($c->{input}), $c->{expected}, $c->{name};
+  no strict 'refs';
+  my $sub = "${module}::" . $c->{sub};
+  is $sub->( $c->{input} ), $c->{expected}, $c->{name};
 }
 
 __DATA__
