@@ -4,8 +4,7 @@ plan 7;    # This is how many tests we expect to run.
 
 use JSON::PP;
 use FindBin qw($Bin);
-use lib $Bin,
-  "$Bin/local/lib/perl5"; # Find modules in the same dir as this file.
+use lib $Bin, "$Bin/local/lib/perl5"; # Find modules in the same dir as this file.
 use Leap qw(is_leap_year);
 
 imported_ok qw(is_leap_year) or bail_out;
