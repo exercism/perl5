@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More;
+use Test2::Bundle::More;
 use JSON::PP qw(decode_json);
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
@@ -11,36 +11,39 @@ my $module = 'Triangle';
 
 my $cases;
 {
-    local $/ = undef;
-    $cases = decode_json scalar <DATA>;
+  local $/ = undef;
+  $cases = decode_json scalar <DATA>;
 }
 
-
 #diag explain $cases;
-plan tests => 3 + @$cases;
+plan 3 + @$cases;
 
 ok -e "$Bin/$module.pm", "missing $module.pm"
-    or BAIL_OUT("You need to create a class called $module.pm with an function called kind() that gets 3 numbers - the length of the sides. It should return a single word like equilateral, isosceles, or scalene. Or, it should throw and exception.");
+  or BAIL_OUT(
+  "You need to create a class called $module.pm with an function called kind() that gets 3 numbers - the length of the sides. It should return a single word like equilateral, isosceles, or scalene. Or, it should throw and exception."
+  );
 
 eval "use $module";
 ok !$@, "Cannot load $module.pm"
-    or BAIL_OUT("Does $module.pm compile?  Does it end with 1; ?");
+  or BAIL_OUT("Does $module.pm compile?  Does it end with 1; ?");
 
-can_ok($module, 'kind') or BAIL_OUT("Missing package $module; or missing sub kind()");
+can_ok( $module, 'kind' )
+  or BAIL_OUT("Missing package $module; or missing sub kind()");
 
 my $sub = $module . '::kind';
 
 foreach my $c (@$cases) {
-    my $kind;
-    eval {
-    	no strict 'refs';
-        $kind = $sub->(@{ $c->{input} });
-    };
-    if ($c->{exception}) {
-		like $@, qr/^$c->{exception}/, "Exception $c->{name}";
-	} else {
-        is $kind, $c->{expected}, $c->{name};
-    }
+  my $kind;
+  eval {
+    no strict 'refs';
+    $kind = $sub->( @{ $c->{input} } );
+  };
+  if ( $c->{exception} ) {
+    like $@, qr/^$c->{exception}/, "Exception $c->{name}";
+  }
+  else {
+    is $kind, $c->{expected}, $c->{name};
+  }
 }
 
 __DATA__

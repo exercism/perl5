@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More;
+use Test2::Bundle::More;
 use JSON::PP qw(decode_json);
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
@@ -11,30 +11,35 @@ my $module = 'Allergies';
 
 my $cases;
 {
-    local $/ = undef;
-    $cases = decode_json scalar <DATA>;
+  local $/ = undef;
+  $cases = decode_json scalar <DATA>;
 }
 
-plan tests => 4 + @$cases;
+plan 4 + @$cases;
 
 ok -e "$Bin/$module.pm" or BAIL_OUT "missing $module.pm";
 
 eval "use $module";
 ok !$@, "Cannot load $module.pm"
-    or BAIL_OUT("Does $module.pm compile?  Does it end with 1; ?");
+  or BAIL_OUT("Does $module.pm compile?  Does it end with 1; ?");
 
-can_ok $module, "allergic_to" or BAIL_OUT("Missing package $module; or missing sub allergic_to()");
-can_ok $module, "list"        or BAIL_OUT("Missing package $module; or missing sub list()");
+can_ok $module, "allergic_to"
+  or
+  BAIL_OUT("Missing package $module; or missing sub allergic_to()");
+can_ok $module, "list"
+  or BAIL_OUT("Missing package $module; or missing sub list()");
 
 foreach my $c (@$cases) {
-    if ($c->{sub} eq 'allergic_to'){
-        my $allergy = $module->new($c->{input}->[0]);
-        is $allergy->allergic_to($c->{input}->[1]),  $c->{expected}, $c->{name};
-    }
-    if ($c->{sub} eq 'list'){
-        my $allergy = $module->new($c->{input});
-        is_deeply $allergy->list(), $c->{expected}, $c->{name};
-    }
+  if ( $c->{sub} eq 'allergic_to' ) {
+    my $allergy = $module->new( $c->{input}->[0] );
+    cmp_ok $allergy->allergic_to( $c->{input}->[1] ), '==',
+      $c->{expected},
+      $c->{name};
+  }
+  if ( $c->{sub} eq 'list' ) {
+    my $allergy = $module->new( $c->{input} );
+    is_deeply $allergy->list(), $c->{expected}, $c->{name};
+  }
 }
 
 __DATA__
