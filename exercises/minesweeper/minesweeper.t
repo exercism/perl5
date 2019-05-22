@@ -11,14 +11,17 @@ use Minesweeper;
 use Test2::Tools::Exception qw(dies);
 
 my $module = 'Minesweeper';
-my $name = 'count_adjacent_bombs';
-my $sub = join('::', $module, $name);
+my $name   = 'count_adjacent_bombs';
+my $sub    = join( '::', $module, $name );
 
-can_ok($module, $name) or BAIL_OUT("You need to implement the $name()-function");
+can_ok( $module, $name )
+  or BAIL_OUT("You need to implement the $name()-function");
 
 my $function = \&{"${module}::$name"};
 
-is( $function->( <<'INPUT' ), <<'EXPECTED', "Large 6x6 board with 8 bombs" );
+is(
+  $function->(
+    <<'INPUT' ), <<'EXPECTED', "Large 6x6 board with 8 bombs" );
 +------+
 | *  * |
 |  *   |
@@ -38,7 +41,9 @@ INPUT
 +------+
 EXPECTED
 
-is( $function->( <<'INPUT' ), <<'EXPECTED', "Large 5x5 board with 7 bombs" );
+is(
+  $function->(
+    <<'INPUT' ), <<'EXPECTED', "Large 5x5 board with 7 bombs" );
 +-----+
 | * * |
 |     |
@@ -56,7 +61,9 @@ INPUT
 +-----+
 EXPECTED
 
-is( $function->( <<'INPUT' ), <<'EXPECTED', "Small 5x1 board with 2 bombs" );
+is(
+  $function->(
+    <<'INPUT' ), <<'EXPECTED', "Small 5x1 board with 2 bombs" );
 +-----+
 | * * |
 +-----+
@@ -66,7 +73,9 @@ INPUT
 +-----+
 EXPECTED
 
-is( $function->( <<'INPUT' ), <<'EXPECTED', "Small 1x5 board with 2 bombs" );
+is(
+  $function->(
+    <<'INPUT' ), <<'EXPECTED', "Small 1x5 board with 2 bombs" );
 +-+
 |*|
 | |
@@ -84,7 +93,8 @@ INPUT
 +-+
 EXPECTED
 
-is( $function->( <<'INPUT' ), <<'EXPECTED', "1x1 sqaure with 1 bomb" );
+is(
+  $function->( <<'INPUT' ), <<'EXPECTED', "1x1 sqaure with 1 bomb" );
 +-+
 |*|
 +-+
@@ -94,7 +104,8 @@ INPUT
 +-+
 EXPECTED
 
-is( $function->( <<'INPUT' ), <<'EXPECTED', "2x2 square with 4 bombs" );
+is(
+  $function->( <<'INPUT' ), <<'EXPECTED', "2x2 square with 4 bombs" );
 +--+
 |**|
 |**|
@@ -106,7 +117,8 @@ INPUT
 +--+
 EXPECTED
 
-is( $function->( <<'INPUT' ), <<'EXPECTED', "3x3 square with 8 bombs" );
+is(
+  $function->( <<'INPUT' ), <<'EXPECTED', "3x3 square with 8 bombs" );
 +---+
 |***|
 |* *|
@@ -120,7 +132,8 @@ INPUT
 +---+
 EXPECTED
 
-is( $function->( <<'INPUT' ), <<'EXPECTED', "5x5 square with 2 bombs" );
+is(
+  $function->( <<'INPUT' ), <<'EXPECTED', "5x5 square with 2 bombs" );
 +-----+
 |     |
 |   * |
@@ -138,7 +151,8 @@ INPUT
 +-----+
 EXPECTED
 
-like dies { $function->( <<'INPUT' ) }, qr/ArgumentError/, 'Unaligned board';
+like dies {
+  $function->( <<'INPUT' ) }, qr/ArgumentError/, 'Unaligned board';
 +-+
 | |
 |*  |
@@ -146,13 +160,15 @@ like dies { $function->( <<'INPUT' ) }, qr/ArgumentError/, 'Unaligned board';
 +-+
 INPUT
 
-like dies { $function->( <<'INPUT' ) }, qr/ArgumentError/, 'boarderless board';
+like dies {
+  $function->( <<'INPUT' ) }, qr/ArgumentError/, 'boarderless board';
 +-----+
 *   * |
 +-- --+
 INPUT
 
-like dies { $function->( <<'INPUT' ) }, qr/ArgumentError/, 'Unknwon characters';
+like dies {
+  $function->( <<'INPUT' ) }, qr/ArgumentError/, 'Unknwon characters';
 +-----+
 |X  * |
 +-----+

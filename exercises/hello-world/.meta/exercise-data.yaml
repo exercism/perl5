@@ -3,16 +3,15 @@ plan: 2
 ignore_cdata: true
 subs: hello
 tests: |-
-  # Run the 'is' subroutine from the 'Test2::Bundle::More' module, with three arguments.
+  # Run the 'is' sub from 'Test2::V0' with three arguments.
   is(
-    hello,           # Run the 'hello' subroutine, which is imported from your module.
-    'Hello, World!', # The expected result to compare with 'hello'.
-    'Say Hi!'        # The test description.
+    hello(),            # Run the 'hello' sub imported from the module.
+    'Hello, World!',    # The expected result to compare with 'hello'.
+    'Say Hi!'           # The test description.
   );
 
-lib_comment: '# Look for modules inside the same directory as this test file.'
+lib_comment: '# Find modules in the same dir as this file.'
 plan_comment: '# This is how many tests we expect to run.'
-use_test_comment: '# Check that the module can be use-d.'
 
 example: |-
   sub hello {

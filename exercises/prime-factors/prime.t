@@ -11,29 +11,31 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 my $cases;
 {
-    local $/ = undef;
-    $cases = decode_json scalar <DATA>;
+  local $/ = undef;
+  $cases = decode_json scalar <DATA>;
 }
 
 #plan 3 + @$cases;
 #diag explain $cases;
 
 ok -e "$Bin/$module.pm", "missing $module.pm"
-    or BAIL_OUT("You need to create a class called $module.pm with a constructor called factors.");
+  or BAIL_OUT(
+  "You need to create a class called $module.pm with a constructor called factors."
+  );
 
 eval "use $module";
 ok !$@, "Cannot load $module.pm"
-    or BAIL_OUT("Does $module.pm compile?  Does it end with 1; ? ($@)");
+  or BAIL_OUT("Does $module.pm compile?  Does it end with 1; ? ($@)");
 
-can_ok($module, 'factors') or BAIL_OUT("Missing package $module; or missing sub factors()");
+can_ok( $module, 'factors' )
+  or BAIL_OUT("Missing package $module; or missing sub factors()");
 
 my $sub = $module . '::factors';
 
 foreach my $c (@$cases) {
-    no strict 'refs';
-    is_deeply $sub->($c->{input}), $c->{expected}, $c->{name}
+  no strict 'refs';
+  is_deeply $sub->( $c->{input} ), $c->{expected}, $c->{name};
 }
-
 
 done_testing();
 

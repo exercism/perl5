@@ -10,21 +10,26 @@ use lib $Bin, "$Bin/local/lib/perl5";
 use Grains qw(grains_on_square total_grains);
 use Math::BigInt;
 
-can_ok 'Grains', 'import' or BAIL_OUT 'Cannot import subroutines from module';
+can_ok 'Grains', 'import'
+  or BAIL_OUT 'Cannot import subroutines from module';
 
 my $C_DATA = do { local $/; decode_json(<DATA>); };
 my @exception_cases;
 
-foreach (@{$C_DATA->{cases}}) {
-  if (exists $_->{cases}) {
-    foreach my $case (@{$_->{cases}}) {
-      if ($case->{property} eq 'square') {
-        if (ref $case->{expected} eq 'HASH' && exists $case->{expected}{error}) {
+foreach ( @{ $C_DATA->{cases} } ) {
+  if ( exists $_->{cases} ) {
+    foreach my $case ( @{ $_->{cases} } ) {
+      if ( $case->{property} eq 'square' ) {
+        if ( ref $case->{expected} eq 'HASH'
+          && exists $case->{expected}{error} )
+        {
           push @exception_cases, $case;
         }
         else {
           cmp_ok(
-            Math::BigInt->new(grains_on_square $case->{input}{square}),
+            Math::BigInt->new(
+              grains_on_square $case->{input}{square}
+            ),
             '==',
             $case->{expected},
             'square no. ' . $case->{description}
@@ -33,25 +38,24 @@ foreach (@{$C_DATA->{cases}}) {
       }
     }
   }
-  elsif ($_->{property} eq 'total') {
-    cmp_ok(
-      Math::BigInt->new(total_grains),
-      '==',
-      $_->{expected},
-      $_->{description}
-    );
+  elsif ( $_->{property} eq 'total' ) {
+    cmp_ok( Math::BigInt->new(total_grains),
+      '==', $_->{expected}, $_->{description} );
   }
 }
 
 SKIP: {
   if ( eval { require Test2::Tools::Exception } ) {
     ok(
-      Test2::Tools::Exception::dies( sub { grains_on_square $_->{input}{square} } ),
+      Test2::Tools::Exception::dies(
+        sub { grains_on_square $_->{input}{square} }
+      ),
       $_->{description}
     ) foreach @exception_cases;
   }
   else {
-    skip 'Test2::Tools::Exception not loaded', scalar @exception_cases;
+    skip 'Test2::Tools::Exception not loaded',
+      scalar @exception_cases;
   }
 }
 
