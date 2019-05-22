@@ -1,7 +1,9 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-use Test::More tests => 55;
+use Test2::Bundle::More;
+plan 55;
+
 use JSON::PP;
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
@@ -10,31 +12,46 @@ use Clock ();
 can_ok 'Clock', qw(new time add_minutes subtract_minutes);
 
 my $C_DATA = do { local $/; decode_json(<DATA>); };
-foreach (@{$C_DATA->{cases}}) {
-  foreach (@{$_->{cases}}) {
-    if ($_->{property} eq 'create') {
-      is(Clock->new($_->{input})->time, $_->{expected}, $_->{description});
+foreach ( @{ $C_DATA->{cases} } ) {
+  foreach ( @{ $_->{cases} } ) {
+    if ( $_->{property} eq 'create' ) {
+      is( Clock->new( $_->{input} )->time,
+        $_->{expected}, $_->{description} );
     }
 
-    elsif ($_->{property} eq 'add' || $_->{property} eq 'subtract') {
-      my $clock = Clock->new({
-        hour   => $_->{input}{hour},
-        minute => $_->{input}{minute},
-      });
-      if ($_->{property} eq 'subtract') { $clock->subtract_minutes($_->{input}{value}) }
-      elsif ($_->{property} eq 'add'  ) { $clock->add_minutes(     $_->{input}{value}) }
+    elsif ( $_->{property} eq 'add' || $_->{property} eq 'subtract' )
+    {
+      my $clock = Clock->new(
+        { hour   => $_->{input}{hour},
+          minute => $_->{input}{minute},
+        }
+      );
+      if ( $_->{property} eq 'subtract' ) {
+        $clock->subtract_minutes( $_->{input}{value} );
+      }
+      elsif ( $_->{property} eq 'add' ) {
+        $clock->add_minutes( $_->{input}{value} );
+      }
       is $clock->time, $_->{expected}, $_->{description};
     }
 
-    elsif ($_->{property} eq 'equal') {
-      ok $_->{expected} ==
-        (Clock->new($_->{input}{clock1})->time eq Clock->new($_->{input}{clock2})->time), $_->{description};
+    elsif ( $_->{property} eq 'equal' ) {
+      ok $_->{expected}
+        == ( Clock->new( $_->{input}{clock1} )->time eq
+          Clock->new( $_->{input}{clock2} )->time ),
+        $_->{description};
     }
   }
 }
 
-is(Clock->new({hour => 0, minute => 0})->add_minutes(65)->time, '01:05', 'add_minutes method can be chained');
-is(Clock->new({hour => 0, minute => 0})->subtract_minutes(65)->time, '22:55', 'subtract_minutes method can be chained');
+is( Clock->new( { hour => 0, minute => 0 } )->add_minutes(65)->time,
+  '01:05', 'add_minutes method can be chained' );
+is(
+  Clock->new( { hour => 0, minute => 0 } )->subtract_minutes(65)
+    ->time,
+  '22:55',
+  'subtract_minutes method can be chained'
+);
 
 __DATA__
 {
