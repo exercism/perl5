@@ -7,12 +7,12 @@ our @EXPORT_OK = qw(hey);
 
 sub hey {
   my ($text) = @_;
-  if (uc($text) eq $text && $text =~ /\p{Uppercase}/) {
+  if ( uc($text) eq $text && $text =~ /\p{Uppercase}/ ) {
     return 'Calm down, I know what I\'m doing!' if $text =~ /\?\s*$/;
     return 'Whoa, chill out!';
   }
   return 'Fine. Be that way!' if $text =~ /^\s*$/;
-  return 'Sure.' if $text =~ /\?\s*$/;
+  return 'Sure.'              if $text =~ /\?\s*$/;
   return 'Whatever.';
 }
 

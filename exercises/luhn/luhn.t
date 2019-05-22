@@ -1,16 +1,21 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-use Test::More tests => 17;
+use Test2::Bundle::More;
+plan 17;
+
 use JSON::PP;
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
 use Luhn qw(is_luhn_valid);
 
-can_ok 'Luhn', 'import' or BAIL_OUT 'Cannot import subroutines from module';
+can_ok 'Luhn', 'import'
+  or BAIL_OUT 'Cannot import subroutines from module';
 
 my $C_DATA = do { local $/; decode_json(<DATA>); };
-ok !(is_luhn_valid($_->{input}{value}) xor $_->{expected}), $_->{description} foreach @{$C_DATA->{cases}};
+ok !( is_luhn_valid( $_->{input}{value} ) xor $_->{expected} ),
+  $_->{description}
+  foreach @{ $C_DATA->{cases} };
 
 __DATA__
 {
