@@ -1,19 +1,22 @@
 #!/usr/bin/env perl
-use Test2::V0;{{#plan}}
-plan {{&plan}};{{#plan_comment}} {{&plan_comment}}{{/plan_comment}}{{/plan}}
-{{#cdata}}
-use JSON::PP;{{/cdata}}
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";{{#lib_comment}} {{&lib_comment}}{{/lib_comment}}
-use {{&exercise}} {{#subs}}qw{{/subs}}({{&subs}});{{#modules}}
+
+use Test2::V0;
+use {{&exercise}} {{#subs}}qw{{/subs}}({{&subs}});{{#cdata}}
+use JSON::PP;{{/cdata}}{{#modules}}
 use {{&use}};{{/modules}}
+{{#cdata}}
+my $C_DATA = do { local $/; decode_json(<DATA>); };{{/cdata}}{{#plan}}
+plan {{&plan}};{{#plan_comment}} {{&plan_comment}}{{/plan_comment}}{{/plan}}
 {{#subs}}
 imported_ok qw({{&subs}}) or bail_out;{{/subs}}{{#methods}}
 can_ok '{{&exercise}}', qw({{&methods}}) or bail_out;{{/methods}}
-{{#cdata}}
-my $C_DATA = do { local $/; decode_json(<DATA>); };{{/cdata}}
+
 {{&tests}}
-{{#cdata}}
+{{^plan}}
+
+done_testing;{{/plan}}{{#cdata}}
 
 __DATA__
 {{&json}}
