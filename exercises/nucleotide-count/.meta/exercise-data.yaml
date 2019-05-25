@@ -2,25 +2,14 @@ exercise: NucleotideCount
 plan: 6
 subs: count_nucleotides
 tests: |-
-  my @exception_cases;
-  foreach my $case (map {@{$_->{cases}}} @{$C_DATA->{cases}}) {
+  for my $case (map {@{$_->{cases}}} @{$C_DATA->{cases}}) {
     if ($case->{expected}{error}) {
-      push @exception_cases, $case;
+      like dies( sub { count_nucleotides($case->{input}{strand}) } ),
+        qr/$case->{expected}{error}/, $case->{description};
     }
     else {
-      is_deeply count_nucleotides($case->{input}{strand}), $case->{expected}, $case->{description};
-    }
-  }
-
-  SKIP: {
-    if ( eval { require Test2::Tools::Exception } ) {
-      ok(
-        Test2::Tools::Exception::dies( sub { count_nucleotides $_->{input}{strand} } ),
-        $_->{description}
-      ) foreach @exception_cases;
-    }
-    else {
-      skip 'Test2::Tools::Exception not loaded', scalar @exception_cases;
+      is count_nucleotides($case->{input}{strand}),
+        $case->{expected}, $case->{description};
     }
   }
 
