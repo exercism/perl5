@@ -1,10 +1,11 @@
 #!/usr/bin/env perl
+use Test2::V0;{{#cdata}}
+use JSON::PP;{{/cdata}}
+
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";{{#lib_comment}} {{&lib_comment}}{{/lib_comment}}
 
-use Test2::V0;
-use {{&exercise}} {{#subs}}qw{{/subs}}({{&subs}});{{#cdata}}
-use JSON::PP;{{/cdata}}{{#modules}}
+use {{&exercise}} {{#subs}}qw{{/subs}}({{&subs}});{{#modules}}
 use {{&use}};{{/modules}}
 {{#cdata}}
 my $C_DATA = do { local $/; decode_json(<DATA>); };{{/cdata}}{{#plan}}
