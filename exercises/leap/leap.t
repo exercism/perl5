@@ -1,15 +1,17 @@
 #!/usr/bin/env perl
 use Test2::V0;
-plan 7;    # This is how many tests we expect to run.
-
 use JSON::PP;
+
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5"; # Find modules in the same dir as this file.
+
 use Leap qw(is_leap_year);
+
+my $C_DATA = do { local $/; decode_json(<DATA>); };
+plan 7;    # This is how many tests we expect to run.
 
 imported_ok qw(is_leap_year) or bail_out;
 
-my $C_DATA = do { local $/; decode_json(<DATA>); };
 for ( @{ $C_DATA->{cases} } ) {
   is(
     is_leap_year( $_->{input}{year} ),
