@@ -1,15 +1,17 @@
 #!/usr/bin/env perl
 use Test2::V0;
-plan 26;    # This is how many tests we expect to run.
-
 use JSON::PP;
+
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5"; # Find modules in the same dir as this file.
+
 use Bob qw(hey);
+
+my $C_DATA = do { local $/; decode_json(<DATA>); };
+plan 26;    # This is how many tests we expect to run.
 
 imported_ok qw(hey) or bail_out;
 
-my $C_DATA = do { local $/; decode_json(<DATA>); };
 is hey( $_->{input}{heyBob} ), $_->{expected}, $_->{description}
   for @{ $C_DATA->{cases} };
 

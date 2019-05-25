@@ -3,7 +3,7 @@ plan: 26
 subs: hey
 tests: |-
   is hey($_->{input}{heyBob}), $_->{expected}, $_->{description}
-    for @{$C_DATA->{cases}};
+    for @{ $C_DATA->{cases} };
 
 lib_comment: '# Find modules in the same dir as this file.'
 plan_comment: '# This is how many tests we expect to run.'
