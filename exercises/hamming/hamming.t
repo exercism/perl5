@@ -1,51 +1,41 @@
 #!/usr/bin/env perl
-use strict;
-use warnings;
-use Test2::Bundle::More;
-plan 8;
-
+use Test2::V0;
 use JSON::PP;
+
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
+
 use Hamming qw(hamming_distance);
 
-can_ok 'Hamming', 'import'
-  or BAIL_OUT 'Cannot import subroutines from module';
-
 my $C_DATA = do { local $/; decode_json(<DATA>); };
+plan 10;
+
+imported_ok qw(hamming_distance) or bail_out;
+
 my @exception_cases;
 
-foreach my $case ( @{ $C_DATA->{cases} } ) {
-  if ( ref $case->{expected} eq 'HASH'
-    && exists $case->{expected}{error} )
-  {
-    push @exception_cases, $case;
-  }
-  else {
-    is hamming_distance( @{ $case->{input} }{qw(strand1 strand2)} ),
-      $case->{expected}, $case->{description};
-  }
-}
-
-SKIP: {
-  if ( eval { require Test2::Tools::Exception } ) {
-    ok(
-      Test2::Tools::Exception::dies(
-        sub { hamming_distance @{ $_->{input} }{qw(strand1 strand2)} }
+for my $case ( @{ $C_DATA->{cases} } ) {
+  if ( ref $case->{expected} ) {
+    like(
+      dies(
+        sub {
+          hamming_distance( @{ $case->{input} }{qw(strand1 strand2)} );
+        }
       ),
-      $_->{description}
-    ) foreach @exception_cases;
+      qr/$case->{expected}{error}/,
+      $case->{description}
+    );
   }
   else {
-    skip 'Test2::Tools::Exception not loaded',
-      scalar @exception_cases;
+    is( hamming_distance( @{ $case->{input} }{qw(strand1 strand2)} ),
+      $case->{expected}, $case->{description} );
   }
 }
 
 __DATA__
 {
 "exercise": "hamming",
-"version": "2.2.0",
+"version": "2.3.0",
   "comments": [
     "Language implementations vary on the issue of unequal length strands.",
     "A language may elect to simplify this task by only presenting equal",
@@ -118,6 +108,24 @@ __DATA__
         "strand2": "AGTG"
       },
       "expected": {"error": "left and right strands must be of equal length"}
+    },
+    {
+      "description": "disallow left empty strand",
+      "property": "distance",
+      "input": {
+        "strand1": "",
+        "strand2": "G"
+      },
+      "expected": {"error": "left strand must not be empty"}
+    },
+    {
+      "description": "disallow right empty strand",
+      "property": "distance",
+      "input": {
+        "strand1": "G",
+        "strand2": ""
+      },
+      "expected": {"error": "right strand must not be empty"}
     }
   ]
 }
