@@ -22,7 +22,10 @@ tests: |-
 
   subtest 'add/subtract' => sub {
     plan 16;
-    for my $case ( grep { my $case = $_; any { $case->{property} eq $_ } qw( add subtract ) } @cases ) {
+    for my $case ( grep {
+      my $case = $_;
+      any { $case->{property} eq $_ } qw( add subtract );
+    } @cases ) {
       is(
         Clock->new(
           { hour   => $case->{input}{hour},
@@ -77,26 +80,23 @@ stub: |-
     return undef;
   }
 
+moo: true
 example: |-
-  use POSIX;
+  use POSIX ();
 
-  sub new {
-    my ($class, $attributes) = @_;
-    my $self = {
-      hour   => $attributes->{hour} || 0,
-      minute => $attributes->{minute} || 0,
-    };
-    return bless($self, $class)->BUILD;
-  }
+  has [qw(hour minute)] => (
+    is => 'rwp',
+    default => 0,
+  );
 
   sub time {
     my ($self) = @_;
-    return sprintf '%02d:%02d', $self->{hour}, $self->{minute};
+    return sprintf '%02d:%02d', $self->hour, $self->minute;
   }
 
   sub add_minutes {
     my ($self, $amount) = @_;
-    $self->{minute} += $amount;
+    $self->_set_minute($self->minute + $amount);
     return $self->BUILD;
   }
 
@@ -107,7 +107,7 @@ example: |-
 
   sub BUILD {
     my ($self) = @_;
-    $self->{hour} = ( $self->{hour} + floor($self->{minute} / 60) ) % 24;
-    $self->{minute} %= 60;
+    $self->_set_hour( ( $self->hour + POSIX::floor($self->minute / 60) ) % 24 );
+    $self->_set_minute( $self->minute % 60 );
     return $self;
   }

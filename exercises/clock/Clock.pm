@@ -1,6 +1,5 @@
 package Clock;
-use strict;
-use warnings;
+use Moo;
 
 sub new {
   my ( $class, $attributes ) = @_;

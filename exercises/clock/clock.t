@@ -1,17 +1,19 @@
 #!/usr/bin/env perl
 use Test2::V0;
-plan 4;
-
 use JSON::PP;
+
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
+
 use Clock ();
 use List::Util qw(any);
 
+my $C_DATA = do { local $/; decode_json(<DATA>); };
+plan 4;
+
 can_ok 'Clock', qw(new time add_minutes subtract_minutes) or bail_out;
 
-my $C_DATA = do { local $/; decode_json(<DATA>); };
-my @cases  = ( map { @{ $_->{cases} } } @{ $C_DATA->{cases} } );
+my @cases = ( map { @{ $_->{cases} } } @{ $C_DATA->{cases} } );
 
 subtest create => sub {
   plan 20;
@@ -32,7 +34,7 @@ subtest 'add/subtract' => sub {
   for my $case (
     grep {
       my $case = $_;
-      any { $case->{property} eq $_ } qw( add subtract )
+      any { $case->{property} eq $_ } qw( add subtract );
     } @cases
     )
   {
