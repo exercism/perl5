@@ -1,11 +1,12 @@
 #!/usr/bin/env perl
 use Test2::V0;
-plan 2;    # This is how many tests we expect to run.
 
 use FindBin qw($Bin);
-use lib $Bin,
-  "$Bin/local/lib/perl5"; # Find modules in the same dir as this file.
+use lib $Bin, "$Bin/local/lib/perl5"; # Find modules in the same dir as this file.
+
 use HelloWorld qw(hello);
+
+plan 2;    # This is how many tests we expect to run.
 
 imported_ok qw(hello) or bail_out;
 
