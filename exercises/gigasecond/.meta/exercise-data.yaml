@@ -10,7 +10,7 @@ example: |
   use Time::Piece;
 
   sub add_gigasecond {
-    (Time::Piece->strptime(shift, "%FT%T") + 10**9)->datetime;
+    (Time::Piece->strptime(shift, '%Y-%m-%dT%T') + 10**9)->datetime;
   }
 
 stub: |
