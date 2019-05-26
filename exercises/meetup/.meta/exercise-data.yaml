@@ -1,0 +1,19 @@
+exercise: Meetup
+plan: 96
+subs: meetup
+tests: |
+  for my $case ( @{ $C_DATA->{cases} } ) {
+    is meetup($case->{input}), $case->{expected}, $case->{description};
+  }
+
+example: |
+  sub meetup {
+    my ($input) = @_;
+    return undef;
+  }
+
+stub: |
+  sub meetup {
+    my ($input) = @_;
+    return undef;
+  }
