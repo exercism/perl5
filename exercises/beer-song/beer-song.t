@@ -12,20 +12,27 @@ plan 9;
 
 imported_ok qw(sing) or bail_out;
 
-for my $case ( recurse_cases() ) {
+for my $case ( recurse_cases($C_DATA) ) {
+
+  # Your result should be a string, which is transformed into
+  # an array here when matching for a cleaner test output.
   is(
-    sing(
-      { bottles => $case->{input}{startBottles},
-        verses  => $case->{input}{takeDown},
-      }
-    ),
-    join( "\n", @{ $case->{expected} } ),
+    [ split(
+        "\n",
+        sing(
+          { bottles => $case->{input}{startBottles},
+            verses  => $case->{input}{takeDown},
+          }
+        )
+      )
+    ],
+    $case->{expected},
     $case->{description}
   );
 }
 
 sub recurse_cases {
-  my $obj = shift // $C_DATA;
+  my $obj = shift;
   return $obj->{cases}
     ? map recurse_cases($_), @{ $obj->{cases} }
     : $obj;
