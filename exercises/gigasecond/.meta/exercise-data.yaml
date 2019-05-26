@@ -1,0 +1,20 @@
+exercise: Gigasecond
+plan: 6
+subs: add_gigasecond
+tests: |
+  for my $case ( map @{ $_->{cases} }, @{ $C_DATA->{cases} } ) {
+    is add_gigasecond($case->{input}{moment}), $case->{expected}, $case->{description}
+  }
+
+example: |
+  use Time::Piece;
+
+  sub add_gigasecond {
+    (Time::Piece->strptime(shift, "%FT%T") + 10**9)->datetime;
+  }
+
+stub: |
+  sub add_gigasecond {
+    my ($time) = @_;
+    return undef;
+  }
