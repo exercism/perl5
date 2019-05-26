@@ -1,36 +1,45 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-use Test::More tests => 19;
+use Test2::Bundle::More;
+plan 19;
+
 use JSON::PP;
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
 use PhoneNumber qw(clean_number);
 
-can_ok 'PhoneNumber', 'import' or BAIL_OUT 'Cannot import subroutines from module';
+can_ok 'PhoneNumber', 'import'
+  or BAIL_OUT 'Cannot import subroutines from module';
 
 my $C_DATA = do { local $/; decode_json(<DATA>); };
 my @exception_cases;
-foreach my $case (map { @{$_->{cases}} } @{$C_DATA->{cases}}) {
-  if (ref $case->{expected} eq 'HASH' && exists $case->{expected}{error}) {
+foreach my $case ( map { @{ $_->{cases} } } @{ $C_DATA->{cases} } ) {
+  if ( ref $case->{expected} eq 'HASH'
+    && exists $case->{expected}{error} )
+  {
     push @exception_cases, $case;
   }
   else {
-    is clean_number($case->{input}{phrase}), $case->{expected}, $case->{description};
+    is clean_number( $case->{input}{phrase} ), $case->{expected},
+      $case->{description};
   }
 }
 
 SKIP: {
-  eval { require Test2::Tools::Exception };
-  skip 'Test2::Tools::Exception not loaded', scalar @exception_cases if $@;
-  eval q{
-    use Test2::Tools::Exception qw(dies);
+  if ( eval { require Test2::Tools::Exception } ) {
     like(
-      dies {clean_number $_->{input}{phrase}},
+      Test2::Tools::Exception::dies(
+        sub { clean_number $_->{input}{phrase} }
+      ),
       qr/$_->{expected}{error}/,
       $_->{description}
     ) foreach @exception_cases;
-  };
+  }
+  else {
+    skip 'Test2::Tools::Exception not loaded',
+      scalar @exception_cases;
+  }
 }
 
 __DATA__

@@ -1,16 +1,18 @@
 #!/usr/bin/env perl
-use strict;
-use warnings;
-use Test::More tests => 2; # This is how many tests we expect to run.
+use Test2::V0;
+
 use FindBin qw($Bin);
-use lib $Bin, "$Bin/local/lib/perl5"; # Look for modules inside the same directory as this test file.
+use lib $Bin, "$Bin/local/lib/perl5"; # Find modules in the same dir as this file.
+
 use HelloWorld qw(hello);
 
-can_ok 'HelloWorld', 'import' or BAIL_OUT 'Cannot import subroutines from module';
+plan 2;    # This is how many tests we expect to run.
 
-# Run the 'is' subroutine from the 'Test::More' module, with three arguments.
+imported_ok qw(hello) or bail_out;
+
+# Run the 'is' sub from 'Test2::V0' with three arguments.
 is(
-  hello,           # Run the 'hello' subroutine, which is imported from your module.
-  'Hello, World!', # The expected result to compare with 'hello'.
-  'Say Hi!'        # The test description.
+  hello(),            # Run the 'hello' sub imported from the module.
+  'Hello, World!',    # The expected result to compare with 'hello'.
+  'Say Hi!'           # The test description.
 );

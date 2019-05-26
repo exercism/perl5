@@ -1,20 +1,15 @@
 package Hamming;
-
 use strict;
 use warnings;
+use Exporter 'import';
+our @EXPORT_OK = qw(hamming_distance);
 
-use Carp;
-
-sub compute {
-    my ($strand_a, $strand_b) = @_;
-
-    croak "DNA strands must be of equal length"
-        unless length $strand_a == length $strand_b;
-
-    my $distance = $strand_a ^ $strand_b;
-    $distance =~ s/\0//g;
-
-    return (length $distance) - abs(length($strand_a) - length($strand_b));
+sub hamming_distance {
+  my ( $strand1, $strand2 ) = @_;
+  die if length $strand1 != length $strand2;
+  return scalar grep {
+    [ split //, $strand1 ]->[$_] ne [ split //, $strand2 ]->[$_]
+  } 0 .. length($strand1) - 1;
 }
 
 1;

@@ -12,17 +12,18 @@ perl:
 install:
   - wget -P ~/bin https://git.io/cpm
   - chmod +x ~/bin/cpm
+  - cpm install
+  - cpm install -g App::Yath Carton Test2::V0
+  - carton install
   - for i in exercises/*/.meta/solutions; do cd $i; if [ -f cpanfile ]; then echo "$i"; cpm install; fi; cd - > /dev/null; done
-before_script:
   - git clone https://github.com/exercism/problem-specifications.git
   - bin/fetch-configlet
 script:
   - bin/configlet lint . --track-id=perl5
+  - TS_MAX_DELTA=3 carton exec 'yath test t/
+    --verbose'
+  - yath test exercises/*/.meta/solutions/
+    --jobs 2 || perl -e '$^V =~ /^v5\.20\./ or die' # exception for pascals-triangle.t in v5.20
   - prove exercises/*/.meta/solutions/
     --recurse
     --directives
-  - cpm install
-  - perl -Ilocal/lib/perl5 local/bin/yath test exercises/*/.meta/solutions/
-    --jobs 2
-  - TS_MAX_DELTA=3 perl -Ilocal/lib/perl5 local/bin/yath test t/
-    --verbose
