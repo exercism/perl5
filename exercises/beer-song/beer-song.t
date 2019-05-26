@@ -1,24 +1,34 @@
 #!/usr/bin/env perl
-use strict;
-use warnings;
-use Test::More tests => 9;
+use Test2::V0;
 use JSON::PP;
+
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
+
 use BeerSong qw(sing);
 
-can_ok 'BeerSong', 'import' or BAIL_OUT 'Cannot import subroutines from module';
-
 my $C_DATA = do { local $/; decode_json(<DATA>); };
-foreach my $case (map { @{$_->{cases}} } map { @{$_->{cases}} } @{$C_DATA->{cases}}) {
+plan 9;
+
+imported_ok qw(sing) or bail_out;
+
+for my $case ( recurse_cases() ) {
   is(
-    sing({
-      bottles => $case->{input}{startBottles},
-      verses  => $case->{input}{takeDown},
-    }),
-    join("\n", @{$case->{expected}}),
+    sing(
+      { bottles => $case->{input}{startBottles},
+        verses  => $case->{input}{takeDown},
+      }
+    ),
+    join( "\n", @{ $case->{expected} } ),
     $case->{description}
   );
+}
+
+sub recurse_cases {
+  my $obj = shift // $C_DATA;
+  return $obj->{cases}
+    ? map recurse_cases($_), @{ $obj->{cases} }
+    : $obj;
 }
 
 __DATA__
