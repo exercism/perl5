@@ -26,7 +26,7 @@ Run `cpm install Module::Name` to install a specific module locally, or
 run `cpm install -g Module::Name` to install globally.
 
 #### App::cpanminus
-the most well-known and commonly used module installer available.
+The most well-known and commonly used module installer available.
 Instructions for installation can be found on [CPAN](https://metacpan.org/pod/App::cpanminus).
 
 Run `cpanm -L local --installdeps .` to install required modules
@@ -40,17 +40,9 @@ If you are looking for good general advices regarding Perl coding,
 Damian Conway's [Perl Best Practices][PBP] is a good reference.
 
 To prettify your code, you can use the module
-[Perl-Tidy][PerlTidy].
+[Perl::Tidy][PerlTidy].
 
-To install with [cpanminus][]:
-
-    cpanm Perl::Tidy
-
-or via the regular `cpan` install utility:
-
-    cpan Perl::Tidy
-
-And then, you can use the provided `perltidy` utility program
+You can then use the provided `perltidy` utility program
 to reformat your code.
 
     # modify file in-place and save old version as some_script.pl.bak
@@ -67,14 +59,6 @@ If you want to enforce coding practices, there is also
 the book *Perl Best Practices* mentioned previously, but plenty of
 plugins exist, and it can be customized to fit any in-house coding
 rules.
-
-To install:
-
-    # via cpanminus
-    cpanm Perl::Critic
-
-    # via the classic 'cpan' installation tool
-    cpan Perl::Critic
 
 To use:
 
