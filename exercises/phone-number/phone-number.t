@@ -1,44 +1,34 @@
 #!/usr/bin/env perl
 use Test2::V0;
-plan 19;
-
 use JSON::PP;
+
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
+
 use PhoneNumber qw(clean_number);
+
+my $C_DATA = do { local $/; decode_json(<DATA>); };
+plan 19;
 
 imported_ok qw(clean_number) or bail_out;
 
-my $C_DATA = do { local $/; decode_json(<DATA>); };
-my @cases  = map {
-  $_->[2] .= ' - ' . $_->[0];
-  $_;
-  }
-  map {
-  my @test
-    = ( $_->{input}{phrase}, $_->{expected}, $_->{description} );
-
-  if ( ref $test[1] ) {
-    $test[1] = $test[1]->{error};
-    push @test, 1;
-  }
-
-  \@test;
-  }
+my @cases = (
+  map { [ $_->{input}{phrase}, $_->{expected}, $_->{description} ] }
   map {@$_}
-  map { $_->{cases} }
-  map {@$_} $C_DATA->{cases};
+  map { $_->{cases} } @{ $C_DATA->{cases} }
+);
 
-$_->[3] ? error_test(@$_) : regular_test(@$_) for @cases;
+for (@cases) {
+  my ( $input, $expected, $desc ) = @$_;
+  $desc .= " - $input";
 
-sub regular_test {
-  my ( $input, $expected, $desc ) = @_;
-  is clean_number($input), $expected, $desc;
-}
-
-sub error_test {
-  my ( $input, $error, $desc ) = @_;
-  like dies( sub { clean_number($input) } ), qr/$error/, $desc;
+  if ( !ref $expected ) {
+    is clean_number($input), $expected, $desc;
+  }
+  else {
+    like dies( sub { clean_number($input) } ),
+      qr/$expected->{error}/, $desc;
+  }
 }
 
 __DATA__

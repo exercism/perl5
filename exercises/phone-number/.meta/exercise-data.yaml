@@ -2,36 +2,23 @@ exercise: PhoneNumber
 plan: 19
 subs: clean_number
 tests: |-
-  my @cases =
-      map {
-          $_->[2] .= ' - ' . $_->[0];
-          $_;
-      }
-      map {
-          my @test = ( $_->{input}{phrase}, $_->{expected}, $_->{description} );
+  my @cases  = (
+    map { [ $_->{input}{phrase}, $_->{expected}, $_->{description} ] }
+    map {@$_}
+    map { $_->{cases} } @{ $C_DATA->{cases} }
+  );
 
-          if ( ref $test[1] ) {
-              $test[1] = $test[1]->{error};
-              push @test, 1;
-          }
+  for (@cases) {
+    my ( $input, $expected, $desc ) = @$_;
+    $desc .= " - $input";
 
-          \@test;
-      }
-      map { @$_ }
-      map { $_->{cases} }
-      map { @$_ }
-          $C_DATA->{cases};
-
-  $_->[3] ? error_test(@$_) : regular_test(@$_) for @cases;
-
-  sub regular_test {
-      my( $input, $expected, $desc ) = @_;
-      is clean_number($input), $expected, $desc;
-  }
-
-  sub error_test {
-      my( $input, $error, $desc ) = @_;
-      like dies( sub { clean_number($input) } ), qr/$error/, $desc;
+    if ( !ref $expected ) {
+      is clean_number($input), $expected, $desc
+    }
+    else {
+      like dies( sub { clean_number($input) } ),
+      qr/$expected->{error}/, $desc;
+    }
   }
 
 example: |
