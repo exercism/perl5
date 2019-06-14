@@ -22,7 +22,7 @@ for my $case ( @{ $C_DATA->{cases} } ) {
           hamming_distance( @{ $case->{input} }{qw(strand1 strand2)} );
         }
       ),
-      qr/$case->{expected}{error}/,
+      qr/left and right strands must be of equal length/,
       $case->{description}
     );
   }
