@@ -2,7 +2,7 @@ exercise: ScrabbleScore
 plan: 12
 subs: score
 tests: |-
-  for my $case (@{$C_DATA->{cases}}) {
+  for my $case ( @{ $C_DATA->{cases} } ) {
     is score($case->{input}{word}), $case->{expected}, $case->{description};
   }
 
@@ -11,12 +11,12 @@ example: |-
 
   my $scores = {
       pairmap { map { $_ => $a } split //, $b } qw(
-          1 aeioulnrst
-          2 dg
-          3 bcmp
-          4 fhvwy
-          5 k
-          8 jx
+           1 aeioulnrst
+           2 dg
+           3 bcmp
+           4 fhvwy
+           5 k
+           8 jx
           10 qz
       )
   };
