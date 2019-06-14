@@ -10,7 +10,7 @@ use List::Util qw(sum);
 sub grains_on_square {
   my ($square) = @_;
   if ( $square < 1 || $square > 64 ) {
-    die 'invalid square';
+    die 'square must be between 1 and 64';
   }
   return 2**( $square - 1 );
 }
