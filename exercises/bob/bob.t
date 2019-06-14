@@ -1,20 +1,19 @@
 #!/usr/bin/env perl
-use strict;
-use warnings;
-use Test2::Bundle::More;
-plan 26;    # This is how many tests we expect to run.
-
+use Test2::V0;
 use JSON::PP;
+
 use FindBin qw($Bin);
-use lib $Bin, "$Bin/local/lib/perl5"; # Look for modules inside the same dir as this file.
+use lib $Bin, "$Bin/local/lib/perl5"; # Find modules in the same dir as this file.
+
 use Bob qw(hey);
 
-can_ok 'Bob', 'import'
-  or BAIL_OUT 'Cannot import subroutines from module';
-
 my $C_DATA = do { local $/; decode_json(<DATA>); };
+plan 26;    # This is how many tests we expect to run.
+
+imported_ok qw(hey) or bail_out;
+
 is hey( $_->{input}{heyBob} ), $_->{expected}, $_->{description}
-  foreach @{ $C_DATA->{cases} };
+  for @{ $C_DATA->{cases} };
 
 __DATA__
 {
