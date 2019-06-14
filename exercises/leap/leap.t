@@ -1,31 +1,32 @@
 #!/usr/bin/env perl
-use strict;
-use warnings;
-use Test2::Bundle::More;
-plan 6;    # This is how many tests we expect to run.
-
+use Test2::V0;
 use JSON::PP;
+
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5"; # Find modules in the same dir as this file.
+
 use Leap qw(is_leap_year);
 
-can_ok 'Leap', 'import'
-  or BAIL_OUT 'Cannot import subroutines from module';
-
 my $C_DATA = do { local $/; decode_json(<DATA>); };
-foreach ( @{ $C_DATA->{cases} } ) {
-  my $result = is_leap_year $_->{input}{year};
-  ok( defined $result && !( $result xor $_->{expected} ),
-    $_->{description} );
+plan 7;    # This is how many tests we expect to run.
+
+imported_ok qw(is_leap_year) or bail_out;
+
+for ( @{ $C_DATA->{cases} } ) {
+  is(
+    is_leap_year( $_->{input}{year} ),
+    $_->{expected} ? T : DF,    # Check if True, or Defined but False
+    $_->{description}
+  );
 }
 
 __DATA__
 {
   "exercise": "leap",
-  "version": "1.4.0",
+  "version": "1.5.1",
   "cases": [
     {
-      "description": "year not divisible by 4: common year",
+      "description": "year not divisible by 4 in common year",
       "property": "leapYear",
       "input": {
         "year": 2015
@@ -33,7 +34,15 @@ __DATA__
       "expected": false
     },
     {
-      "description": "year divisible by 4, not divisible by 100: leap year",
+      "description": "year divisible by 2, not divisible by 4 in common year",
+      "property": "leapYear",
+      "input": {
+        "year": 1970
+      },
+      "expected": false
+    },
+    {
+      "description": "year divisible by 4, not divisible by 100 in leap year",
       "property": "leapYear",
       "input": {
         "year": 1996
@@ -41,7 +50,7 @@ __DATA__
       "expected": true
     },
     {
-      "description": "year divisible by 100, not divisible by 400: common year",
+      "description": "year divisible by 100, not divisible by 400 in common year",
       "property": "leapYear",
       "input": {
         "year": 2100
@@ -49,7 +58,7 @@ __DATA__
       "expected": false
     },
     {
-      "description": "year divisible by 400: leap year",
+      "description": "year divisible by 400 in leap year",
       "property": "leapYear",
       "input": {
         "year": 2000
@@ -57,7 +66,7 @@ __DATA__
       "expected": true
     },
     {
-      "description": "year divisible by 200, not divisible by 400: common year",
+      "description": "year divisible by 200, not divisible by 400 in common year",
       "property": "leapYear",
       "input": {
         "year": 1800
