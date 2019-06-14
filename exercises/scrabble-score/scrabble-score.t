@@ -1,17 +1,20 @@
 #!/usr/bin/env perl
-use strict;
-use warnings;
-use Test::More tests => 12;
+use Test2::V0;
 use JSON::PP;
+
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
+
 use ScrabbleScore qw(score);
 
-can_ok 'ScrabbleScore', 'import' or BAIL_OUT 'Cannot import subroutines from module';
-
 my $C_DATA = do { local $/; decode_json(<DATA>); };
-for my $case (@{$C_DATA->{cases}}) {
-  is score($case->{input}{word}), $case->{expected}, $case->{description};
+plan 12;
+
+imported_ok qw(score) or bail_out;
+
+for my $case ( @{ $C_DATA->{cases} } ) {
+  is score( $case->{input}{word} ), $case->{expected},
+    $case->{description};
 }
 
 __DATA__

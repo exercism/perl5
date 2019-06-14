@@ -1,8 +1,16 @@
 exercise: Luhn
-plan: 17
+plan: 18
 subs: is_luhn_valid
 tests: |-
-  ok !(is_luhn_valid($_->{input}{value}) xor $_->{expected}), $_->{description} foreach @{$C_DATA->{cases}};
+  for my $case ( @{ $C_DATA->{cases} } ) {
+    is(
+      is_luhn_valid($case->{input}{value}),
+      $case->{expected}
+        ? T
+        : DF,
+      $case->{description}
+    );
+  }
 
 example: |-
   sub is_luhn_valid {

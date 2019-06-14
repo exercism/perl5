@@ -2,7 +2,7 @@ exercise: TwoFer
 plan: 4
 subs: two_fer
 tests: |-
-  foreach my $case (@{$C_DATA->{cases}}) {
+  for my $case ( @{ $C_DATA->{cases} } ) {
     is two_fer($case->{input}{name}), $case->{expected}, $case->{description};
   }
 

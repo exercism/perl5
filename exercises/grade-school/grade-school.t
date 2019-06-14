@@ -1,17 +1,20 @@
 #!/usr/bin/env perl
-use strict;
-use warnings;
-use Test::More tests => 8;
+use Test2::V0;
 use JSON::PP;
+
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
+
 use GradeSchool qw(roster);
 
-can_ok 'GradeSchool', 'import' or BAIL_OUT 'Cannot import subroutines from module';
-
 my $C_DATA = do { local $/; decode_json(<DATA>); };
-foreach my $case (@{$C_DATA->{cases}}) {
-  is_deeply roster($case->{input}{students}, $case->{input}{desiredGrade}), $case->{expected}, $case->{description};
+plan 8;
+
+imported_ok qw(roster) or bail_out;
+
+for my $case ( @{ $C_DATA->{cases} } ) {
+  is roster( $case->{input}{students}, $case->{input}{desiredGrade} ),
+    $case->{expected}, $case->{description};
 }
 
 __DATA__

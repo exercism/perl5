@@ -1,21 +1,31 @@
 #!/usr/bin/env perl
-use strict;
-use warnings;
-use Test::More tests => 17;
+use Test2::V0;
 use JSON::PP;
+
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
+
 use Luhn qw(is_luhn_valid);
 
-can_ok 'Luhn', 'import' or BAIL_OUT 'Cannot import subroutines from module';
-
 my $C_DATA = do { local $/; decode_json(<DATA>); };
-ok !(is_luhn_valid($_->{input}{value}) xor $_->{expected}), $_->{description} foreach @{$C_DATA->{cases}};
+plan 18;
+
+imported_ok qw(is_luhn_valid) or bail_out;
+
+for my $case ( @{ $C_DATA->{cases} } ) {
+  is(
+    is_luhn_valid( $case->{input}{value} ),
+    $case->{expected}
+    ? T
+    : DF,
+    $case->{description}
+  );
+}
 
 __DATA__
 {
   "exercise": "luhn",
-  "version": "1.4.0",
+  "version": "1.6.1",
   "cases": [
     {
       "description": "single digit strings can not be valid",
@@ -82,12 +92,12 @@ __DATA__
       "expected": true
     },
     {
-      "description": "valid strings with a non-digit included become invalid",
+      "description": "valid number with an odd number of spaces",
       "property": "valid",
       "input": {
-        "value": "055a 444 285"
+        "value": "234 567 891 234"
       },
-      "expected": false
+      "expected": true
     },
     {
       "description": "valid strings with a non-digit added at the end become invalid",
@@ -109,7 +119,7 @@ __DATA__
       "description": "valid strings with symbols included become invalid",
       "property": "valid",
       "input": {
-        "value": "055£ 444$ 285"
+        "value": "055# 444$ 285"
       },
       "expected": false
     },
@@ -138,7 +148,23 @@ __DATA__
       "expected": true
     },
     {
-      "description": "strings with non-digits is invalid",
+      "comments": [
+        "Convert non-digits to their ascii values and then offset them by 48 sometimes accidentally declare an invalid string to be valid.",
+        "This test is designed to avoid that solution."
+      ],
+      "description": "using ascii value for non-doubled non-digit isn't allowed",
+      "property": "valid",
+      "input": {
+        "value": "055b 444 285"
+      },
+      "expected": false
+    },
+    {
+      "comments": [
+        "Convert non-digits to their ascii values and then offset them by 48 sometimes accidentally declare an invalid string to be valid.",
+        "This test is designed to avoid that solution."
+      ],
+      "description": "using ascii value for doubled non-digit isn't allowed",
       "property": "valid",
       "input": {
         "value": ":9"

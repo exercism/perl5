@@ -7,7 +7,7 @@ our @EXPORT_OK = qw(hey);
 
 sub hey {
   my ($msg) = @_;
-  # Remove the comments and write some code here to pass the test suite.
+  return undef;   # Replace this with your own code to pass the tests.
 }
 
 1;

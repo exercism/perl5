@@ -1,40 +1,75 @@
 #!/usr/bin/env perl
-use strict;
-use warnings;
-use Test::More tests => 55;
+use Test2::V0;
 use JSON::PP;
+
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
-use Clock ();
 
-can_ok 'Clock', qw(new time add_minutes subtract_minutes);
+use Clock ();
+use List::Util qw(any);
 
 my $C_DATA = do { local $/; decode_json(<DATA>); };
-foreach (@{$C_DATA->{cases}}) {
-  foreach (@{$_->{cases}}) {
-    if ($_->{property} eq 'create') {
-      is(Clock->new($_->{input})->time, $_->{expected}, $_->{description});
-    }
+plan 4;
 
-    elsif ($_->{property} eq 'add' || $_->{property} eq 'subtract') {
-      my $clock = Clock->new({
-        hour   => $_->{input}{hour},
-        minute => $_->{input}{minute},
-      });
-      if ($_->{property} eq 'subtract') { $clock->subtract_minutes($_->{input}{value}) }
-      elsif ($_->{property} eq 'add'  ) { $clock->add_minutes(     $_->{input}{value}) }
-      is $clock->time, $_->{expected}, $_->{description};
-    }
+can_ok 'Clock', qw(new time add_minutes subtract_minutes) or bail_out;
 
-    elsif ($_->{property} eq 'equal') {
-      ok $_->{expected} ==
-        (Clock->new($_->{input}{clock1})->time eq Clock->new($_->{input}{clock2})->time), $_->{description};
-    }
+my @cases = ( map { @{ $_->{cases} } } @{ $C_DATA->{cases} } );
+
+subtest create => sub {
+  plan 20;
+  for my $case ( grep { $_->{property} eq 'create' } @cases ) {
+    is(
+      Clock->new( $case->{input} ),
+      object {
+        prop blessed => 'Clock';
+        call time    => $case->{expected};
+      },
+      $case->{description}
+    );
   }
-}
+};
 
-is(Clock->new({hour => 0, minute => 0})->add_minutes(65)->time, '01:05', 'add_minutes method can be chained');
-is(Clock->new({hour => 0, minute => 0})->subtract_minutes(65)->time, '22:55', 'subtract_minutes method can be chained');
+subtest 'add/subtract' => sub {
+  plan 16;
+  for my $case (
+    grep {
+      my $case = $_;
+      any { $case->{property} eq $_ } qw( add subtract );
+    } @cases
+    )
+  {
+    is(
+      Clock->new(
+        { hour   => $case->{input}{hour},
+          minute => $case->{input}{minute},
+        }
+      ),
+
+      # Check that the add/subtract_minutes methods
+      # return a Clock object with the correct time
+      object {
+        call [ $case->{property} . '_minutes',
+          $case->{input}{value} ] => object {
+          prop blessed => 'Clock';
+          call time    => $case->{expected};
+          };
+      },
+      $case->{description}
+    );
+  }
+};
+
+subtest equal => sub {
+  plan 16;
+  for my $case ( grep { $_->{property} eq 'equal' } @cases ) {
+    my ( $clock1, $clock2 )
+      = ( map { Clock->new($_) }
+        @{ $case->{input} }{qw(clock1 clock2)} );
+    $case->{expected}
+      ? is $clock1, $clock2, $case->{description}
+      : isnt $clock1, $clock2, $case->{description};
+  }
+};
 
 __DATA__
 {

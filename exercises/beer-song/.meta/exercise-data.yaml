@@ -1,0 +1,54 @@
+exercise: BeerSong
+plan: 9
+subs: sing
+tests: |-
+  for my $case ( recurse_cases($C_DATA) ) {
+    # Your result should be a string, which is transformed into
+    # an array here when matching for a cleaner test output.
+    is(
+      [split("\n", sing({
+        bottles => $case->{input}{startBottles},
+        verses  => $case->{input}{takeDown},
+      }))],
+      $case->{expected},
+      $case->{description}
+    );
+  }
+
+  sub recurse_cases {
+    my $obj = shift;
+    return $obj->{cases}
+      ? map recurse_cases($_), @{ $obj->{cases} }
+      : $obj
+  }
+
+example: |-
+  sub sing {
+    my ($input) = @_;
+    my @verses;
+    for ( 1..$input->{verses} ) {
+      if ( $input->{bottles} ) {
+        my $s = $input->{bottles} > 1 ? 's' : '';
+        my $one = $input->{bottles} == 1 ? 'it' : 'one';
+        chomp(my $str = <<VERSE);
+  $input->{bottles} bottle$s of beer on the wall, $input->{bottles} bottle$s of beer.
+  Take $one down and pass it around, 
+  VERSE
+        push @verses, $str . (--$input->{bottles} || 'no more') . ' bottle' . ($input->{bottles} == 1 ? '' : 's') . ' of beer on the wall.';
+      }
+      else {
+        chomp(my $str = <<VERSE);
+  No more bottles of beer on the wall, no more bottles of beer.
+  Go to the store and buy some more, 99 bottles of beer on the wall.
+  VERSE
+        push @verses, $str;
+      }
+    }
+    return join "\n\n", @verses;
+  }
+
+stub: |-
+  sub sing {
+    my ($input) = @_;
+    return undef;
+  }

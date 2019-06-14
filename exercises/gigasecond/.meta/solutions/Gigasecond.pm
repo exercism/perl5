@@ -1,21 +1,13 @@
 package Gigasecond;
-
 use strict;
 use warnings;
+use Exporter 'import';
+our @EXPORT_OK = qw(add_gigasecond);
 
-use DateTime;
+use Time::Piece;
 
-sub new {
-  my ($class, $year, $month, $day) = @_;
-
-  my $date = DateTime->new(year => $year, month => $month, day => $day);
-  my $giga = DateTime::Duration->new(seconds => 1_000_000_000);
-  bless { date => $date->add_duration($giga) }, $class;
-}
-
-sub date {
-  my ($self) = @_;
-  return $self->{date}->truncate(to => 'day');
+sub add_gigasecond {
+  ( Time::Piece->strptime( shift, '%Y-%m-%dT%T' ) + 10**9 )->datetime;
 }
 
 1;

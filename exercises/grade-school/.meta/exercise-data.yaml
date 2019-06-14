@@ -2,8 +2,8 @@ exercise: GradeSchool
 plan: 8
 subs: roster
 tests: |-
-  foreach my $case (@{$C_DATA->{cases}}) {
-    is_deeply roster($case->{input}{students}, $case->{input}{desiredGrade}), $case->{expected}, $case->{description};
+  for my $case ( @{ $C_DATA->{cases} } ) {
+    is roster($case->{input}{students}, $case->{input}{desiredGrade}), $case->{expected}, $case->{description};
   }
 
 example: |-

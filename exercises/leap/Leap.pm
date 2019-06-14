@@ -7,8 +7,7 @@ our @EXPORT_OK = qw(is_leap_year);
 
 sub is_leap_year {
   my ($year) = @_;
-  return undef;
-  # Remove the comments and write some code here to pass the test suite.
+  return undef;   # Replace this with your own code to pass the tests.
 }
 
 1;

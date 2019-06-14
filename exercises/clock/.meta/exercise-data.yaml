@@ -1,33 +1,64 @@
 exercise: Clock
-plan: 55
+plan: 4
 methods: new time add_minutes subtract_minutes
+modules:
+  - use: List::Util qw(any)
 tests: |-
-  foreach (@{$C_DATA->{cases}}) {
-    foreach (@{$_->{cases}}) {
-      if ($_->{property} eq 'create') {
-        is(Clock->new($_->{input})->time, $_->{expected}, $_->{description});
-      }
+  my @cases = ( map { @{ $_->{cases} } } @{ $C_DATA->{cases} } );
 
-      elsif ($_->{property} eq 'add' || $_->{property} eq 'subtract') {
-        my $clock = Clock->new({
-          hour   => $_->{input}{hour},
-          minute => $_->{input}{minute},
-        });
-        if ($_->{property} eq 'subtract') { $clock->subtract_minutes($_->{input}{value}) }
-        elsif ($_->{property} eq 'add'  ) { $clock->add_minutes(     $_->{input}{value}) }
-        is $clock->time, $_->{expected}, $_->{description};
-      }
-
-      elsif ($_->{property} eq 'equal') {
-        ok $_->{expected} ==
-          (Clock->new($_->{input}{clock1})->time eq Clock->new($_->{input}{clock2})->time), $_->{description};
-      }
+  subtest create => sub {
+    plan 20;
+    for my $case ( grep { $_->{property} eq 'create' } @cases ) {
+      is(
+        Clock->new( $case->{input} ),
+        object {
+          prop blessed => 'Clock';
+          call time => $case->{expected};
+        },
+        $case->{description}
+      );
     }
-  }
+  };
 
-  is(Clock->new({hour => 0, minute => 0})->add_minutes(65)->time, '01:05', 'add_minutes method can be chained');
-  is(Clock->new({hour => 0, minute => 0})->subtract_minutes(65)->time, '22:55', 'subtract_minutes method can be chained');
-  
+  subtest 'add/subtract' => sub {
+    plan 16;
+    for my $case ( grep {
+      my $case = $_;
+      any { $case->{property} eq $_ } qw( add subtract );
+    } @cases ) {
+      is(
+        Clock->new(
+          { hour   => $case->{input}{hour},
+            minute => $case->{input}{minute},
+          }
+        ),
+        # Check that the add/subtract_minutes methods
+        # return a Clock object with the correct time
+        object {
+          call [
+            $case->{property} . '_minutes',
+            $case->{input}{value}
+          ] => object {
+              prop blessed => 'Clock';
+              call time => $case->{expected};
+            };
+        },
+        $case->{description}
+      );
+    }
+  };
+
+  subtest equal => sub {
+    plan 16;
+    for my $case ( grep { $_->{property} eq 'equal' } @cases ) {
+      my ( $clock1, $clock2 )
+        = ( map { Clock->new($_) } @{ $case->{input} }{qw(clock1 clock2)} );
+      $case->{expected}
+        ? is $clock1, $clock2, $case->{description}
+        : isnt $clock1, $clock2, $case->{description};
+    }
+  };
+
 stub: |-
   sub new {
     my ($class, $attributes) = @_;
@@ -36,35 +67,36 @@ stub: |-
 
   sub time {
     my ($self) = @_;
+    return undef;
   }
 
   sub add_minutes {
     my ($self, $amount) = @_;
+    return undef;
   }
 
   sub subtract_minutes {
     my ($self, $amount) = @_;
+    return undef;
   }
-example: |-
-  use POSIX;
 
-  sub new {
-    my ($class, $attributes) = @_;
-    my $self = {
-      hour   => $attributes->{hour} || 0,
-      minute => $attributes->{minute} || 0,
-    };
-    return bless($self, $class)->BUILD;
-  }
+moo: true
+example: |-
+  use POSIX ();
+
+  has [qw(hour minute)] => (
+    is => 'rwp',
+    default => 0,
+  );
 
   sub time {
     my ($self) = @_;
-    return sprintf '%02d:%02d', $self->{hour}, $self->{minute};
+    return sprintf '%02d:%02d', $self->hour, $self->minute;
   }
 
   sub add_minutes {
     my ($self, $amount) = @_;
-    $self->{minute} += $amount;
+    $self->_set_minute($self->minute + $amount);
     return $self->BUILD;
   }
 
@@ -75,7 +107,7 @@ example: |-
 
   sub BUILD {
     my ($self) = @_;
-    $self->{hour} = ( $self->{hour} + floor($self->{minute} / 60) ) % 24;
-    $self->{minute} %= 60;
+    $self->_set_hour( ( $self->hour + POSIX::floor($self->minute / 60) ) % 24 );
+    $self->_set_minute( $self->minute % 60 );
     return $self;
   }

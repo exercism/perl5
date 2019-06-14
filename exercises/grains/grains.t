@@ -1,55 +1,39 @@
 #!/usr/bin/env perl
-use strict;
-use warnings;
-use Test::More tests => 12;
+use Test2::V0;
 use JSON::PP;
+
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
-use Grains qw(grains_on_square total_grains);
-use Math::BigInt;
 
-can_ok 'Grains', 'import' or BAIL_OUT 'Cannot import subroutines from module';
+use Grains qw(grains_on_square total_grains);
+use Math::BigFloat;
 
 my $C_DATA = do { local $/; decode_json(<DATA>); };
-my @exception_cases;
+plan 12;
 
-foreach (@{$C_DATA->{cases}}) {
-  if (exists $_->{cases}) {
-    foreach my $case (@{$_->{cases}}) {
-      if ($case->{property} eq 'square') {
-        if (ref $case->{expected} eq 'HASH' && exists $case->{expected}{error}) {
-          push @exception_cases, $case;
-        }
-        else {
-          cmp_ok(
-            Math::BigInt->new(grains_on_square $case->{input}{square}),
-            '==',
-            $case->{expected},
-            'square no. ' . $case->{description}
-          );
-        }
-      }
-    }
+imported_ok qw(grains_on_square total_grains) or bail_out;
+
+for my $case ( map @{ $_->{cases} // [$_] }, @{ $C_DATA->{cases} } ) {
+  if ( ref $case->{expected} ) {
+    like dies( sub { grains_on_square( $case->{input}{square} ) } ),
+      qr/$case->{expected}{error}/,
+      $case->{description};
   }
-  elsif ($_->{property} eq 'total') {
-    cmp_ok(
-      Math::BigInt->new(total_grains),
-      '==',
-      $_->{expected},
-      $_->{description}
+  elsif ( $case->{property} eq 'square' ) {
+    is(
+      Math::BigFloat->new(
+        grains_on_square( $case->{input}{square} )
+      )->numify,
+      number( $case->{expected} ),
+      'square no. ' . $case->{description}
     );
   }
-}
-
-SKIP: {
-  if ( eval { require Test2::Tools::Exception } ) {
-    ok(
-      Test2::Tools::Exception::dies( sub { grains_on_square $_->{input}{square} } ),
-      $_->{description}
-    ) foreach @exception_cases;
-  }
-  else {
-    skip 'Test2::Tools::Exception not loaded', scalar @exception_cases;
+  elsif ( $case->{property} eq 'total' ) {
+    is(
+      Math::BigFloat->new( total_grains() )->numify,
+      number( $case->{expected} ),
+      $case->{description}
+    );
   }
 }
 

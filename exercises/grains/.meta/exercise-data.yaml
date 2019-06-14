@@ -2,47 +2,28 @@ exercise: Grains
 plan: 12
 subs: grains_on_square total_grains
 modules:
-  - use: Math::BigInt
+  - use: Math::BigFloat
 tests: |-
-  my @exception_cases;
 
-  foreach (@{$C_DATA->{cases}}) {
-    if (exists $_->{cases}) {
-      foreach my $case (@{$_->{cases}}) {
-        if ($case->{property} eq 'square') {
-          if (ref $case->{expected} eq 'HASH' && exists $case->{expected}{error}) {
-            push @exception_cases, $case;
-          }
-          else {
-            cmp_ok(
-              Math::BigInt->new(grains_on_square $case->{input}{square}),
-              '==',
-              $case->{expected},
-              'square no. ' . $case->{description}
-            );
-          }
-        }
-      }
+  for my $case ( map @{ $_->{cases} // [$_] }, @{ $C_DATA->{cases} } ) {
+    if ( ref $case->{expected} ) {
+      like dies( sub { grains_on_square($case->{input}{square}) } ),
+      qr/$case->{expected}{error}/,
+      $case->{description}
     }
-    elsif ($_->{property} eq 'total') {
-      cmp_ok(
-        Math::BigInt->new(total_grains),
-        '==',
-        $_->{expected},
-        $_->{description}
+    elsif ( $case->{property} eq 'square' ) {
+      is(
+        Math::BigFloat->new( grains_on_square($case->{input}{square}) )->numify,
+        number($case->{expected}),
+        'square no. ' . $case->{description}
       );
     }
-  }
-
-  SKIP: {
-    if ( eval { require Test2::Tools::Exception } ) {
-      ok(
-        Test2::Tools::Exception::dies( sub { grains_on_square $_->{input}{square} } ),
-        $_->{description}
-      ) foreach @exception_cases;
-    }
-    else {
-      skip 'Test2::Tools::Exception not loaded', scalar @exception_cases;
+    elsif ( $case->{property} eq 'total' ) {
+      is(
+        Math::BigFloat->new( total_grains() )->numify,
+        number($case->{expected}),
+        $case->{description}
+      );
     }
   }
 
@@ -53,7 +34,7 @@ example: |-
   sub grains_on_square {
     my ($square) = @_;
     if ($square < 1 || $square > 64) {
-      die 'invalid square';
+      die 'square must be between 1 and 64';
     }
     return 2 ** ($square - 1);
   }
