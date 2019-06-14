@@ -12,23 +12,19 @@ plan 10;
 
 imported_ok qw(hamming_distance) or bail_out;
 
-my @exception_cases;
-
 for my $case ( @{ $C_DATA->{cases} } ) {
-  if ( ref $case->{expected} ) {
-    like(
-      dies(
-        sub {
-          hamming_distance( @{ $case->{input} }{qw(strand1 strand2)} );
-        }
-      ),
-      qr/left and right strands must be of equal length/,
-      $case->{description}
-    );
+  if ( !ref $case->{expected} ) {
+    is hamming_distance( @{ $case->{input} }{qw(strand1 strand2)} ),
+      $case->{expected}, $case->{description};
   }
   else {
-    is( hamming_distance( @{ $case->{input} }{qw(strand1 strand2)} ),
-      $case->{expected}, $case->{description} );
+    like dies(
+      sub {
+        hamming_distance( @{ $case->{input} }{qw(strand1 strand2)} );
+      }
+      ),
+      qr/left and right strands must be of equal length/,
+      $case->{description};
   }
 }
 
