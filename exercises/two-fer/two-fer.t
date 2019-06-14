@@ -1,19 +1,18 @@
 #!/usr/bin/env perl
-use strict;
-use warnings;
-use Test2::Bundle::More;
-plan 4;
-
+use Test2::V0;
 use JSON::PP;
+
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
+
 use TwoFer qw(two_fer);
 
-can_ok 'TwoFer', 'import'
-  or BAIL_OUT 'Cannot import subroutines from module';
-
 my $C_DATA = do { local $/; decode_json(<DATA>); };
-foreach my $case ( @{ $C_DATA->{cases} } ) {
+plan 4;
+
+imported_ok qw(two_fer) or bail_out;
+
+for my $case ( @{ $C_DATA->{cases} } ) {
   is two_fer( $case->{input}{name} ), $case->{expected},
     $case->{description};
 }
