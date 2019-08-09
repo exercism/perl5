@@ -2,26 +2,22 @@ exercise: PhoneNumber
 plan: 19
 subs: clean_number
 tests: |-
-  my @exception_cases;
-  foreach my $case ( map { @{$_->{cases}} } @{$C_DATA->{cases}} ) {
-    if ( ref $case->{expected} eq 'HASH' && exists $case->{expected}{error} ) {
-      push @exception_cases, $case;
-    }
-    else {
-      is clean_number($case->{input}{phrase}), $case->{expected}, $case->{description};
-    }
-  }
+  my @cases  = (
+    map { [ $_->{input}{phrase}, $_->{expected}, $_->{description} ] }
+    map {@$_}
+    map { $_->{cases} } @{ $C_DATA->{cases} }
+  );
 
-  SKIP: {
-    if ( eval { require Test2::Tools::Exception } ) {
-      like(
-        Test2::Tools::Exception::dies( sub { clean_number $_->{input}{phrase} } ),
-        qr/$_->{expected}{error}/,
-        $_->{description}
-      ) foreach @exception_cases;
+  for (@cases) {
+    my ( $input, $expected, $desc ) = @$_;
+    $desc .= " - $input";
+
+    if ( !ref $expected ) {
+      is clean_number($input), $expected, $desc
     }
     else {
-      skip 'Test2::Tools::Exception not loaded', scalar @exception_cases;
+      like dies( sub { clean_number($input) } ),
+      qr/$expected->{error}/, $desc;
     }
   }
 
@@ -42,4 +38,10 @@ example: |
       die '11 digits must start with 1';
     }
     return $1;
+  }
+
+stub: |
+  sub clean_number {
+    my ($number) = @_;
+    return undef;
   }
