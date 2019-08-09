@@ -1,0 +1,28 @@
+exercise: PascalsTriangle
+plan: 9
+subs: pascal_rows
+tests: |
+  for my $case ( map @{ $_->{cases} }, @{ $C_DATA->{cases} } ) {
+    is pascal_rows($case->{input}{count}),
+    join( "\n", map { join ' ', @$_ } @{ $case->{expected} } ),
+    $case->{description};
+  }
+
+example: |
+  sub pascal_rows {
+    my ($rows) = @_;
+    return '' if !$rows;
+
+    my @result = ( [1] );
+    for ( my $n = 0;; $n++ ) {
+      return join "\n", map { join ' ', @$_ } @result if @result == $rows;
+      push @result, [1, ( map {
+        $result[$n]->[$_] + $result[$n]->[$_+1]
+      } 0 .. $n-1 ), 1];
+    }
+  }
+stub: |
+  sub pascal_rows {
+    my ($rows) = @_;
+    return undef;
+  }
