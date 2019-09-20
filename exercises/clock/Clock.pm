@@ -1,10 +1,9 @@
 package Clock;
 use Moo;
 
-sub new {
-  my ( $class, $attributes ) = @_;
-  return bless $attributes, $class;
-}
+# rwp = read-write protected
+has hour   => ( is => 'rwp' );
+has minute => ( is => 'rwp' );
 
 sub time {
   my ($self) = @_;
