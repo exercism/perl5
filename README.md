@@ -9,6 +9,18 @@ Exercism exercises in Perl 5
 Each exercise has its own cpanfile (if necessary) for any dependencies it might have.
 Other dependencies can be found in and installed with the top level cpanfile.
 
+It is recommended to use [Carton](https://metacpan.org/pod/Carton).
+Install the Carton module, run `carton install` to install the dependencies from
+the cpanfile, then prepend `carton exec` to your commands to include
+the locally installed dependencies.
+
+## Adding/Updating an Exercise
+
+Each exercise should have an `exercise-data.yaml` file inside a directory named `.meta`
+(please add one if the exercise does not have one yet). This is used by the `exercise-gen.pl`
+script in the `bin` directory to generate the module and test for an exercise. Documentation
+for the generator can be found in the `bin` directory.
+
 ## Testing the Tests
 
 The Exercism system allows us to have example implementations in the directory

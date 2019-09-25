@@ -8,16 +8,15 @@ The `exercise-gen.pl` file can be used in the following ways:
 You will either need to create a symlink to or clone the
 [problem-specifications](https://github.com/exercism/problem-specifications) repository
 into the root directory of this repository.
-The generator will retrieve data from an `example.yaml` file within
+The generator will retrieve data from `.meta/exercise-data.yaml` within
 each exercise directory, and use the contained information to generate
-test files using `templates/test.mustache`, and Example.pm files using
+test files using `templates/test.mustache`, and `.pm` files using
 `templates/module.mustache`. If it finds a `canonical-data.json` file in
 `problem-specifications` for the exercise in question it will be included.
 
 Example of a yaml file:
 ```yaml
 exercise: MyExercise
-version: 1
 plan: 2
 modules:
   - use: Data::Dump
@@ -32,4 +31,3 @@ example: |-
     1;
   }
 ```
-Run `cpanm --installdeps .` to install the required modules in `cpanfile`.
