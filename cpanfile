@@ -1,3 +1,4 @@
+requires 'Moo';
 requires 'Path::Tiny';
 requires 'Perl::Tidy';
 requires 'Template::Mustache';

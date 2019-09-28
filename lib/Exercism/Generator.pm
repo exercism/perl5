@@ -1,58 +1,42 @@
 package Exercism::Generator;
-use strict;
-use warnings;
-use Template::Mustache 'render';
+
+use Moo;
+
 use Path::Tiny;
 use Perl::Tidy;
-use Exporter 'import';
-our @EXPORT_OK = qw(BASE_DIR);
+use Template::Mustache qw(render);
 
 use constant BASE_DIR =>
   path(__FILE__)->realpath->parent->parent->parent;
+use Exporter qw(import);
+our @EXPORT_OK = qw(BASE_DIR);
 
-sub new {
-  my ( $class, $attributes ) = @_;
-  my $self = {
-    data     => $attributes->{data},
-    exercise => $attributes->{exercise},
-  };
-  if ( $self->{exercise} && !$self->{data}{ignore_cdata} ) {
-    my $cdata_file
-      = BASE_DIR->child( 'problem-specifications/exercises/'
-        . $self->{exercise}
-        . '/canonical-data.json' );
-    if ( $cdata_file->is_file ) {
-      $self->{data}{cdata}{json} = $cdata_file->slurp;
-      $self->{data}{cdata}{json} =~ s/^\s+|\s+$//g;
-    }
-  }
-  return bless $self, $class;
-}
+has [qw(data exercise)] => (
+  is       => 'ro',
+  required => 1,
+);
 
-sub cdata {
-  my ($self) = @_;
-  return $self->{data}{cdata}{json} || '';
-}
+has [qw(cdata ignore_cdata)] => ( is => 'lazy' );
 
 sub test {
-  my ($self) = @_;
-  return $self->_render( { template => 'test' } );
+  $_[0]->_render( { template => 'test' } );
 }
 
 sub stub {
-  my ($self) = @_;
-  return $self->_render( { template => 'module', file => 'stub' } );
+  $_[0]->_render( { template => 'module', file => 'stub' } );
 }
 
 sub example {
-  my ($self) = @_;
-  return $self->_render(
-    { template => 'module', file => 'example' } );
+  $_[0]->_render( { template => 'module', file => 'example' } );
 }
 
 sub _render {
   my ( $self, $params ) = @_;
-  my $data = $self->{data};
+  my $data = { %{ $self->data } };
+  if ( $self->cdata && !$self->ignore_cdata ) {
+    $data->{cdata}{json} = $self->cdata;
+  }
+
   if ( $params->{file} ) {
     $data->{module_file} = $data->{ $params->{file} };
   }
@@ -60,12 +44,30 @@ sub _render {
     BASE_DIR->child(
       'templates/' . $params->{template} . '.mustache'
     )->slurp,
-    $data
+    $data,
   );
   Perl::Tidy::perltidy(
     source      => \$rendered,
     argv        => '',
-    destination => \my $tidied
+    destination => \my $tidied,
   );
   return $tidied;
 }
+
+sub _build_ignore_cdata {
+  $_[0]->data->{ignore_cdata};
+}
+
+sub _build_cdata {
+  my ($self) = @_;
+  my $cdata_file
+    = BASE_DIR->child( 'problem-specifications/exercises/'
+      . $self->exercise
+      . '/canonical-data.json' );
+  if ( $cdata_file->is_file ) {
+    return $cdata_file->slurp =~ s/^\s+|\s+$//gr;
+  }
+  return;
+}
+
+1;
