@@ -1,25 +1,25 @@
 package PigLatin;
-
-use v5.10.1;
 use strict;
 use warnings;
-no if $] >= 5.018, warnings => 'experimental';
+use Exporter 'import';
+our @EXPORT_OK = qw(translate);
 
 sub translate {
-  my $original = shift;
-  my @pig_latin;
+  my ($phrase) = @_;
 
-  foreach my $orig ( split /\s+/ => $original ) {
-    given ($orig) {
-      when (/^[aeiou]/)   { push @pig_latin => "${original}ay" }
-      when (/^y[^aeiou]/) { push @pig_latin => "${original}ay" }
-      when (/^x[^aeiou]/) { push @pig_latin => "${original}ay" }
-      when (/^([^aeiou]*qu)(.+)/) { push @pig_latin => "$2$1" . "ay" }
-      when (/^([^aeiou]+)(.+)/)   { push @pig_latin => "$2$1" . "ay" }
-    }
-  }
+  return join(
+    ' ',
+    map {
+      if (/^(?:[aeiou]|[yx][^aeiou])/) {
+        "${phrase}ay";
+      }
+      elsif (/^(y|[^aeiou]*qu|[^aeiouy]+)(.+)/) {
+        "$2${1}ay";
+      }
+    } split /\s+/,
+    $phrase
+  );
 
-  return join " " => @pig_latin;
 }
 
-__PACKAGE__;
+1;
