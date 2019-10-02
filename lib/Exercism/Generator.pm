@@ -65,7 +65,8 @@ sub _render {
   Perl::Tidy::perltidy(
     source      => \$rendered,
     argv        => '',
-    destination => \my $tidied
+    perltidyrc  => BASE_DIR->child('.perltidyrc')->stringify,
+    destination => \my $tidied,
   );
   return $tidied;
 }
