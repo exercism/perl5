@@ -1,70 +1,68 @@
 package TwelveDays;
-
 use strict;
 use warnings;
+use Exporter 'import';
+our @EXPORT_OK = qw(recite);
 
-my @gifts = (
-  "Partridge in a Pear Tree",
-  "Turtle Doves",
-  "French Hens",
-  "Calling Birds",
-  "Gold Rings",
-  "Geese-a-Laying",
-  "Swans-a-Swimming",
-  "Maids-a-Milking",
-  "Ladies Dancing",
-  "Lords-a-Leaping",
-  "Pipers Piping",
-  "Drummers Drumming",
+my %parts = (
+  1 => {
+    nth   => 'first',
+    items => 'a Partridge in a Pear Tree',
+  },
+  2 => {
+    nth   => 'second',
+    items => 'two Turtle Doves',
+  },
+  3 => {
+    nth   => 'third',
+    items => 'three French Hens',
+  },
+  4 => {
+    nth   => 'fourth',
+    items => 'four Calling Birds',
+  },
+  5 => {
+    nth   => 'fifth',
+    items => 'five Gold Rings',
+  },
+  6 => {
+    nth   => 'sixth',
+    items => 'six Geese-a-Laying',
+  },
+  7 => {
+    nth   => 'seventh',
+    items => 'seven Swans-a-Swimming',
+  },
+  8 => {
+    nth   => 'eighth',
+    items => 'eight Maids-a-Milking',
+  },
+  9 => {
+    nth   => 'ninth',
+    items => 'nine Ladies Dancing',
+  },
+  10 => {
+    nth   => 'tenth',
+    items => 'ten Lords-a-Leaping',
+  },
+  11 => {
+    nth   => 'eleventh',
+    items => 'eleven Pipers Piping',
+  },
+  12 => {
+    nth   => 'twelfth',
+    items => 'twelve Drummers Drumming',
+  },
 );
 
-my @days = qw(
-  first second third fourth fifth
-  sixth seventh eighth ninth tenth
-  eleventh twelfth
-);
-
-sub new {
-  bless {} => $_[0];
-}
-
-sub verse {
-  my ( $self, $i ) = @_;
-  $i--;
-  my ( $nth, $nth_gifts ) = ( $days[$i], _slice_gifts($i) );
-
-  "On the $nth day of Christmas my true love gave to me: $nth_gifts.\n";
-}
-
-sub verses {
-  my ( $self, $start, $end ) = @_;
-  my @verses;
-
-  for ( $start .. $end ) {
-    push @verses => $self->verse($_);
-  }
-
-  join( "\n" => @verses ) . "\n";
-}
-
-sub sing { $_[0]->verses( 1, 12 ) }
-
-sub _slice_gifts {
-  my $i = shift;
-  my @slice;
-  my @num = qw(
-    two three four five six seven
-    eight nine ten eleven twelve
-  );
-
-  unshift @num => do { $i > 0 ? "and a" : "a" };
-
-  while ( $i >= 0 ) {
-    push @slice => ( $num[$i] . " " . $gifts[$i] );
-    $i--;
-  }
-
-  join ", " => @slice;
+sub recite {
+  join "\n", map {
+    "On the $parts{$_}{nth} day of Christmas my true love gave to me: "
+      . (
+      join( ', ', map { $parts{$_}{items} } reverse 2 .. $_ )
+        . ', and ' ) x !!( $_ > 1 )
+      . "$parts{1}{items}."
+  } $_[0]->{start} .. $_[0]->{end};
 }
 
 1;
