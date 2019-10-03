@@ -3,7 +3,10 @@ plan: 4
 subs: two_fer
 tests: |-
   for my $case ( @{ $C_DATA->{cases} } ) {
-    is two_fer($case->{input}{name}), $case->{expected}, $case->{description};
+    is $case->{input}{name}
+      ? two_fer($case->{input}{name})
+      : two_fer(),
+      $case->{expected}, $case->{description};
   }
 
 example: |-
@@ -17,3 +20,14 @@ stub: |-
     my ($name) = @_;
     return undef;
   }
+
+  1;
+
+  __END__
+  If you are using perl v5.20 or newer, you
+  can replace the existing sub declaration
+  with the following code:
+
+  use experimental qw(signatures);
+
+  sub two_fer ($name = undef) {}
