@@ -4,3 +4,11 @@
 tmp
 bin/configlet
 bin/configlet.exe
+
+# Carton-installed files
+local/
+cpanfile.snapshot
+
+# Ditto, for exercises
+**/cpanfile.snapshot
+**/local/

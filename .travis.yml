@@ -12,13 +12,13 @@ perl:
   - '5.16'
   - '5.14'
 install:
+  - git submodule update --init --recursive
   - wget -P ~/bin https://git.io/cpm
   - chmod +x ~/bin/cpm
   - cpm install
   - cpm install -g App::Yath Carton Test2::V0
   - carton install
   - for i in exercises/*/.meta/solutions; do cd $i; if [ -f cpanfile ]; then echo "$i"; cpm install; fi; cd - > /dev/null; done
-  - git clone https://github.com/exercism/problem-specifications.git
   - bin/fetch-configlet
 script:
   - bin/configlet lint . --track-id=perl5
