@@ -203,16 +203,6 @@
       "topics": []
     },
     {
-      "slug": "trinary",
-      "uuid": "88643b77-3889-4395-81a0-c73526ce879a",
-      "core": false,
-      "unlocked_by": null,
-      "difficulty": 1,
-      "topics": [
-        "math"
-      ]
-    },
-    {
       "slug": "rna-transcription",
       "uuid": "08343954-918c-4383-a6b8-b8d3d6ef836c",
       "core": false,
@@ -311,16 +301,6 @@
     {
       "slug": "largest-series-product",
       "uuid": "a13a649a-3ce8-4bbb-ae93-41441e699c8a",
-      "core": false,
-      "unlocked_by": null,
-      "difficulty": 1,
-      "topics": [
-        "math"
-      ]
-    },
-    {
-      "slug": "hexadecimal",
-      "uuid": "742bccfd-20f9-44f1-8935-e84384807088",
       "core": false,
       "unlocked_by": null,
       "difficulty": 1,
@@ -543,6 +523,24 @@
     {
       "slug": "binary",
       "uuid": "2e74fa26-f946-4b79-87b9-27f60f03af8f",
+      "core": false,
+      "unlocked_by": null,
+      "difficulty": 0,
+      "topics": null,
+      "deprecated": true
+    },
+    {
+      "slug": "trinary",
+      "uuid": "88643b77-3889-4395-81a0-c73526ce879a",
+      "core": false,
+      "unlocked_by": null,
+      "difficulty": 0,
+      "topics": null,
+      "deprecated": true
+    },
+    {
+      "slug": "hexadecimal",
+      "uuid": "742bccfd-20f9-44f1-8935-e84384807088",
       "core": false,
       "unlocked_by": null,
       "difficulty": 0,
