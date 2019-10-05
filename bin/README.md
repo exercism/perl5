@@ -5,7 +5,7 @@ The `exercise-gen.pl` file can be used in the following ways:
 * With the argument `--all` to run the generator for all exercises.  
   i.e `./exercise-gen.pl --all`
 
-You will either need to create a symlink to or clone the [problem-specifications] repository into the root directory of this repository.
+You will need to update the [problem-specifications] submodule in the root directory of this repository.
 The generator will retrieve data from `.meta/exercise-data.yaml` within each exercise directory, and use the contained information to generate test files using `templates/test.mustache`, and `.pm` files using `templates/module.mustache`.
 If it finds a `canonical-data.json` file in `problem-specifications` for the exercise in question it will be included.
 
