@@ -1,191 +1,260 @@
 #!/usr/bin/env perl
-use strict;
-use warnings;
+use Test2::V0;
+use JSON::PP;
 
-use Test2::Bundle::More;
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
-use AllYourBase;
 
-my $module = 'AllYourBase';
+use AllYourBase qw(convert_base);
 
-my $function = 'convert_base';
+my $C_DATA = do { local $/; decode_json(<DATA>); };
+plan 22;
 
-plan 24;
+imported_ok qw(convert_base) or bail_out;
 
-ok -e "$Bin/$module.pm", "$module.pm present"
-  or BAIL_OUT "You need to create file: $module.pm";
-
-ok !$@, "can load $module"
-  or BAIL_OUT
-  "Cannot load $module. Does it compile? Does it end with 1;?";
-
-can_ok $module, $function
-  or BAIL_OUT "Missing package $module; or missing sub $function()?";
-
-my $sub = \&{ join '::', $module, $function };
-
-sub testcase {
-  my %test = @_;
-
-  my $r = eval {
-
-    # cloning the input_digits to make sure the sub doesn't modify the
-    # original array
-    $sub->(
-      [ @{ $test{input_digits} } ],
-      $test{input_base}, $test{output_base}
-    );
+for my $case ( @{ $C_DATA->{cases} } ) {
+  my $args = {
+    bases => {
+      from => $case->{input}{inputBase},
+      to   => $case->{input}{outputBase},
+    },
+    digits => $case->{input}{digits},
   };
 
-  my $success
-    = $test{error}
-    ? like( $@ => $test{error}, $test{description} )
-    : is_deeply( $r, $test{output_digits}, $test{description} );
-
-  return if $success;
-
-  $test{got} = $r;
-  BAIL_OUT('a test failed, try again!');
+  if ( ref $case->{expected} eq 'HASH' ) {
+    like dies( sub { convert_base($args) } ),
+      qr/$case->{expected}{error}/, $case->{description};
+  }
+  else {
+    is convert_base($args), $case->{expected}, $case->{description};
+  }
 }
 
-for (
-  { "description"   => "single bit one to decimal",
-    "input_base"    => 2,
-    "input_digits"  => [1],
-    "output_base"   => 10,
-    "output_digits" => [1]
-  },
-  { "description"   => "binary to single decimal",
-    "input_base"    => 2,
-    "input_digits"  => [ 1, 0, 1 ],
-    "output_base"   => 10,
-    "output_digits" => [5]
-  },
-  { "description"   => "single decimal to binary",
-    "input_base"    => 10,
-    "input_digits"  => [5],
-    "output_base"   => 2,
-    "output_digits" => [ 1, 0, 1 ]
-  },
-  { "description"   => "binary to multiple decimal",
-    "input_base"    => 2,
-    "input_digits"  => [ 1, 0, 1, 0, 1, 0 ],
-    "output_base"   => 10,
-    "output_digits" => [ 4, 2 ]
-  },
-  { "description"   => "decimal to binary",
-    "input_base"    => 10,
-    "input_digits"  => [ 4, 2 ],
-    "output_base"   => 2,
-    "output_digits" => [ 1, 0, 1, 0, 1, 0 ]
-  },
-  { "description"   => "trinary to hexadecimal",
-    "input_base"    => 3,
-    "input_digits"  => [ 1, 1, 2, 0 ],
-    "output_base"   => 16,
-    "output_digits" => [ 2, 10 ]
-  },
-  { "description"   => "hexadecimal to trinary",
-    "input_base"    => 16,
-    "input_digits"  => [ 2, 10 ],
-    "output_base"   => 3,
-    "output_digits" => [ 1, 1, 2, 0 ]
-  },
-  { "description"   => "15-bit integer",
-    "input_base"    => 97,
-    "input_digits"  => [ 3, 46, 60 ],
-    "output_base"   => 73,
-    "output_digits" => [ 6, 10, 45 ]
-  },
-  { "description"   => "empty list",
-    "input_base"    => 2,
-    "input_digits"  => [],
-    "output_base"   => 10,
-    "output_digits" => [0]
-  },
-  { "description"   => "single zero",
-    "input_base"    => 10,
-    "input_digits"  => [0],
-    "output_base"   => 2,
-    "output_digits" => [0]
-  },
-  { "description"   => "multiple zeros",
-    "input_base"    => 10,
-    "input_digits"  => [ 0, 0, 0 ],
-    "output_base"   => 2,
-    "output_digits" => [0]
-  },
-  { "description"   => "leading zeros",
-    "input_base"    => 7,
-    "input_digits"  => [ 0, 6, 0 ],
-    "output_base"   => 10,
-    "output_digits" => [ 4, 2 ]
-  },
-  { "description"   => "negative digit",
-    "input_base"    => 2,
-    "input_digits"  => [ 1, -1, 1, 0, 1, 0 ],
-    "output_base"   => 10,
-    "output_digits" => undef,
-    error           => qr/negative digit not allowed/
-  },
-  { "description"   => "invalid positive digit",
-    "input_base"    => 2,
-    "input_digits"  => [ 1, 2, 1, 0, 1, 0 ],
-    "output_base"   => 10,
-    "output_digits" => undef,
-    error           => qr/digit equal of greater than the base/
-  },
-  { "description"   => "first base is one",
-    "input_base"    => 1,
-    "input_digits"  => [],
-    "output_base"   => 10,
-    "output_digits" => undef,
-    error           => qr/base must be greater than 1/
-  },
-  { "description"   => "second base is one",
-    "input_base"    => 2,
-    "input_digits"  => [ 1, 0, 1, 0, 1, 0 ],
-    "output_base"   => 1,
-    "output_digits" => undef,
-    error           => qr/base must be greater than 1/
-  },
-  { "description"   => "first base is zero",
-    "input_base"    => 0,
-    "input_digits"  => [],
-    "output_base"   => 10,
-    "output_digits" => undef,
-    error           => qr/base must be greater than 1/
-  },
-  { "description"   => "second base is zero",
-    "input_base"    => 10,
-    "input_digits"  => [7],
-    "output_base"   => 0,
-    "output_digits" => undef,
-    error           => qr/base must be greater than 1/
-  },
-  { "description"   => "first base is negative",
-    "input_base"    => -2,
-    "input_digits"  => [1],
-    "output_base"   => 10,
-    "output_digits" => undef,
-    error           => qr/base must be greater than 1/
-  },
-  { "description"   => "second base is negative",
-    "input_base"    => 2,
-    "input_digits"  => [1],
-    "output_base"   => -7,
-    "output_digits" => undef,
-    error           => qr/base must be greater than 1/
-  },
-  { "description"   => "both bases are negative",
-    "input_base"    => -2,
-    "input_digits"  => [1],
-    "output_base"   => -7,
-    "output_digits" => undef,
-    error           => qr/base must be greater than 1/
-  }
-  )
+__DATA__
 {
-  testcase(%$_);
+  "exercise": "all-your-base",
+  "version": "2.3.0",
+  "comments": [
+    "This canonical data makes the following choices:",
+    "1. Zero is always represented in outputs as [0] instead of [].",
+    "2. In no other instances are leading zeroes present in any outputs.",
+    "3. Leading zeroes are accepted in inputs.",
+    "4. An empty sequence of input digits is considered zero, rather than an error.",
+    "",
+    "Tracks that wish to make different decisions for these choices may translate appropriately.",
+    "",
+    "All your numeric-base are belong to [2..]. :)"
+  ],
+  "cases": [
+    {
+      "description": "single bit one to decimal",
+      "property": "rebase",
+      "input": {
+        "inputBase": 2,
+        "digits": [1],
+        "outputBase": 10
+      },
+      "expected": [1]
+    },
+    {
+      "description": "binary to single decimal",
+      "property": "rebase",
+      "input": {
+        "inputBase": 2,
+        "digits": [1, 0, 1],
+        "outputBase": 10
+      },
+      "expected": [5]
+    },
+    {
+      "description": "single decimal to binary",
+      "property": "rebase",
+      "input": {
+        "inputBase": 10,
+        "digits": [5],
+        "outputBase": 2
+      },
+      "expected": [1, 0, 1]
+    },
+    {
+      "description": "binary to multiple decimal",
+      "property": "rebase",
+      "input": {
+        "inputBase": 2,
+        "digits": [1, 0, 1, 0, 1, 0],
+        "outputBase": 10
+      },
+      "expected": [4, 2]
+    },
+    {
+      "description": "decimal to binary",
+      "property": "rebase",
+      "input": {
+        "inputBase": 10,
+        "digits": [4, 2],
+        "outputBase": 2
+      },
+      "expected": [1, 0, 1, 0, 1, 0]
+    },
+    {
+      "description": "trinary to hexadecimal",
+      "property": "rebase",
+      "input": {
+        "inputBase": 3,
+        "digits": [1, 1, 2, 0],
+        "outputBase": 16
+      },
+      "expected": [2, 10]
+    },
+    {
+      "description": "hexadecimal to trinary",
+      "property": "rebase",
+      "input": {
+        "inputBase": 16,
+        "digits": [2, 10],
+        "outputBase": 3
+      },
+      "expected": [1, 1, 2, 0]
+    },
+    {
+      "description": "15-bit integer",
+      "property": "rebase",
+      "input": {
+        "inputBase": 97,
+        "digits": [3, 46, 60],
+        "outputBase": 73
+      },
+      "expected": [6, 10, 45]
+    },
+    {
+      "description": "empty list",
+      "property": "rebase",
+      "input": {
+        "inputBase": 2,
+        "digits": [],
+        "outputBase": 10
+      },
+      "expected": [0]
+    },
+    {
+      "description": "single zero",
+      "property": "rebase",
+      "input": {
+        "inputBase": 10,
+        "digits": [0],
+        "outputBase": 2
+      },
+      "expected": [0]
+    },
+    {
+      "description": "multiple zeros",
+      "property": "rebase",
+      "input": {
+        "inputBase": 10,
+        "digits": [0, 0, 0],
+        "outputBase": 2
+      },
+      "expected": [0]
+    },
+    {
+      "description": "leading zeros",
+      "property": "rebase",
+      "input": {
+        "inputBase": 7,
+        "digits": [0, 6, 0],
+        "outputBase": 10
+      },
+      "expected": [4, 2]
+    },
+    {
+      "description": "input base is one",
+      "property": "rebase",
+      "input": {
+        "inputBase": 1,
+        "digits": [0],
+        "outputBase": 10
+      },
+      "expected": {"error": "input base must be >= 2"}
+    },
+    {
+      "description": "input base is zero",
+      "property": "rebase",
+      "input": {
+        "inputBase": 0,
+        "digits": [],
+        "outputBase": 10
+      },
+      "expected": {"error": "input base must be >= 2"}
+    },
+    {
+      "description": "input base is negative",
+      "property": "rebase",
+      "input": {
+        "inputBase": -2,
+        "digits": [1],
+        "outputBase": 10
+      },
+      "expected": {"error": "input base must be >= 2"}
+    },
+    {
+      "description": "negative digit",
+      "property": "rebase",
+      "input": {
+        "inputBase": 2,
+        "digits": [1, -1, 1, 0, 1, 0],
+        "outputBase": 10
+      },
+      "expected": {"error": "all digits must satisfy 0 <= d < input base"}
+    },
+    {
+      "description": "invalid positive digit",
+      "property": "rebase",
+      "input": {
+        "inputBase": 2,
+        "digits": [1, 2, 1, 0, 1, 0],
+        "outputBase": 10
+      },
+      "expected": {"error": "all digits must satisfy 0 <= d < input base"}
+    },
+    {
+      "description": "output base is one",
+      "property": "rebase",
+      "input": {
+        "inputBase": 2,
+        "digits": [1, 0, 1, 0, 1, 0],
+        "outputBase": 1
+      },
+      "expected": {"error": "output base must be >= 2"}
+    },
+    {
+      "description": "output base is zero",
+      "property": "rebase",
+      "input": {
+        "inputBase": 10,
+        "digits": [7],
+        "outputBase": 0
+      },
+      "expected": {"error": "output base must be >= 2"}
+    },
+    {
+      "description": "output base is negative",
+      "property": "rebase",
+      "input": {
+        "inputBase": 2,
+        "digits": [1],
+        "outputBase": -7
+      },
+      "expected": {"error": "output base must be >= 2"}
+    },
+    {
+      "description": "both bases are negative",
+      "property": "rebase",
+      "input": {
+        "inputBase": -2,
+        "digits": [1],
+        "outputBase": -7
+      },
+      "expected": {"error": "input base must be >= 2"}
+    }
+  ]
 }
