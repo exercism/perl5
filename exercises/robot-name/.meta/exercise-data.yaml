@@ -1,0 +1,59 @@
+exercise: RobotName
+package_comment: "# This will be class 'RobotName', defined using Moo (https://perlmaven.com/oop-with-moo)"
+lib_comment: '# Find modules in the same dir as this file.'
+plan_comment: '# This is how many tests we expect to run.'
+
+moo: true
+methods: new name reset_name
+
+plan: 7
+  # plan includes can_ok of `methods` plus the tests below.
+
+# Tests: inline here, since there is no canonical-data.json for this exercise
+tests: |-
+  my $robot = RobotName->new;
+  isa_ok $robot, 'RobotName';
+
+  my $name  = $robot->name;
+  like $robot->name, qr/^[A-Z]{2}[0-9]{3}$/, 'Name should match schema';
+  is $name, $robot->name, 'Name should be persistent';
+  isnt $robot->name, RobotName->new->name,
+    'Robots should have different names';
+  isnt $robot->reset_name, $name,
+    'reset_name should change the robot name';
+  ok $robot->name, 'reset_name should not leave the name empty';
+
+example: |-
+  # Declare a "name" attribute that is is 'rwp', read-write protected:
+  # read-only to consumers, but settable using $self->_set_name
+  has name => ( is => 'rwp' );
+
+  sub BUILD {
+    my ($self) = @_;
+    $self->reset_name;
+  }
+
+  sub reset_name {
+    my ($self) = @_;
+    $self->_set_name( _rand_letter() . _rand_letter() . _suffix() );
+    return $self->name;
+  }
+
+  sub _rand_letter {
+    my @letters = 'A' .. 'Z';
+    return $letters[ int rand $#letters ];
+  }
+
+  sub _suffix {
+    return sprintf('%03d', int rand 1000);
+  }
+
+stub: |-
+  # Declare a "name" attribute that is is 'rwp', read-write protected:
+  # read-only to consumers, but settable using $self->_set_name
+  has name => ( is => 'rwp' );
+
+  sub reset_name {
+    my ($self) = @_;
+    return undef;   # Replace this with your own code to pass the tests.
+  }

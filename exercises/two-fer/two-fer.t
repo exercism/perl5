@@ -13,8 +13,10 @@ plan 4;
 imported_ok qw(two_fer) or bail_out;
 
 for my $case ( @{ $C_DATA->{cases} } ) {
-  is two_fer( $case->{input}{name} ), $case->{expected},
-    $case->{description};
+  is $case->{input}{name}
+    ? two_fer( $case->{input}{name} )
+    : two_fer(),
+    $case->{expected}, $case->{description};
 }
 
 __DATA__

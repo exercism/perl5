@@ -6,24 +6,9 @@ use Moo;
 # read-only to consumers, but settable using $self->_set_name
 has name => ( is => 'rwp' );
 
-sub BUILD {
-  my ($self) = @_;
-  $self->reset_name;
-}
-
 sub reset_name {
   my ($self) = @_;
-  $self->_set_name( _rand_letter() . _rand_letter() . _suffix() );
-  return $self->name;
-}
-
-sub _rand_letter {
-  my @letters = 'A' .. 'Z';
-  return $letters[ int rand $#letters ];
-}
-
-sub _suffix {
-  return sprintf( '%03d', int rand 1000 );
+  return undef;   # Replace this with your own code to pass the tests.
 }
 
 1;

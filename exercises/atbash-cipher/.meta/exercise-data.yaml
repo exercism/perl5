@@ -1,0 +1,38 @@
+exercise: AtbashCipher
+plan: 15
+subs: encode_atbash decode_atbash
+tests: |-
+  for my $case_set (@{$C_DATA->{cases}}) {
+    is(
+      $case_set->{description} eq 'encode'
+        ? encode_atbash($_->{input}{phrase})
+        : decode_atbash($_->{input}{phrase}),
+      $_->{expected},
+      $_->{description}
+    ) for @{$case_set->{cases}};
+  }
+
+example: |-
+  use List::Util qw(pairvalues);
+
+  my %dict;
+  @dict{'a'..'z'} = reverse('a'..'z');
+
+  sub encode_atbash {
+    join( ' ', pairvalues split( /(\w{1,5})/, decode_atbash(@_) ) );
+  }
+
+  sub decode_atbash {
+    join '', map { /\d/ ? $_ : $dict{$_} } split( //, lc $_[0] =~ s/\W//gr );
+  }
+
+stub: |-
+  sub encode_atbash {
+    my ($phrase) = @_;
+    return undef;
+  }
+
+  sub decode_atbash {
+    my ($phrase) = @_;
+    return undef;
+  }

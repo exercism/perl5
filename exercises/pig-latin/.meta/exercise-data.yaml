@@ -1,0 +1,28 @@
+exercise: PigLatin
+subs: translate
+plan: 23
+tests: |
+  for my $case ( map { @{$_->{cases}} } @{$C_DATA->{cases}} ) {
+    is translate($case->{input}{phrase}), $case->{expected}, $case->{description};
+  }
+
+example: |
+  sub translate {
+    my ($phrase) = @_;
+
+    return join(' ', map {
+      if (/^(?:[aeiou]|[yx][^aeiou])/) {
+        "${phrase}ay"
+      }
+      elsif (/^(y|[^aeiou]*qu|[^aeiouy]+)(.+)/) {
+        "$2${1}ay"
+      }
+    } split /\s+/, $phrase);
+
+  }
+
+stub: |
+  sub translate {
+    my ($phrase) = @_;
+    return undef;
+  }
