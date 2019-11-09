@@ -14,12 +14,12 @@
     {
       "github_username": "mienaikage",
       "alumnus": false,
-      "show_on_website": false,
+      "show_on_website": true,
       "name": null,
-      "link_text": null,
-      "link_url": null,
+      "link_text": "dango.space",
+      "link_url": "http://dango.space/",
       "avatar_url": null,
-      "bio": null
+      "bio": "My first adventure in coding was creating userscripts by trial and error (many errors...). Somewhere down the line I accidentally found myself employed in my first coding role as a Perl developer, after attempting pair programming in Haskell."
     },
     {
       "github_username": "rfilipo",
