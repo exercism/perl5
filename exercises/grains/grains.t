@@ -19,18 +19,11 @@ for my $case ( map @{ $_->{cases} // [$_] }, @{ $C_DATA->{cases} } ) {
       $case->{description};
   }
   elsif ( $case->{property} eq 'square' ) {
-    is(
-      grains_on_square( $case->{input}{square} ),
-      $case->{expected},
-      'square no. ' . $case->{description}
-    );
+    is( grains_on_square( $case->{input}{square} ),
+      $case->{expected}, 'square no. ' . $case->{description} );
   }
   elsif ( $case->{property} eq 'total' ) {
-    is(
-      total_grains(),
-      $case->{expected},
-      $case->{description}
-    );
+    is( total_grains(), $case->{expected}, $case->{description} );
   }
 }
 
