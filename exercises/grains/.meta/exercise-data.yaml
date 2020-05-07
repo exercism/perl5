@@ -2,7 +2,6 @@ exercise: Grains
 plan: 12
 subs: grains_on_square total_grains
 modules:
-  - use: Math::BigFloat
 tests: |-
 
   for my $case ( map @{ $_->{cases} // [$_] }, @{ $C_DATA->{cases} } ) {
@@ -13,15 +12,15 @@ tests: |-
     }
     elsif ( $case->{property} eq 'square' ) {
       is(
-        Math::BigFloat->new( grains_on_square($case->{input}{square}) )->numify,
-        number($case->{expected}),
+        grains_on_square($case->{input}{square}),
+        $case->{expected},
         'square no. ' . $case->{description}
       );
     }
     elsif ( $case->{property} eq 'total' ) {
       is(
-        Math::BigFloat->new( total_grains() )->numify,
-        number($case->{expected}),
+        total_grains(),
+        $case->{expected},
         $case->{description}
       );
     }

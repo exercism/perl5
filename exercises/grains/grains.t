@@ -6,7 +6,6 @@ use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
 
 use Grains qw(grains_on_square total_grains);
-use Math::BigFloat;
 
 my $C_DATA = do { local $/; decode_json(<DATA>); };
 plan 12;
@@ -20,20 +19,11 @@ for my $case ( map @{ $_->{cases} // [$_] }, @{ $C_DATA->{cases} } ) {
       $case->{description};
   }
   elsif ( $case->{property} eq 'square' ) {
-    is(
-      Math::BigFloat->new(
-        grains_on_square( $case->{input}{square} )
-      )->numify,
-      number( $case->{expected} ),
-      'square no. ' . $case->{description}
-    );
+    is( grains_on_square( $case->{input}{square} ),
+      $case->{expected}, 'square no. ' . $case->{description} );
   }
   elsif ( $case->{property} eq 'total' ) {
-    is(
-      Math::BigFloat->new( total_grains() )->numify,
-      number( $case->{expected} ),
-      $case->{description}
-    );
+    is( total_grains(), $case->{expected}, $case->{description} );
   }
 }
 
