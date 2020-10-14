@@ -22,7 +22,7 @@ install:
   - bin/fetch-configlet
 script:
   - bin/configlet lint . --track-id=perl5
-  - TS_MAX_DELTA=3 carton exec 'yath test t/
+  - perl -e '$] < 5.020 or die' || TS_MAX_DELTA=3 carton exec 'yath test t/
     --verbose'
   - yath test exercises/*/.meta/solutions/
     --jobs 2
