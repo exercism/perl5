@@ -7,7 +7,7 @@ use List::Util qw<any>;
 use Path::Tiny qw<path>;
 use Perl::Tidy ();
 use Template::Mustache qw<render>;
-use TOML::Tiny qw<from_toml>;
+use TOML::Parser ();
 
 use namespace::clean;
 
@@ -88,7 +88,7 @@ sub _build_case_uuids {
 
   my $toml_data;
   if ( $toml_file->is_file ) {
-    $toml_data = from_toml( $toml_file->slurp );
+    $toml_data = TOML::Parser->new->parse( $toml_file->slurp );
     return [
       grep { $toml_data->{'canonical-tests'}{$_} }
         keys %{ $toml_data->{'canonical-tests'} }
