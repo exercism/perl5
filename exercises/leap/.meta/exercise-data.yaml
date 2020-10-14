@@ -1,12 +1,12 @@
 exercise: Leap
-plan: 7
+plan: 10
 subs: is_leap_year
 tests: |-
-  for ( @{ $C_DATA->{cases} } ) {
+  for my $case ( @test_cases ) {
     is(
-      is_leap_year( $_->{input}{year} ),
-      $_->{expected} ? T : DF,    # Check if True, or Defined but False
-      $_->{description}
+      is_leap_year( $case->{input}{year} ),
+      $case->{expected} ? T : DF,    # Check if True, or Defined but False
+      $case->{description}
     );
   }
 
