@@ -1,10 +1,13 @@
 #!/usr/bin/env perl
 use Test2::V0;
+
 use Path::Tiny;
-use YAML 'LoadFile';
-use FindBin;
-use lib "$FindBin::Bin/../lib";
-use Exercism::Generator 'BASE_DIR';
+use YAML qw<LoadFile>;
+
+use lib::gitroot qw<:lib :once>;
+use Exercism::Generator;
+
+use constant BASE_DIR => path(GIT_ROOT);
 
 if ( !BASE_DIR->child('problem-specifications')->is_dir ) {
   bail_out 'problem-specifications directory required';

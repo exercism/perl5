@@ -2,8 +2,8 @@
 package HelloWorld;
 use strict;
 use warnings;
-use Exporter 'import';
-our @EXPORT_OK = qw(hello);
+use Exporter qw<import>;
+our @EXPORT_OK = qw<hello>;
 
 sub hello {
   return 'Hello, World!';

@@ -1,5 +1,6 @@
+requires 'lib::gitroot';
 requires 'Moo';
-requires 'namespace::clean';
+requires 'namespace::autoclean';
 requires 'Path::Tiny';
 requires 'Perl::Tidy';
 requires 'Template::Mustache';
