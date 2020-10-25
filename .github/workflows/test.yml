@@ -4,7 +4,7 @@ on:
   - pull_request
 
 jobs:
-  unix:
+  job:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -22,7 +22,11 @@ jobs:
           distribution: strawberry
 
       - run: cpm install -g Test2::V0
+      - run: cpm install -g App::Yath
+        if: runner.os != 'Windows'
+
       - run: carton install
+
       - name: Exercise modules
         shell: pwsh
         run: >
