@@ -1,4 +1,4 @@
-name: Test
+name: Exercises
 on:
   - push
   - pull_request
@@ -22,10 +22,6 @@ jobs:
           distribution: strawberry
 
       - run: cpm install -g Test2::V0
-      - run: cpm install -g App::Yath
-        if: runner.os != 'Windows'
-
-      - run: carton install
 
       - name: Exercise modules
         shell: pwsh
@@ -39,6 +35,9 @@ jobs:
 
       - name: Test with prove
         run: prove exercises/*/.meta/solutions/ --recurse --jobs 2
+
+      - run: cpm install -g App::Yath
+        if: runner.os != 'Windows'
 
       - name: Test with yath
         run: yath test exercises/*/.meta/solutions/ --jobs 2

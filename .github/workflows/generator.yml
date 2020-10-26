@@ -1,0 +1,27 @@
+name: Generator
+on:
+  - push
+  - pull_request
+
+jobs:
+  generator:
+    env:
+      TS_MAX_DELTA: 3
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+
+      - name: Set up perl
+        uses: shogo82148/actions-setup-perl@v1
+
+      - run: carton install
+      - run: cpm install App::Yath
+
+      - run: carton exec -- yath start
+
+      - name: Generated files match generator output
+        run: carton exec -- yath run t/generated-tests.t
+        continue-on-error: true
