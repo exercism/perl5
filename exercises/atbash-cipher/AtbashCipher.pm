@@ -1,8 +1,8 @@
 package AtbashCipher;
 use strict;
 use warnings;
-use Exporter 'import';
-our @EXPORT_OK = qw(encode_atbash decode_atbash);
+use Exporter qw<import>;
+our @EXPORT_OK = qw<encode_atbash decode_atbash>;
 
 sub encode_atbash {
   my ($phrase) = @_;

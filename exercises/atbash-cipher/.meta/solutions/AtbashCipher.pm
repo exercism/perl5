@@ -1,10 +1,10 @@
 package AtbashCipher;
 use strict;
 use warnings;
-use Exporter 'import';
-our @EXPORT_OK = qw(encode_atbash decode_atbash);
+use Exporter qw<import>;
+our @EXPORT_OK = qw<encode_atbash decode_atbash>;
 
-use List::Util qw(pairvalues);
+use List::Util qw<pairvalues>;
 
 my %dict;
 @dict{ 'a' .. 'z' } = reverse( 'a' .. 'z' );
