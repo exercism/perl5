@@ -4,16 +4,14 @@ methods: new time add_minutes subtract_minutes
 modules:
   - use: List::Util qw(any)
 tests: |-
-  my @cases = ( map { @{ $_->{cases} } } @{ $C_DATA->{cases} } );
-
   subtest create => sub {
     plan 20;
-    for my $case ( grep { $_->{property} eq 'create' } @cases ) {
+    for my $case ( grep { $_->{property} eq 'create' } @test_cases ) {
       is(
         Clock->new( $case->{input} ),
         object {
           prop blessed => 'Clock';
-          call time => $case->{expected};
+          call time    => $case->{expected};
         },
         $case->{description}
       );
@@ -22,25 +20,27 @@ tests: |-
 
   subtest 'add/subtract' => sub {
     plan 16;
-    for my $case ( grep {
-      my $case = $_;
-      any { $case->{property} eq $_ } qw( add subtract );
-    } @cases ) {
+    for my $case (
+      grep {
+        my $prop = $_->{property};
+        any { $prop eq $_ } qw< add subtract >;
+      } @test_cases
+      )
+    {
       is(
         Clock->new(
           { hour   => $case->{input}{hour},
             minute => $case->{input}{minute},
           }
         ),
+
         # Check that the add/subtract_minutes methods
         # return a Clock object with the correct time
         object {
-          call [
-            $case->{property} . '_minutes',
-            $case->{input}{value}
-          ] => object {
-              prop blessed => 'Clock';
-              call time => $case->{expected};
+          call [ $case->{property} . '_minutes',
+            $case->{input}{value} ] => object {
+            prop blessed => 'Clock';
+            call time    => $case->{expected};
             };
         },
         $case->{description}
@@ -50,12 +50,16 @@ tests: |-
 
   subtest equal => sub {
     plan 16;
-    for my $case ( grep { $_->{property} eq 'equal' } @cases ) {
+    for my $case ( grep { $_->{property} eq 'equal' } @test_cases ) {
       my ( $clock1, $clock2 )
-        = ( map { Clock->new($_) } @{ $case->{input} }{qw(clock1 clock2)} );
-      $case->{expected}
-        ? is $clock1, $clock2, $case->{description}
-        : isnt $clock1, $clock2, $case->{description};
+        = ( map { Clock->new($_) }
+          @{ $case->{input} }{qw<clock1 clock2>} );
+      if ( $case->{expected} ) {
+        is $clock1, $clock2, $case->{description};
+      }
+      else {
+        isnt $clock1, $clock2, $case->{description};
+      }
     }
   };
 
