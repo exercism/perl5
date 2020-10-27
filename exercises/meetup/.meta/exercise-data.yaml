@@ -1,12 +1,12 @@
 exercise: Meetup
 plan: 96
 subs: meetup
-tests: |
-  for my $case ( @{ $C_DATA->{cases} } ) {
-    is meetup($case->{input}), $case->{expected}, $case->{description};
+tests: |-
+  for my $case (@test_cases) {
+    &is( meetup( $case->{input} ), @{$case}{qw<expected description>} );
   }
 
-example: |
+example: |-
   use Time::Piece;
   use Time::Seconds;
 
@@ -21,7 +21,9 @@ example: |
   sub meetup {
     my ($input) = @_;
     my $t = Time::Piece->strptime(
-      join('-', @{$input}{qw(year month)}, WEEKS->{$input->{week}} // 1),
+      join( '-',
+        @{$input}{qw(year month)},
+        WEEKS->{ $input->{week} } // 1 ),
       '%Y-%m-%d'
     );
 
@@ -30,7 +32,7 @@ example: |
     return $t->ymd;
   }
 
-stub: |
+stub: |-
   sub meetup {
     my ($input) = @_;
     return undef;

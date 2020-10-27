@@ -1,8 +1,8 @@
 package Meetup;
 use strict;
 use warnings;
-use Exporter 'import';
-our @EXPORT_OK = qw(meetup);
+use Exporter qw<import>;
+our @EXPORT_OK = qw<meetup>;
 
 sub meetup {
   my ($input) = @_;
