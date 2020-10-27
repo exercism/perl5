@@ -2,18 +2,18 @@ exercise: AtbashCipher
 plan: 15
 subs: encode_atbash decode_atbash
 tests: |-
-  for my $case_set (@{$C_DATA->{cases}}) {
+  for my $case (@test_cases) {
     is(
-      $case_set->{description} eq 'encode'
-        ? encode_atbash($_->{input}{phrase})
-        : decode_atbash($_->{input}{phrase}),
-      $_->{expected},
-      $_->{description}
-    ) for @{$case_set->{cases}};
+      $case->{property} eq 'encode'
+        ? encode_atbash($case->{input}{phrase})
+        : decode_atbash($case->{input}{phrase}),
+      $case->{expected},
+      $case->{description}
+    );
   }
 
 example: |-
-  use List::Util qw(pairvalues);
+  use List::Util qw<pairvalues>;
 
   my %dict;
   @dict{'a'..'z'} = reverse('a'..'z');
