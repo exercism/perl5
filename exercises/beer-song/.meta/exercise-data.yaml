@@ -2,24 +2,17 @@ exercise: BeerSong
 plan: 9
 subs: sing
 tests: |-
-  for my $case ( recurse_cases($C_DATA) ) {
+  for my $case (@test_cases) {
     # Your result should be a string, which is transformed into
     # an array here when matching for a cleaner test output.
     is(
-      [split("\n", sing({
+      [split(/\n/, sing({
         bottles => $case->{input}{startBottles},
         verses  => $case->{input}{takeDown},
       }))],
       $case->{expected},
       $case->{description}
     );
-  }
-
-  sub recurse_cases {
-    my $obj = shift;
-    return $obj->{cases}
-      ? map recurse_cases($_), @{ $obj->{cases} }
-      : $obj
   }
 
 example: |-
