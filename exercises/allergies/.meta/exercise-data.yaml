@@ -1,0 +1,53 @@
+exercise: Allergies
+plan: 50
+subs: allergic_to list_allergies
+tests: |-
+  for my $case (@test_cases) {
+    if ( $case->{property} eq 'allergicTo' ) {
+      is allergic_to( $case->{input} ), $case->{expected} ? T : DF,
+        $case->{description};
+    }
+    elsif ( $case->{property} eq 'list' ) {
+      is
+        list_allergies( $case->{input}{score} ),
+        bag {
+          item $_ for @{ $case->{expected} };
+          end;
+        },
+        $case->{description};
+    }
+  }
+
+example: |-
+  use constant ALLERGENS => {
+    eggs         => 1,
+    peanuts      => 2,
+    shellfish    => 4,
+    strawberries => 8,
+    tomatoes     => 16,
+    chocolate    => 32,
+    pollen       => 64,
+    cats         => 128,
+  };
+
+  sub allergic_to {
+    my ($input) = @_;
+    ALLERGENS->{ $input->{item} } & $input->{score};
+  }
+
+  sub list_allergies {
+    my ($score) = @_;
+    return [ grep { allergic_to { item => $_, score => $score } }
+        keys %{ +ALLERGENS } ];
+  }
+
+stub: |-
+  sub allergic_to {
+    my ($input) = @_;
+    return undef;
+  }
+
+  sub list_allergies {
+    my ($score) = @_;
+    return undef;
+  }
