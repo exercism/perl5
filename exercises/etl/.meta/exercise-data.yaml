@@ -1,0 +1,28 @@
+exercise: ETL
+plan: 5
+subs: transform
+
+tests: |-
+  for my $case (@test_cases) {
+    &is(
+      transform( $case->{input}{legacy} ),
+      @{$case}{qw<expected description>}
+    );
+  }
+
+example: |-
+  sub transform {
+    my ($data) = @_;
+    return {
+      map {
+        my $val = $_;
+        map { lc($_) => $val } @{ $data->{$_} }
+      } keys %{$data}
+    };
+  }
+
+stub: |-
+  sub transform {
+    my ($data) = @_;
+    return undef;
+  }
