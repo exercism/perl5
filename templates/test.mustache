@@ -3,7 +3,7 @@ use Test2::V0;{{#cases}}
 use JSON::PP;
 use constant JSON => JSON::PP->new;{{/cases}}
 
-use FindBin qw($Bin);
+use FindBin qw<$Bin>;
 use lib $Bin, "$Bin/local/lib/perl5";{{#lib_comment}} {{&lib_comment}}{{/lib_comment}}
 
 use {{&exercise}} {{#subs}}qw{{/subs}}({{&subs}});{{#modules}}
@@ -12,14 +12,12 @@ use {{&use}};{{/modules}}
 my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };{{/cases}}{{#plan}}
 plan {{&plan}};{{#plan_comment}} {{&plan_comment}}{{/plan_comment}}{{/plan}}
 {{#subs}}
-imported_ok qw({{&subs}}) or bail_out;{{/subs}}{{#methods}}
+imported_ok qw<{{&subs}}> or bail_out;{{/subs}}{{#methods}}
 can_ok '{{&exercise}}', qw({{&methods}}) or bail_out;{{/methods}}
 
-{{&tests}}
-{{^plan}}
+{{&tests}}{{^plan}}
 
 done_testing;{{/plan}}{{#cases}}
 
 __DATA__
-{{&cases}}
-{{/cases}}
+{{&cases}}{{/cases}}

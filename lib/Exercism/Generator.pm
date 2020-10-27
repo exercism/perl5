@@ -1,6 +1,7 @@
 package Exercism::Generator;
 
 use Moo;
+use namespace::autoclean;
 
 use JSON::PP ();
 use List::Util qw<any>;
@@ -9,12 +10,12 @@ use Perl::Tidy ();
 use Template::Mustache qw<render>;
 use TOML::Parser ();
 
-use namespace::clean;
+use lib::gitroot qw<:set_root :once>;
 
-use constant BASE_DIR =>
-  path(__FILE__)->realpath->parent->parent->parent;
-use Exporter qw<import>;
-our @EXPORT_OK = qw<BASE_DIR>;
+use constant {
+  BASE_DIR => path(GIT_ROOT),
+  JSON     => JSON::PP->new->canonical->pretty->space_before(0),
+};
 
 has exercise => (
   is       => 'ro',
@@ -22,15 +23,8 @@ has exercise => (
 );
 
 has data => (
-  is       => 'ro',
-  required => 1,
+  is      => 'ro',
   default => sub { {} },
-);
-
-has json => (
-  is       => 'ro',
-  required => 1,
-  default  => sub { JSON::PP->new->canonical->pretty },
 );
 
 has [
@@ -65,9 +59,8 @@ sub _render {
     $data->{module_file} = $data->{ $params->{file} };
   }
   my $rendered = Template::Mustache->render(
-    BASE_DIR->child(
-      'templates/' . $params->{template} . '.mustache'
-    )->slurp,
+    BASE_DIR->child( 'templates', $params->{template} . '.mustache' )
+      ->slurp,
     $data,
   );
   Perl::Tidy::perltidy(
@@ -83,8 +76,9 @@ sub _render {
 sub _build_case_uuids {
   my ($self) = @_;
 
-  my $toml_file = BASE_DIR->child(
-    'exercises/' . $self->exercise . '/.meta/tests.toml' );
+  my $toml_file
+    = BASE_DIR->child( 'exercises', $self->exercise, '.meta',
+    'tests.toml' );
 
   my $toml_data;
   if ( $toml_file->is_file ) {
@@ -101,13 +95,18 @@ sub _build_case_uuids {
 # cases is an array of the cases matching case_uuids
 sub _build_cases {
   my ( $self, $obj, $description ) = @_;
+  $description //= '';
+
   return [] if !$self->cdata;
 
-  $obj //= $self->json->decode( $self->cdata );
+  $obj //= JSON->decode( $self->cdata );
   my $new_desc = '';
 
   if ( $obj->{cases} ) {
-    $new_desc = ( $description // '' ) . $obj->{description} . ': '
+    $new_desc
+      = $description
+      . $obj->{description}
+      . ( $obj->{description} =~ /:$/ ? ' ' : ': ' )
       if $obj->{description};
 
     return [
@@ -119,7 +118,7 @@ sub _build_cases {
   elsif ( any { $_ eq $obj->{uuid} } @{ $self->case_uuids } ) {
     return [
       { %{$obj}{qw<input expected property>},
-        description => ( $description // '' ) . $obj->{description}
+        description => $description . $obj->{description}
       }
     ];
   }
@@ -131,9 +130,8 @@ sub _build_cases {
 sub _build_cdata {
   my ($self) = @_;
   my $cdata_file
-    = BASE_DIR->child( 'problem-specifications/exercises/'
-      . $self->exercise
-      . '/canonical-data.json' );
+    = BASE_DIR->child( 'problem-specifications', 'exercises',
+    $self->exercise, 'canonical-data.json' );
 
   if ( $cdata_file->is_file ) {
     return $cdata_file->slurp =~ s/^\s+|\s+$//gr;
@@ -145,7 +143,9 @@ sub _build_cdata {
 # json_tests is cases transformed into a JSON array
 sub _build_json_tests {
   my ($self) = @_;
-  return @{ $self->cases } ? $self->json->encode( $self->cases ) : '';
+  return @{ $self->cases }
+    ? JSON->encode( $self->cases ) =~ s/^\s+|\s+$//gr
+    : '';
 }
 
 1;

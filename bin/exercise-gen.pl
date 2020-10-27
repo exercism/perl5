@@ -1,22 +1,23 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-use feature qw(lexical_subs say);
-use YAML 'LoadFile';
-use Path::Tiny qw(:DEFAULT cwd);
-use FindBin;
-use lib "$FindBin::Bin/../lib";
-use Exercism::Generator 'BASE_DIR';
+use feature qw<lexical_subs say>;
 
-for (BASE_DIR) {
-  if ( not $_->child('problem-specifications')->is_dir ) {
-    warn
-      "problem-specifications directory not found; exercise(s) may generate incorrectly.\n";
-  }
-  if ( not $_->child('bin/configlet')->is_file ) {
-    warn
-      "configlet not found; README.md file(s) will not be generated.\n";
-  }
+use YAML qw<LoadFile>;
+use Path::Tiny qw<:DEFAULT cwd>;
+
+use lib::gitroot qw<:lib :once>;
+use Exercism::Generator;
+
+use constant BASE_DIR => path(GIT_ROOT);
+
+if ( !BASE_DIR->child('problem-specifications')->is_dir ) {
+  warn
+    "problem-specifications directory not found; exercise(s) may generate incorrectly.\n";
+}
+if ( !BASE_DIR->child( 'bin', 'configlet' )->is_file ) {
+  warn
+    "configlet not found; README.md file(s) will not be generated.\n";
 }
 
 my @exercises;
@@ -25,7 +26,7 @@ if (@ARGV) {
   my %arg_set = map { $_ => 1 } @ARGV;
   if ( $arg_set{'--all'} ) {
     push @exercises, $_->basename
-      foreach BASE_DIR->child('exercises')->children;
+      for BASE_DIR->child('exercises')->children;
   }
   else {
     @exercises = keys %arg_set;
@@ -33,28 +34,28 @@ if (@ARGV) {
 }
 else {
   say 'No args given; working in current directory.';
-  if ( path('.meta/exercise-data.yaml')->is_file ) {
+  if ( path( '.meta', 'exercise-data.yaml' )->is_file ) {
     push @exercises, cwd->basename;
   }
   else {
     say
       '.meta/exercise-data.yaml not found in current directory; exiting.';
-    exit;
+    exit 1;
   }
 }
 
 my @dir_not_found;
-my @yaml_not_found;
+my @data_not_found;
 for my $exercise (@exercises) {
-  my $exercise_dir = BASE_DIR->child("exercises/$exercise");
-  my $yaml         = $exercise_dir->child('.meta/exercise-data.yaml');
+  my $exercise_dir = BASE_DIR->child( 'exercises', $exercise );
+  my $yaml = $exercise_dir->child( '.meta', 'exercise-data.yaml' );
 
   unless ( $exercise_dir->is_dir ) {
     push @dir_not_found, $exercise;
     next;
   }
   unless ( $yaml->is_file ) {
-    push @yaml_not_found, $exercise;
+    push @data_not_found, $exercise;
     next;
   }
   print "Generating $exercise... ";
@@ -63,15 +64,19 @@ for my $exercise (@exercises) {
   my $generator
     = Exercism::Generator->new(
     { exercise => $exercise, data => $data } );
-  $exercise_dir->child("$exercise.t")->spew( $generator->test );
-  $exercise_dir->child("$exercise.t")->chmod(0755);
-  $exercise_dir->child(
-    '.meta/solutions/' . $data->{exercise} . '.pm' )
-    ->spew( $generator->example );
-  $exercise_dir->child( $data->{exercise} . '.pm' )
-    ->spew( $generator->stub );
 
-  for ( BASE_DIR->child('bin/configlet') ) {
+  $exercise_dir->child("$exercise.t")
+    ->spew( { binmode => ':encoding(UTF-8)' }, $generator->test );
+  $exercise_dir->child("$exercise.t")->chmod(0755);
+
+  $exercise_dir->child( '.meta', 'solutions',
+    $data->{exercise} . '.pm' )
+    ->spew( { binmode => ':encoding(UTF-8)' }, $generator->example );
+
+  $exercise_dir->child( $data->{exercise} . '.pm' )
+    ->spew( { binmode => ':encoding(UTF-8)' }, $generator->stub );
+
+  for ( BASE_DIR->child( 'bin', 'configlet' ) ) {
     system $_->realpath, 'generate', BASE_DIR, '--only', $exercise
       if $_->is_file;
   }
@@ -83,7 +88,7 @@ if (@dir_not_found) {
   warn 'exercise directory does not exist for: '
     . join( q| |, @dir_not_found ) . "\n";
 }
-if (@yaml_not_found) {
+if (@data_not_found) {
   warn '.meta/exercise-data.yaml not found for: '
-    . join( q| |, @yaml_not_found ) . "\n";
+    . join( q| |, @data_not_found ) . "\n";
 }

@@ -2,8 +2,8 @@
 package Leap;
 use strict;
 use warnings;
-use Exporter 'import';
-our @EXPORT_OK = qw(is_leap_year);
+use Exporter qw<import>;
+our @EXPORT_OK = qw<is_leap_year>;
 
 sub is_leap_year {
   my ($year) = @_;

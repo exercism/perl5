@@ -3,8 +3,8 @@
 use Moo;{{/moo}}{{^moo}}
 use strict;
 use warnings;{{/moo}}{{#subs}}
-use Exporter 'import';
-our @EXPORT_OK = qw({{&subs}});{{/subs}}{{#module_file}}
+use Exporter qw<import>;
+our @EXPORT_OK = qw<{{&subs}}>;{{/subs}}{{#module_file}}
 
 {{&module_file}}{{/module_file}}
 
