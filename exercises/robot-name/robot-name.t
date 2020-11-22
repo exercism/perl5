@@ -14,10 +14,11 @@ my $robot = RobotName->new;
 isa_ok $robot, 'RobotName';
 
 my $name = $robot->name;
-like $robot->name, qr/^[A-Z]{2}[0-9]{3}$/, 'Name should match schema';
+my $schema = qr/^[A-Z]{2}[0-9]{3}$/;
+like $robot->name, $schema, 'Name should match schema';
 is $name, $robot->name, 'Name should be persistent';
 isnt $robot->name, RobotName->new->name,
   'Robots should have different names';
 isnt $robot->reset_name, $name,
   'reset_name should change the robot name';
-ok $robot->name, 'reset_name should not leave the name empty';
+like $robot->name, $schema, 'New name should match schema';
