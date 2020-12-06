@@ -59,7 +59,7 @@ plan 3 + @cases;
 
 ok -e "$Bin/$module.pm", "missing $module.pm"
   or BAIL_OUT(
-  "You need to create a class called $module.pm with a constructor called new."
+  "You need to create a class called $module.pm."
   );
 
 eval "use $module";
