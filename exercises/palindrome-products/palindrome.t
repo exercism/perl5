@@ -36,7 +36,7 @@ is_deeply(
   $largest->{factors},
   [ [ 1, 9 ], [ 3, 3 ] ],
   "largest single digit palindrome factors"
-) or diag explain $largest->{factors};
+);
 
 $palindrome = $module->new( { max_factor => 99, min_factor => 10 } );
 $largest    = $palindrome->largest;
@@ -46,7 +46,7 @@ is_deeply(
   [ sort @{ $largest->{factors} } ],
   [ [ 91, 99 ] ],
   "largest double digit palindrome factors"
-) or diag explain $largest->{factors};
+);
 
 $palindrome
   = $module->new( { max_factor => 999, min_factor => 100 } );
@@ -57,7 +57,7 @@ is_deeply(
   $largest->{factors},
   [ [ 913, 993 ] ],
   "largest triple digit palindrome factors"
-) or diag explain $largest->{factors};
+);
 
 $palindrome = $module->new( { max_factor => 99, min_factor => 10 } );
 $smallest   = $palindrome->smallest;
@@ -67,7 +67,7 @@ is_deeply(
   $smallest->{factors},
   [ [ 11, 11 ] ],
   "smallest double digit palindrome factors"
-) or diag explain $smallest->{factors};
+);
 
 $palindrome
   = $module->new( { max_factor => 999, min_factor => 100 } );
@@ -78,4 +78,4 @@ is_deeply(
   $smallest->{factors},
   [ [ 101, 101 ] ],
   "smallest triple digit palindrome factors"
-) or diag explain $smallest->{factors};
+);
