@@ -22,25 +22,17 @@ can_ok $module, "new"
 can_ok $module, "commands"
   or BAIL_OUT "Missing package $module; or missing sub commands()";
 
-is_deeply $module->new(1)->commands, ["wink"], "handshake '1' is wink"
-  or diag explain $module->new(1)->commands;
+is_deeply $module->new(1)->commands, ["wink"], "handshake '1' is wink";
 is_deeply $module->new(2)->commands, ["double blink"],
-  "handshake '2' is double blink"
-  or diag explain $module->new(2)->commands;
+  "handshake '2' is double blink";
 is_deeply $module->new(4)->commands, ["close your eyes"],
-  "handshake '4' is close your eyes"
-  or diag explain $module->new(4)->commands;
-is_deeply $module->new(8)->commands, ["jump"], "handshake '8' is jump"
-  or diag explain $module->new(8)->commands;
+  "handshake '4' is close your eyes";
+is_deeply $module->new(8)->commands, ["jump"], "handshake '8' is jump";
 is_deeply $module->new(3)->commands, [ "wink", "double blink" ],
-  "handshake '11' is wink, double blink"
-  or diag explain $module->new(3)->commands;
+  "handshake '11' is wink, double blink";
 is_deeply $module->new(19)->commands, [ "double blink", "wink" ],
-  "reverse order of handshake commands"
-  or diag explain $module->new(19)->commands;
+  "reverse order of handshake commands";
 is_deeply $module->new(31)->commands,
   [ "jump", "close your eyes", "double blink", "wink" ],
-  "all handshake commands in reverse"
-  or diag explain $module->new(31)->commands;
-is_deeply $module->new('piggies')->commands, [], "invalid input"
-  or diag explain $module->new('piggies');
+  "all handshake commands in reverse";
+is_deeply $module->new('piggies')->commands, [], "invalid input";
