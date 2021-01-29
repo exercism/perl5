@@ -17,6 +17,7 @@
   "solution_pattern": "\\.meta/solutions/.+\\.pm$",
   "test_pattern": ".*\\.t$",
   "exercises": {
+    "concept": [],
     "practice": [
       {
         "slug": "binary",
