@@ -1,5 +1,6 @@
 {
   "language": "Perl 5",
+  "slug": "perl5",
   "active": true,
   "status": {
     "concept_exercises": false,
