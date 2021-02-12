@@ -1,3 +1,5 @@
+# Readme
+
 The `exercise-gen.pl` file can be used in the following ways:
 * From within the directory of the exercise you wish to generate a test for.
 * With arguments specifying which exercises you want to generate tests for.  
