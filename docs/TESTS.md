@@ -1,3 +1,5 @@
+# Tests
+
 ### Run All Tests
 
 There is a Perl 5 script with the extension `.t`, which will be used to test

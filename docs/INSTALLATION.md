@@ -1,3 +1,5 @@
+# Installation
+
 #### Unix/Linux/Mac OSX
 Perl 5 is likely already installed. Run `perl -v` to check which version you have.
 If your version is older than v5.14.0, or you would like to try out newer versions
