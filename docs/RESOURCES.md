@@ -1,6 +1,6 @@
 # Resources
 
-### Modules
+## Modules
 
 Perl 5 comes equipped with a set of core modules which you can find
 listed on [perldoc](https://perldoc.pl/modules). Typically you will be
@@ -13,7 +13,7 @@ useful modules, and also refers to a selection of other lists of recommendations
 There are several module installers available for Perl 5, which will allow
 you to install a wide variety of modules available on [CPAN](https://metacpan.org/).
 
-#### App::cpm
+### App::cpm
 A very fast and straightforward module installer.
 There is a tutorial available on [CPAN](https://metacpan.org/pod/App::cpm::Tutorial).
 
@@ -27,7 +27,7 @@ or suggested modules respectively.
 Run `cpm install Module::Name` to install a specific module locally, or
 run `cpm install -g Module::Name` to install globally.
 
-#### App::cpanminus
+### App::cpanminus
 The most well-known and commonly used module installer available.
 Instructions for installation can be found on [CPAN](https://metacpan.org/pod/App::cpanminus).
 
