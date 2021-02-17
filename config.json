@@ -16,6 +16,20 @@
   },
   "solution_pattern": "\\.meta/solutions/.+\\.pm$",
   "test_pattern": ".*\\.t$",
+  "files": {
+    "solution": [
+      "path/to/%{kebab_slug}.ext"
+    ],
+    "test": [
+      "path/to/%{kebab_slug}.ext"
+    ],
+    "example": [
+      "path/to/%{kebab_slug}.ext"
+    ],
+    "exemplar": [
+      "path/to/%{kebab_slug}.ext"
+    ]
+  },
   "exercises": {
     "concept": [],
     "practice": [
