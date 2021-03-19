@@ -1,0 +1,32 @@
+{
+  "docs": [
+    {
+      "uuid": "7fb525b6-67f1-42f6-b4a2-dd53ab2b1f96",
+      "slug": "installation",
+      "path": "docs/INSTALLATION.md",
+      "title": "Installing Perl 5 locally",
+      "blurb": "Learn how to install Perl 5 locally to solve Exercism's exercises on your own machine"
+    },
+    {
+      "uuid": "eb56a83d-4802-477e-a1b8-825ac7b452a1",
+      "slug": "learning",
+      "path": "docs/LEARNING.md",
+      "title": "How to learn Perl 5",
+      "blurb": "An overview of how to get started from scratch with Perl 5"
+    },
+    {
+      "uuid": "e6d642c6-3af4-4087-a40c-78f5d33f0be8",
+      "slug": "tests",
+      "path": "docs/TESTS.md",
+      "title": "Testing on the Perl 5 track",
+      "blurb": "Learn how to test your Perl 5 exercises on Exercism"
+    },
+    {
+      "uuid": "63163ef6-f778-4694-8b31-7d8c51d5f343",
+      "slug": "resources",
+      "path": "docs/RESOURCES.md",
+      "title": "Useful Perl 5 resources",
+      "blurb": "A collection of useful resources to help you master Perl 5"
+    }
+  ]
+}
