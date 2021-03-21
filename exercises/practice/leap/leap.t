@@ -24,7 +24,7 @@ for my $case (@test_cases) {
 __DATA__
 [
    {
-      "description": "year not divisible by 4 in common year",
+      "description": "year 2015 not divisible by 4 in common year",
       "expected": false,
       "input": {
          "year": 2015
@@ -32,7 +32,7 @@ __DATA__
       "property": "leapYear"
    },
    {
-      "description": "year divisible by 2, not divisible by 4 in common year",
+      "description": "year 1970 divisible by 2, not divisible by 4 in common year",
       "expected": false,
       "input": {
          "year": 1970
@@ -40,7 +40,7 @@ __DATA__
       "property": "leapYear"
    },
    {
-      "description": "year divisible by 4, not divisible by 100 in leap year",
+      "description": "year 1996 divisible by 4, not divisible by 100 in leap year",
       "expected": true,
       "input": {
          "year": 1996
@@ -48,7 +48,7 @@ __DATA__
       "property": "leapYear"
    },
    {
-      "description": "year divisible by 4 and 5 is still a leap year",
+      "description": "year 1960 divisible by 4 and 5 is still a leap year",
       "expected": true,
       "input": {
          "year": 1960
@@ -56,7 +56,7 @@ __DATA__
       "property": "leapYear"
    },
    {
-      "description": "year divisible by 100, not divisible by 400 in common year",
+      "description": "year 2100 divisible by 100, not divisible by 400 in common year",
       "expected": false,
       "input": {
          "year": 2100
@@ -64,7 +64,7 @@ __DATA__
       "property": "leapYear"
    },
    {
-      "description": "year divisible by 100 but not by 3 is still not a leap year",
+      "description": "year 1900 divisible by 100 but not by 3 is still not a leap year",
       "expected": false,
       "input": {
          "year": 1900
@@ -72,7 +72,7 @@ __DATA__
       "property": "leapYear"
    },
    {
-      "description": "year divisible by 400 in leap year",
+      "description": "year 2000 divisible by 400 in leap year",
       "expected": true,
       "input": {
          "year": 2000
@@ -80,7 +80,7 @@ __DATA__
       "property": "leapYear"
    },
    {
-      "description": "year divisible by 400 but not by 125 is still a leap year",
+      "description": "year 2400 divisible by 400 but not by 125 is still a leap year",
       "expected": true,
       "input": {
          "year": 2400
@@ -88,7 +88,7 @@ __DATA__
       "property": "leapYear"
    },
    {
-      "description": "year divisible by 200, not divisible by 400 in common year",
+      "description": "year 1800 divisible by 200, not divisible by 400 in common year",
       "expected": false,
       "input": {
          "year": 1800
