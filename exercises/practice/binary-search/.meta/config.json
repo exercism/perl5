@@ -1,6 +1,11 @@
 {
   "blurb": "Implement a binary search algorithm.",
   "authors": [],
+  "contributors": [
+    "kytrinyx",
+    "m-dango",
+    "rfilipo"
+  ],
   "files": {
     "solution": [],
     "test": [],

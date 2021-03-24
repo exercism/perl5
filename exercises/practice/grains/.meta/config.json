@@ -1,6 +1,18 @@
 {
   "blurb": "Calculate the number of grains of wheat on a chessboard given that the number on each square doubles.",
-  "authors": [],
+  "authors": [
+    "bistik"
+  ],
+  "contributors": [
+    "darksuji",
+    "dnmfarrell",
+    "kappa",
+    "kentfredric",
+    "kytrinyx",
+    "m-dango",
+    "rfilipo",
+    "sshine"
+  ],
   "files": {
     "solution": [],
     "test": [],

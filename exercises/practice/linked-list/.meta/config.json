@@ -1,6 +1,13 @@
 {
   "blurb": "Implement a doubly linked list",
-  "authors": [],
+  "authors": [
+    "szabgab"
+  ],
+  "contributors": [
+    "kytrinyx",
+    "m-dango",
+    "rfilipo"
+  ],
   "files": {
     "solution": [],
     "test": [],
