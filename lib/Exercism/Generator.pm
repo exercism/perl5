@@ -131,7 +131,7 @@ sub _build_cases {
 sub _build_cdata {
   my ($self) = @_;
   my $cdata_file
-    = BASE_DIR->child( 'problem-specifications', 'exercises',
+    = BASE_DIR->child( '.problem-specifications', 'exercises',
     $self->exercise, 'canonical-data.json' );
 
   if ( $cdata_file->is_file ) {
