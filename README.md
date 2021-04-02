@@ -1,7 +1,5 @@
 # Exercism Perl 5 Track
 
-[![Gitter](https://badges.gitter.im/exercism/xperl.svg)](https://gitter.im/exercism/perl?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
-
 Exercism exercises in Perl 5
 
 ## Getting started
