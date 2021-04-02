@@ -1,4 +1,3 @@
-exercise: Luhn
 plan: 19
 subs: is_luhn_valid
 tests: |-

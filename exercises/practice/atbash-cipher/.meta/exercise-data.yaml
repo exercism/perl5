@@ -1,4 +1,3 @@
-exercise: AtbashCipher
 plan: 15
 subs: encode_atbash decode_atbash
 tests: |-

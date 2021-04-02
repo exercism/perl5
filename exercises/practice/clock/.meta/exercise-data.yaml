@@ -1,4 +1,3 @@
-exercise: Clock
 plan: 4
 methods: new time add_minutes subtract_minutes
 modules:

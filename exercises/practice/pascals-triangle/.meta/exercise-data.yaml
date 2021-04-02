@@ -1,4 +1,3 @@
-exercise: PascalsTriangle
 plan: 9
 subs: pascal_rows
 tests: |

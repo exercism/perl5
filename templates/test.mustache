@@ -13,7 +13,7 @@ my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };{{/cases}}{{#plan}}
 plan {{&plan}};{{#plan_comment}} {{&plan_comment}}{{/plan_comment}}{{/plan}}
 {{#subs}}
 imported_ok qw<{{&subs}}> or bail_out;{{/subs}}{{#methods}}
-can_ok '{{&exercise}}', qw({{&methods}}) or bail_out;{{/methods}}
+can_ok '{{&package}}', qw<{{&methods}}> or bail_out;{{/methods}}
 
 {{&tests}}{{^plan}}
 

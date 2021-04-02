@@ -1,4 +1,4 @@
-exercise: RNA
+package: RNA
 plan: 7
 subs: to_rna
 tests: |-

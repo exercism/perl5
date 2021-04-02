@@ -24,7 +24,11 @@ has exercise => (
 );
 
 has data => (
-  is      => 'ro',
+  is  => 'ro',
+  isa => sub {
+    ref $_[0] eq 'HASH'
+      or die '"data" attribute expects a hash reference';
+  },
   default => sub { {} },
 );
 
@@ -34,43 +38,59 @@ has [
     cases
     cdata
     json_tests
+    package
   >
 ] => ( is => 'lazy' );
 
 # test returns the test file rendered from the template
 sub test {
-  $_[0]->_render( { template => 'test' } );
+  $_[0]->_render;
 }
 
 # stub returns the stub module file rendered from the template
 sub stub {
-  $_[0]->_render( { template => 'module', file => 'stub' } );
+  my ($self) = @_;
+  $self->_render( $self->data->{stub} || '' );
 }
 
-# example returns the example module file rendered from the template
-sub example {
-  $_[0]->_render( { template => 'module', file => 'example' } );
+# examples returns the example module files rendered from the template
+sub examples {
+  my ($self) = @_;
+  return $self->data->{examples}
+    ? {
+    map { $_ => $self->_render( $self->data->{examples}{$_} ) }
+      keys %{ $self->data->{examples} }
+    }
+    : { base => $self->_render( $self->data->{example} || '' ) };
 }
 
 sub _render {
-  my ( $self, $params ) = @_;
-  my $data = { %{ $self->data }, cases => $self->json_tests };
+  my ( $self, $module_file ) = @_;
+  my %data = %{ $self->data };
+  $data{cases}   //= $self->json_tests;
+  $data{package} //= $self->package;
 
-  if ( $params->{file} ) {
-    $data->{module_file} = $data->{ $params->{file} };
-  }
   my $rendered = Template::Mustache->render(
-    BASE_DIR->child( 'templates', $params->{template} . '.mustache' )
-      ->slurp,
-    $data,
+    BASE_DIR->child( 'templates',
+      ( $module_file ? 'module' : 'test' ) . '.mustache' )
+      ->slurp_utf8,
+    { %data, module_file => $module_file }
   );
+
   Perl::Tidy::perltidy(
     source      => \$rendered,
     argv        => '',
     perltidyrc  => BASE_DIR->child('.perltidyrc')->stringify,
     destination => \my $tidied,
   );
+
   return $tidied;
+}
+
+sub _build_package {
+  my ($self) = @_;
+  return $self->data->{package} // join( '',
+    map( ucfirst, split( /-/, lc( $self->exercise ) ) ) );
 }
 
 # case_uuids contains an array of UUIDs marked as true in tests.toml
@@ -84,7 +104,7 @@ sub _build_case_uuids {
 
   my $toml_data;
   if ( $toml_file->is_file ) {
-    $toml_data = TOML::Parser->new->parse( $toml_file->slurp );
+    $toml_data = TOML::Parser->new->parse( $toml_file->slurp_utf8 );
     return [
       grep { $toml_data->{'canonical-tests'}{$_} }
         keys %{ $toml_data->{'canonical-tests'} }
@@ -136,7 +156,7 @@ sub _build_cdata {
     $self->exercise, 'canonical-data.json' );
 
   if ( $cdata_file->is_file ) {
-    return $cdata_file->slurp =~ s/^\s+|\s+$//gr;
+    return $cdata_file->slurp_utf8 =~ s/^\s+|\s+$//gr;
   }
 
   return '';

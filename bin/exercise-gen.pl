@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-use feature qw<lexical_subs say>;
+use feature qw<say>;
 
 use YAML qw<LoadFile>;
 use Path::Tiny qw<:DEFAULT cwd>;
@@ -40,8 +40,7 @@ else {
   }
 }
 
-my @dir_not_found;
-my @data_not_found;
+my ( @dir_not_found, @data_not_found );
 for my $exercise (@exercises) {
   my $exercise_dir
     = BASE_DIR->child( 'exercises', 'practice', $exercise );
@@ -62,16 +61,36 @@ for my $exercise (@exercises) {
     = Exercism::Generator->new(
     { exercise => $exercise, data => $data } );
 
-  $exercise_dir->child("$exercise.t")
-    ->spew( { binmode => ':encoding(UTF-8)' }, $generator->test );
+  $exercise_dir->child("$exercise.t")->spew_utf8( $generator->test );
   $exercise_dir->child("$exercise.t")->chmod(0755);
 
-  $exercise_dir->child( '.meta', 'solutions',
-    $data->{exercise} . '.pm' )
-    ->spew( { binmode => ':encoding(UTF-8)' }, $generator->example );
+  for my $key ( keys %{ $generator->examples } ) {
+    my $value = $generator->examples->{$key};
+    if ( $key eq 'base' ) {
+      $exercise_dir->child( '.meta', 'solutions',
+        $generator->package . '.pm' )->spew_utf8($value);
+      eval {
+        symlink( "../../$exercise.t",
+          $exercise_dir->child( '.meta', 'solutions', "$exercise.t" )
+        );
+      };
+    }
+    else {
+      $exercise_dir->child( '.meta', 'solutions', $key,
+        $generator->package . '.pm' )->touchpath->spew_utf8($value);
+      eval {
+        symlink(
+          "../../../$exercise.t",
+          $exercise_dir->child(
+            '.meta', 'solutions', $key, "$exercise.t"
+          )
+        );
+      };
+    }
+  }
 
-  $exercise_dir->child( $data->{exercise} . '.pm' )
-    ->spew( { binmode => ':encoding(UTF-8)' }, $generator->stub );
+  $exercise_dir->child( $generator->package . '.pm' )
+    ->spew_utf8( $generator->stub );
 
   say 'Generated.';
 }

@@ -1,4 +1,3 @@
-exercise: NucleotideCount
 plan: 6
 subs: count_nucleotides
 tests: |-
