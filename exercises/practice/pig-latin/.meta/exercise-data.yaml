@@ -2,11 +2,12 @@ exercise: PigLatin
 subs: translate
 plan: 23
 tests: |
-  for my $case ( @test_cases ) {
-    is translate($case->{input}{phrase}), $case->{expected}, $case->{description};
+  for my $case (@test_cases) {
+    is translate($case->{input}{phrase}), $case->{expected},
+      $case->{description};
   }
 
-example: |
+example: |-
   sub translate {
     my ($phrase) = @_;
 
@@ -21,7 +22,7 @@ example: |
 
   }
 
-stub: |
+stub: |-
   sub translate {
     my ($phrase) = @_;
     return undef;
