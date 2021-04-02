@@ -97,7 +97,8 @@ sub create_files {
   my $exercise_dir = BASE_DIR->child( 'exercises', $self->exercise );
 
   # Test
-  my $testfile = $exercise_dir->child( $self->exercise . '.t' )->touchpath;
+  my $testfile
+    = $exercise_dir->child( $self->exercise . '.t' )->touchpath;
   $testfile->spew_utf8( $self->test );
   $testfile->chmod(0755);
 

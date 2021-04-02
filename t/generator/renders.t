@@ -68,9 +68,10 @@ subtest 'Rendered test files' => sub {
   }, 'JSON tests';
 
   is new_generator(
-    data => { tests => 'ok $_ for @test_cases;' },
+    data       => { tests => 'ok $_ for @test_cases;' },
     json_tests => '[true]',
-  ), object {
+    ),
+    object {
     call test => <<~'TEST';
       #!/usr/bin/env perl
       use Test2::V0;
@@ -91,7 +92,7 @@ subtest 'Rendered test files' => sub {
       __DATA__
       [true]
       TEST
-  }, 'Tests with JSON';
+    }, 'Tests with JSON';
 
   is new_generator( data => { subs => 'foo' } ), object {
     call test => <<~'TEST';
