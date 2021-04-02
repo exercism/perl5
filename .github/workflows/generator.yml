@@ -11,8 +11,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
+      - name: Checkout problem-specifications
+        uses: actions/checkout@v2
         with:
-          submodules: true
+          repository: exercism/problem-specifications
+          path: .problem-specifications
 
       - name: Set up perl
         uses: shogo82148/actions-setup-perl@v1
@@ -22,6 +26,8 @@ jobs:
 
       - run: carton exec -- yath start
 
+      - name: Test generator
+        run: carton exec -- yath run t/generator
+
       - name: Generated files match generator output
-        run: carton exec -- yath run t/generated-tests.t
-        continue-on-error: true
+        run: carton exec -- yath run t/files

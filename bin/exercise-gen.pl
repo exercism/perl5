@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-use feature qw<lexical_subs say>;
+use feature qw<say>;
 
 use YAML qw<LoadFile>;
 use Path::Tiny qw<:DEFAULT cwd>;
@@ -40,8 +40,7 @@ else {
   }
 }
 
-my @dir_not_found;
-my @data_not_found;
+my ( @dir_not_found, @data_not_found );
 for my $exercise (@exercises) {
   my $exercise_dir
     = BASE_DIR->child( 'exercises', 'practice', $exercise );
@@ -57,21 +56,7 @@ for my $exercise (@exercises) {
   }
   print "Generating $exercise... ";
 
-  my $data = LoadFile $yaml;
-  my $generator
-    = Exercism::Generator->new(
-    { exercise => $exercise, data => $data } );
-
-  $exercise_dir->child("$exercise.t")
-    ->spew( { binmode => ':encoding(UTF-8)' }, $generator->test );
-  $exercise_dir->child("$exercise.t")->chmod(0755);
-
-  $exercise_dir->child( '.meta', 'solutions',
-    $data->{exercise} . '.pm' )
-    ->spew( { binmode => ':encoding(UTF-8)' }, $generator->example );
-
-  $exercise_dir->child( $data->{exercise} . '.pm' )
-    ->spew( { binmode => ':encoding(UTF-8)' }, $generator->stub );
+  Exercism::Generator->new( exercise => $exercise )->create_files;
 
   say 'Generated.';
 }

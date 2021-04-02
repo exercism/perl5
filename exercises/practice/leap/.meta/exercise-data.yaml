@@ -1,4 +1,3 @@
-exercise: Leap
 plan: 10
 subs: is_leap_year
 tests: |-

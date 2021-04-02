@@ -1,4 +1,4 @@
-exercise: ETL
+package: ETL
 plan: 5
 subs: transform
 

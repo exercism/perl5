@@ -12,7 +12,7 @@ use List::Util qw(any);
 my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };
 plan 4;
 
-can_ok 'Clock', qw(new time add_minutes subtract_minutes) or bail_out;
+can_ok 'Clock', qw<new time add_minutes subtract_minutes> or bail_out;
 
 subtest create => sub {
   plan 20;

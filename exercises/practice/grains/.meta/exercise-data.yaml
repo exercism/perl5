@@ -1,4 +1,3 @@
-exercise: Grains
 plan: 12
 subs: grains_on_square total_grains
 modules:
