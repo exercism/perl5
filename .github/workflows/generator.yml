@@ -22,6 +22,9 @@ jobs:
 
       - run: carton exec -- yath start
 
+      - name: Test generator
+        run: carton exec -- yath run t/generator.t
+
       - name: Generated files match generator output
         run: carton exec -- yath run t/generated-tests.t
         continue-on-error: true
