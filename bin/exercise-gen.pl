@@ -11,13 +11,12 @@ use Exercism::Generator;
 
 use constant BASE_DIR => path(GIT_ROOT);
 
-if ( !BASE_DIR->child('problem-specifications')->is_dir ) {
+if ( !BASE_DIR->child('.problem-specifications')->is_dir ) {
   warn
-    "problem-specifications directory not found; exercise(s) may generate incorrectly.\n";
+    "`.problem-specifications` directory not found; exercise(s) may generate incorrectly.\n";
 }
 if ( !BASE_DIR->child( 'bin', 'configlet' )->is_file ) {
-  warn
-    "configlet not found; README.md file(s) will not be generated.\n";
+  warn "configlet not found.\n";
 }
 
 my @exercises;
@@ -26,7 +25,7 @@ if (@ARGV) {
   my %arg_set = map { $_ => 1 } @ARGV;
   if ( $arg_set{'--all'} ) {
     push @exercises, $_->basename
-      for BASE_DIR->child('exercises')->children;
+      for BASE_DIR->child( 'exercises', 'practice' )->children;
   }
   else {
     @exercises = keys %arg_set;
@@ -47,7 +46,8 @@ else {
 my @dir_not_found;
 my @data_not_found;
 for my $exercise (@exercises) {
-  my $exercise_dir = BASE_DIR->child( 'exercises', $exercise );
+  my $exercise_dir
+    = BASE_DIR->child( 'exercises', 'practice', $exercise );
   my $yaml = $exercise_dir->child( '.meta', 'exercise-data.yaml' );
 
   unless ( $exercise_dir->is_dir ) {
@@ -59,6 +59,13 @@ for my $exercise (@exercises) {
     next;
   }
   print "Generating $exercise... ";
+
+  for ( BASE_DIR->child( 'bin', 'configlet' ) ) {
+    system $_->realpath, 'sync', '--prob-specs-dir',
+      BASE_DIR->child('.problem-specifications'), '--exercise',
+      $exercise
+      if $_->is_file;
+  }
 
   my $data = LoadFile $yaml;
   my $generator
@@ -75,11 +82,6 @@ for my $exercise (@exercises) {
 
   $exercise_dir->child( $data->{exercise} . '.pm' )
     ->spew( { binmode => ':encoding(UTF-8)' }, $generator->stub );
-
-  for ( BASE_DIR->child( 'bin', 'configlet' ) ) {
-    system $_->realpath, 'generate', BASE_DIR, '--only', $exercise
-      if $_->is_file;
-  }
 
   say 'Generated.';
 }
