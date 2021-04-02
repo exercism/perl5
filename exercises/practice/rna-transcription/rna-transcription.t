@@ -1,74 +1,71 @@
 #!/usr/bin/env perl
 use Test2::V0;
 use JSON::PP;
+use constant JSON => JSON::PP->new;
 
-use FindBin qw($Bin);
+use FindBin qw<$Bin>;
 use lib $Bin, "$Bin/local/lib/perl5";
 
-use RNA qw(to_rna);
+use RNA qw<to_rna>;
 
-my $C_DATA = do { local $/; decode_json(<DATA>); };
+my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };
 plan 7;
 
-imported_ok qw(to_rna) or bail_out;
+imported_ok qw<to_rna> or bail_out;
 
-for my $case ( @{ $C_DATA->{cases} } ) {
+for my $case (@test_cases) {
   is to_rna( $case->{input}{dna} ), $case->{expected},
     $case->{description};
 }
 
 __DATA__
-{
-  "exercise": "rna-transcription",
-  "version": "1.3.0",
-  "cases": [
-    {
-      "description": "Empty RNA sequence",
-      "property": "toRna",
-      "input": {
-        "dna": ""
-      },
-      "expected": ""
+[
+  {
+    "description": "Empty RNA sequence",
+    "expected": "",
+    "input": {
+      "dna": ""
     },
-    {
-      "description": "RNA complement of cytosine is guanine",
-      "property": "toRna",
-      "input": {
-        "dna": "C"
-      },
-      "expected": "G"
+    "property": "toRna"
+  },
+  {
+    "description": "RNA complement of cytosine is guanine",
+    "expected": "G",
+    "input": {
+      "dna": "C"
     },
-    {
-      "description": "RNA complement of guanine is cytosine",
-      "property": "toRna",
-      "input": {
-        "dna": "G"
-      },
-      "expected": "C"
+    "property": "toRna"
+  },
+  {
+    "description": "RNA complement of guanine is cytosine",
+    "expected": "C",
+    "input": {
+      "dna": "G"
     },
-    {
-      "description": "RNA complement of thymine is adenine",
-      "property": "toRna",
-      "input": {
-        "dna": "T"
-      },
-      "expected": "A"
+    "property": "toRna"
+  },
+  {
+    "description": "RNA complement of thymine is adenine",
+    "expected": "A",
+    "input": {
+      "dna": "T"
     },
-    {
-      "description": "RNA complement of adenine is uracil",
-      "property": "toRna",
-      "input": {
-        "dna": "A"
-      },
-      "expected": "U"
+    "property": "toRna"
+  },
+  {
+    "description": "RNA complement of adenine is uracil",
+    "expected": "U",
+    "input": {
+      "dna": "A"
     },
-    {
-      "description": "RNA complement",
-      "property": "toRna",
-      "input": {
-        "dna": "ACGTGGTCTTAA"
-      },
-      "expected": "UGCACCAGAAUU"
-    }
-  ]
-}
+    "property": "toRna"
+  },
+  {
+    "description": "RNA complement",
+    "expected": "UGCACCAGAAUU",
+    "input": {
+      "dna": "ACGTGGTCTTAA"
+    },
+    "property": "toRna"
+  }
+]

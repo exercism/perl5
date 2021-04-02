@@ -1,8 +1,8 @@
 package Grains;
 use strict;
 use warnings;
-use Exporter 'import';
-our @EXPORT_OK = qw(grains_on_square total_grains);
+use Exporter qw<import>;
+our @EXPORT_OK = qw<grains_on_square total_grains>;
 
 use bignum;
 use List::Util qw(sum);

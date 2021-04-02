@@ -2,22 +2,14 @@ exercise: PhoneNumber
 plan: 19
 subs: clean_number
 tests: |-
-  my @cases  = (
-    map { [ $_->{input}{phrase}, $_->{expected}, $_->{description} ] }
-    map {@$_}
-    map { $_->{cases} } @{ $C_DATA->{cases} }
-  );
-
-  for (@cases) {
-    my ( $input, $expected, $desc ) = @$_;
-    $desc .= " - $input";
-
-    if ( !ref $expected ) {
-      is clean_number($input), $expected, $desc
+  for my $case (@test_cases) {
+    if ( !ref $case->{expected} ) {
+      is clean_number( $case->{input}{phrase} ), $case->{expected},
+        $case->{description};
     }
     else {
-      like dies( sub { clean_number($input) } ),
-      qr/$expected->{error}/, $desc;
+      like dies( sub { clean_number( $case->{input}{phrase} ) } ),
+        qr/$case->{expected}{error}/, $case->{description};
     }
   }
 

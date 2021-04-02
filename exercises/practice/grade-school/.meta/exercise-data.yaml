@@ -2,7 +2,7 @@ exercise: GradeSchool
 plan: 8
 subs: roster
 tests: |-
-  for my $case ( @{ $C_DATA->{cases} } ) {
+  for my $case ( @test_cases ) {
     is roster($case->{input}{students}, $case->{input}{desiredGrade}), $case->{expected}, $case->{description};
   }
 

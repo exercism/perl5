@@ -1,8 +1,8 @@
 package PigLatin;
 use strict;
 use warnings;
-use Exporter 'import';
-our @EXPORT_OK = qw(translate);
+use Exporter qw<import>;
+our @EXPORT_OK = qw<translate>;
 
 sub translate {
   my ($phrase) = @_;

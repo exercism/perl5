@@ -1,8 +1,8 @@
 exercise: Luhn
-plan: 18
+plan: 19
 subs: is_luhn_valid
 tests: |-
-  for my $case ( @{ $C_DATA->{cases} } ) {
+  for my $case ( @test_cases ) {
     is(
       is_luhn_valid($case->{input}{value}),
       $case->{expected}

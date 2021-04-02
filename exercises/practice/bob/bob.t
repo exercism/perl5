@@ -1,224 +1,222 @@
 #!/usr/bin/env perl
 use Test2::V0;
 use JSON::PP;
+use constant JSON => JSON::PP->new;
 
-use FindBin qw($Bin);
-use lib $Bin, "$Bin/local/lib/perl5"; # Find modules in the same dir as this file.
+use FindBin qw<$Bin>;
+use lib $Bin, "$Bin/local/lib/perl5";    # Find modules in the same dir as this file.
 
-use Bob qw(hey);
+use Bob qw<hey>;
 
-my $C_DATA = do { local $/; decode_json(<DATA>); };
-plan 26;    # This is how many tests we expect to run.
+my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };
+plan 26;                                 # This is how many tests we expect to run.
 
-imported_ok qw(hey) or bail_out;
+imported_ok qw<hey> or bail_out;
 
-is hey( $_->{input}{heyBob} ), $_->{expected}, $_->{description}
-  for @{ $C_DATA->{cases} };
+for (@test_cases) {
+  is hey( $_->{input}{heyBob} ), $_->{expected}, $_->{description};
+}
 
 __DATA__
-{
-  "exercise": "bob",
-  "version": "1.4.0",
-  "cases": [
-    {
-      "description": "stating something",
-      "property": "response",
-      "input": {
-        "heyBob": "Tom-ay-to, tom-aaaah-to."
-      },
-      "expected": "Whatever."
+[
+  {
+    "description": "stating something",
+    "expected": "Whatever.",
+    "input": {
+      "heyBob": "Tom-ay-to, tom-aaaah-to."
     },
-    {
-      "description": "shouting",
-      "property": "response",
-      "input": {
-        "heyBob": "WATCH OUT!"
-      },
-      "expected": "Whoa, chill out!"
+    "property": "response"
+  },
+  {
+    "description": "shouting",
+    "expected": "Whoa, chill out!",
+    "input": {
+      "heyBob": "WATCH OUT!"
     },
-    {
-      "description": "shouting gibberish",
-      "property": "response",
-      "input": {
-        "heyBob": "FCECDFCAAB"
-      },
-      "expected": "Whoa, chill out!"
+    "property": "response"
+  },
+  {
+    "description": "shouting gibberish",
+    "expected": "Whoa, chill out!",
+    "input": {
+      "heyBob": "FCECDFCAAB"
     },
-    {
-      "description": "asking a question",
-      "property": "response",
-      "input": {
-        "heyBob": "Does this cryogenic chamber make me look fat?"
-      },
-      "expected": "Sure."
+    "property": "response"
+  },
+  {
+    "description": "asking a question",
+    "expected": "Sure.",
+    "input": {
+      "heyBob": "Does this cryogenic chamber make me look fat?"
     },
-    {
-      "description": "asking a numeric question",
-      "property": "response",
-      "input": {
-        "heyBob": "You are, what, like 15?"
-      },
-      "expected": "Sure."
+    "property": "response"
+  },
+  {
+    "description": "asking a numeric question",
+    "expected": "Sure.",
+    "input": {
+      "heyBob": "You are, what, like 15?"
     },
-    {
-      "description": "asking gibberish",
-      "property": "response",
-      "input": {
-        "heyBob": "fffbbcbeab?"
-      },
-      "expected": "Sure."
+    "property": "response"
+  },
+  {
+    "description": "asking gibberish",
+    "expected": "Sure.",
+    "input": {
+      "heyBob": "fffbbcbeab?"
     },
-    {
-      "description": "talking forcefully",
-      "property": "response",
-      "input": {
-        "heyBob": "Let's go make out behind the gym!"
-      },
-      "expected": "Whatever."
+    "property": "response"
+  },
+  {
+    "description": "talking forcefully",
+    "expected": "Whatever.",
+    "input": {
+      "heyBob": "Hi there!"
     },
-    {
-      "description": "using acronyms in regular speech",
-      "property": "response",
-      "input": {
-        "heyBob": "It's OK if you don't want to go to the DMV."
-      },
-      "expected": "Whatever."
+    "property": "response"
+  },
+  {
+    "description": "using acronyms in regular speech",
+    "expected": "Whatever.",
+    "input": {
+      "heyBob": "It's OK if you don't want to go work for NASA."
     },
-    {
-      "description": "forceful question",
-      "property": "response",
-      "input": {
-        "heyBob": "WHAT THE HELL WERE YOU THINKING?"
-      },
-      "expected": "Calm down, I know what I'm doing!"
+    "property": "response"
+  },
+  {
+    "description": "forceful question",
+    "expected": "Calm down, I know what I'm doing!",
+    "input": {
+      "heyBob": "WHAT'S GOING ON?"
     },
-    {
-      "description": "shouting numbers",
-      "property": "response",
-      "input": {
-        "heyBob": "1, 2, 3 GO!"
-      },
-      "expected": "Whoa, chill out!"
+    "property": "response"
+  },
+  {
+    "description": "shouting numbers",
+    "expected": "Whoa, chill out!",
+    "input": {
+      "heyBob": "1, 2, 3 GO!"
     },
-    {
-      "description": "no letters",
-      "property": "response",
-      "input": {
-        "heyBob": "1, 2, 3"
-      },
-      "expected": "Whatever."
+    "property": "response"
+  },
+  {
+    "description": "no letters",
+    "expected": "Whatever.",
+    "input": {
+      "heyBob": "1, 2, 3"
     },
-    {
-      "description": "question with no letters",
-      "property": "response",
-      "input": {
-        "heyBob": "4?"
-      },
-      "expected": "Sure."
+    "property": "response"
+  },
+  {
+    "description": "question with no letters",
+    "expected": "Sure.",
+    "input": {
+      "heyBob": "4?"
     },
-    {
-      "description": "shouting with special characters",
-      "property": "response",
-      "input": {
-        "heyBob": "ZOMG THE %^*@#$(*^ ZOMBIES ARE COMING!!11!!1!"
-      },
-      "expected": "Whoa, chill out!"
+    "property": "response"
+  },
+  {
+    "description": "shouting with special characters",
+    "expected": "Whoa, chill out!",
+    "input": {
+      "heyBob": "ZOMG THE %^*@#$(*^ ZOMBIES ARE COMING!!11!!1!"
     },
-    {
-      "description": "shouting with no exclamation mark",
-      "property": "response",
-      "input": {
-        "heyBob": "I HATE THE DMV"
-      },
-      "expected": "Whoa, chill out!"
+    "property": "response"
+  },
+  {
+    "description": "shouting with no exclamation mark",
+    "expected": "Whoa, chill out!",
+    "input": {
+      "heyBob": "I HATE THE DENTIST"
     },
-    {
-      "description": "statement containing question mark",
-      "property": "response",
-      "input": {
-        "heyBob": "Ending with ? means a question."
-      },
-      "expected": "Whatever."
+    "property": "response"
+  },
+  {
+    "description": "statement containing question mark",
+    "expected": "Whatever.",
+    "input": {
+      "heyBob": "Ending with ? means a question."
     },
-    {
-      "description": "non-letters with question",
-      "property": "response",
-      "input": {
-        "heyBob": ":) ?"
-      },
-      "expected": "Sure."
+    "property": "response"
+  },
+  {
+    "description": "non-letters with question",
+    "expected": "Sure.",
+    "input": {
+      "heyBob": ":) ?"
     },
-    {
-      "description": "prattling on",
-      "property": "response",
-      "input": {
-        "heyBob": "Wait! Hang on. Are you going to be OK?"
-      },
-      "expected": "Sure."
+    "property": "response"
+  },
+  {
+    "description": "prattling on",
+    "expected": "Sure.",
+    "input": {
+      "heyBob": "Wait! Hang on. Are you going to be OK?"
     },
-    {
-      "description": "silence",
-      "property": "response",
-      "input": {
-        "heyBob": ""
-      },
-      "expected": "Fine. Be that way!"
+    "property": "response"
+  },
+  {
+    "description": "silence",
+    "expected": "Fine. Be that way!",
+    "input": {
+      "heyBob": ""
     },
-    {
-      "description": "prolonged silence",
-      "property": "response",
-      "input": {
-        "heyBob": "          "
-      },
-      "expected": "Fine. Be that way!"
+    "property": "response"
+  },
+  {
+    "description": "prolonged silence",
+    "expected": "Fine. Be that way!",
+    "input": {
+      "heyBob": "          "
     },
-    {
-      "description": "alternate silence",
-      "property": "response",
-      "input": {
-        "heyBob": "\t\t\t\t\t\t\t\t\t\t"
-      },
-      "expected": "Fine. Be that way!"
+    "property": "response"
+  },
+  {
+    "description": "alternate silence",
+    "expected": "Fine. Be that way!",
+    "input": {
+      "heyBob": "\t\t\t\t\t\t\t\t\t\t"
     },
-    {
-      "description": "multiple line question",
-      "property": "response",
-      "input": {
-        "heyBob": "\nDoes this cryogenic chamber make me look fat?\nNo."
-      },
-      "expected": "Whatever."
+    "property": "response"
+  },
+  {
+    "description": "multiple line question",
+    "expected": "Whatever.",
+    "input": {
+      "heyBob": "\nDoes this cryogenic chamber make me look fat?\nNo."
     },
-    {
-      "description": "starting with whitespace",
-      "property": "response",
-      "input": {
-        "heyBob": "         hmmmmmmm..."
-      },
-      "expected": "Whatever."
+    "property": "response"
+  },
+  {
+    "description": "starting with whitespace",
+    "expected": "Whatever.",
+    "input": {
+      "heyBob": "         hmmmmmmm..."
     },
-    {
-      "description": "ending with whitespace",
-      "property": "response",
-      "input": {
-        "heyBob": "Okay if like my  spacebar  quite a bit?   "
-      },
-      "expected": "Sure."
+    "property": "response"
+  },
+  {
+    "description": "ending with whitespace",
+    "expected": "Sure.",
+    "input": {
+      "heyBob": "Okay if like my  spacebar  quite a bit?   "
     },
-    {
-      "description": "other whitespace",
-      "property": "response",
-      "input": {
-        "heyBob": "\n\r \t"
-      },
-      "expected": "Fine. Be that way!"
+    "property": "response"
+  },
+  {
+    "description": "other whitespace",
+    "expected": "Fine. Be that way!",
+    "input": {
+      "heyBob": "\n\r \t"
     },
-    {
-      "description": "non-question ending with whitespace",
-      "property": "response",
-      "input": {
-        "heyBob": "This is a statement ending with whitespace      "
-      },
-      "expected": "Whatever."
-    }
-  ]
-}
+    "property": "response"
+  },
+  {
+    "description": "non-question ending with whitespace",
+    "expected": "Whatever.",
+    "input": {
+      "heyBob": "This is a statement ending with whitespace      "
+    },
+    "property": "response"
+  }
+]

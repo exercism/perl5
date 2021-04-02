@@ -1,178 +1,175 @@
 #!/usr/bin/env perl
 use Test2::V0;
 use JSON::PP;
+use constant JSON => JSON::PP->new;
 
-use FindBin qw($Bin);
+use FindBin qw<$Bin>;
 use lib $Bin, "$Bin/local/lib/perl5";
 
-use RomanNumerals qw(to_roman);
+use RomanNumerals qw<to_roman>;
 
-my $C_DATA = do { local $/; decode_json(<DATA>); };
+my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };
 plan 20;
 
-imported_ok qw(to_roman) or bail_out;
+imported_ok qw<to_roman> or bail_out;
 
-for my $case ( @{ $C_DATA->{cases} } ) {
+for my $case (@test_cases) {
   is to_roman( $case->{input}{number} ), $case->{expected},
     $case->{description};
 }
 
 __DATA__
-{
-  "exercise": "roman-numerals",
-  "version": "1.2.0",
-  "cases": [
-    {
-      "description": "1 is a single I",
-      "property": "roman",
-      "input": {
-        "number": 1
-      },
-      "expected": "I"
+[
+  {
+    "description": "1 is I",
+    "expected": "I",
+    "input": {
+      "number": 1
     },
-    {
-      "description": "2 is two I's",
-      "property": "roman",
-      "input": {
-        "number": 2
-      },
-      "expected": "II"
+    "property": "roman"
+  },
+  {
+    "description": "2 is II",
+    "expected": "II",
+    "input": {
+      "number": 2
     },
-    {
-      "description": "3 is three I's",
-      "property": "roman",
-      "input": {
-        "number": 3
-      },
-      "expected": "III"
+    "property": "roman"
+  },
+  {
+    "description": "3 is III",
+    "expected": "III",
+    "input": {
+      "number": 3
     },
-    {
-      "description": "4, being 5 - 1, is IV",
-      "property": "roman",
-      "input": {
-        "number": 4
-      },
-      "expected": "IV"
+    "property": "roman"
+  },
+  {
+    "description": "4 is IV",
+    "expected": "IV",
+    "input": {
+      "number": 4
     },
-    {
-      "description": "5 is a single V",
-      "property": "roman",
-      "input": {
-        "number": 5
-      },
-      "expected": "V"
+    "property": "roman"
+  },
+  {
+    "description": "5 is V",
+    "expected": "V",
+    "input": {
+      "number": 5
     },
-    {
-      "description": "6, being 5 + 1, is VI",
-      "property": "roman",
-      "input": {
-        "number": 6
-      },
-      "expected": "VI"
+    "property": "roman"
+  },
+  {
+    "description": "6 is VI",
+    "expected": "VI",
+    "input": {
+      "number": 6
     },
-    {
-      "description": "9, being 10 - 1, is IX",
-      "property": "roman",
-      "input": {
-        "number": 9
-      },
-      "expected": "IX"
+    "property": "roman"
+  },
+  {
+    "description": "9 is IX",
+    "expected": "IX",
+    "input": {
+      "number": 9
     },
-    {
-      "description": "20 is two X's",
-      "property": "roman",
-      "input": {
-        "number": 27
-      },
-      "expected": "XXVII"
+    "property": "roman"
+  },
+  {
+    "description": "27 is XXVII",
+    "expected": "XXVII",
+    "input": {
+      "number": 27
     },
-    {
-      "description": "48 is not 50 - 2 but rather 40 + 8",
-      "property": "roman",
-      "input": {
-        "number": 48
-      },
-      "expected": "XLVIII"
+    "property": "roman"
+  },
+  {
+    "description": "48 is XLVIII",
+    "expected": "XLVIII",
+    "input": {
+      "number": 48
     },
-    {
-      "description": "49 is not 40 + 5 + 4 but rather 50 - 10 + 10 - 1",
-      "property": "roman",
-      "input": {
-        "number": 49
-      },
-      "expected": "XLIX"
+    "property": "roman"
+  },
+  {
+    "description": "49 is XLIX",
+    "expected": "XLIX",
+    "input": {
+      "number": 49
     },
-    {
-      "description": "50 is a single L",
-      "property": "roman",
-      "input": {
-        "number": 59
-      },
-      "expected": "LIX"
+    "property": "roman"
+  },
+  {
+    "description": "59 is LIX",
+    "expected": "LIX",
+    "input": {
+      "number": 59
     },
-    {
-      "description": "90, being 100 - 10, is XC",
-      "property": "roman",
-      "input": {
-        "number": 93
-      },
-      "expected": "XCIII"
+    "property": "roman"
+  },
+  {
+    "description": "93 is XCIII",
+    "expected": "XCIII",
+    "input": {
+      "number": 93
     },
-    {
-      "description": "100 is a single C",
-      "property": "roman",
-      "input": {
-        "number": 141
-      },
-      "expected": "CXLI"
+    "property": "roman"
+  },
+  {
+    "description": "141 is CXLI",
+    "expected": "CXLI",
+    "input": {
+      "number": 141
     },
-    {
-      "description": "60, being 50 + 10, is LX",
-      "property": "roman",
-      "input": {
-        "number": 163
-      },
-      "expected": "CLXIII"
+    "property": "roman"
+  },
+  {
+    "description": "163 is CLXIII",
+    "expected": "CLXIII",
+    "input": {
+      "number": 163
     },
-    {
-      "description": "400, being 500 - 100, is CD",
-      "property": "roman",
-      "input": {
-        "number": 402
-      },
-      "expected": "CDII"
+    "property": "roman"
+  },
+  {
+    "description": "402 is CDII",
+    "expected": "CDII",
+    "input": {
+      "number": 402
     },
-    {
-      "description": "500 is a single D",
-      "property": "roman",
-      "input": {
-        "number": 575
-      },
-      "expected": "DLXXV"
+    "property": "roman"
+  },
+  {
+    "description": "575 is DLXXV",
+    "expected": "DLXXV",
+    "input": {
+      "number": 575
     },
-    {
-      "description": "900, being 1000 - 100, is CM",
-      "property": "roman",
-      "input": {
-        "number": 911
-      },
-      "expected": "CMXI"
+    "property": "roman"
+  },
+  {
+    "description": "911 is CMXI",
+    "expected": "CMXI",
+    "input": {
+      "number": 911
     },
-    {
-      "description": "1000 is a single M",
-      "property": "roman",
-      "input": {
-        "number": 1024
-      },
-      "expected": "MXXIV"
+    "property": "roman"
+  },
+  {
+    "description": "1024 is MXXIV",
+    "expected": "MXXIV",
+    "input": {
+      "number": 1024
     },
-    {
-      "description": "3000 is three M's",
-      "property": "roman",
-      "input": {
-        "number": 3000
-      },
-      "expected": "MMM"
-    }
-  ]
-}
+    "property": "roman"
+  },
+  {
+    "description": "3000 is MMM",
+    "expected": "MMM",
+    "input": {
+      "number": 3000
+    },
+    "property": "roman"
+  }
+]

@@ -2,7 +2,7 @@ exercise: RNA
 plan: 7
 subs: to_rna
 tests: |-
-  for my $case ( @{ $C_DATA->{cases} } ) {
+  for my $case ( @test_cases ) {
     is to_rna($case->{input}{dna}), $case->{expected}, $case->{description};
   }
 

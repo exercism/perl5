@@ -2,7 +2,7 @@ exercise: PigLatin
 subs: translate
 plan: 23
 tests: |
-  for my $case ( map { @{$_->{cases}} } @{$C_DATA->{cases}} ) {
+  for my $case ( @test_cases ) {
     is translate($case->{input}{phrase}), $case->{expected}, $case->{description};
   }
 

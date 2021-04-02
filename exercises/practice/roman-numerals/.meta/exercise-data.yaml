@@ -2,7 +2,7 @@ exercise: RomanNumerals
 plan: 20
 subs: to_roman
 tests: |-
-  for my $case ( @{ $C_DATA->{cases} } ) {
+  for my $case ( @test_cases ) {
     is to_roman($case->{input}{number}), $case->{expected}, $case->{description};
   }
 

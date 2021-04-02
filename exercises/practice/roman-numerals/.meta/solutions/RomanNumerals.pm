@@ -1,8 +1,8 @@
 package RomanNumerals;
 use strict;
 use warnings;
-use Exporter 'import';
-our @EXPORT_OK = qw(to_roman);
+use Exporter qw<import>;
+our @EXPORT_OK = qw<to_roman>;
 
 my %ROMANS = qw(
   1000 M

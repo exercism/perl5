@@ -2,8 +2,8 @@
 package Bob;
 use strict;
 use warnings;
-use Exporter 'import';
-our @EXPORT_OK = qw(hey);
+use Exporter qw<import>;
+our @EXPORT_OK = qw<hey>;
 
 sub hey {
   my ($text) = @_;
