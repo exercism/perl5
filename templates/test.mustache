@@ -6,7 +6,7 @@ use constant JSON => JSON::PP->new;{{/cases}}
 use FindBin qw<$Bin>;
 use lib $Bin, "$Bin/local/lib/perl5";{{#lib_comment}} {{&lib_comment}}{{/lib_comment}}
 
-use {{&exercise}} {{#subs}}qw{{/subs}}<{{&subs}}>;{{#modules}}
+use {{&exercise}} {{#subs}}qw<{{&subs}}>{{/subs}}{{^subs}}(){{/subs}};{{#modules}}
 use {{&use}};{{/modules}}
 {{#cases}}
 my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };{{/cases}}{{#plan}}
