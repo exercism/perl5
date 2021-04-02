@@ -15,9 +15,6 @@ if ( !BASE_DIR->child('.problem-specifications')->is_dir ) {
   warn
     "`.problem-specifications` directory not found; exercise(s) may generate incorrectly.\n";
 }
-if ( !BASE_DIR->child( 'bin', 'configlet' )->is_file ) {
-  warn "configlet not found.\n";
-}
 
 my @exercises;
 
@@ -59,13 +56,6 @@ for my $exercise (@exercises) {
     next;
   }
   print "Generating $exercise... ";
-
-  for ( BASE_DIR->child( 'bin', 'configlet' ) ) {
-    system $_->realpath, 'sync', '--prob-specs-dir',
-      BASE_DIR->child('.problem-specifications'), '--exercise',
-      $exercise
-      if $_->is_file;
-  }
 
   my $data = LoadFile $yaml;
   my $generator
