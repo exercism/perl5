@@ -1,25 +1,19 @@
 package Anagram;
 use strict;
 use warnings;
+use Exporter qw<import>;
+our @EXPORT_OK = qw<match_anagrams>;
 
-sub match {
-  my ( $word, @words ) = @_;
+sub match_anagrams {
+  my ($input) = @_;
 
-  my @results;
-  my $canonical = _canonize($word);
-  foreach my $w (@words) {
-    next if $w eq $word;
-    my $try = _canonize($w);
-    if ( $try eq $canonical ) {
-      push @results, $w;
-    }
-  }
-  return \@results;
-}
-
-sub _canonize {
-  my ($str) = @_;
-  return join '', sort split //, lc $str;
+  return [
+    grep {
+      lc $_ ne lc $input->{subject}
+        && join( '', sort( split( //, lc $_ ) ) ) eq
+        join( '', sort( split( //, lc $input->{subject} ) ) )
+    } @{ $input->{candidates} }
+  ];
 }
 
 1;

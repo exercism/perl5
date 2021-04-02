@@ -1,0 +1,26 @@
+exercise: Anagram
+plan: 15
+subs: match_anagrams
+tests: |-
+  for my $case (@test_cases) {
+    is match_anagrams($case->{input}), $case->{expected}, $case->{description};
+  }
+
+example: |-
+  sub match_anagrams {
+    my ($input) = @_;
+
+    return [
+      grep {
+        lc $_ ne lc $input->{subject}
+          && join( '', sort( split( //, lc $_ ) ) ) eq
+          join( '', sort( split( //, lc $input->{subject} ) ) )
+      } @{ $input->{candidates} }
+    ];
+  }
+
+stub: |-
+  sub match_anagrams {
+    my ($input) = @_;
+    return undef;
+  }
