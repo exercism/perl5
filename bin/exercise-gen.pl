@@ -56,41 +56,7 @@ for my $exercise (@exercises) {
   }
   print "Generating $exercise... ";
 
-  my $data = LoadFile $yaml;
-  my $generator
-    = Exercism::Generator->new(
-    { exercise => $exercise, data => $data } );
-
-  $exercise_dir->child("$exercise.t")->spew_utf8( $generator->test );
-  $exercise_dir->child("$exercise.t")->chmod(0755);
-
-  for my $key ( keys %{ $generator->examples } ) {
-    my $value = $generator->examples->{$key};
-    if ( $key eq 'base' ) {
-      $exercise_dir->child( '.meta', 'solutions',
-        $generator->package . '.pm' )->spew_utf8($value);
-      eval {
-        symlink( "../../$exercise.t",
-          $exercise_dir->child( '.meta', 'solutions', "$exercise.t" )
-        );
-      };
-    }
-    else {
-      $exercise_dir->child( '.meta', 'solutions', $key,
-        $generator->package . '.pm' )->touchpath->spew_utf8($value);
-      eval {
-        symlink(
-          "../../../$exercise.t",
-          $exercise_dir->child(
-            '.meta', 'solutions', $key, "$exercise.t"
-          )
-        );
-      };
-    }
-  }
-
-  $exercise_dir->child( $generator->package . '.pm' )
-    ->spew_utf8( $generator->stub );
+  Exercism::Generator->new( exercise => $exercise )->create_files;
 
   say 'Generated.';
 }

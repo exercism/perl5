@@ -9,6 +9,7 @@ use Path::Tiny qw<path>;
 use Perl::Tidy ();
 use Template::Mustache qw<render>;
 use TOML::Parser ();
+use YAML qw<LoadFile>;
 
 use lib::gitroot qw<:set_root :once>;
 
@@ -23,20 +24,24 @@ has exercise => (
   required => 1,
 );
 
-has data => (
-  is  => 'ro',
+has [qw<data cdata>] => (
+  is  => 'lazy',
   isa => sub {
     ref $_[0] eq 'HASH'
-      or die '"data" attribute expects a hash reference';
+      or die 'attribute expects hash reference';
   },
-  default => sub { {} },
+);
+
+has [qw<case_uuids cases>] => (
+  is  => 'lazy',
+  isa => sub {
+    ref $_[0] eq 'ARRAY'
+      or die 'attribute expects array reference';
+  },
 );
 
 has [
   qw<
-    case_uuids
-    cases
-    cdata
     json_tests
     package
   >
@@ -87,6 +92,56 @@ sub _render {
   return $tidied;
 }
 
+sub create_files {
+  my ($self) = @_;
+  my $exercise_dir = BASE_DIR->child( 'exercises', $self->exercise );
+
+  # Test
+  my $testfile = $exercise_dir->child( $self->exercise . '.t' )->touchpath;
+  $testfile->spew_utf8( $self->test );
+  $testfile->chmod(0755);
+
+  # Stub
+  $exercise_dir->child( $self->package . '.pm' )
+    ->spew_utf8( $self->stub );
+
+  # Examples
+  for my $key ( keys %{ $self->examples } ) {
+    my $value = $self->examples->{$key};
+    if ( $key eq 'base' ) {
+      $exercise_dir->child( '.meta', 'solutions',
+        $self->package . '.pm' )->touchpath->spew_utf8($value);
+      eval {
+        symlink(
+          '../../' . $testfile->basename,
+          $exercise_dir->child(
+            '.meta', 'solutions', $testfile->basename
+          )
+        );
+      };
+    }
+    else {
+      $exercise_dir->child( '.meta', 'solutions', $key,
+        $self->package . '.pm' )->touchpath->spew_utf8($value);
+      eval {
+        symlink(
+          '../../../' . $testfile->basename,
+          $exercise_dir->child(
+            '.meta', 'solutions', $key, $testfile->basename
+          )
+        );
+      };
+    }
+  }
+}
+
+sub _build_data {
+  my ($self) = @_;
+  my $yaml = BASE_DIR->child( 'exercises', $self->exercise, '.meta',
+    'exercise-data.yaml' );
+  return $yaml->is_file ? LoadFile($yaml) : {};
+}
+
 sub _build_package {
   my ($self) = @_;
   return $self->data->{package} // join( '',
@@ -119,9 +174,9 @@ sub _build_cases {
   my ( $self, $obj, $description ) = @_;
   $description //= '';
 
-  return [] if !$self->cdata;
+  return [] if !%{ $self->cdata };
 
-  $obj //= JSON->decode( $self->cdata );
+  $obj //= $self->cdata;
   my $new_desc = '';
 
   if ( $obj->{cases} ) {
@@ -148,18 +203,16 @@ sub _build_cases {
   return [];
 }
 
-# cdata is the canonical-data.json for an exercise in problem-specifications
+# cdata is the parsed canonical-data.json for an exercise in problem-specifications
 sub _build_cdata {
   my ($self) = @_;
   my $cdata_file
     = BASE_DIR->child( '.problem-specifications', 'exercises',
     $self->exercise, 'canonical-data.json' );
 
-  if ( $cdata_file->is_file ) {
-    return $cdata_file->slurp_utf8 =~ s/^\s+|\s+$//gr;
-  }
-
-  return '';
+  return $cdata_file->is_file
+    ? JSON->decode( $cdata_file->slurp_utf8 )
+    : {};
 }
 
 # json_tests is cases transformed into a JSON array
