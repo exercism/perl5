@@ -1,6 +1,7 @@
 *.beam
 *.swp
 .DS_Store
+.problem-specifications
 tmp
 bin/configlet
 bin/configlet.exe

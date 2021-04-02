@@ -33,7 +33,7 @@ has [
     cases
     cdata
     json_tests
-    >
+  >
 ] => ( is => 'lazy' );
 
 # test returns the test file rendered from the template
@@ -76,9 +76,10 @@ sub _render {
 sub _build_case_uuids {
   my ($self) = @_;
 
-  my $toml_file
-    = BASE_DIR->child( 'exercises', $self->exercise, '.meta',
-    'tests.toml' );
+  my $toml_file = BASE_DIR->child(
+    'exercises', 'practice', $self->exercise, '.meta',
+    'tests.toml'
+  );
 
   my $toml_data;
   if ( $toml_file->is_file ) {

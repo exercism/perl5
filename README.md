@@ -40,7 +40,7 @@ If they are in the `.meta` directory they won't be copied to the users. (which i
 
 Run the full tests with
 
-    prove -r exercises/*/.meta/solutions
+    prove -r exercises/practice/*/.meta/solutions
 
 ### Testing a Single Exercise
 
