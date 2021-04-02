@@ -2,7 +2,7 @@ exercise: Meetup
 plan: 96
 subs: meetup
 tests: |
-  for my $case ( @{ $C_DATA->{cases} } ) {
+  for my $case ( @test_cases ) {
     is meetup($case->{input}), $case->{expected}, $case->{description};
   }
 

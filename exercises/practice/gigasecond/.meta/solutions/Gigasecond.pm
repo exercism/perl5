@@ -1,8 +1,8 @@
 package Gigasecond;
 use strict;
 use warnings;
-use Exporter 'import';
-our @EXPORT_OK = qw(add_gigasecond);
+use Exporter qw<import>;
+our @EXPORT_OK = qw<add_gigasecond>;
 
 use Time::Piece;
 

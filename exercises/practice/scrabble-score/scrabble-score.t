@@ -1,114 +1,111 @@
 #!/usr/bin/env perl
 use Test2::V0;
 use JSON::PP;
+use constant JSON => JSON::PP->new;
 
-use FindBin qw($Bin);
+use FindBin qw<$Bin>;
 use lib $Bin, "$Bin/local/lib/perl5";
 
-use ScrabbleScore qw(score);
+use ScrabbleScore qw<score>;
 
-my $C_DATA = do { local $/; decode_json(<DATA>); };
+my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };
 plan 12;
 
-imported_ok qw(score) or bail_out;
+imported_ok qw<score> or bail_out;
 
-for my $case ( @{ $C_DATA->{cases} } ) {
+for my $case (@test_cases) {
   is score( $case->{input}{word} ), $case->{expected},
     $case->{description};
 }
 
 __DATA__
-{
-  "exercise": "scrabble-score",
-  "version": "1.1.0",
-  "cases": [
-    {
-      "description": "lowercase letter",
-      "property": "score",
-      "input": {
-        "word": "a"
-      },
-      "expected": 1
+[
+  {
+    "description": "lowercase letter",
+    "expected": 1,
+    "input": {
+      "word": "a"
     },
-    {
-      "description": "uppercase letter",
-      "property": "score",
-      "input": {
-        "word": "A"
-      },
-      "expected": 1
+    "property": "score"
+  },
+  {
+    "description": "uppercase letter",
+    "expected": 1,
+    "input": {
+      "word": "A"
     },
-    {
-      "description": "valuable letter",
-      "property": "score",
-      "input": {
-        "word": "f"
-      },
-      "expected": 4
+    "property": "score"
+  },
+  {
+    "description": "valuable letter",
+    "expected": 4,
+    "input": {
+      "word": "f"
     },
-    {
-      "description": "short word",
-      "property": "score",
-      "input": {
-        "word": "at"
-      },
-      "expected": 2
+    "property": "score"
+  },
+  {
+    "description": "short word",
+    "expected": 2,
+    "input": {
+      "word": "at"
     },
-    {
-      "description": "short, valuable word",
-      "property": "score",
-      "input": {
-        "word": "zoo"
-      },
-      "expected": 12
+    "property": "score"
+  },
+  {
+    "description": "short, valuable word",
+    "expected": 12,
+    "input": {
+      "word": "zoo"
     },
-    {
-      "description": "medium word",
-      "property": "score",
-      "input": {
-        "word": "street"
-      },
-      "expected": 6
+    "property": "score"
+  },
+  {
+    "description": "medium word",
+    "expected": 6,
+    "input": {
+      "word": "street"
     },
-    {
-      "description": "medium, valuable word",
-      "property": "score",
-      "input": {
-        "word": "quirky"
-      },
-      "expected": 22
+    "property": "score"
+  },
+  {
+    "description": "medium, valuable word",
+    "expected": 22,
+    "input": {
+      "word": "quirky"
     },
-    {
-      "description": "long, mixed-case word",
-      "property": "score",
-      "input": {
-        "word": "OxyphenButazone"
-      },
-      "expected": 41
+    "property": "score"
+  },
+  {
+    "description": "long, mixed-case word",
+    "expected": 41,
+    "input": {
+      "word": "OxyphenButazone"
     },
-    {
-      "description": "english-like word",
-      "property": "score",
-      "input": {
-        "word": "pinata"
-      },
-      "expected": 8
+    "property": "score"
+  },
+  {
+    "description": "english-like word",
+    "expected": 8,
+    "input": {
+      "word": "pinata"
     },
-    {
-      "description": "empty input",
-      "property": "score",
-      "input": {
-        "word": ""
-      },
-      "expected": 0
+    "property": "score"
+  },
+  {
+    "description": "empty input",
+    "expected": 0,
+    "input": {
+      "word": ""
     },
-    {
-      "description": "entire alphabet available",
-      "property": "score",
-      "input": {
-        "word": "abcdefghijklmnopqrstuvwxyz"
-      },
-      "expected": 87
-    }
-  ]
-}
+    "property": "score"
+  },
+  {
+    "description": "entire alphabet available",
+    "expected": 87,
+    "input": {
+      "word": "abcdefghijklmnopqrstuvwxyz"
+    },
+    "property": "score"
+  }
+]

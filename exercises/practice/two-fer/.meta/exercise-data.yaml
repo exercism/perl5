@@ -2,7 +2,7 @@ exercise: TwoFer
 plan: 4
 subs: two_fer
 tests: |-
-  for my $case ( @{ $C_DATA->{cases} } ) {
+  for my $case ( @test_cases ) {
     is $case->{input}{name}
       ? two_fer($case->{input}{name})
       : two_fer(),

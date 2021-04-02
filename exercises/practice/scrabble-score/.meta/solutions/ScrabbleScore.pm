@@ -1,8 +1,8 @@
 package ScrabbleScore;
 use strict;
 use warnings;
-use Exporter 'import';
-our @EXPORT_OK = qw(score);
+use Exporter qw<import>;
+our @EXPORT_OK = qw<score>;
 
 use List::Util qw(sum0 pairmap);
 
@@ -18,7 +18,7 @@ my $scores = {
     5 k
     8 jx
     10 qz
-    )
+  )
 };
 
 sub score {

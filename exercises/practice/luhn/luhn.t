@@ -1,18 +1,19 @@
 #!/usr/bin/env perl
 use Test2::V0;
 use JSON::PP;
+use constant JSON => JSON::PP->new;
 
-use FindBin qw($Bin);
+use FindBin qw<$Bin>;
 use lib $Bin, "$Bin/local/lib/perl5";
 
-use Luhn qw(is_luhn_valid);
+use Luhn qw<is_luhn_valid>;
 
-my $C_DATA = do { local $/; decode_json(<DATA>); };
-plan 18;
+my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };
+plan 19;
 
-imported_ok qw(is_luhn_valid) or bail_out;
+imported_ok qw<is_luhn_valid> or bail_out;
 
-for my $case ( @{ $C_DATA->{cases} } ) {
+for my $case (@test_cases) {
   is(
     is_luhn_valid( $case->{input}{value} ),
     $case->{expected}
@@ -23,153 +24,149 @@ for my $case ( @{ $C_DATA->{cases} } ) {
 }
 
 __DATA__
-{
-  "exercise": "luhn",
-  "version": "1.6.1",
-  "cases": [
-    {
-      "description": "single digit strings can not be valid",
-      "property": "valid",
-      "input": {
-        "value": "1"
-      },
-      "expected": false
+[
+  {
+    "description": "single digit strings can not be valid",
+    "expected": false,
+    "input": {
+      "value": "1"
     },
-    {
-      "description": "a single zero is invalid",
-      "property": "valid",
-      "input": {
-        "value": "0"
-      },
-      "expected": false
+    "property": "valid"
+  },
+  {
+    "description": "a single zero is invalid",
+    "expected": false,
+    "input": {
+      "value": "0"
     },
-    {
-      "description": "a simple valid SIN that remains valid if reversed",
-      "property": "valid",
-      "input": {
-        "value": "059"
-      },
-      "expected": true
+    "property": "valid"
+  },
+  {
+    "description": "a simple valid SIN that remains valid if reversed",
+    "expected": true,
+    "input": {
+      "value": "059"
     },
-    {
-      "description": "a simple valid SIN that becomes invalid if reversed",
-      "property": "valid",
-      "input": {
-        "value": "59"
-      },
-      "expected": true
+    "property": "valid"
+  },
+  {
+    "description": "a simple valid SIN that becomes invalid if reversed",
+    "expected": true,
+    "input": {
+      "value": "59"
     },
-    {
-      "description": "a valid Canadian SIN",
-      "property": "valid",
-      "input": {
-        "value": "055 444 285"
-      },
-      "expected": true
+    "property": "valid"
+  },
+  {
+    "description": "a valid Canadian SIN",
+    "expected": true,
+    "input": {
+      "value": "055 444 285"
     },
-    {
-      "description": "invalid Canadian SIN",
-      "property": "valid",
-      "input": {
-        "value": "055 444 286"
-      },
-      "expected": false
+    "property": "valid"
+  },
+  {
+    "description": "invalid Canadian SIN",
+    "expected": false,
+    "input": {
+      "value": "055 444 286"
     },
-    {
-      "description": "invalid credit card",
-      "property": "valid",
-      "input": {
-        "value": "8273 1232 7352 0569"
-      },
-      "expected": false
+    "property": "valid"
+  },
+  {
+    "description": "invalid credit card",
+    "expected": false,
+    "input": {
+      "value": "8273 1232 7352 0569"
     },
-    {
-      "description": "valid number with an even number of digits",
-      "property": "valid",
-      "input": {
-        "value": "095 245 88"
-      },
-      "expected": true
+    "property": "valid"
+  },
+  {
+    "description": "invalid long number with an even remainder",
+    "expected": false,
+    "input": {
+      "value": "1 2345 6789 1234 5678 9012"
     },
-    {
-      "description": "valid number with an odd number of spaces",
-      "property": "valid",
-      "input": {
-        "value": "234 567 891 234"
-      },
-      "expected": true
+    "property": "valid"
+  },
+  {
+    "description": "valid number with an even number of digits",
+    "expected": true,
+    "input": {
+      "value": "095 245 88"
     },
-    {
-      "description": "valid strings with a non-digit added at the end become invalid",
-      "property": "valid",
-      "input": {
-        "value": "059a"
-      },
-      "expected": false
+    "property": "valid"
+  },
+  {
+    "description": "valid number with an odd number of spaces",
+    "expected": true,
+    "input": {
+      "value": "234 567 891 234"
     },
-    {
-      "description": "valid strings with punctuation included become invalid",
-      "property": "valid",
-      "input": {
-        "value": "055-444-285"
-      },
-      "expected": false
+    "property": "valid"
+  },
+  {
+    "description": "valid strings with a non-digit added at the end become invalid",
+    "expected": false,
+    "input": {
+      "value": "059a"
     },
-    {
-      "description": "valid strings with symbols included become invalid",
-      "property": "valid",
-      "input": {
-        "value": "055# 444$ 285"
-      },
-      "expected": false
+    "property": "valid"
+  },
+  {
+    "description": "valid strings with punctuation included become invalid",
+    "expected": false,
+    "input": {
+      "value": "055-444-285"
     },
-    {
-      "description": "single zero with space is invalid",
-      "property": "valid",
-      "input": {
-        "value": " 0"
-      },
-      "expected": false
+    "property": "valid"
+  },
+  {
+    "description": "valid strings with symbols included become invalid",
+    "expected": false,
+    "input": {
+      "value": "055# 444$ 285"
     },
-    {
-      "description": "more than a single zero is valid",
-      "property": "valid",
-      "input": {
-        "value": "0000 0"
-      },
-      "expected": true
+    "property": "valid"
+  },
+  {
+    "description": "single zero with space is invalid",
+    "expected": false,
+    "input": {
+      "value": " 0"
     },
-    {
-      "description": "input digit 9 is correctly converted to output digit 9",
-      "property": "valid",
-      "input": {
-        "value": "091"
-      },
-      "expected": true
+    "property": "valid"
+  },
+  {
+    "description": "more than a single zero is valid",
+    "expected": true,
+    "input": {
+      "value": "0000 0"
     },
-    {
-      "comments": [
-        "Convert non-digits to their ascii values and then offset them by 48 sometimes accidentally declare an invalid string to be valid.",
-        "This test is designed to avoid that solution."
-      ],
-      "description": "using ascii value for non-doubled non-digit isn't allowed",
-      "property": "valid",
-      "input": {
-        "value": "055b 444 285"
-      },
-      "expected": false
+    "property": "valid"
+  },
+  {
+    "description": "input digit 9 is correctly converted to output digit 9",
+    "expected": true,
+    "input": {
+      "value": "091"
     },
-    {
-      "comments": [
-        "Convert non-digits to their ascii values and then offset them by 48 sometimes accidentally declare an invalid string to be valid.",
-        "This test is designed to avoid that solution."
-      ],
-      "description": "using ascii value for doubled non-digit isn't allowed",
-      "property": "valid",
-      "input": {
-        "value": ":9"
-      },
-      "expected": false
-    }
-  ]
-}
+    "property": "valid"
+  },
+  {
+    "description": "using ascii value for non-doubled non-digit isn't allowed",
+    "expected": false,
+    "input": {
+      "value": "055b 444 285"
+    },
+    "property": "valid"
+  },
+  {
+    "description": "using ascii value for doubled non-digit isn't allowed",
+    "expected": false,
+    "input": {
+      "value": ":9"
+    },
+    "property": "valid"
+  }
+]

@@ -2,7 +2,7 @@ exercise: TwelveDays
 subs: recite
 plan: 16
 tests: |
-  for my $case ( map { @{ $_->{cases} } } @{ $C_DATA->{cases} } ) {
+  for my $case ( @test_cases ) {
     is [
       split(
         /\n/,

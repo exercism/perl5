@@ -1,232 +1,199 @@
 #!/usr/bin/env perl
 use Test2::V0;
 use JSON::PP;
+use constant JSON => JSON::PP->new;
 
-use FindBin qw($Bin);
+use FindBin qw<$Bin>;
 use lib $Bin, "$Bin/local/lib/perl5";
 
-use PigLatin qw(translate);
+use PigLatin qw<translate>;
 
-my $C_DATA = do { local $/; decode_json(<DATA>); };
+my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };
 plan 23;
 
-imported_ok qw(translate) or bail_out;
+imported_ok qw<translate> or bail_out;
 
-for my $case ( map { @{ $_->{cases} } } @{ $C_DATA->{cases} } ) {
+for my $case (@test_cases) {
   is translate( $case->{input}{phrase} ), $case->{expected},
     $case->{description};
 }
 
 __DATA__
-{
-  "exercise": "pig-latin",
-  "version": "1.2.0",
-  "cases": [
-    {
-      "description": "ay is added to words that start with vowels",
-      "cases": [
-        {
-          "description": "word beginning with a",
-          "property": "translate",
-          "input": {
-            "phrase": "apple"
-          },
-          "expected": "appleay"
-        },
-        {
-          "description": "word beginning with e",
-          "property": "translate",
-          "input": {
-            "phrase": "ear"
-          },
-          "expected": "earay"
-        },
-        {
-          "description": "word beginning with i",
-          "property": "translate",
-          "input": {
-            "phrase": "igloo"
-          },
-          "expected": "iglooay"
-        },
-        {
-          "description": "word beginning with o",
-          "property": "translate",
-          "input": {
-            "phrase": "object"
-          },
-          "expected": "objectay"
-        },
-        {
-          "description": "word beginning with u",
-          "property": "translate",
-          "input": {
-            "phrase": "under"
-          },
-          "expected": "underay"
-        },
-        {
-          "description": "word beginning with a vowel and followed by a qu",
-          "property": "translate",
-          "input": {
-            "phrase": "equal"
-          },
-          "expected": "equalay"
-        }
-      ]
+[
+  {
+    "description": "ay is added to words that start with vowels: word beginning with a",
+    "expected": "appleay",
+    "input": {
+      "phrase": "apple"
     },
-    {
-      "description": "first letter and ay are moved to the end of words that start with consonants",
-      "cases": [
-        {
-          "description": "word beginning with p",
-          "property": "translate",
-          "input": {
-            "phrase": "pig"
-          },
-          "expected": "igpay"
-        },
-        {
-          "description": "word beginning with k",
-          "property": "translate",
-          "input": {
-            "phrase": "koala"
-          },
-          "expected": "oalakay"
-        },
-        {
-          "description": "word beginning with x",
-          "property": "translate",
-          "input": {
-            "phrase": "xenon"
-          },
-          "expected": "enonxay"
-        },
-        {
-          "description": "word beginning with q without a following u",
-          "property": "translate",
-          "input": {
-            "phrase": "qat"
-          },
-          "expected": "atqay"
-        }
-      ]
+    "property": "translate"
+  },
+  {
+    "description": "ay is added to words that start with vowels: word beginning with e",
+    "expected": "earay",
+    "input": {
+      "phrase": "ear"
     },
-    {
-      "description": "some letter clusters are treated like a single consonant",
-      "cases": [
-        {
-          "description": "word beginning with ch",
-          "property": "translate",
-          "input": {
-            "phrase": "chair"
-          },
-          "expected": "airchay"
-        },
-        {
-          "description": "word beginning with qu",
-          "property": "translate",
-          "input": {
-            "phrase": "queen"
-          },
-          "expected": "eenquay"
-        },
-        {
-          "description": "word beginning with qu and a preceding consonant",
-          "property": "translate",
-          "input": {
-            "phrase": "square"
-          },
-          "expected": "aresquay"
-        },
-        {
-          "description": "word beginning with th",
-          "property": "translate",
-          "input": {
-            "phrase": "therapy"
-          },
-          "expected": "erapythay"
-        },
-        {
-          "description": "word beginning with thr",
-          "property": "translate",
-          "input": {
-            "phrase": "thrush"
-          },
-          "expected": "ushthray"
-        },
-        {
-          "description": "word beginning with sch",
-          "property": "translate",
-          "input": {
-            "phrase": "school"
-          },
-          "expected": "oolschay"
-        }
-      ]
+    "property": "translate"
+  },
+  {
+    "description": "ay is added to words that start with vowels: word beginning with i",
+    "expected": "iglooay",
+    "input": {
+      "phrase": "igloo"
     },
-    {
-      "description": "some letter clusters are treated like a single vowel",
-      "cases": [
-        {
-          "description": "word beginning with yt",
-          "property": "translate",
-          "input": {
-            "phrase": "yttria"
-          },
-          "expected": "yttriaay"
-        },
-        {
-          "description": "word beginning with xr",
-          "property": "translate",
-          "input": {
-            "phrase": "xray"
-          },
-          "expected": "xrayay"
-        }
-      ]
+    "property": "translate"
+  },
+  {
+    "description": "ay is added to words that start with vowels: word beginning with o",
+    "expected": "objectay",
+    "input": {
+      "phrase": "object"
     },
-    {
-      "description": "position of y in a word determines if it is a consonant or a vowel",
-      "cases": [
-        {
-          "description": "y is treated like a consonant at the beginning of a word",
-          "property": "translate",
-          "input": {
-            "phrase": "yellow"
-          },
-          "expected": "ellowyay"
-        },
-        {
-          "description": "y is treated like a vowel at the end of a consonant cluster",
-          "property": "translate",
-          "input": {
-            "phrase": "rhythm"
-          },
-          "expected": "ythmrhay"
-        },
-        {
-          "description": "y as second letter in two letter word",
-          "property": "translate",
-          "input": {
-            "phrase": "my"
-          },
-          "expected": "ymay"
-        }
-      ]
+    "property": "translate"
+  },
+  {
+    "description": "ay is added to words that start with vowels: word beginning with u",
+    "expected": "underay",
+    "input": {
+      "phrase": "under"
     },
-    {
-      "description": "phrases are translated",
-      "cases": [
-        {
-          "description": "a whole phrase",
-          "property": "translate",
-          "input": {
-            "phrase": "quick fast run"
-          },
-          "expected": "ickquay astfay unray"
-        }
-      ]
-    }
-  ]
-}
+    "property": "translate"
+  },
+  {
+    "description": "ay is added to words that start with vowels: word beginning with a vowel and followed by a qu",
+    "expected": "equalay",
+    "input": {
+      "phrase": "equal"
+    },
+    "property": "translate"
+  },
+  {
+    "description": "first letter and ay are moved to the end of words that start with consonants: word beginning with p",
+    "expected": "igpay",
+    "input": {
+      "phrase": "pig"
+    },
+    "property": "translate"
+  },
+  {
+    "description": "first letter and ay are moved to the end of words that start with consonants: word beginning with k",
+    "expected": "oalakay",
+    "input": {
+      "phrase": "koala"
+    },
+    "property": "translate"
+  },
+  {
+    "description": "first letter and ay are moved to the end of words that start with consonants: word beginning with x",
+    "expected": "enonxay",
+    "input": {
+      "phrase": "xenon"
+    },
+    "property": "translate"
+  },
+  {
+    "description": "first letter and ay are moved to the end of words that start with consonants: word beginning with q without a following u",
+    "expected": "atqay",
+    "input": {
+      "phrase": "qat"
+    },
+    "property": "translate"
+  },
+  {
+    "description": "some letter clusters are treated like a single consonant: word beginning with ch",
+    "expected": "airchay",
+    "input": {
+      "phrase": "chair"
+    },
+    "property": "translate"
+  },
+  {
+    "description": "some letter clusters are treated like a single consonant: word beginning with qu",
+    "expected": "eenquay",
+    "input": {
+      "phrase": "queen"
+    },
+    "property": "translate"
+  },
+  {
+    "description": "some letter clusters are treated like a single consonant: word beginning with qu and a preceding consonant",
+    "expected": "aresquay",
+    "input": {
+      "phrase": "square"
+    },
+    "property": "translate"
+  },
+  {
+    "description": "some letter clusters are treated like a single consonant: word beginning with th",
+    "expected": "erapythay",
+    "input": {
+      "phrase": "therapy"
+    },
+    "property": "translate"
+  },
+  {
+    "description": "some letter clusters are treated like a single consonant: word beginning with thr",
+    "expected": "ushthray",
+    "input": {
+      "phrase": "thrush"
+    },
+    "property": "translate"
+  },
+  {
+    "description": "some letter clusters are treated like a single consonant: word beginning with sch",
+    "expected": "oolschay",
+    "input": {
+      "phrase": "school"
+    },
+    "property": "translate"
+  },
+  {
+    "description": "some letter clusters are treated like a single vowel: word beginning with yt",
+    "expected": "yttriaay",
+    "input": {
+      "phrase": "yttria"
+    },
+    "property": "translate"
+  },
+  {
+    "description": "some letter clusters are treated like a single vowel: word beginning with xr",
+    "expected": "xrayay",
+    "input": {
+      "phrase": "xray"
+    },
+    "property": "translate"
+  },
+  {
+    "description": "position of y in a word determines if it is a consonant or a vowel: y is treated like a consonant at the beginning of a word",
+    "expected": "ellowyay",
+    "input": {
+      "phrase": "yellow"
+    },
+    "property": "translate"
+  },
+  {
+    "description": "position of y in a word determines if it is a consonant or a vowel: y is treated like a vowel at the end of a consonant cluster",
+    "expected": "ythmrhay",
+    "input": {
+      "phrase": "rhythm"
+    },
+    "property": "translate"
+  },
+  {
+    "description": "position of y in a word determines if it is a consonant or a vowel: y as second letter in two letter word",
+    "expected": "ymay",
+    "input": {
+      "phrase": "my"
+    },
+    "property": "translate"
+  },
+  {
+    "description": "phrases are translated: a whole phrase",
+    "expected": "ickquay astfay unray",
+    "input": {
+      "phrase": "quick fast run"
+    },
+    "property": "translate"
+  }
+]

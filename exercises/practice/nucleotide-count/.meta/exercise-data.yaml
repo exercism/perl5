@@ -2,7 +2,7 @@ exercise: NucleotideCount
 plan: 6
 subs: count_nucleotides
 tests: |-
-  for my $case (map {@{$_->{cases}}} @{$C_DATA->{cases}}) {
+  for my $case ( @test_cases ) {
     if ($case->{expected}{error}) {
       like dies( sub { count_nucleotides($case->{input}{strand}) } ),
         qr/$case->{expected}{error}/, $case->{description};

@@ -2,7 +2,7 @@ exercise: Raindrops
 plan: 19
 subs: raindrop
 tests: |-
-  for my $case ( @{ $C_DATA->{cases} } ) {
+  for my $case ( @test_cases ) {
     is raindrop($case->{input}{number}), $case->{expected}, $case->{description};
   }
 

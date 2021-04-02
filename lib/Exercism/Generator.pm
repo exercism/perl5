@@ -14,7 +14,8 @@ use lib::gitroot qw<:set_root :once>;
 
 use constant {
   BASE_DIR => path(GIT_ROOT),
-  JSON     => JSON::PP->new->canonical->pretty->space_before(0),
+  JSON     => JSON::PP->new->canonical->pretty->space_before(0)
+    ->indent_length(2),
 };
 
 has exercise => (

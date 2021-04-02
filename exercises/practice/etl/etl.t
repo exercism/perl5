@@ -22,138 +22,138 @@ for my $case (@test_cases) {
 
 __DATA__
 [
-   {
-      "description": "Transform legacy to new: single letter",
-      "expected": {
-         "a": 1
-      },
-      "input": {
-         "legacy": {
-            "1": [
-               "A"
-            ]
-         }
-      },
-      "property": "transform"
-   },
-   {
-      "description": "Transform legacy to new: single score with multiple letters",
-      "expected": {
-         "a": 1,
-         "e": 1,
-         "i": 1,
-         "o": 1,
-         "u": 1
-      },
-      "input": {
-         "legacy": {
-            "1": [
-               "A",
-               "E",
-               "I",
-               "O",
-               "U"
-            ]
-         }
-      },
-      "property": "transform"
-   },
-   {
-      "description": "Transform legacy to new: multiple scores with multiple letters",
-      "expected": {
-         "a": 1,
-         "d": 2,
-         "e": 1,
-         "g": 2
-      },
-      "input": {
-         "legacy": {
-            "1": [
-               "A",
-               "E"
-            ],
-            "2": [
-               "D",
-               "G"
-            ]
-         }
-      },
-      "property": "transform"
-   },
-   {
-      "description": "Transform legacy to new: multiple scores with differing numbers of letters",
-      "expected": {
-         "a": 1,
-         "b": 3,
-         "c": 3,
-         "d": 2,
-         "e": 1,
-         "f": 4,
-         "g": 2,
-         "h": 4,
-         "i": 1,
-         "j": 8,
-         "k": 5,
-         "l": 1,
-         "m": 3,
-         "n": 1,
-         "o": 1,
-         "p": 3,
-         "q": 10,
-         "r": 1,
-         "s": 1,
-         "t": 1,
-         "u": 1,
-         "v": 4,
-         "w": 4,
-         "x": 8,
-         "y": 4,
-         "z": 10
-      },
-      "input": {
-         "legacy": {
-            "1": [
-               "A",
-               "E",
-               "I",
-               "O",
-               "U",
-               "L",
-               "N",
-               "R",
-               "S",
-               "T"
-            ],
-            "10": [
-               "Q",
-               "Z"
-            ],
-            "2": [
-               "D",
-               "G"
-            ],
-            "3": [
-               "B",
-               "C",
-               "M",
-               "P"
-            ],
-            "4": [
-               "F",
-               "H",
-               "V",
-               "W",
-               "Y"
-            ],
-            "5": [
-               "K"
-            ],
-            "8": [
-               "J",
-               "X"
-            ]
-         }
-      },
-      "property": "transform"
-   }
+  {
+    "description": "Transform legacy to new: single letter",
+    "expected": {
+      "a": 1
+    },
+    "input": {
+      "legacy": {
+        "1": [
+          "A"
+        ]
+      }
+    },
+    "property": "transform"
+  },
+  {
+    "description": "Transform legacy to new: single score with multiple letters",
+    "expected": {
+      "a": 1,
+      "e": 1,
+      "i": 1,
+      "o": 1,
+      "u": 1
+    },
+    "input": {
+      "legacy": {
+        "1": [
+          "A",
+          "E",
+          "I",
+          "O",
+          "U"
+        ]
+      }
+    },
+    "property": "transform"
+  },
+  {
+    "description": "Transform legacy to new: multiple scores with multiple letters",
+    "expected": {
+      "a": 1,
+      "d": 2,
+      "e": 1,
+      "g": 2
+    },
+    "input": {
+      "legacy": {
+        "1": [
+          "A",
+          "E"
+        ],
+        "2": [
+          "D",
+          "G"
+        ]
+      }
+    },
+    "property": "transform"
+  },
+  {
+    "description": "Transform legacy to new: multiple scores with differing numbers of letters",
+    "expected": {
+      "a": 1,
+      "b": 3,
+      "c": 3,
+      "d": 2,
+      "e": 1,
+      "f": 4,
+      "g": 2,
+      "h": 4,
+      "i": 1,
+      "j": 8,
+      "k": 5,
+      "l": 1,
+      "m": 3,
+      "n": 1,
+      "o": 1,
+      "p": 3,
+      "q": 10,
+      "r": 1,
+      "s": 1,
+      "t": 1,
+      "u": 1,
+      "v": 4,
+      "w": 4,
+      "x": 8,
+      "y": 4,
+      "z": 10
+    },
+    "input": {
+      "legacy": {
+        "1": [
+          "A",
+          "E",
+          "I",
+          "O",
+          "U",
+          "L",
+          "N",
+          "R",
+          "S",
+          "T"
+        ],
+        "10": [
+          "Q",
+          "Z"
+        ],
+        "2": [
+          "D",
+          "G"
+        ],
+        "3": [
+          "B",
+          "C",
+          "M",
+          "P"
+        ],
+        "4": [
+          "F",
+          "H",
+          "V",
+          "W",
+          "Y"
+        ],
+        "5": [
+          "K"
+        ],
+        "8": [
+          "J",
+          "X"
+        ]
+      }
+    },
+    "property": "transform"
+  }
 ]

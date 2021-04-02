@@ -2,7 +2,7 @@ exercise: ScrabbleScore
 plan: 12
 subs: score
 tests: |-
-  for my $case ( @{ $C_DATA->{cases} } ) {
+  for my $case ( @test_cases ) {
     is score($case->{input}{word}), $case->{expected}, $case->{description};
   }
 

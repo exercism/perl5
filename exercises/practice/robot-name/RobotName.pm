@@ -8,7 +8,7 @@ has name => ( is => 'rwp' );
 
 sub reset_name {
   my ($self) = @_;
-  return undef;   # Replace this with your own code to pass the tests.
+  return undef;    # Replace this with your own code to pass the tests.
 }
 
 1;

@@ -1,18 +1,19 @@
 #!/usr/bin/env perl
 use Test2::V0;
 use JSON::PP;
+use constant JSON => JSON::PP->new;
 
-use FindBin qw($Bin);
+use FindBin qw<$Bin>;
 use lib $Bin, "$Bin/local/lib/perl5";
 
-use Hamming qw(hamming_distance);
+use Hamming qw<hamming_distance>;
 
-my $C_DATA = do { local $/; decode_json(<DATA>); };
+my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };
 plan 10;
 
-imported_ok qw(hamming_distance) or bail_out;
+imported_ok qw<hamming_distance> or bail_out;
 
-for my $case ( @{ $C_DATA->{cases} } ) {
+for my $case (@test_cases) {
   if ( !ref $case->{expected} ) {
     is hamming_distance( @{ $case->{input} }{qw(strand1 strand2)} ),
       $case->{expected}, $case->{description};
@@ -29,99 +30,94 @@ for my $case ( @{ $C_DATA->{cases} } ) {
 }
 
 __DATA__
-{
-"exercise": "hamming",
-"version": "2.3.0",
-  "comments": [
-    "Language implementations vary on the issue of unequal length strands.",
-    "A language may elect to simplify this task by only presenting equal",
-    "length test cases.  For languages handling unequal length strands as",
-    "error condition, unequal length test cases are included here and are",
-    "indicated with an error object.  Language idioms of errors or exceptions",
-    "should be followed.  Alternative interpretations such as ignoring excess",
-    "length at the end are not represented here."
-  ],
-  "cases": [
-    {
-      "description": "empty strands",
-      "property": "distance",
-      "input": {
-        "strand1": "",
-        "strand2": ""
-      },
-      "expected": 0
+[
+  {
+    "description": "empty strands",
+    "expected": 0,
+    "input": {
+      "strand1": "",
+      "strand2": ""
     },
-    {
-      "description": "single letter identical strands",
-      "property": "distance",
-      "input": {
-        "strand1": "A",
-        "strand2": "A"
-      },
-      "expected": 0
+    "property": "distance"
+  },
+  {
+    "description": "single letter identical strands",
+    "expected": 0,
+    "input": {
+      "strand1": "A",
+      "strand2": "A"
     },
-    {
-      "description": "single letter different strands",
-      "property": "distance",
-      "input": {
-        "strand1": "G",
-        "strand2": "T"
-      },
-      "expected": 1
+    "property": "distance"
+  },
+  {
+    "description": "single letter different strands",
+    "expected": 1,
+    "input": {
+      "strand1": "G",
+      "strand2": "T"
     },
-    {
-      "description": "long identical strands",
-      "property": "distance",
-      "input": {
-        "strand1": "GGACTGAAATCTG",
-        "strand2": "GGACTGAAATCTG"
-      },
-      "expected": 0
+    "property": "distance"
+  },
+  {
+    "description": "long identical strands",
+    "expected": 0,
+    "input": {
+      "strand1": "GGACTGAAATCTG",
+      "strand2": "GGACTGAAATCTG"
     },
-    {
-      "description": "long different strands",
-      "property": "distance",
-      "input": {
-        "strand1": "GGACGGATTCTG",
-        "strand2": "AGGACGGATTCT"
-      },
-      "expected": 9
+    "property": "distance"
+  },
+  {
+    "description": "long different strands",
+    "expected": 9,
+    "input": {
+      "strand1": "GGACGGATTCTG",
+      "strand2": "AGGACGGATTCT"
     },
-    {
-      "description": "disallow first strand longer",
-      "property": "distance",
-      "input": {
-        "strand1": "AATG",
-        "strand2": "AAA"
-      },
-      "expected": {"error": "left and right strands must be of equal length"}
+    "property": "distance"
+  },
+  {
+    "description": "disallow first strand longer",
+    "expected": {
+      "error": "left and right strands must be of equal length"
     },
-    {
-      "description": "disallow second strand longer",
-      "property": "distance",
-      "input": {
-        "strand1": "ATA",
-        "strand2": "AGTG"
-      },
-      "expected": {"error": "left and right strands must be of equal length"}
+    "input": {
+      "strand1": "AATG",
+      "strand2": "AAA"
     },
-    {
-      "description": "disallow left empty strand",
-      "property": "distance",
-      "input": {
-        "strand1": "",
-        "strand2": "G"
-      },
-      "expected": {"error": "left strand must not be empty"}
+    "property": "distance"
+  },
+  {
+    "description": "disallow second strand longer",
+    "expected": {
+      "error": "left and right strands must be of equal length"
     },
-    {
-      "description": "disallow right empty strand",
-      "property": "distance",
-      "input": {
-        "strand1": "G",
-        "strand2": ""
-      },
-      "expected": {"error": "right strand must not be empty"}
-    }
-  ]
-}
+    "input": {
+      "strand1": "ATA",
+      "strand2": "AGTG"
+    },
+    "property": "distance"
+  },
+  {
+    "description": "disallow left empty strand",
+    "expected": {
+      "error": "left strand must not be empty"
+    },
+    "input": {
+      "strand1": "",
+      "strand2": "G"
+    },
+    "property": "distance"
+  },
+  {
+    "description": "disallow right empty strand",
+    "expected": {
+      "error": "right strand must not be empty"
+    },
+    "input": {
+      "strand1": "G",
+      "strand2": ""
+    },
+    "property": "distance"
+  }
+]
