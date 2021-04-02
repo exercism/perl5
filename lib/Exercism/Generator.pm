@@ -94,7 +94,8 @@ sub _render {
 
 sub create_files {
   my ($self) = @_;
-  my $exercise_dir = BASE_DIR->child( 'exercises', $self->exercise );
+  my $exercise_dir
+    = BASE_DIR->child( 'exercises', 'practice', $self->exercise );
 
   # Test
   my $testfile
@@ -138,8 +139,9 @@ sub create_files {
 
 sub _build_data {
   my ($self) = @_;
-  my $yaml = BASE_DIR->child( 'exercises', $self->exercise, '.meta',
-    'exercise-data.yaml' );
+  my $yaml
+    = BASE_DIR->child( 'exercises', 'practice', $self->exercise,
+    '.meta', 'exercise-data.yaml' );
   return $yaml->is_file ? LoadFile($yaml) : {};
 }
 
