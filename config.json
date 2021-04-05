@@ -18,16 +18,16 @@
   "test_pattern": ".*\\.t$",
   "files": {
     "solution": [
-      "path/to/%{kebab_slug}.ext"
+      "%{pascal_slug}.pm"
     ],
     "test": [
-      "path/to/%{kebab_slug}.ext"
+      "%{kebab_slug}.t"
     ],
     "example": [
-      "path/to/%{kebab_slug}.ext"
+      "%{pascal_slug}.pm"
     ],
     "exemplar": [
-      "path/to/%{kebab_slug}.ext"
+      "%{kebab_slug}.t"
     ]
   },
   "exercises": {
