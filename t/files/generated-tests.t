@@ -18,7 +18,7 @@ for ( sort { $a cmp $b }
 {
   if ( $_->child( '.meta', 'exercise-data.yaml' )->is_file ) {
     is(
-      [ split( /\n/, $_->child( $_->basename . '.t' )->slurp ) ],
+      [ split( /\n/, $_->child( $_->basename . '.t' )->slurp_utf8 ) ],
       [ split(
           /\n/,
           Exercism::Generator->new(
