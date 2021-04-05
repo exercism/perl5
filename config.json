@@ -27,7 +27,7 @@
       ".meta/solutions/%{pascal_slug}.pm"
     ],
     "exemplar": [
-      ".meta/solutions/%{kebab_slug}.t"
+      ".meta/%{pascal_slug}.pm"
     ]
   },
   "exercises": {
