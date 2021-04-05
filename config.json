@@ -24,10 +24,10 @@
       "%{kebab_slug}.t"
     ],
     "example": [
-      "%{pascal_slug}.pm"
+      ".meta/solutions/%{pascal_slug}.pm"
     ],
     "exemplar": [
-      "%{kebab_slug}.t"
+      ".meta/solutions/%{kebab_slug}.t"
     ]
   },
   "exercises": {
