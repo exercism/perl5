@@ -163,9 +163,20 @@ sub _build_case_uuids {
   my $toml_data;
   if ( $toml_file->is_file ) {
     $toml_data = TOML::Parser->new->parse( $toml_file->slurp_utf8 );
+
+    # TODO: Remove old toml format
+    if ( exists $toml_data->{'canonical-tests'} ) {
+      return [
+        grep { $toml_data->{'canonical-tests'}{$_} }
+          keys %{ $toml_data->{'canonical-tests'} }
+      ];
+    }
+
     return [
-      grep { $toml_data->{'canonical-tests'}{$_} }
-        keys %{ $toml_data->{'canonical-tests'} }
+      grep {
+        !exists( $toml_data->{$_}{include} )
+          || $toml_data->{$_}{include}
+      } keys %{$toml_data}
     ];
   }
 
