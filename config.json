@@ -16,6 +16,20 @@
   },
   "solution_pattern": "\\.meta/solutions/.+\\.pm$",
   "test_pattern": ".*\\.t$",
+  "files": {
+    "solution": [
+      "%{pascal_slug}.pm"
+    ],
+    "test": [
+      "%{kebab_slug}.t"
+    ],
+    "example": [
+      ".meta/solutions/%{pascal_slug}.pm"
+    ],
+    "exemplar": [
+      ".meta/%{pascal_slug}.pm"
+    ]
+  },
   "exercises": {
     "concept": [],
     "practice": [
