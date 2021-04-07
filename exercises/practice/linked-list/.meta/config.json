@@ -2,9 +2,15 @@
   "blurb": "Implement a doubly linked list",
   "authors": [],
   "files": {
-    "solution": [],
-    "test": [],
-    "example": []
+    "solution": [
+      "LinkedList.pm"
+    ],
+    "test": [
+      "linked-list.t"
+    ],
+    "example": [
+      ".meta/solutions/LinkedList.pm"
+    ]
   },
   "source": "Classic computer science topic"
 }

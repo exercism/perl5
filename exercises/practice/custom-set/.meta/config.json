@@ -2,8 +2,14 @@
   "blurb": "Create a custom set type.",
   "authors": [],
   "files": {
-    "solution": [],
-    "test": [],
-    "example": []
+    "solution": [
+      "CustomSet.pm"
+    ],
+    "test": [
+      "custom-set.t"
+    ],
+    "example": [
+      ".meta/solutions/CustomSet.pm"
+    ]
   }
 }

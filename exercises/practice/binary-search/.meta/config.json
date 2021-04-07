@@ -2,9 +2,15 @@
   "blurb": "Implement a binary search algorithm.",
   "authors": [],
   "files": {
-    "solution": [],
-    "test": [],
-    "example": []
+    "solution": [
+      "BinarySearch.pm"
+    ],
+    "test": [
+      "binary-search.t"
+    ],
+    "example": [
+      ".meta/solutions/BinarySearch.pm"
+    ]
   },
   "source": "Wikipedia",
   "source_url": "http://en.wikipedia.org/wiki/Binary_search_algorithm"
