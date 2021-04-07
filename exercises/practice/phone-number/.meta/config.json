@@ -2,9 +2,15 @@
   "blurb": "Clean up user-entered phone numbers so that they can be sent SMS messages.",
   "authors": [],
   "files": {
-    "solution": [],
-    "test": [],
-    "example": []
+    "solution": [
+      "PhoneNumber.pm"
+    ],
+    "test": [
+      "phone-number.t"
+    ],
+    "example": [
+      ".meta/solutions/PhoneNumber.pm"
+    ]
   },
   "source": "Event Manager by JumpstartLab",
   "source_url": "http://tutorials.jumpstartlab.com/projects/eventmanager.html"

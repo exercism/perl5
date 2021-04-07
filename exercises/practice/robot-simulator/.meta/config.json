@@ -2,9 +2,15 @@
   "blurb": "Write a robot simulator.",
   "authors": [],
   "files": {
-    "solution": [],
-    "test": [],
-    "example": []
+    "solution": [
+      "RobotSimulator.pm"
+    ],
+    "test": [
+      "robot-simulator.t"
+    ],
+    "example": [
+      ".meta/solutions/RobotSimulator.pm"
+    ]
   },
   "source": "Inspired by an interview question at a famous company.",
   "source_url": ""
