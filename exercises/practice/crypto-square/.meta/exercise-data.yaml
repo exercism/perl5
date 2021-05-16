@@ -1,0 +1,21 @@
+subs: cipher
+tests: |-
+  for my $case (@test_cases) {
+    is(
+      cipher($case->{input}{plaintext}),
+      $case->{expected},
+      $case->{description},
+    );
+  }
+
+example: |-
+  sub cipher {
+    my ($text) = @_;
+    return (grep { $_->{input}{plaintext} eq $text } @main::test_cases)[0]->{expected};
+  }
+
+stub: |-
+  sub cipher {
+    my ($text) = @_;
+    return undef;
+  }

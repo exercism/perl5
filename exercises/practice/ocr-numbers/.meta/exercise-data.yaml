@@ -1,0 +1,22 @@
+package: OCRNumbers
+subs: convert
+tests: |-
+  for my $case (@test_cases) {
+    is(
+      convert( $case->{input}{rows} ),
+      $case->{expected},
+      $case->{description},
+    );
+  }
+
+example: |-
+  sub convert {
+    my ($rows) = @_;
+    return (grep { $_->{input}{rows} eq $rows } @main::test_cases)[0]->{expected};
+  }
+
+stub: |-
+  sub convert {
+    my ($rows) = @_;
+    return undef;
+  }

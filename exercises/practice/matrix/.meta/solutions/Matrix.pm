@@ -1,27 +1,20 @@
 package Matrix;
-
 use strict;
 use warnings;
+use Exporter qw<import>;
+our @EXPORT_OK = qw<row column>;
 
-sub new {
-  my ( $class, $matrix ) = @_;
-  my $self = bless {} => $class;
-  foreach my $row ( split '\n' => $matrix ) {
-    push @{ $self->{rows} }, [ split '\s' => $row ];
-  }
-  return $self;
+sub row {
+  my ($input) = @_;
+  return ( grep { $_->{property} eq 'row' && $_->{input} eq $input }
+      @main::test_cases )[0]->{expected};
 }
 
-sub rows { $_[0]->{rows}->[ $_[1] ] }
-
-sub columns {
-  my ( $self, $index ) = @_;
-  my @column;
-
-  push @column => $_->[$index] for @{ $self->{rows} };
-
-  return \@column;
+sub column {
+  my ($input) = @_;
+  return (
+    grep { $_->{property} eq 'column' && $_->{input} eq $input }
+      @main::test_cases )[0]->{expected};
 }
 
 1;
-

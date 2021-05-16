@@ -1,1 +1,0 @@
-../../series_product.t

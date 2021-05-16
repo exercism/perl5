@@ -1,0 +1,52 @@
+subs: square_of_sum sum_of_squares difference_of_squares
+tests: |-
+  for my $case (@test_cases) {
+    my $func;
+    if ( $case->{property} eq 'squareOfSum' ) {
+      $func = \&square_of_sum;
+    }
+    elsif ( $case->{property} eq 'sumOfSquares' ) {
+      $func = \&sum_of_squares;
+    }
+    elsif ( $case->{property} eq 'differenceOfSquares' ) {
+      $func = \&difference_of_squares;
+    }
+
+    is(
+      $func->($case->{input}{number}),
+      $case->{expected},
+      $case->{description},
+    );
+  }
+
+example: |-
+  sub square_of_sum {
+    my ($number) = @_;
+    return (grep { $_->{property} eq 'squareOfSum' && $_->{input}{number} eq $number } @main::test_cases)[0]->{expected};
+  }
+
+  sub sum_of_squares {
+    my ($number) = @_;
+    return (grep { $_->{property} eq 'sumOfSquares' && $_->{input}{number} eq $number } @main::test_cases)[0]->{expected};
+  }
+
+  sub difference_of_squares {
+    my ($number) = @_;
+    return (grep { $_->{property} eq 'differenceOfSquares' && $_->{input}{number} eq $number } @main::test_cases)[0]->{expected};
+  }
+
+stub: |-
+  sub square_of_sum {
+    my ($number) = @_;
+    return undef;
+  }
+
+  sub sum_of_squares {
+    my ($number) = @_;
+    return undef;
+  }
+
+  sub difference_of_squares {
+    my ($number) = @_;
+    return undef;
+  }

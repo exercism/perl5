@@ -1,39 +1,130 @@
 #!/usr/bin/env perl
-use strict;
-use warnings;
+use Test2::V0;
+use JSON::PP;
+use constant JSON => JSON::PP->new;
 
-use Test2::Bundle::More;
-use FindBin qw($Bin);
+use FindBin qw<$Bin>;
 use lib $Bin, "$Bin/local/lib/perl5";
 
-my $module = 'Matrix';
+use Matrix qw<row column>;
 
-plan 11;
+my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };
 
-ok -e "$Bin/$module.pm", "Missing $module.pm"
-  or BAIL_OUT "You need to create the file: $module.pm";
-eval "use $module";
-ok !$@, "Cannot load $module"
-  or BAIL_OUT
-  "Cannot load $module. Does it compile? Does it end with 1;?";
-can_ok $module, "new"
-  or BAIL_OUT "Missing package $module; or missing sub new()";
-can_ok $module, "rows"
-  or BAIL_OUT "Missing package $module; or missing sub rows()";
-can_ok $module, "columns"
-  or BAIL_OUT "Missing package $module; or missing sub columns()";
+imported_ok qw<row column> or bail_out;
 
-is_deeply $module->new("1 2\n10 20")->rows(0), [ 1, 2 ],
-  "extract a row";
-is_deeply $module->new("9 7\n8 6")->rows(0), [ 9, 7 ],
-  "extract another row";
-is_deeply $module->new("9 8 7\n19 18 17")->rows(1), [ 19, 18, 17 ],
-  "extract 2nd row";
-is_deeply $module->new("1 4 9\n16 25 36")->rows(1), [ 16, 25, 36 ],
-  "extract 2nd row";
-is_deeply $module->new("1 2 3\n4 5 6\n7 8 9\n8 7 6")->columns(0),
-  [ 1, 4, 7, 8 ],
-  "extract a column";
-is_deeply $module->new("89 1903 3\n18 3 1\n9 4 800")->columns(1),
-  [ 1903, 3, 4 ],
-  "extract another column";
+for my $case (@test_cases) {
+  my $func;
+  if ( $case->{property} eq 'row' ) {
+    $func = \&row;
+  }
+  elsif ( $case->{property} eq 'column' ) {
+    $func = \&column;
+  }
+
+  is( $func->( $case->{input} ),
+    $case->{expected}, $case->{description}, );
+}
+
+done_testing;
+
+__DATA__
+[
+  {
+    "description": "extract row from one number matrix",
+    "expected": [
+      1
+    ],
+    "input": {
+      "index": 1,
+      "string": "1"
+    },
+    "property": "row"
+  },
+  {
+    "description": "can extract row",
+    "expected": [
+      3,
+      4
+    ],
+    "input": {
+      "index": 2,
+      "string": "1 2\n3 4"
+    },
+    "property": "row"
+  },
+  {
+    "description": "extract row where numbers have different widths",
+    "expected": [
+      10,
+      20
+    ],
+    "input": {
+      "index": 2,
+      "string": "1 2\n10 20"
+    },
+    "property": "row"
+  },
+  {
+    "description": "can extract row from non-square matrix with no corresponding column",
+    "expected": [
+      8,
+      7,
+      6
+    ],
+    "input": {
+      "index": 4,
+      "string": "1 2 3\n4 5 6\n7 8 9\n8 7 6"
+    },
+    "property": "row"
+  },
+  {
+    "description": "extract column from one number matrix",
+    "expected": [
+      1
+    ],
+    "input": {
+      "index": 1,
+      "string": "1"
+    },
+    "property": "column"
+  },
+  {
+    "description": "can extract column",
+    "expected": [
+      3,
+      6,
+      9
+    ],
+    "input": {
+      "index": 3,
+      "string": "1 2 3\n4 5 6\n7 8 9"
+    },
+    "property": "column"
+  },
+  {
+    "description": "can extract column from non-square matrix with no corresponding row",
+    "expected": [
+      4,
+      8,
+      6
+    ],
+    "input": {
+      "index": 4,
+      "string": "1 2 3 4\n5 6 7 8\n9 8 7 6"
+    },
+    "property": "column"
+  },
+  {
+    "description": "extract column where numbers have different widths",
+    "expected": [
+      1903,
+      3,
+      4
+    ],
+    "input": {
+      "index": 2,
+      "string": "89 1903 3\n18 3 1\n9 4 800"
+    },
+    "property": "column"
+  }
+]
