@@ -27,7 +27,7 @@ for my $case (@test_cases) {
 __DATA__
 [
   {
-    "description": "Cleanup user-entered phone numbers: cleans the number",
+    "description": "cleans the number",
     "expected": "2234567890",
     "input": {
       "phrase": "(223) 456-7890"
@@ -35,7 +35,7 @@ __DATA__
     "property": "clean"
   },
   {
-    "description": "Cleanup user-entered phone numbers: cleans numbers with dots",
+    "description": "cleans numbers with dots",
     "expected": "2234567890",
     "input": {
       "phrase": "223.456.7890"
@@ -43,7 +43,7 @@ __DATA__
     "property": "clean"
   },
   {
-    "description": "Cleanup user-entered phone numbers: cleans numbers with multiple spaces",
+    "description": "cleans numbers with multiple spaces",
     "expected": "2234567890",
     "input": {
       "phrase": "223 456   7890   "
@@ -51,7 +51,7 @@ __DATA__
     "property": "clean"
   },
   {
-    "description": "Cleanup user-entered phone numbers: invalid when 9 digits",
+    "description": "invalid when 9 digits",
     "expected": {
       "error": "incorrect number of digits"
     },
@@ -61,7 +61,7 @@ __DATA__
     "property": "clean"
   },
   {
-    "description": "Cleanup user-entered phone numbers: invalid when 11 digits does not start with a 1",
+    "description": "invalid when 11 digits does not start with a 1",
     "expected": {
       "error": "11 digits must start with 1"
     },
@@ -71,7 +71,7 @@ __DATA__
     "property": "clean"
   },
   {
-    "description": "Cleanup user-entered phone numbers: valid when 11 digits and starting with 1",
+    "description": "valid when 11 digits and starting with 1",
     "expected": "2234567890",
     "input": {
       "phrase": "12234567890"
@@ -79,7 +79,7 @@ __DATA__
     "property": "clean"
   },
   {
-    "description": "Cleanup user-entered phone numbers: valid when 11 digits and starting with 1 even with punctuation",
+    "description": "valid when 11 digits and starting with 1 even with punctuation",
     "expected": "2234567890",
     "input": {
       "phrase": "+1 (223) 456-7890"
@@ -87,7 +87,7 @@ __DATA__
     "property": "clean"
   },
   {
-    "description": "Cleanup user-entered phone numbers: invalid when more than 11 digits",
+    "description": "invalid when more than 11 digits",
     "expected": {
       "error": "more than 11 digits"
     },
@@ -97,7 +97,7 @@ __DATA__
     "property": "clean"
   },
   {
-    "description": "Cleanup user-entered phone numbers: invalid with letters",
+    "description": "invalid with letters",
     "expected": {
       "error": "letters not permitted"
     },
@@ -107,7 +107,7 @@ __DATA__
     "property": "clean"
   },
   {
-    "description": "Cleanup user-entered phone numbers: invalid with punctuations",
+    "description": "invalid with punctuations",
     "expected": {
       "error": "punctuations not permitted"
     },
@@ -117,7 +117,7 @@ __DATA__
     "property": "clean"
   },
   {
-    "description": "Cleanup user-entered phone numbers: invalid if area code starts with 0",
+    "description": "invalid if area code starts with 0",
     "expected": {
       "error": "area code cannot start with zero"
     },
@@ -127,7 +127,7 @@ __DATA__
     "property": "clean"
   },
   {
-    "description": "Cleanup user-entered phone numbers: invalid if area code starts with 1",
+    "description": "invalid if area code starts with 1",
     "expected": {
       "error": "area code cannot start with one"
     },
@@ -137,7 +137,7 @@ __DATA__
     "property": "clean"
   },
   {
-    "description": "Cleanup user-entered phone numbers: invalid if exchange code starts with 0",
+    "description": "invalid if exchange code starts with 0",
     "expected": {
       "error": "exchange code cannot start with zero"
     },
@@ -147,7 +147,7 @@ __DATA__
     "property": "clean"
   },
   {
-    "description": "Cleanup user-entered phone numbers: invalid if exchange code starts with 1",
+    "description": "invalid if exchange code starts with 1",
     "expected": {
       "error": "exchange code cannot start with one"
     },
@@ -157,7 +157,7 @@ __DATA__
     "property": "clean"
   },
   {
-    "description": "Cleanup user-entered phone numbers: invalid if area code starts with 0 on valid 11-digit number",
+    "description": "invalid if area code starts with 0 on valid 11-digit number",
     "expected": {
       "error": "area code cannot start with zero"
     },
@@ -167,7 +167,7 @@ __DATA__
     "property": "clean"
   },
   {
-    "description": "Cleanup user-entered phone numbers: invalid if area code starts with 1 on valid 11-digit number",
+    "description": "invalid if area code starts with 1 on valid 11-digit number",
     "expected": {
       "error": "area code cannot start with one"
     },
@@ -177,7 +177,7 @@ __DATA__
     "property": "clean"
   },
   {
-    "description": "Cleanup user-entered phone numbers: invalid if exchange code starts with 0 on valid 11-digit number",
+    "description": "invalid if exchange code starts with 0 on valid 11-digit number",
     "expected": {
       "error": "exchange code cannot start with zero"
     },
@@ -187,7 +187,7 @@ __DATA__
     "property": "clean"
   },
   {
-    "description": "Cleanup user-entered phone numbers: invalid if exchange code starts with 1 on valid 11-digit number",
+    "description": "invalid if exchange code starts with 1 on valid 11-digit number",
     "expected": {
       "error": "exchange code cannot start with one"
     },
