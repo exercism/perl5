@@ -6,13 +6,7 @@ our @EXPORT_OK = qw<accumulate>;
 
 sub accumulate {
   my ( $list, $func ) = @_;
-  my @results;
-
-  for ( @{$list} ) {
-    push @results, $func->($_);
-  }
-
-  return \@results;
+  return undef;
 }
 
 1;
