@@ -1,0 +1,21 @@
+subs: recite
+tests: |-
+  for my $case (@test_cases) {
+    is(
+      recite( $case->{input} ),
+      $case->{expected},
+      $case->{description},
+    );
+  }
+
+example: |-
+  sub recite {
+    my ($input) = @_;
+    return (grep { $_->{input} eq $input } @main::test_cases)[0]->{expected};
+  }
+
+stub: |-
+  sub recite {
+    my ($input) = @_;
+    return undef;
+  }

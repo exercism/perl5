@@ -1,175 +1,214 @@
 #!/usr/bin/env perl
-use strict;
-use warnings;
+use Test2::V0;
+use JSON::PP;
+use constant JSON => JSON::PP->new;
 
-use Test2::Bundle::More;
-plan 12;
-
-use FindBin qw($Bin);
+use FindBin qw<$Bin>;
 use lib $Bin, "$Bin/local/lib/perl5";
-use Minesweeper;
-use Test2::Tools::Exception qw(dies);
 
-my $module = 'Minesweeper';
-my $name   = 'count_adjacent_bombs';
-my $sub    = join( '::', $module, $name );
+use Minesweeper qw<annotate>;
 
-can_ok( $module, $name )
-  or BAIL_OUT("You need to implement the $name()-function");
+my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };
 
-my $function = \&{"${module}::$name"};
+imported_ok qw<annotate> or bail_out;
 
-is(
-  $function->(
-    <<'INPUT' ), <<'EXPECTED', "Large 6x6 board with 8 bombs" );
-+------+
-| *  * |
-|  *   |
-|    * |
-|   * *|
-| *  * |
-|      |
-+------+
-INPUT
-+------+
-|1*22*1|
-|12*322|
-| 123*2|
-|112*4*|
-|1*22*2|
-|111111|
-+------+
-EXPECTED
+for my $case (@test_cases) {
+  is( annotate( $case->{input}{minefield} ),
+    $case->{expected}, $case->{description}, );
+}
 
-is(
-  $function->(
-    <<'INPUT' ), <<'EXPECTED', "Large 5x5 board with 7 bombs" );
-+-----+
-| * * |
-|     |
-|   * |
-|  * *|
-| * * |
-+-----+
-INPUT
-+-----+
-|1*2*1|
-|11322|
-| 12*2|
-|12*4*|
-|1*3*2|
-+-----+
-EXPECTED
+done_testing;
 
-is(
-  $function->(
-    <<'INPUT' ), <<'EXPECTED', "Small 5x1 board with 2 bombs" );
-+-----+
-| * * |
-+-----+
-INPUT
-+-----+
-|1*2*1|
-+-----+
-EXPECTED
-
-is(
-  $function->(
-    <<'INPUT' ), <<'EXPECTED', "Small 1x5 board with 2 bombs" );
-+-+
-|*|
-| |
-|*|
-| |
-| |
-+-+
-INPUT
-+-+
-|*|
-|2|
-|*|
-|1|
-| |
-+-+
-EXPECTED
-
-is(
-  $function->( <<'INPUT' ), <<'EXPECTED', "1x1 sqaure with 1 bomb" );
-+-+
-|*|
-+-+
-INPUT
-+-+
-|*|
-+-+
-EXPECTED
-
-is(
-  $function->( <<'INPUT' ), <<'EXPECTED', "2x2 square with 4 bombs" );
-+--+
-|**|
-|**|
-+--+
-INPUT
-+--+
-|**|
-|**|
-+--+
-EXPECTED
-
-is(
-  $function->( <<'INPUT' ), <<'EXPECTED', "3x3 square with 8 bombs" );
-+---+
-|***|
-|* *|
-|***|
-+---+
-INPUT
-+---+
-|***|
-|*8*|
-|***|
-+---+
-EXPECTED
-
-is(
-  $function->( <<'INPUT' ), <<'EXPECTED', "5x5 square with 2 bombs" );
-+-----+
-|     |
-|   * |
-|     |
-|     |
-| *   |
-+-----+
-INPUT
-+-----+
-|  111|
-|  1*1|
-|  111|
-|111  |
-|1*1  |
-+-----+
-EXPECTED
-
-like dies {
-  $function->( <<'INPUT' ) }, qr/ArgumentError/, 'Unaligned board';
-+-+
-| |
-|*  |
-|  |
-+-+
-INPUT
-
-like dies {
-  $function->( <<'INPUT' ) }, qr/ArgumentError/, 'boarderless board';
-+-----+
-*   * |
-+-- --+
-INPUT
-
-like dies {
-  $function->( <<'INPUT' ) }, qr/ArgumentError/, 'Unknwon characters';
-+-----+
-|X  * |
-+-----+
-INPUT
+__DATA__
+[
+  {
+    "description": "no rows",
+    "expected": [],
+    "input": {
+      "minefield": []
+    },
+    "property": "annotate"
+  },
+  {
+    "description": "no columns",
+    "expected": [
+      ""
+    ],
+    "input": {
+      "minefield": [
+        ""
+      ]
+    },
+    "property": "annotate"
+  },
+  {
+    "description": "no mines",
+    "expected": [
+      "   ",
+      "   ",
+      "   "
+    ],
+    "input": {
+      "minefield": [
+        "   ",
+        "   ",
+        "   "
+      ]
+    },
+    "property": "annotate"
+  },
+  {
+    "description": "minefield with only mines",
+    "expected": [
+      "***",
+      "***",
+      "***"
+    ],
+    "input": {
+      "minefield": [
+        "***",
+        "***",
+        "***"
+      ]
+    },
+    "property": "annotate"
+  },
+  {
+    "description": "mine surrounded by spaces",
+    "expected": [
+      "111",
+      "1*1",
+      "111"
+    ],
+    "input": {
+      "minefield": [
+        "   ",
+        " * ",
+        "   "
+      ]
+    },
+    "property": "annotate"
+  },
+  {
+    "description": "space surrounded by mines",
+    "expected": [
+      "***",
+      "*8*",
+      "***"
+    ],
+    "input": {
+      "minefield": [
+        "***",
+        "* *",
+        "***"
+      ]
+    },
+    "property": "annotate"
+  },
+  {
+    "description": "horizontal line",
+    "expected": [
+      "1*2*1"
+    ],
+    "input": {
+      "minefield": [
+        " * * "
+      ]
+    },
+    "property": "annotate"
+  },
+  {
+    "description": "horizontal line, mines at edges",
+    "expected": [
+      "*1 1*"
+    ],
+    "input": {
+      "minefield": [
+        "*   *"
+      ]
+    },
+    "property": "annotate"
+  },
+  {
+    "description": "vertical line",
+    "expected": [
+      "1",
+      "*",
+      "2",
+      "*",
+      "1"
+    ],
+    "input": {
+      "minefield": [
+        " ",
+        "*",
+        " ",
+        "*",
+        " "
+      ]
+    },
+    "property": "annotate"
+  },
+  {
+    "description": "vertical line, mines at edges",
+    "expected": [
+      "*",
+      "1",
+      " ",
+      "1",
+      "*"
+    ],
+    "input": {
+      "minefield": [
+        "*",
+        " ",
+        " ",
+        " ",
+        "*"
+      ]
+    },
+    "property": "annotate"
+  },
+  {
+    "description": "cross",
+    "expected": [
+      " 2*2 ",
+      "25*52",
+      "*****",
+      "25*52",
+      " 2*2 "
+    ],
+    "input": {
+      "minefield": [
+        "  *  ",
+        "  *  ",
+        "*****",
+        "  *  ",
+        "  *  "
+      ]
+    },
+    "property": "annotate"
+  },
+  {
+    "description": "large minefield",
+    "expected": [
+      "1*22*1",
+      "12*322",
+      " 123*2",
+      "112*4*",
+      "1*22*2",
+      "111111"
+    ],
+    "input": {
+      "minefield": [
+        " *  * ",
+        "  *   ",
+        "    * ",
+        "   * *",
+        " *  * ",
+        "      "
+      ]
+    },
+    "property": "annotate"
+  }
+]

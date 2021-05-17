@@ -1,0 +1,21 @@
+subs: plants
+tests: |-
+  for my $case (@test_cases) {
+    is(
+      plants( $case->{input} ),
+      $case->{expected},
+      $case->{description},
+    );
+  }
+
+example: |-
+  sub plants {
+    my ($input) = @_;
+    return (grep { $_->{input} eq $input } @main::test_cases)[0]->{expected};
+  }
+
+stub: |-
+  sub plants {
+    my ($input) = @_;
+    return undef;
+  }

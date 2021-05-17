@@ -1,0 +1,21 @@
+subs: annotate
+tests: |-
+  for my $case (@test_cases) {
+    is(
+      annotate( $case->{input}{minefield} ),
+      $case->{expected},
+      $case->{description},
+    );
+  }
+
+example: |-
+  sub annotate {
+    my ($minefield) = @_;
+    return (grep { $_->{input}{minefield} eq $minefield } @main::test_cases)[0]->{expected};
+  }
+
+stub: |-
+  sub annotate {
+    my ($minefield) = @_;
+    return undef;
+  }

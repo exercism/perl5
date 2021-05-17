@@ -6,8 +6,7 @@ our @EXPORT_OK = qw<tree>;
 
 sub tree {
   my ($data) = @_;
-  return ( grep { $_->{input}{treeData} eq $data } @main::test_cases )
-    [0]->{expected};
+  return undef;
 }
 
 1;

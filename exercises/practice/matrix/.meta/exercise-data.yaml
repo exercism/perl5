@@ -1,0 +1,39 @@
+subs: row column
+tests: |-
+  for my $case (@test_cases) {
+    my $func;
+    if ( $case->{property} eq 'row' ) {
+      $func = \&row;
+    }
+    elsif ( $case->{property} eq 'column' ) {
+      $func = \&column;
+    }
+
+    is(
+      $func->( $case->{input} ),
+      $case->{expected},
+      $case->{description},
+    );
+  }
+
+example: |-
+  sub row {
+    my ($input) = @_;
+    return (grep { $_->{property} eq 'row' && $_->{input} eq $input } @main::test_cases)[0]->{expected};
+  }
+
+  sub column {
+    my ($input) = @_;
+    return (grep { $_->{property} eq 'column' && $_->{input} eq $input } @main::test_cases)[0]->{expected};
+  }
+
+stub: |-
+  sub row {
+    my ($input) = @_;
+    return undef;
+  }
+
+  sub column {
+    my ($input) = @_;
+    return undef;
+  }

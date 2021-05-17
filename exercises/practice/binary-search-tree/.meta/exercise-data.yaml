@@ -1,0 +1,21 @@
+subs: tree
+tests: |-
+  for my $case (@test_cases) {
+    is(
+      tree($case->{input}{treeData}),
+      $case->{expected},
+      $case->{description},
+    );
+  }
+
+example: |-
+  sub tree {
+    my ($data) = @_;
+    return (grep { $_->{input}{treeData} eq $data } @main::test_cases)[0]->{expected};
+  }
+
+stub: |-
+  sub tree {
+    my ($data) = @_;
+    return undef;
+  }

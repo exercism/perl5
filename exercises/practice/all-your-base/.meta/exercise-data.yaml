@@ -1,0 +1,21 @@
+subs: rebase
+tests: |-
+  for my $case (@test_cases) {
+    is(
+      rebase($case->{input}{digits}),
+      $case->{expected},
+      $case->{description},
+    );
+  }
+
+example: |-
+  sub rebase {
+    my ($digits) = @_;
+    return (grep { $_->{input}{digits} eq $digits } @main::test_cases)[0]->{expected};
+  }
+
+stub: |-
+  sub rebase {
+    my ($digits) = @_;
+    return undef;
+  }

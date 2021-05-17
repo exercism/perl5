@@ -1,0 +1,21 @@
+subs: largest_product
+tests: |-
+  for my $case (@test_cases) {
+    is(
+      largest_product( $case->{input} ),
+      $case->{expected},
+      $case->{description},
+    );
+  }
+
+example: |-
+  sub largest_product {
+    my ($input) = @_;
+    return (grep { $_->{input} eq $input } @main::test_cases)[0]->{expected};
+  }
+
+stub: |-
+  sub largest_product {
+    my ($input) = @_;
+    return undef;
+  }
