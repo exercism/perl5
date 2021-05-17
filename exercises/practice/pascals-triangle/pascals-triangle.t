@@ -22,7 +22,7 @@ for my $case (@test_cases) {
 __DATA__
 [
   {
-    "description": "Given a count, return a collection of that many rows of pascal's triangle: zero rows",
+    "description": "zero rows",
     "expected": [],
     "input": {
       "count": 0
@@ -30,7 +30,7 @@ __DATA__
     "property": "rows"
   },
   {
-    "description": "Given a count, return a collection of that many rows of pascal's triangle: single row",
+    "description": "single row",
     "expected": [
       [
         1
@@ -42,7 +42,7 @@ __DATA__
     "property": "rows"
   },
   {
-    "description": "Given a count, return a collection of that many rows of pascal's triangle: two rows",
+    "description": "two rows",
     "expected": [
       [
         1
@@ -58,7 +58,7 @@ __DATA__
     "property": "rows"
   },
   {
-    "description": "Given a count, return a collection of that many rows of pascal's triangle: three rows",
+    "description": "three rows",
     "expected": [
       [
         1
@@ -79,7 +79,7 @@ __DATA__
     "property": "rows"
   },
   {
-    "description": "Given a count, return a collection of that many rows of pascal's triangle: four rows",
+    "description": "four rows",
     "expected": [
       [
         1
@@ -106,7 +106,7 @@ __DATA__
     "property": "rows"
   },
   {
-    "description": "Given a count, return a collection of that many rows of pascal's triangle: five rows",
+    "description": "five rows",
     "expected": [
       [
         1
@@ -140,7 +140,7 @@ __DATA__
     "property": "rows"
   },
   {
-    "description": "Given a count, return a collection of that many rows of pascal's triangle: six rows",
+    "description": "six rows",
     "expected": [
       [
         1
@@ -182,7 +182,7 @@ __DATA__
     "property": "rows"
   },
   {
-    "description": "Given a count, return a collection of that many rows of pascal's triangle: ten rows",
+    "description": "ten rows",
     "expected": [
       [
         1

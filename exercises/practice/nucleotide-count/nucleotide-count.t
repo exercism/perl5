@@ -27,7 +27,7 @@ for my $case (@test_cases) {
 __DATA__
 [
   {
-    "description": "count all nucleotides in a strand: empty strand",
+    "description": "empty strand",
     "expected": {
       "A": 0,
       "C": 0,
@@ -40,7 +40,7 @@ __DATA__
     "property": "nucleotideCounts"
   },
   {
-    "description": "count all nucleotides in a strand: can count one nucleotide in single-character input",
+    "description": "can count one nucleotide in single-character input",
     "expected": {
       "A": 0,
       "C": 0,
@@ -53,7 +53,7 @@ __DATA__
     "property": "nucleotideCounts"
   },
   {
-    "description": "count all nucleotides in a strand: strand with repeated nucleotide",
+    "description": "strand with repeated nucleotide",
     "expected": {
       "A": 0,
       "C": 0,
@@ -66,7 +66,7 @@ __DATA__
     "property": "nucleotideCounts"
   },
   {
-    "description": "count all nucleotides in a strand: strand with multiple nucleotides",
+    "description": "strand with multiple nucleotides",
     "expected": {
       "A": 20,
       "C": 12,
@@ -79,7 +79,7 @@ __DATA__
     "property": "nucleotideCounts"
   },
   {
-    "description": "count all nucleotides in a strand: strand with invalid nucleotides",
+    "description": "strand with invalid nucleotides",
     "expected": {
       "error": "Invalid nucleotide in strand"
     },

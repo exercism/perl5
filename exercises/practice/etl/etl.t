@@ -23,7 +23,7 @@ for my $case (@test_cases) {
 __DATA__
 [
   {
-    "description": "Transform legacy to new: single letter",
+    "description": "single letter",
     "expected": {
       "a": 1
     },
@@ -37,7 +37,7 @@ __DATA__
     "property": "transform"
   },
   {
-    "description": "Transform legacy to new: single score with multiple letters",
+    "description": "single score with multiple letters",
     "expected": {
       "a": 1,
       "e": 1,
@@ -59,7 +59,7 @@ __DATA__
     "property": "transform"
   },
   {
-    "description": "Transform legacy to new: multiple scores with multiple letters",
+    "description": "multiple scores with multiple letters",
     "expected": {
       "a": 1,
       "d": 2,
@@ -81,7 +81,7 @@ __DATA__
     "property": "transform"
   },
   {
-    "description": "Transform legacy to new: multiple scores with differing numbers of letters",
+    "description": "multiple scores with differing numbers of letters",
     "expected": {
       "a": 1,
       "b": 3,

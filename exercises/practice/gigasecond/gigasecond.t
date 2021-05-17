@@ -21,7 +21,7 @@ for my $case (@test_cases) {
 __DATA__
 [
   {
-    "description": "Add one gigasecond to the input.: date only specification of time",
+    "description": "date only specification of time",
     "expected": "2043-01-01T01:46:40",
     "input": {
       "moment": "2011-04-25"
@@ -29,7 +29,7 @@ __DATA__
     "property": "add"
   },
   {
-    "description": "Add one gigasecond to the input.: second test for date only specification of time",
+    "description": "second test for date only specification of time",
     "expected": "2009-02-19T01:46:40",
     "input": {
       "moment": "1977-06-13"
@@ -37,7 +37,7 @@ __DATA__
     "property": "add"
   },
   {
-    "description": "Add one gigasecond to the input.: third test for date only specification of time",
+    "description": "third test for date only specification of time",
     "expected": "1991-03-27T01:46:40",
     "input": {
       "moment": "1959-07-19"
@@ -45,7 +45,7 @@ __DATA__
     "property": "add"
   },
   {
-    "description": "Add one gigasecond to the input.: full time specified",
+    "description": "full time specified",
     "expected": "2046-10-02T23:46:40",
     "input": {
       "moment": "2015-01-24T22:00:00"
@@ -53,7 +53,7 @@ __DATA__
     "property": "add"
   },
   {
-    "description": "Add one gigasecond to the input.: full time with day roll-over",
+    "description": "full time with day roll-over",
     "expected": "2046-10-03T01:46:39",
     "input": {
       "moment": "2015-01-24T23:59:59"
