@@ -1,15 +1,15 @@
-subs: largest_product
+subs: answer
 tests: |-
   for my $case (@test_cases) {
     if ( !ref $case->{expected} ) {
       is(
-        largest_product( $case->{input} ),
+        answer( $case->{input}{question} ),
         $case->{expected},
         $case->{description},
       );
     }
     else {
-      like dies( sub { largest_product( $case->{input} ) } ),
+      like dies( sub { answer( $case->{input}{question} ) } ),
       qr/$case->{expected}{error}/, $case->{description};
     }
   }
@@ -18,14 +18,17 @@ example: |-
   use lib 'lib';
   use Exercism::QuickSolve;
 
-  sub largest_product {
-    my ($input) = @_;
+  sub answer {
+    my ($question) = @_;
 
-    quicksolve( input => $input );
+    quicksolve(
+      input => $question,
+      input_key => 'question',
+    );
   }
 
 stub: |-
-  sub largest_product {
-    my ($input) = @_;
+  sub answer {
+    my ($question) = @_;
     return undef;
   }

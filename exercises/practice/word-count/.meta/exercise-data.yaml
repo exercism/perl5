@@ -1,8 +1,8 @@
-subs: annotate
+subs: count_words
 tests: |-
   for my $case (@test_cases) {
     is(
-      annotate( $case->{input}{minefield} ),
+      count_words( $case->{input}{sentence} ),
       $case->{expected},
       $case->{description},
     );
@@ -12,17 +12,17 @@ example: |-
   use lib 'lib';
   use Exercism::QuickSolve;
 
-  sub annotate {
-    my ($minefield) = @_;
+  sub count_words {
+    my ($sentence) = @_;
 
     quicksolve(
-      input => $minefield,
-      input_key => 'minefield',
+      input => $sentence,
+      input_key => 'sentence',
     );
   }
 
 stub: |-
-  sub annotate {
-    my ($minefield) = @_;
+  sub count_words {
+    my ($sentence) = @_;
     return undef;
   }

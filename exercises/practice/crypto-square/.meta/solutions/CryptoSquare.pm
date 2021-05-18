@@ -4,10 +4,16 @@ use warnings;
 use Exporter qw<import>;
 our @EXPORT_OK = qw<cipher>;
 
+use lib 'lib';
+use Exercism::QuickSolve;
+
 sub cipher {
   my ($text) = @_;
-  return ( grep { $_->{input}{plaintext} eq $text }
-      @main::test_cases )[0]->{expected};
+
+  quicksolve(
+    input     => $text,
+    input_key => 'plaintext',
+  );
 }
 
 1;

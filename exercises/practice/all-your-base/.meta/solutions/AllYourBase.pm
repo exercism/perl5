@@ -4,10 +4,13 @@ use warnings;
 use Exporter qw<import>;
 our @EXPORT_OK = qw<rebase>;
 
+use lib 'lib';
+use Exercism::QuickSolve;
+
 sub rebase {
-  my ($digits) = @_;
-  return ( grep { $_->{input}{digits} eq $digits } @main::test_cases )
-    [0]->{expected};
+  my ($input) = @_;
+
+  quicksolve( input => $input );
 }
 
 1;

@@ -4,10 +4,16 @@ use warnings;
 use Exporter qw<import>;
 our @EXPORT_OK = qw<convert>;
 
+use lib 'lib';
+use Exercism::QuickSolve;
+
 sub convert {
   my ($rows) = @_;
-  return ( grep { $_->{input}{rows} eq $rows } @main::test_cases )[0]
-    ->{expected};
+
+  quicksolve(
+    input     => $rows,
+    input_key => 'rows',
+  );
 }
 
 1;

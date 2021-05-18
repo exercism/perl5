@@ -4,10 +4,16 @@ use warnings;
 use Exporter qw<import>;
 our @EXPORT_OK = qw<tree>;
 
+use lib 'lib';
+use Exercism::QuickSolve;
+
 sub tree {
   my ($data) = @_;
-  return ( grep { $_->{input}{treeData} eq $data } @main::test_cases )
-    [0]->{expected};
+
+  quicksolve(
+    input     => $data,
+    input_key => 'treeData',
+  );
 }
 
 1;
