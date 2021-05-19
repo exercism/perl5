@@ -1,8 +1,8 @@
-subs: scrabble_score
+subs: find_primes
 tests: |-
   for my $case (@test_cases) {
     is(
-      scrabble_score( $case->{input}{word} ),
+      find_primes( $case->{input}{limit} ),
       $case->{expected},
       $case->{description},
     );
@@ -12,17 +12,17 @@ example: |-
   use lib 'lib';
   use Exercism::QuickSolve;
 
-  sub scrabble_score {
-    my ($word) = @_;
+  sub find_primes {
+    my ($limit) = @_;
 
     quicksolve(
-      input     => $word,
-      input_key => 'word',
+      input     => $limit,
+      input_key => 'limit',
     );
   }
 
 stub: |-
-  sub scrabble_score {
-    my ($word) = @_;
+  sub find_primes {
+    my ($limit) = @_;
     return undef;
   }

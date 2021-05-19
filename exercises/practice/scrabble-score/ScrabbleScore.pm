@@ -2,10 +2,10 @@ package ScrabbleScore;
 use strict;
 use warnings;
 use Exporter qw<import>;
-our @EXPORT_OK = qw<score>;
+our @EXPORT_OK = qw<scrabble_score>;
 
-sub score {
-  my ( $word, %extensions ) = @_;
+sub scrabble_score {
+  my ($word) = @_;
   return undef;
 }
 

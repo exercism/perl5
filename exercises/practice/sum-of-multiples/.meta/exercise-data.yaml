@@ -1,0 +1,25 @@
+subs: sum_of_multiples
+tests: |-
+  for my $case (@test_cases) {
+    is(
+      sum_of_multiples( $case->{input} ),
+      $case->{expected},
+      $case->{description},
+    );
+  }
+
+example: |-
+  use lib 'lib';
+  use Exercism::QuickSolve;
+
+  sub sum_of_multiples {
+    my ($input) = @_;
+
+    quicksolve( input => $input );
+  }
+
+stub: |-
+  sub sum_of_multiples {
+    my ($input) = @_;
+    return undef;
+  }

@@ -1,8 +1,8 @@
-subs: scrabble_score
+subs: handshake
 tests: |-
   for my $case (@test_cases) {
     is(
-      scrabble_score( $case->{input}{word} ),
+      handshake( $case->{input}{number} ),
       $case->{expected},
       $case->{description},
     );
@@ -12,17 +12,17 @@ example: |-
   use lib 'lib';
   use Exercism::QuickSolve;
 
-  sub scrabble_score {
-    my ($word) = @_;
+  sub handshake {
+    my ($number) = @_;
 
     quicksolve(
-      input     => $word,
-      input_key => 'word',
+      input     => $number,
+      input_key => 'number',
     );
   }
 
 stub: |-
-  sub scrabble_score {
-    my ($word) = @_;
+  sub handshake {
+    my ($number) = @_;
     return undef;
   }

@@ -1,105 +1,153 @@
 #!/usr/bin/env perl
-use strict;
-use warnings;
+use Test2::V0;
+use JSON::PP;
+use constant JSON => JSON::PP->new;
 
-use Test2::Bundle::More;
-plan 16;
-use FindBin qw($Bin);
+use FindBin qw<$Bin>;
 use lib $Bin, "$Bin/local/lib/perl5";
-use Series;
-use Test2::Tools::Exception qw(dies);
 
-can_ok( 'Series', "new" )
-  or BAIL_OUT("You need to implement the new(input)-function");
-can_ok( 'Series', "slice" )
-  or BAIL_OUT("You need to implement the slice(size)-function");
+use Series qw<slices>;
 
-my @cases = (
-  { name     => "Simple slices of one",
-    input    => "01234",
-    size     => 1,
-    expected => [ [0], [1], [2], [3], [4] ],
-  },
-  { name     => "Simple slices of one - again",
-    input    => "92834",
-    size     => 1,
-    expected => [ [9], [2], [8], [3], [4] ],
-  },
-  { name     => "Simple slices of two",
-    input    => "01234",
-    size     => 2,
-    expected => [ [ 0, 1 ], [ 1, 2 ], [ 2, 3 ], [ 3, 4 ] ],
-  },
-  { name     => "Other slices of two",
-    input    => "98273463",
-    size     => 2,
-    expected => [
-      [ 9, 8 ], [ 8, 2 ], [ 2, 7 ], [ 7, 3 ],
-      [ 3, 4 ], [ 4, 6 ], [ 6, 3 ]
-    ],
-  },
-  { name     => "Simple slices of two - again",
-    input    => "37103",
-    size     => 2,
-    expected => [ [ 3, 7 ], [ 7, 1 ], [ 1, 0 ], [ 0, 3 ] ],
-  },
-  { name     => "Simple slices of three",
-    input    => "01234",
-    size     => 3,
-    expected => [ [ 0, 1, 2 ], [ 1, 2, 3 ], [ 2, 3, 4 ] ],
-  },
-  { name     => "Simple slices of three - again",
-    input    => "31001",
-    size     => 3,
-    expected => [ [ 3, 1, 0 ], [ 1, 0, 0 ], [ 0, 0, 1 ] ],
-  },
-  { name  => "Other slices of three",
-    input => "982347",
-    size  => 3,
-    expected =>
-      [ [ 9, 8, 2 ], [ 8, 2, 3 ], [ 2, 3, 4 ], [ 3, 4, 7 ] ],
-  },
-  { name     => "Simple slices of four",
-    input    => "01234",
-    size     => 4,
-    expected => [ [ 0, 1, 2, 3 ], [ 1, 2, 3, 4 ] ],
-  },
-  { name     => "Simple slices of four - again",
-    input    => "91274",
-    size     => 4,
-    expected => [ [ 9, 1, 2, 7 ], [ 1, 2, 7, 4 ] ],
-  },
-  { name     => "Simple slices of five",
-    input    => "01234",
-    size     => 5,
-    expected => [ [ 0, 1, 2, 3, 4 ] ],
-  },
-  { name     => "Simple slices of five - again",
-    input    => "81228",
-    size     => 5,
-    expected => [ [ 8, 1, 2, 2, 8 ] ],
-  },
-  { name      => "Simple slice that blows up",
-    input     => "01234",
-    size      => 6,
-    exception => "ArgumentError",
-  },
-  { name      => "More complicated slice that blows up",
-    input     => "01032987583",
-    size      => 12,
-    exception => "ArgumentError",
-  }
-);
+my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };
 
-foreach my $case (@cases) {
-  my $m = Series->new( $case->{input} );
+imported_ok qw<slices> or bail_out;
 
-  if ( $case->{exception} ) {
-    like dies { $m->slice( $case->{size} ) }, qr/$case->{exception}/,
-      $case->{name};
+for my $case (@test_cases) {
+  if ( ref $case->{expected} ne 'HASH' ) {
+    is( slices( $case->{input} ),
+      $case->{expected}, $case->{description}, );
   }
   else {
-    is_deeply $m->slice( $case->{size} ), $case->{expected},
-      $case->{name};
+    like dies( sub { slices( $case->{input} ) } ),
+      qr/$case->{expected}{error}/, $case->{description};
   }
 }
+
+done_testing;
+
+__DATA__
+[
+  {
+    "description": "slices of one from one",
+    "expected": [
+      "1"
+    ],
+    "input": {
+      "series": "1",
+      "sliceLength": 1
+    },
+    "property": "slices"
+  },
+  {
+    "description": "slices of one from two",
+    "expected": [
+      "1",
+      "2"
+    ],
+    "input": {
+      "series": "12",
+      "sliceLength": 1
+    },
+    "property": "slices"
+  },
+  {
+    "description": "slices of two",
+    "expected": [
+      "35"
+    ],
+    "input": {
+      "series": "35",
+      "sliceLength": 2
+    },
+    "property": "slices"
+  },
+  {
+    "description": "slices of two overlap",
+    "expected": [
+      "91",
+      "14",
+      "42"
+    ],
+    "input": {
+      "series": "9142",
+      "sliceLength": 2
+    },
+    "property": "slices"
+  },
+  {
+    "description": "slices can include duplicates",
+    "expected": [
+      "777",
+      "777",
+      "777",
+      "777"
+    ],
+    "input": {
+      "series": "777777",
+      "sliceLength": 3
+    },
+    "property": "slices"
+  },
+  {
+    "description": "slices of a long series",
+    "expected": [
+      "91849",
+      "18493",
+      "84939",
+      "49390",
+      "93904",
+      "39042",
+      "90424",
+      "04243"
+    ],
+    "input": {
+      "series": "918493904243",
+      "sliceLength": 5
+    },
+    "property": "slices"
+  },
+  {
+    "description": "slice length is too large",
+    "expected": {
+      "error": "slice length cannot be greater than series length"
+    },
+    "input": {
+      "series": "12345",
+      "sliceLength": 6
+    },
+    "property": "slices"
+  },
+  {
+    "description": "slice length cannot be zero",
+    "expected": {
+      "error": "slice length cannot be zero"
+    },
+    "input": {
+      "series": "12345",
+      "sliceLength": 0
+    },
+    "property": "slices"
+  },
+  {
+    "description": "slice length cannot be negative",
+    "expected": {
+      "error": "slice length cannot be negative"
+    },
+    "input": {
+      "series": "123",
+      "sliceLength": -1
+    },
+    "property": "slices"
+  },
+  {
+    "description": "empty series is invalid",
+    "expected": {
+      "error": "series cannot be empty"
+    },
+    "input": {
+      "series": "",
+      "sliceLength": 1
+    },
+    "property": "slices"
+  }
+]

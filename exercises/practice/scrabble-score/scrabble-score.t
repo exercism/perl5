@@ -6,17 +6,18 @@ use constant JSON => JSON::PP->new;
 use FindBin qw<$Bin>;
 use lib $Bin, "$Bin/local/lib/perl5";
 
-use ScrabbleScore qw<score>;
+use ScrabbleScore qw<scrabble_score>;
 
 my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };
-plan 12;
 
-imported_ok qw<score> or bail_out;
+imported_ok qw<scrabble_score> or bail_out;
 
 for my $case (@test_cases) {
-  is score( $case->{input}{word} ), $case->{expected},
-    $case->{description};
+  is( scrabble_score( $case->{input}{word} ),
+    $case->{expected}, $case->{description}, );
 }
+
+done_testing;
 
 __DATA__
 [
