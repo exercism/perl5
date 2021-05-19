@@ -23,7 +23,7 @@ example: |-
     my ($rows) = @_;
 
     quicksolve(
-      input => $rows,
+      input     => $rows,
       input_key => 'rows',
     );
   }
