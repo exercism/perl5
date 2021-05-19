@@ -47,9 +47,9 @@ example: |-
     my ($number) = @_;
 
     quicksolve(
-      input => $number,
+      input     => $number,
       input_key => 'number',
-      property => 'differenceOfSquares',
+      property  => 'differenceOfSquares',
     );
   }
 
