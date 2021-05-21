@@ -1,0 +1,28 @@
+subs: count_words
+tests: |-
+  for my $case (@test_cases) {
+    is(
+      count_words( $case->{input}{sentence} ),
+      $case->{expected},
+      $case->{description},
+    );
+  }
+
+example: |-
+  use lib 'lib';
+  use Exercism::QuickSolve;
+
+  sub count_words {
+    my ($sentence) = @_;
+
+    quicksolve(
+      input => $sentence,
+      input_key => 'sentence',
+    );
+  }
+
+stub: |-
+  sub count_words {
+    my ($sentence) = @_;
+    return undef;
+  }

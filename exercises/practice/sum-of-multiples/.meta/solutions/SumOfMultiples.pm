@@ -1,31 +1,16 @@
 package SumOfMultiples;
-
 use strict;
 use warnings;
-use List::Util 'sum';
+use Exporter qw<import>;
+our @EXPORT_OK = qw<sum_of_multiples>;
 
-sub new {
-  my ( $class, @multiples_of ) = @_;
+use lib 'lib';
+use Exercism::QuickSolve;
 
-  bless { multiples_of => [@multiples_of] } => $class;
-}
+sub sum_of_multiples {
+  my ($input) = @_;
 
-sub to {
-  my ( $self, $to ) = @_;
-  $to = $to - 1;
-  my $sum;
-  my @multiples;
-
-  foreach my $num ( 1 .. $to ) {
-    foreach my $multiple_of ( @{ $self->{multiples_of} } ) {
-      if ( $num % $multiple_of == 0 ) {
-        push @multiples => $num;
-        last;
-      }
-    }
-  }
-
-  return ( sum @multiples ) || 0;
+  quicksolve( input => $input );
 }
 
 1;

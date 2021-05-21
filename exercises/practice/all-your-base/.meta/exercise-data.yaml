@@ -1,21 +1,31 @@
 subs: rebase
 tests: |-
   for my $case (@test_cases) {
-    is(
-      rebase($case->{input}{digits}),
-      $case->{expected},
-      $case->{description},
-    );
+    if ( ref $case->{expected} ne 'HASH' ) {
+      is(
+        rebase($case->{input}),
+        $case->{expected},
+        $case->{description},
+      );
+    }
+    else {
+      like dies( sub { rebase($case->{input}) } ),
+      qr/$case->{expected}{error}/, $case->{description};
+    }
   }
 
 example: |-
+  use lib 'lib';
+  use Exercism::QuickSolve;
+
   sub rebase {
-    my ($digits) = @_;
-    return (grep { $_->{input}{digits} eq $digits } @main::test_cases)[0]->{expected};
+    my ($input) = @_;
+
+    quicksolve( input => $input );
   }
 
 stub: |-
   sub rebase {
-    my ($digits) = @_;
+    my ($input) = @_;
     return undef;
   }

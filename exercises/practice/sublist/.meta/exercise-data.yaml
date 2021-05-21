@@ -1,0 +1,25 @@
+subs: compare_lists
+tests: |-
+  for my $case (@test_cases) {
+    is(
+      compare_lists( $case->{input} ),
+      $case->{expected},
+      $case->{description},
+    );
+  }
+
+example: |-
+  use lib 'lib';
+  use Exercism::QuickSolve;
+
+  sub compare_lists {
+    my ($args) = @_;
+
+    quicksolve( input => $args );
+  }
+
+stub: |-
+  sub compare_lists {
+    my ($args) = @_;
+    return undef;
+  }

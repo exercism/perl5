@@ -13,8 +13,14 @@ my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };
 imported_ok qw<largest_product> or bail_out;
 
 for my $case (@test_cases) {
-  is( largest_product( $case->{input} ),
-    $case->{expected}, $case->{description}, );
+  if ( !ref $case->{expected} ) {
+    is( largest_product( $case->{input} ),
+      $case->{expected}, $case->{description}, );
+  }
+  else {
+    like dies( sub { largest_product( $case->{input} ) } ),
+      qr/$case->{expected}{error}/, $case->{description};
+  }
 }
 
 done_testing;

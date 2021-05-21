@@ -1,21 +1,16 @@
 package Series;
-
 use strict;
 use warnings;
+use Exporter qw<import>;
+our @EXPORT_OK = qw<slices>;
 
-sub new {
-  my $class = shift;
-  bless { input => shift }, $class;
-}
+use lib 'lib';
+use Exercism::QuickSolve;
 
-sub slice {
-  my ( $self, $size ) = @_;
-  my $input = $self->{input};
+sub slices {
+  my ($args) = @_;
 
-  die "ArgumentError" if $size > length $input;
-
-  return [ map { [ split // ] } $input =~ m/(?=(.{$size}))/g ];
+  quicksolve( input => $args );
 }
 
 1;
-

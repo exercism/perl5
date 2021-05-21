@@ -1,131 +1,266 @@
 #!/usr/bin/env perl
-use strict;
-use warnings;
+use Test2::V0;
+use JSON::PP;
+use constant JSON => JSON::PP->new;
 
-use Test2::Bundle::More;
-use JSON::PP qw(decode_json);
-use FindBin qw($Bin);
+use FindBin qw<$Bin>;
 use lib $Bin, "$Bin/local/lib/perl5";
 
-my $module = 'Triangle';
+use Triangle qw<is_equilateral is_isosceles is_scalene>;
 
-my $cases;
-{
-  local $/ = undef;
-  $cases = decode_json scalar <DATA>;
-}
+my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };
 
-#diag explain $cases;
-plan 3 + @$cases;
+imported_ok qw<is_equilateral is_isosceles is_scalene> or bail_out;
 
-ok -e "$Bin/$module.pm", "missing $module.pm"
-  or BAIL_OUT(
-  "You need to create a class called $module.pm with an function called kind() that gets 3 numbers - the length of the sides. It should return a single word like equilateral, isosceles, or scalene. Or, it should throw and exception."
+for my $case (@test_cases) {
+  my $func;
+  if ( $case->{property} eq 'equilateral' ) {
+    $func = \&is_equilateral;
+  }
+  elsif ( $case->{property} eq 'isosceles' ) {
+    $func = \&is_isosceles;
+  }
+  elsif ( $case->{property} eq 'scalene' ) {
+    $func = \&is_scalene;
+  }
+
+  is(
+    $func->( $case->{input}{sides} ),
+    $case->{expected} ? T : DF,
+    $case->{description},
   );
-
-eval "use $module";
-ok !$@, "Cannot load $module.pm"
-  or BAIL_OUT("Does $module.pm compile?  Does it end with 1; ?");
-
-can_ok( $module, 'kind' )
-  or BAIL_OUT("Missing package $module; or missing sub kind()");
-
-my $sub = $module . '::kind';
-
-foreach my $c (@$cases) {
-  my $kind;
-  eval {
-    no strict 'refs';
-    $kind = $sub->( @{ $c->{input} } );
-  };
-  if ( $c->{exception} ) {
-    like $@, qr/^$c->{exception}/, "Exception $c->{name}";
-  }
-  else {
-    is $kind, $c->{expected}, $c->{name};
-  }
 }
+
+done_testing;
 
 __DATA__
 [
   {
-    "input"    : [2, 2, 2],
-    "expected" : "equilateral",
-    "name"     : "equilateral_triangles_have_equal_sides"
+    "description": "equilateral triangle: all sides are equal",
+    "expected": true,
+    "input": {
+      "sides": [
+        2,
+        2,
+        2
+      ]
+    },
+    "property": "equilateral"
   },
   {
-    "input"    : [10, 10, 10],
-    "expected" : "equilateral",
-    "name"     : "larger_equilateral_triangles_also_have_equal_sides"
+    "description": "equilateral triangle: any side is unequal",
+    "expected": false,
+    "input": {
+      "sides": [
+        2,
+        3,
+        2
+      ]
+    },
+    "property": "equilateral"
   },
   {
-    "input"    : [3, 4, 4],
-    "expected" : "isosceles",
-    "name"     : "isosceles_triangles_have_last_two_sides_equal"
+    "description": "equilateral triangle: no sides are equal",
+    "expected": false,
+    "input": {
+      "sides": [
+        5,
+        4,
+        6
+      ]
+    },
+    "property": "equilateral"
   },
   {
-    "input"    : [4, 3, 4],
-    "expected" : "isosceles",
-    "name"     : "isosceles_triangles_have_first_and_last_sides_equal"
+    "description": "equilateral triangle: all zero sides is not a triangle",
+    "expected": false,
+    "input": {
+      "sides": [
+        0,
+        0,
+        0
+      ]
+    },
+    "property": "equilateral"
   },
   {
-    "input"    : [4, 4, 3],
-    "expected" : "isosceles",
-    "name"     : "isosceles_triangles_have_two_first_sides_equal"
+    "description": "equilateral triangle: sides may be floats",
+    "expected": true,
+    "input": {
+      "sides": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "property": "equilateral"
   },
   {
-    "input"    : [10, 10, 2],
-    "expected" : "isosceles",
-    "name"     : "isosceles_triangles_have_in_fact_exactly_two_sides_equal"
+    "description": "isosceles triangle: last two sides are equal",
+    "expected": true,
+    "input": {
+      "sides": [
+        3,
+        4,
+        4
+      ]
+    },
+    "property": "isosceles"
   },
   {
-    "input"    : [3, 4, 5],
-    "expected" : "scalene",
-    "name"     : "scalene_triangles_have_no_equal_sides"
+    "description": "isosceles triangle: first two sides are equal",
+    "expected": true,
+    "input": {
+      "sides": [
+        4,
+        4,
+        3
+      ]
+    },
+    "property": "isosceles"
   },
   {
-    "input"    : [10, 11, 12],
-    "expected" : "scalene",
-    "name"     : "scalene_triangles_have_no_equal_sides_at_a_larger_scale_too"
+    "description": "isosceles triangle: first and last sides are equal",
+    "expected": true,
+    "input": {
+      "sides": [
+        4,
+        3,
+        4
+      ]
+    },
+    "property": "isosceles"
   },
   {
-    "input"    : [5, 4, 2],
-    "expected" : "scalene",
-    "name"     : "scalene_triangles_have_no_equal_sides_at_a_larger_scale_too"
+    "description": "isosceles triangle: equilateral triangles are also isosceles",
+    "expected": true,
+    "input": {
+      "sides": [
+        4,
+        4,
+        4
+      ]
+    },
+    "property": "isosceles"
   },
   {
-    "input"    : [0.4, 0.6, 0.3],
-    "expected" : "scalene",
-    "name"     : "very_small_triangles_are_legal"
+    "description": "isosceles triangle: no sides are equal",
+    "expected": false,
+    "input": {
+      "sides": [
+        2,
+        3,
+        4
+      ]
+    },
+    "property": "isosceles"
   },
   {
-    "input"    : [0, 0, 0],
-    "expected" : "",
-    "exception" : "TriangleError",
-    "name"     : "triangles_with_no_size_are_illegal"
+    "description": "isosceles triangle: first triangle inequality violation",
+    "expected": false,
+    "input": {
+      "sides": [
+        1,
+        1,
+        3
+      ]
+    },
+    "property": "isosceles"
   },
   {
-    "input"    : [3, 4, -5],
-    "expected" : "",
-    "exception" : "TriangleError",
-    "name"     : "triangles_with_negative_sides_are_illegal"
+    "description": "isosceles triangle: second triangle inequality violation",
+    "expected": false,
+    "input": {
+      "sides": [
+        1,
+        3,
+        1
+      ]
+    },
+    "property": "isosceles"
   },
   {
-    "input"    : [1, 1, 3],
-    "expected" : "",
-    "exception" : "TriangleError",
-    "name"     : "triangles_violating_triangle_inequality_are_illegal"
+    "description": "isosceles triangle: third triangle inequality violation",
+    "expected": false,
+    "input": {
+      "sides": [
+        3,
+        1,
+        1
+      ]
+    },
+    "property": "isosceles"
   },
   {
-    "input"    : [2, 4, 2],
-    "expected" : "",
-    "exception" : "TriangleError",
-    "name"     : "triangles_violating_triangle_inequality_are_illegal_2"
+    "description": "isosceles triangle: sides may be floats",
+    "expected": true,
+    "input": {
+      "sides": [
+        0.5,
+        0.4,
+        0.5
+      ]
+    },
+    "property": "isosceles"
   },
   {
-    "input"    : [7, 3, 2],
-    "expected" : "",
-    "exception" : "TriangleError",
-    "name"     : "triangles_violating_triangle_inequality_are_illegal_3"
+    "description": "scalene triangle: no sides are equal",
+    "expected": true,
+    "input": {
+      "sides": [
+        5,
+        4,
+        6
+      ]
+    },
+    "property": "scalene"
+  },
+  {
+    "description": "scalene triangle: all sides are equal",
+    "expected": false,
+    "input": {
+      "sides": [
+        4,
+        4,
+        4
+      ]
+    },
+    "property": "scalene"
+  },
+  {
+    "description": "scalene triangle: two sides are equal",
+    "expected": false,
+    "input": {
+      "sides": [
+        4,
+        4,
+        3
+      ]
+    },
+    "property": "scalene"
+  },
+  {
+    "description": "scalene triangle: may not violate triangle inequality",
+    "expected": false,
+    "input": {
+      "sides": [
+        7,
+        3,
+        2
+      ]
+    },
+    "property": "scalene"
+  },
+  {
+    "description": "scalene triangle: sides may be floats",
+    "expected": true,
+    "input": {
+      "sides": [
+        0.5,
+        0.4,
+        0.6
+      ]
+    },
+    "property": "scalene"
   }
 ]

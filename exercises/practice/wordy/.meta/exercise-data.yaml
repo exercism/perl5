@@ -1,0 +1,34 @@
+subs: answer
+tests: |-
+  for my $case (@test_cases) {
+    if ( !ref $case->{expected} ) {
+      is(
+        answer( $case->{input}{question} ),
+        $case->{expected},
+        $case->{description},
+      );
+    }
+    else {
+      like dies( sub { answer( $case->{input}{question} ) } ),
+      qr/$case->{expected}{error}/, $case->{description};
+    }
+  }
+
+example: |-
+  use lib 'lib';
+  use Exercism::QuickSolve;
+
+  sub answer {
+    my ($question) = @_;
+
+    quicksolve(
+      input => $question,
+      input_key => 'question',
+    );
+  }
+
+stub: |-
+  sub answer {
+    my ($question) = @_;
+    return undef;
+  }

@@ -1,0 +1,28 @@
+subs: handshake
+tests: |-
+  for my $case (@test_cases) {
+    is(
+      handshake( $case->{input}{number} ),
+      $case->{expected},
+      $case->{description},
+    );
+  }
+
+example: |-
+  use lib 'lib';
+  use Exercism::QuickSolve;
+
+  sub handshake {
+    my ($number) = @_;
+
+    quicksolve(
+      input     => $number,
+      input_key => 'number',
+    );
+  }
+
+stub: |-
+  sub handshake {
+    my ($number) = @_;
+    return undef;
+  }

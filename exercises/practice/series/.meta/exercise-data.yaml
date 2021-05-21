@@ -1,0 +1,31 @@
+subs: slices
+tests: |-
+  for my $case (@test_cases) {
+    if ( ref $case->{expected} ne 'HASH' ) {
+      is(
+        slices( $case->{input} ),
+        $case->{expected},
+        $case->{description},
+      );
+    }
+    else {
+      like dies( sub { slices( $case->{input} ) } ),
+      qr/$case->{expected}{error}/, $case->{description};
+    }
+  }
+
+example: |-
+  use lib 'lib';
+  use Exercism::QuickSolve;
+
+  sub slices {
+    my ($args) = @_;
+
+    quicksolve( input => $args );
+  }
+
+stub: |-
+  sub slices {
+    my ($args) = @_;
+    return undef;
+  }

@@ -1,132 +1,230 @@
 #!/usr/bin/env perl
-use strict;
-use warnings;
+use Test2::V0;
+use JSON::PP;
+use constant JSON => JSON::PP->new;
 
-use Test2::Bundle::More;
-use JSON::PP qw(decode_json);
-use FindBin qw($Bin);
+use FindBin qw<$Bin>;
 use lib $Bin, "$Bin/local/lib/perl5";
 
-my $module = 'Wordy';
+use Wordy qw<answer>;
 
-my $cases;
-{
-  local $/ = undef;
-  $cases = decode_json scalar <DATA>;
-}
+my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };
 
-plan 3 + @$cases;
+imported_ok qw<answer> or bail_out;
 
-#diag explain $cases;
-
-ok -e "$Bin/$module.pm", "missing $module.pm"
-  or BAIL_OUT(
-  "You need to create a class called $module.pm with an function called answer() that gets the original word as the first parameter and a reference to a list of word to check. It should return a referene to a list of words."
-  );
-
-eval "use $module";
-ok !$@, "Cannot load $module.pm"
-  or BAIL_OUT('Does $module.pm compile?  Does it end with 1; ?');
-
-can_ok( $module, 'answer' )
-  or BAIL_OUT("Missing package $module; or missing sub answer()");
-
-my $sub = $module . '::answer';
-
-foreach my $c (@$cases) {
-  my $answer;
-  eval {
-    no strict 'refs';
-    $answer = $sub->( $c->{input} );
-  };
-  if ( $c->{exception} ) {
-    like $@, qr/^$c->{exception}/, "Exception $c->{name}";
+for my $case (@test_cases) {
+  if ( !ref $case->{expected} ) {
+    is( answer( $case->{input}{question} ),
+      $case->{expected}, $case->{description}, );
   }
   else {
-    is $answer, $c->{expected}, $c->{name};
+    like dies( sub { answer( $case->{input}{question} ) } ),
+      qr/$case->{expected}{error}/, $case->{description};
   }
 }
+
+done_testing;
 
 __DATA__
 [
   {
-    "input"    : "What is 1 plus 1?",
-    "expected" : 2,
-    "name"     : "add_1"
+    "description": "just a number",
+    "expected": 5,
+    "input": {
+      "question": "What is 5?"
+    },
+    "property": "answer"
   },
   {
-    "input"    : "What is 53 plus 2?",
-    "expected" : 55,
-    "name"     : "add_2"
+    "description": "addition",
+    "expected": 2,
+    "input": {
+      "question": "What is 1 plus 1?"
+    },
+    "property": "answer"
   },
   {
-    "input"    : "What is -1 plus -10?",
-    "expected" : -11,
-    "name"     : "add_negative_numbers"
+    "description": "more addition",
+    "expected": 55,
+    "input": {
+      "question": "What is 53 plus 2?"
+    },
+    "property": "answer"
   },
   {
-    "input"    : "What is 123 plus 45678?",
-    "expected" : 45801,
-    "name"     : "add_more_digits"
+    "description": "addition with negative numbers",
+    "expected": -11,
+    "input": {
+      "question": "What is -1 plus -10?"
+    },
+    "property": "answer"
   },
   {
-    "input"    : "What is 4 minus -12?",
-    "expected" : 16,
-    "name"     : "subtract"
+    "description": "large addition",
+    "expected": 45801,
+    "input": {
+      "question": "What is 123 plus 45678?"
+    },
+    "property": "answer"
   },
   {
-    "input"    : "What is -3 multiplied by 25?",
-    "expected" : -75,
-    "name"     : "multiply"
+    "description": "subtraction",
+    "expected": 16,
+    "input": {
+      "question": "What is 4 minus -12?"
+    },
+    "property": "answer"
   },
   {
-    "input"    : "What is 33 divided by -3?",
-    "expected" : -11,
-    "name"     : "divide"
+    "description": "multiplication",
+    "expected": -75,
+    "input": {
+      "question": "What is -3 multiplied by 25?"
+    },
+    "property": "answer"
   },
   {
-    "input"    : "What is 1 plus 1 plus 1?",
-    "expected" : 3,
-    "name"     : "add_twice"
+    "description": "division",
+    "expected": -11,
+    "input": {
+      "question": "What is 33 divided by -3?"
+    },
+    "property": "answer"
   },
   {
-    "input"    : "What is 1 plus 5 minus -2?",
-    "expected" : 8,
-    "name"     : "add_then_subtract"
+    "description": "multiple additions",
+    "expected": 3,
+    "input": {
+      "question": "What is 1 plus 1 plus 1?"
+    },
+    "property": "answer"
   },
   {
-    "input"    : "What is 20 minus 4 minus 13?",
-    "expected" : 3,
-    "name"     : "subtract_twice"
+    "description": "addition and subtraction",
+    "expected": 8,
+    "input": {
+      "question": "What is 1 plus 5 minus -2?"
+    },
+    "property": "answer"
   },
   {
-    "input"    : "What is 17 minus 6 plus 3?",
-    "expected" : 14,
-    "name"     : "subtract_then_add"
+    "description": "multiple subtraction",
+    "expected": 3,
+    "input": {
+      "question": "What is 20 minus 4 minus 13?"
+    },
+    "property": "answer"
   },
   {
-    "input"    : "What is 2 multiplied by -2 multiplied by 3?",
-    "expected" : -12,
-    "name"     : "multiply_twice"
+    "description": "subtraction then addition",
+    "expected": 14,
+    "input": {
+      "question": "What is 17 minus 6 plus 3?"
+    },
+    "property": "answer"
   },
   {
-    "input"    : "What is -3 plus 7 multiplied by -2?",
-    "expected" : -8,
-    "name"     : "add_then_multiply"
+    "description": "multiple multiplication",
+    "expected": -12,
+    "input": {
+      "question": "What is 2 multiplied by -2 multiplied by 3?"
+    },
+    "property": "answer"
   },
   {
-    "input"    : "What is -12 divided by 2 divided by -3?",
-    "expected" : 2,
-    "name"     : "divide_twice"
+    "description": "addition and multiplication",
+    "expected": -8,
+    "input": {
+      "question": "What is -3 plus 7 multiplied by -2?"
+    },
+    "property": "answer"
   },
   {
-    "input"     : "What is 53 cubed?",
-    "exception" : "ArgumentError",
-    "name"      : "too_advanced"
+    "description": "multiple division",
+    "expected": 2,
+    "input": {
+      "question": "What is -12 divided by 2 divided by -3?"
+    },
+    "property": "answer"
   },
   {
-    "input"    : "Who is the president of the United States?",
-    "exception" : "ArgumentError",
-    "name"     : "irrelevant"
+    "description": "unknown operation",
+    "expected": {
+      "error": "unknown operation"
+    },
+    "input": {
+      "question": "What is 52 cubed?"
+    },
+    "property": "answer"
+  },
+  {
+    "description": "Non math question",
+    "expected": {
+      "error": "unknown operation"
+    },
+    "input": {
+      "question": "Who is the President of the United States?"
+    },
+    "property": "answer"
+  },
+  {
+    "description": "reject problem missing an operand",
+    "expected": {
+      "error": "syntax error"
+    },
+    "input": {
+      "question": "What is 1 plus?"
+    },
+    "property": "answer"
+  },
+  {
+    "description": "reject problem with no operands or operators",
+    "expected": {
+      "error": "syntax error"
+    },
+    "input": {
+      "question": "What is?"
+    },
+    "property": "answer"
+  },
+  {
+    "description": "reject two operations in a row",
+    "expected": {
+      "error": "syntax error"
+    },
+    "input": {
+      "question": "What is 1 plus plus 2?"
+    },
+    "property": "answer"
+  },
+  {
+    "description": "reject two numbers in a row",
+    "expected": {
+      "error": "syntax error"
+    },
+    "input": {
+      "question": "What is 1 plus 2 1?"
+    },
+    "property": "answer"
+  },
+  {
+    "description": "reject postfix notation",
+    "expected": {
+      "error": "syntax error"
+    },
+    "input": {
+      "question": "What is 1 2 plus?"
+    },
+    "property": "answer"
+  },
+  {
+    "description": "reject prefix notation",
+    "expected": {
+      "error": "syntax error"
+    },
+    "input": {
+      "question": "What is plus 1 2?"
+    },
+    "property": "answer"
   }
 ]

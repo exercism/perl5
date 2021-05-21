@@ -1,0 +1,25 @@
+subs: age_on_planet
+tests: |-
+  for my $case (@test_cases) {
+    is(
+      age_on_planet( $case->{input} ),
+      $case->{expected},
+      $case->{description},
+    );
+  }
+
+example: |-
+  use lib 'lib';
+  use Exercism::QuickSolve;
+
+  sub age_on_planet {
+    my ($args) = @_;
+
+    quicksolve( input => $args );
+  }
+
+stub: |-
+  sub age_on_planet {
+    my ($args) = @_;
+    return undef;
+  }

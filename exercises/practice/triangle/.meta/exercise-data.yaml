@@ -1,0 +1,65 @@
+subs: is_equilateral is_isosceles is_scalene
+tests: |-
+  for my $case (@test_cases) {
+    my $func;
+    if ($case->{property} eq 'equilateral') {
+      $func = \&is_equilateral;
+    }
+    elsif ($case->{property} eq 'isosceles') {
+      $func = \&is_isosceles;
+    }
+    elsif ($case->{property} eq 'scalene') {
+      $func = \&is_scalene;
+    }
+
+    is(
+      $func->( $case->{input}{sides} ),
+      $case->{expected} ? T : DF,
+      $case->{description},
+    );
+  }
+
+example: |-
+  use experimental qw<signatures>;
+  use lib 'lib';
+  use Exercism::QuickSolve;
+
+  sub is_equilateral ($triangle) {
+    !!quicksolve(
+      input     => $triangle,
+      input_key => 'sides',
+      property  => 'equilateral',
+    );
+  }
+
+  sub is_isosceles ($triangle) {
+    !!quicksolve(
+      input     => $triangle,
+      input_key => 'sides',
+      property  => 'isosceles',
+    );
+  }
+
+  sub is_scalene ($triangle) {
+    !!quicksolve(
+      input     => $triangle,
+      input_key => 'sides',
+      property  => 'scalene',
+    );
+  }
+
+stub: |-
+  sub is_equilateral {
+    my ($triangle) = @_;
+    return undef;
+  }
+
+  sub is_isosceles {
+    my ($triangle) = @_;
+    return undef;
+  }
+
+  sub is_scalene {
+    my ($triangle) = @_;
+    return undef;
+  }

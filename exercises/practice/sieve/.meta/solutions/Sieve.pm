@@ -1,31 +1,19 @@
 package Sieve;
-
 use strict;
 use warnings;
+use Exporter qw<import>;
+our @EXPORT_OK = qw<find_primes>;
 
-sub new {
-  my ( $class, $max ) = @_;
-  die "ArgumentError, number too small: $max" if $max < 2;
-  bless { max => $max }, $class;
-}
+use lib 'lib';
+use Exercism::QuickSolve;
 
-sub primes {
-  my $self  = shift;
-  my $prime = 2;
+sub find_primes {
+  my ($limit) = @_;
 
-  return [$prime] if $self->{max} == $prime;
-
-  my @list   = 3 .. $self->{max};
-  my @primes = ( $prime, );
-
-  while ( @list > 0 ) {
-    my @candidates = grep { $_ % $prime != 0 } @list;
-    $prime = shift @candidates;
-    push @primes => $prime;
-    @list = @candidates;
-  }
-
-  return [@primes];
+  quicksolve(
+    input     => $limit,
+    input_key => 'limit',
+  );
 }
 
 1;

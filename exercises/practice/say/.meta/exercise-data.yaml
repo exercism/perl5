@@ -1,0 +1,34 @@
+subs: say_number
+tests: |-
+  for my $case (@test_cases) {
+    if ( !ref $case->{expected} ) {
+      is(
+        say_number( $case->{input}{number} ),
+        $case->{expected},
+        $case->{description},
+      );
+    }
+    else {
+      like dies( sub { say_number( $case->{input}{number} ) } ),
+      qr/$case->{expected}{error}/, $case->{description};
+    }
+  }
+
+example: |-
+  use lib 'lib';
+  use Exercism::QuickSolve;
+
+  sub say_number {
+    my ($number) = @_;
+
+    quicksolve(
+      input     => $number,
+      input_key => 'number',
+    );
+  }
+
+stub: |-
+  sub say_number {
+    my ($number) = @_;
+    return undef;
+  }
