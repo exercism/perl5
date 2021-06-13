@@ -1,7 +1,8 @@
 package Strain;
-
 use strict;
 use warnings;
+use Exporter qw<import>;
+our @EXPORT_OK = qw<keep discard>;
 
 sub keep    { [ _filter( @_, 1 ) ] }
 sub discard { [ _filter( @_, 0 ) ] }
