@@ -3,13 +3,13 @@
   "authors": [],
   "files": {
     "solution": [
-      "SimpleCipher.pm"
+      "Cipher.pm"
     ],
     "test": [
-      "simple-cipher.t"
+      "cipher.t"
     ],
     "example": [
-      ".meta/solutions/SimpleCipher.pm"
+      ".meta/solutions/Cipher.pm"
     ]
   },
   "source": "Substitution Cipher at Wikipedia",

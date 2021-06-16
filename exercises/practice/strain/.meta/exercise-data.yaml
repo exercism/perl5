@@ -1,0 +1,93 @@
+subs: keep discard
+tests: |-
+  my ( $input, $expected, $function );
+
+  $input    = [];
+  $expected = [];
+  $function = sub { my $x = shift; $x % 2 == 0 };
+  is( keep( $input, $function ), $expected, "empty list" );
+
+  $input    = [ 2, 4, 6, 8, 10 ];
+  $expected = [];
+  $function = sub { my $x = shift; $x % 2 == 1 };
+  is( keep( $input, $function ),
+    $expected, "keep odd numbers. empty result " );
+
+  $input    = [ 2, 4, 6, 8, 10 ];
+  $expected = [];
+  $function = sub { my $x = shift; $x % 2 == 0 };
+  is( discard( $input, $function ),
+    $expected, "discard even numbers. empty result" );
+
+  $input    = [ 2, 4, 6, 8, 10 ];
+  $expected = [ 2, 4, 6, 8, 10 ];
+  $function = sub { my $x = shift; $x % 2 == 0 };
+  is( keep( $input, $function ),
+    $expected, "keep even numbers. result == input" );
+
+  $input    = [qw(dough cash plough though through enough)];
+  $expected = ['cash'];
+  $function = sub { my $x = shift; $x =~ m/ough$/ };
+  is( discard( $input, $function ),
+    $expected, "discard input endswith 'ough'" );
+
+  $input    = [qw(zebra arizona apple google mozilla)];
+  $expected = [qw(zebra arizona mozilla)];
+  $function = sub { my $x = shift; $x =~ /z/ };
+  is( keep( $input, $function ),
+    $expected, "keep input with 'z'" );
+
+  $input    = [ '1,2,3', 'one', 'almost!', 'love' ];
+  $expected = [];
+  $function = sub { my $x = shift; $x =~ /\p{IsAlpha}/ };
+  is( discard( keep( $input, $function ) // [], $function ),
+    $expected, "keep then discard" );
+
+  $input    = [ '1,2,3', 'one', 'almost!', 'love' ];
+  $expected = [ '1,2,3', 'one', 'almost!', 'love' ];
+  $function = sub { my $x = shift; $x =~ /\p{Alpha}/ };
+  my $combined = [
+    @{ keep( $input, $function ) // [] },
+    @{ discard( $input, $function ) // [] }
+  ];
+  is(
+    [ sort @$combined ],
+    [ sort @$expected ],
+    "combine keep and discard results. keep + discard"
+  );
+
+example: |-
+  sub keep    { [ _filter( @_, 1 ) ] }
+  sub discard { [ _filter( @_, 0 ) ] }
+
+  sub _filter {
+    my ( $list, $function, $is_keeping ) = @_;
+
+    die "ArgumentError: 2nd parameter must be a function reference"
+      unless ref $function eq 'CODE';
+
+    my @result;
+
+    foreach my $element (@$list) {
+      if ($is_keeping) {
+        push @result, $element if $function->($element);
+        next;
+      }
+
+      # discard
+      push @result, $element unless $function->($element);
+    }
+
+    return @result;
+  }
+
+stub: |-
+  sub keep {
+    my ($input, $function) = @_;
+    return undef;
+  }
+
+  sub discard {
+    my ($input, $function) = @_;
+    return undef;
+  }

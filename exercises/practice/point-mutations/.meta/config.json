@@ -3,13 +3,13 @@
   "authors": [],
   "files": {
     "solution": [
-      "PointMutations.pm"
+      "DNA.pm"
     ],
     "test": [
-      "point-mutations.t"
+      "dna.t"
     ],
     "example": [
-      ".meta/solutions/PointMutations.pm"
+      ".meta/solutions/DNA.pm"
     ]
   },
   "source": "The Calculating Point Mutations problem at Rosalind",

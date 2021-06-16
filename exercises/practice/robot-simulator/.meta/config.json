@@ -3,13 +3,13 @@
   "authors": [],
   "files": {
     "solution": [
-      "RobotSimulator.pm"
+      "Robot.pm"
     ],
     "test": [
-      "robot-simulator.t"
+      "robot_simulator.t"
     ],
     "example": [
-      ".meta/solutions/RobotSimulator.pm"
+      ".meta/solutions/Robot.pm"
     ]
   },
   "source": "Inspired by an interview question at a famous company.",
