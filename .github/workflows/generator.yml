@@ -19,7 +19,7 @@ jobs:
           path: .problem-specifications
 
       - name: Set up perl
-        uses: shogo82148/actions-setup-perl@v1
+        uses: shogo82148/actions-setup-perl@v1.11.0
 
       - run: carton install
       - run: cpm install App::Yath

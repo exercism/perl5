@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set up perl
-        uses: shogo82148/actions-setup-perl@v1
+        uses: shogo82148/actions-setup-perl@v1.11.0
         with:
           perl-version: ${{ matrix.perl }}
           distribution: strawberry
