@@ -3,13 +3,13 @@
   "authors": [],
   "files": {
     "solution": [
-      "QueenAttack.pm"
+      "Queens.pm"
     ],
     "test": [
-      "queen-attack.t"
+      "queen.t"
     ],
     "example": [
-      ".meta/solutions/QueenAttack.pm"
+      ".meta/solutions/Queens.pm"
     ]
   },
   "source": "J Dalbey's Programming Practice problems",

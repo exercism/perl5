@@ -3,13 +3,13 @@
   "authors": [],
   "files": {
     "solution": [
-      "OcrNumbers.pm"
+      "OCRNumbers.pm"
     ],
     "test": [
       "ocr-numbers.t"
     ],
     "example": [
-      ".meta/solutions/OcrNumbers.pm"
+      ".meta/solutions/OCRNumbers.pm"
     ]
   },
   "source": "Inspired by the Bank OCR kata",

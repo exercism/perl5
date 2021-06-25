@@ -3,13 +3,13 @@
   "authors": [],
   "files": {
     "solution": [
-      "PythagoreanTriplet.pm"
+      "Triplet.pm"
     ],
     "test": [
-      "pythagorean-triplet.t"
+      "triplet.t"
     ],
     "example": [
-      ".meta/solutions/PythagoreanTriplet.pm"
+      ".meta/solutions/Triplet.pm"
     ]
   },
   "source": "Problem 9 at Project Euler",

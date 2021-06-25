@@ -3,13 +3,13 @@
   "authors": [],
   "files": {
     "solution": [
-      "Etl.pm"
+      "ETL.pm"
     ],
     "test": [
       "etl.t"
     ],
     "example": [
-      ".meta/solutions/Etl.pm"
+      ".meta/solutions/ETL.pm"
     ]
   },
   "source": "The Jumpstart Lab team",

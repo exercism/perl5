@@ -3,13 +3,13 @@
   "authors": [],
   "files": {
     "solution": [
-      "SimpleLinkedList.pm"
+      "LinkedList.pm"
     ],
     "test": [
-      "simple-linked-list.t"
+      "simple_linked_list.t"
     ],
     "example": [
-      ".meta/solutions/SimpleLinkedList.pm"
+      ".meta/solutions/LinkedList.pm"
     ]
   },
   "source": "Inspired by 'Data Structures and Algorithms with Object-Oriented Design Patterns in Ruby', singly linked-lists.",

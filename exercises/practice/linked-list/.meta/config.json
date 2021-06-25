@@ -3,13 +3,13 @@
   "authors": [],
   "files": {
     "solution": [
-      "LinkedList.pm"
+      "Deque.pm"
     ],
     "test": [
-      "linked-list.t"
+      "deque.t"
     ],
     "example": [
-      ".meta/solutions/LinkedList.pm"
+      ".meta/solutions/Deque.pm"
     ]
   },
   "source": "Classic computer science topic"

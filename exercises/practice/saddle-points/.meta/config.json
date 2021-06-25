@@ -3,13 +3,13 @@
   "authors": [],
   "files": {
     "solution": [
-      "SaddlePoints.pm"
+      "Matrix.pm"
     ],
     "test": [
-      "saddle-points.t"
+      "saddle_points.t"
     ],
     "example": [
-      ".meta/solutions/SaddlePoints.pm"
+      ".meta/solutions/Matrix.pm"
     ]
   },
   "source": "J Dalbey's Programming Practice problems",

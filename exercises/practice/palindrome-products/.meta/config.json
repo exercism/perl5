@@ -3,13 +3,13 @@
   "authors": [],
   "files": {
     "solution": [
-      "PalindromeProducts.pm"
+      "Palindrome.pm"
     ],
     "test": [
-      "palindrome-products.t"
+      "palindrome.t"
     ],
     "example": [
-      ".meta/solutions/PalindromeProducts.pm"
+      ".meta/solutions/Palindrome.pm"
     ]
   },
   "source": "Problem 4 at Project Euler",

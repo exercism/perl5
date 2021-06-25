@@ -3,13 +3,13 @@
   "authors": [],
   "files": {
     "solution": [
-      "PrimeFactors.pm"
+      "Prime.pm"
     ],
     "test": [
-      "prime-factors.t"
+      "prime.t"
     ],
     "example": [
-      ".meta/solutions/PrimeFactors.pm"
+      ".meta/solutions/Prime.pm"
     ]
   },
   "source": "The Prime Factors Kata by Uncle Bob",
