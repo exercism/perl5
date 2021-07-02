@@ -1,6 +1,16 @@
 {
   "blurb": "Given a word, compute the Scrabble score for that word.",
-  "authors": [],
+  "authors": [
+    "bistik"
+  ],
+  "contributors": [
+    "darksuji",
+    "drewbs",
+    "kytrinyx",
+    "m-dango",
+    "rfilipo",
+    "sshine"
+  ],
   "files": {
     "solution": [
       "ScrabbleScore.pm"
