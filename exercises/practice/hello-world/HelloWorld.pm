@@ -6,8 +6,7 @@ use Exporter qw<import>;
 our @EXPORT_OK = qw<hello>;
 
 sub hello {
-
-# Remove the comments and write some code here to pass the test suite.
+  return 'Goodbye, Mars!';
 }
 
 1;
