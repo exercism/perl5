@@ -1,28 +1,82 @@
-subs: tree
+subs: tree treeSort
 tests: |-
-  for my $case (@test_cases) {
-    is(
-      tree($case->{input}{treeData}),
-      $case->{expected},
-      $case->{description},
-    );
-  }
+  subtest data => sub {
+    for my $case (grep {$_->{property} eq 'data'} @test_cases) {
+      is(
+        tree($case->{input}{treeData}),
+        $case->{expected},
+        $case->{description},
+      );
+    }
+  };
+
+  subtest sorting => sub {
+    for my $case (grep {$_->{property} eq 'sortedData'} @test_cases) {
+      is(
+        treeSort($case->{input}{treeData}),
+        $case->{expected},
+        $case->{description},
+      );
+    }
+  };
 
 example: |-
-  use lib 'lib';
-  use Exercism::QuickSolve;
-
   sub tree {
     my ($data) = @_;
+    my $tree = leaf();
+    insert($tree, $_) for @$data;
+    return $tree;
+  }
 
-    quicksolve(
-      input => $data,
-      input_key => 'treeData',
-    );
+  sub leaf {
+    return {
+      data => undef,
+      left => undef,
+      right => undef,
+    };
+  }
+
+  sub insert {
+    my ($tree, $value) = @_;
+    if (not defined $tree->{data}) {
+      $tree->{data} = $value;
+    }
+    elsif ($value <= $tree->{data}) {
+      $tree->{left} //= leaf();
+      insert($tree->{left}, $value);
+    }
+    else {
+      $tree->{right} //= leaf();
+      insert($tree->{right}, $value);
+    }
+    return;
+  }
+
+  sub treeSort {
+    my ($data) = @_;
+    my $tree = tree($data);
+    my @values = ();
+    walk($tree, sub {push @values, (shift)->{data}});
+    return \@values;
+  }
+
+  sub walk {
+    my ($tree, $sub) = @_;
+    walk($tree->{left}, $sub) if defined $tree->{left};
+    $sub->($tree);
+    walk($tree->{right}, $sub) if defined $tree->{right};
+    return;
   }
 
 stub: |-
   sub tree {
+    my ($data) = @_;
+    return undef;
+  }
+
+  # You are expected to create a tree and then do an in-order walk.
+  # Using the sort() function is cheating!
+  sub treeSort {
     my ($data) = @_;
     return undef;
   }
