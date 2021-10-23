@@ -21,7 +21,15 @@ for my $case (@test_cases) {
 __DATA__
 [
   {
-    "description": "Adding a student adds them to the sorted roster",
+    "description": "Roster is empty when no student is added",
+    "expected": [],
+    "input": {
+      "students": []
+    },
+    "property": "roster"
+  },
+  {
+    "description": "Student is added to the roster",
     "expected": [
       "Aimee"
     ],
@@ -36,7 +44,7 @@ __DATA__
     "property": "roster"
   },
   {
-    "description": "Adding more students adds them to the sorted roster",
+    "description": "Multiple students in the same grade are added to the roster",
     "expected": [
       "Blair",
       "James",
@@ -61,7 +69,7 @@ __DATA__
     "property": "roster"
   },
   {
-    "description": "Adding students to different grades adds them to the same sorted roster",
+    "description": "Students in multiple grades are added to the roster",
     "expected": [
       "Chelsea",
       "Logan"
@@ -81,15 +89,7 @@ __DATA__
     "property": "roster"
   },
   {
-    "description": "Roster returns an empty list if there are no students enrolled",
-    "expected": [],
-    "input": {
-      "students": []
-    },
-    "property": "roster"
-  },
-  {
-    "description": "Student names with grades are displayed in the same sorted roster",
+    "description": "Students are sorted by grades and then by name in the roster",
     "expected": [
       "Anna",
       "Barb",
@@ -134,7 +134,16 @@ __DATA__
     "property": "roster"
   },
   {
-    "description": "Grade returns the students in that grade in alphabetical order",
+    "description": "Grade is empty if no students in the roster",
+    "expected": [],
+    "input": {
+      "desiredGrade": 1,
+      "students": []
+    },
+    "property": "grade"
+  },
+  {
+    "description": "Students are sorted by name in a grade",
     "expected": [
       "Bradley",
       "Franklin"
@@ -155,15 +164,6 @@ __DATA__
           1
         ]
       ]
-    },
-    "property": "grade"
-  },
-  {
-    "description": "Grade returns an empty list if there are no students in that grade",
-    "expected": [],
-    "input": {
-      "desiredGrade": 1,
-      "students": []
     },
     "property": "grade"
   }
