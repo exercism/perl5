@@ -186,5 +186,18 @@ __DATA__
       "sentence": ",\n,one,\n ,two \n 'three'"
     },
     "property": "countWords"
+  },
+  {
+    "description": "several words are quouted, including first and last",
+    "expected": {
+      "one": 1,
+      "three": 1,
+      "two": 1,
+      "and": 1
+    },
+    "input": {
+      "sentence": "'one', 'two' and 'three'"
+    },
+    "property": "countWords"
   }
 ]
