@@ -9,7 +9,7 @@ use lib $Bin, "$Bin/local/lib/perl5";
 use RomanNumerals qw<to_roman>;
 
 my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };
-plan 20;
+plan 25;
 
 imported_ok qw<to_roman> or bail_out;
 
@@ -169,6 +169,46 @@ __DATA__
     "expected": "MMM",
     "input": {
       "number": 3000
+    },
+    "property": "roman"
+  },
+  {
+    "description": "16 is XVI",
+    "expected": "XVI",
+    "input": {
+      "number": 16
+    },
+    "property": "roman"
+  },
+  {
+    "description": "66 is LXVI",
+    "expected": "LXVI",
+    "input": {
+      "number": 66
+    },
+    "property": "roman"
+  },
+  {
+    "description": "166 is CLXVI",
+    "expected": "CLXVI",
+    "input": {
+      "number": 166
+    },
+    "property": "roman"
+  },
+  {
+    "description": "666 is DCLXVI",
+    "expected": "DCLXVI",
+    "input": {
+      "number": 666
+    },
+    "property": "roman"
+  },
+  {
+    "description": "1666 is MDCLXVI",
+    "expected": "MDCLXVI",
+    "input": {
+      "number": 1666
     },
     "property": "roman"
   }

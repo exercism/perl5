@@ -1,4 +1,4 @@
-plan: 20
+plan: 25
 subs: to_roman
 tests: |-
   for my $case ( @test_cases ) {
