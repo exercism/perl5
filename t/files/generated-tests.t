@@ -21,13 +21,8 @@ for ( sort { $a cmp $b }
       [ split( /\n/, $_->child( $_->basename . '.t' )->slurp_utf8 ) ],
       [ split(
           /\n/,
-          Exercism::Generator->new(
-            { data => LoadFile(
-                $_->child( '.meta', 'exercise-data.yaml' )
-              ),
-              exercise => $_->basename,
-            }
-          )->test
+          Exercism::Generator->new( { exercise => $_->basename } )
+            ->test
         )
       ],
       $_->basename . ': test suite matches generated'

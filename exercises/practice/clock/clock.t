@@ -21,7 +21,7 @@ subtest create => sub {
       Clock->new( $case->{input} ),
       object {
         prop blessed => 'Clock';
-        call time    => $case->{expected};
+        call time => $case->{expected};
       },
       $case->{description}
     );
@@ -50,7 +50,7 @@ subtest 'add/subtract' => sub {
         call [ $case->{property} . '_minutes',
           $case->{input}{value} ] => object {
           prop blessed => 'Clock';
-          call time    => $case->{expected};
+          call time => $case->{expected};
           };
       },
       $case->{description}
