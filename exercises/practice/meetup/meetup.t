@@ -13,15 +13,25 @@ plan 96;
 
 imported_ok qw<meetup> or bail_out;
 
+use constant MONTHS => qw<
+  January February March     April   May      June
+  July    August   September October November December
+>;
+
 for my $case (@test_cases) {
-  is meetup( $case->{input} ), $case->{expected},
-    $case->{description};
+  my $input_string = sprintf( '%s %s of %s %u',
+    ucfirst( $case->{input}{week} ),
+    $case->{input}{dayofweek},
+    (MONTHS)[ $case->{input}{month} - 1 ],
+    $case->{input}{year} );
+
+  is meetup($input_string), $case->{expected}, $case->{description};
 }
 
 __DATA__
 [
   {
-    "description": "monteenth of May 2013",
+    "description": "when teenth Monday is the 13th, the first day of the teenth week",
     "expected": "2013-05-13",
     "input": {
       "dayofweek": "Monday",
@@ -32,7 +42,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "monteenth of August 2013",
+    "description": "when teenth Monday is the 19th, the last day of the teenth week",
     "expected": "2013-08-19",
     "input": {
       "dayofweek": "Monday",
@@ -43,7 +53,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "monteenth of September 2013",
+    "description": "when teenth Monday is some day in the middle of the teenth week",
     "expected": "2013-09-16",
     "input": {
       "dayofweek": "Monday",
@@ -54,7 +64,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "tuesteenth of March 2013",
+    "description": "when teenth Tuesday is the 19th, the last day of the teenth week",
     "expected": "2013-03-19",
     "input": {
       "dayofweek": "Tuesday",
@@ -65,7 +75,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "tuesteenth of April 2013",
+    "description": "when teenth Tuesday is some day in the middle of the teenth week",
     "expected": "2013-04-16",
     "input": {
       "dayofweek": "Tuesday",
@@ -76,7 +86,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "tuesteenth of August 2013",
+    "description": "when teenth Tuesday is the 13th, the first day of the teenth week",
     "expected": "2013-08-13",
     "input": {
       "dayofweek": "Tuesday",
@@ -87,7 +97,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "wednesteenth of January 2013",
+    "description": "when teenth Wednesday is some day in the middle of the teenth week",
     "expected": "2013-01-16",
     "input": {
       "dayofweek": "Wednesday",
@@ -98,7 +108,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "wednesteenth of February 2013",
+    "description": "when teenth Wednesday is the 13th, the first day of the teenth week",
     "expected": "2013-02-13",
     "input": {
       "dayofweek": "Wednesday",
@@ -109,7 +119,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "wednesteenth of June 2013",
+    "description": "when teenth Wednesday is the 19th, the last day of the teenth week",
     "expected": "2013-06-19",
     "input": {
       "dayofweek": "Wednesday",
@@ -120,7 +130,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "thursteenth of May 2013",
+    "description": "when teenth Thursday is some day in the middle of the teenth week",
     "expected": "2013-05-16",
     "input": {
       "dayofweek": "Thursday",
@@ -131,7 +141,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "thursteenth of June 2013",
+    "description": "when teenth Thursday is the 13th, the first day of the teenth week",
     "expected": "2013-06-13",
     "input": {
       "dayofweek": "Thursday",
@@ -142,7 +152,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "thursteenth of September 2013",
+    "description": "when teenth Thursday is the 19th, the last day of the teenth week",
     "expected": "2013-09-19",
     "input": {
       "dayofweek": "Thursday",
@@ -153,7 +163,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "friteenth of April 2013",
+    "description": "when teenth Friday is the 19th, the last day of the teenth week",
     "expected": "2013-04-19",
     "input": {
       "dayofweek": "Friday",
@@ -164,7 +174,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "friteenth of August 2013",
+    "description": "when teenth Friday is some day in the middle of the teenth week",
     "expected": "2013-08-16",
     "input": {
       "dayofweek": "Friday",
@@ -175,7 +185,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "friteenth of September 2013",
+    "description": "when teenth Friday is the 13th, the first day of the teenth week",
     "expected": "2013-09-13",
     "input": {
       "dayofweek": "Friday",
@@ -186,7 +196,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "saturteenth of February 2013",
+    "description": "when teenth Saturday is some day in the middle of the teenth week",
     "expected": "2013-02-16",
     "input": {
       "dayofweek": "Saturday",
@@ -197,7 +207,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "saturteenth of April 2013",
+    "description": "when teenth Saturday is the 13th, the first day of the teenth week",
     "expected": "2013-04-13",
     "input": {
       "dayofweek": "Saturday",
@@ -208,7 +218,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "saturteenth of October 2013",
+    "description": "when teenth Saturday is the 19th, the last day of the teenth week",
     "expected": "2013-10-19",
     "input": {
       "dayofweek": "Saturday",
@@ -219,7 +229,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "sunteenth of May 2013",
+    "description": "when teenth Sunday is the 19th, the last day of the teenth week",
     "expected": "2013-05-19",
     "input": {
       "dayofweek": "Sunday",
@@ -230,7 +240,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "sunteenth of June 2013",
+    "description": "when teenth Sunday is some day in the middle of the teenth week",
     "expected": "2013-06-16",
     "input": {
       "dayofweek": "Sunday",
@@ -241,7 +251,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "sunteenth of October 2013",
+    "description": "when teenth Sunday is the 13th, the first day of the teenth week",
     "expected": "2013-10-13",
     "input": {
       "dayofweek": "Sunday",
@@ -252,7 +262,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "first Monday of March 2013",
+    "description": "when first Monday is some day in the middle of the first week",
     "expected": "2013-03-04",
     "input": {
       "dayofweek": "Monday",
@@ -263,7 +273,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "first Monday of April 2013",
+    "description": "when first Monday is the 1st, the first day of the first week",
     "expected": "2013-04-01",
     "input": {
       "dayofweek": "Monday",
@@ -274,7 +284,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "first Tuesday of May 2013",
+    "description": "when first Tuesday is the 7th, the last day of the first week",
     "expected": "2013-05-07",
     "input": {
       "dayofweek": "Tuesday",
@@ -285,7 +295,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "first Tuesday of June 2013",
+    "description": "when first Tuesday is some day in the middle of the first week",
     "expected": "2013-06-04",
     "input": {
       "dayofweek": "Tuesday",
@@ -296,7 +306,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "first Wednesday of July 2013",
+    "description": "when first Wednesday is some day in the middle of the first week",
     "expected": "2013-07-03",
     "input": {
       "dayofweek": "Wednesday",
@@ -307,7 +317,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "first Wednesday of August 2013",
+    "description": "when first Wednesday is the 7th, the last day of the first week",
     "expected": "2013-08-07",
     "input": {
       "dayofweek": "Wednesday",
@@ -318,7 +328,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "first Thursday of September 2013",
+    "description": "when first Thursday is some day in the middle of the first week",
     "expected": "2013-09-05",
     "input": {
       "dayofweek": "Thursday",
@@ -329,7 +339,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "first Thursday of October 2013",
+    "description": "when first Thursday is another day in the middle of the first week",
     "expected": "2013-10-03",
     "input": {
       "dayofweek": "Thursday",
@@ -340,7 +350,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "first Friday of November 2013",
+    "description": "when first Friday is the 1st, the first day of the first week",
     "expected": "2013-11-01",
     "input": {
       "dayofweek": "Friday",
@@ -351,7 +361,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "first Friday of December 2013",
+    "description": "when first Friday is some day in the middle of the first week",
     "expected": "2013-12-06",
     "input": {
       "dayofweek": "Friday",
@@ -362,7 +372,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "first Saturday of January 2013",
+    "description": "when first Saturday is some day in the middle of the first week",
     "expected": "2013-01-05",
     "input": {
       "dayofweek": "Saturday",
@@ -373,7 +383,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "first Saturday of February 2013",
+    "description": "when first Saturday is another day in the middle of the first week",
     "expected": "2013-02-02",
     "input": {
       "dayofweek": "Saturday",
@@ -384,7 +394,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "first Sunday of March 2013",
+    "description": "when first Sunday is some day in the middle of the first week",
     "expected": "2013-03-03",
     "input": {
       "dayofweek": "Sunday",
@@ -395,7 +405,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "first Sunday of April 2013",
+    "description": "when first Sunday is the 7th, the last day of the first week",
     "expected": "2013-04-07",
     "input": {
       "dayofweek": "Sunday",
@@ -406,7 +416,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "second Monday of March 2013",
+    "description": "when second Monday is some day in the middle of the second week",
     "expected": "2013-03-11",
     "input": {
       "dayofweek": "Monday",
@@ -417,7 +427,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "second Monday of April 2013",
+    "description": "when second Monday is the 8th, the first day of the second week",
     "expected": "2013-04-08",
     "input": {
       "dayofweek": "Monday",
@@ -428,7 +438,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "second Tuesday of May 2013",
+    "description": "when second Tuesday is the 14th, the last day of the second week",
     "expected": "2013-05-14",
     "input": {
       "dayofweek": "Tuesday",
@@ -439,7 +449,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "second Tuesday of June 2013",
+    "description": "when second Tuesday is some day in the middle of the second week",
     "expected": "2013-06-11",
     "input": {
       "dayofweek": "Tuesday",
@@ -450,7 +460,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "second Wednesday of July 2013",
+    "description": "when second Wednesday is some day in the middle of the second week",
     "expected": "2013-07-10",
     "input": {
       "dayofweek": "Wednesday",
@@ -461,7 +471,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "second Wednesday of August 2013",
+    "description": "when second Wednesday is the 14th, the last day of the second week",
     "expected": "2013-08-14",
     "input": {
       "dayofweek": "Wednesday",
@@ -472,7 +482,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "second Thursday of September 2013",
+    "description": "when second Thursday is some day in the middle of the second week",
     "expected": "2013-09-12",
     "input": {
       "dayofweek": "Thursday",
@@ -483,7 +493,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "second Thursday of October 2013",
+    "description": "when second Thursday is another day in the middle of the second week",
     "expected": "2013-10-10",
     "input": {
       "dayofweek": "Thursday",
@@ -494,7 +504,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "second Friday of November 2013",
+    "description": "when second Friday is the 8th, the first day of the second week",
     "expected": "2013-11-08",
     "input": {
       "dayofweek": "Friday",
@@ -505,7 +515,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "second Friday of December 2013",
+    "description": "when second Friday is some day in the middle of the second week",
     "expected": "2013-12-13",
     "input": {
       "dayofweek": "Friday",
@@ -516,7 +526,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "second Saturday of January 2013",
+    "description": "when second Saturday is some day in the middle of the second week",
     "expected": "2013-01-12",
     "input": {
       "dayofweek": "Saturday",
@@ -527,7 +537,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "second Saturday of February 2013",
+    "description": "when second Saturday is another day in the middle of the second week",
     "expected": "2013-02-09",
     "input": {
       "dayofweek": "Saturday",
@@ -538,7 +548,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "second Sunday of March 2013",
+    "description": "when second Sunday is some day in the middle of the second week",
     "expected": "2013-03-10",
     "input": {
       "dayofweek": "Sunday",
@@ -549,7 +559,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "second Sunday of April 2013",
+    "description": "when second Sunday is the 14th, the last day of the second week",
     "expected": "2013-04-14",
     "input": {
       "dayofweek": "Sunday",
@@ -560,7 +570,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "third Monday of March 2013",
+    "description": "when third Monday is some day in the middle of the third week",
     "expected": "2013-03-18",
     "input": {
       "dayofweek": "Monday",
@@ -571,7 +581,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "third Monday of April 2013",
+    "description": "when third Monday is the 15th, the first day of the third week",
     "expected": "2013-04-15",
     "input": {
       "dayofweek": "Monday",
@@ -582,7 +592,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "third Tuesday of May 2013",
+    "description": "when third Tuesday is the 21st, the last day of the third week",
     "expected": "2013-05-21",
     "input": {
       "dayofweek": "Tuesday",
@@ -593,7 +603,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "third Tuesday of June 2013",
+    "description": "when third Tuesday is some day in the middle of the third week",
     "expected": "2013-06-18",
     "input": {
       "dayofweek": "Tuesday",
@@ -604,7 +614,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "third Wednesday of July 2013",
+    "description": "when third Wednesday is some day in the middle of the third week",
     "expected": "2013-07-17",
     "input": {
       "dayofweek": "Wednesday",
@@ -615,7 +625,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "third Wednesday of August 2013",
+    "description": "when third Wednesday is the 21st, the last day of the third week",
     "expected": "2013-08-21",
     "input": {
       "dayofweek": "Wednesday",
@@ -626,7 +636,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "third Thursday of September 2013",
+    "description": "when third Thursday is some day in the middle of the third week",
     "expected": "2013-09-19",
     "input": {
       "dayofweek": "Thursday",
@@ -637,7 +647,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "third Thursday of October 2013",
+    "description": "when third Thursday is another day in the middle of the third week",
     "expected": "2013-10-17",
     "input": {
       "dayofweek": "Thursday",
@@ -648,7 +658,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "third Friday of November 2013",
+    "description": "when third Friday is the 15th, the first day of the third week",
     "expected": "2013-11-15",
     "input": {
       "dayofweek": "Friday",
@@ -659,7 +669,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "third Friday of December 2013",
+    "description": "when third Friday is some day in the middle of the third week",
     "expected": "2013-12-20",
     "input": {
       "dayofweek": "Friday",
@@ -670,7 +680,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "third Saturday of January 2013",
+    "description": "when third Saturday is some day in the middle of the third week",
     "expected": "2013-01-19",
     "input": {
       "dayofweek": "Saturday",
@@ -681,7 +691,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "third Saturday of February 2013",
+    "description": "when third Saturday is another day in the middle of the third week",
     "expected": "2013-02-16",
     "input": {
       "dayofweek": "Saturday",
@@ -692,7 +702,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "third Sunday of March 2013",
+    "description": "when third Sunday is some day in the middle of the third week",
     "expected": "2013-03-17",
     "input": {
       "dayofweek": "Sunday",
@@ -703,7 +713,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "third Sunday of April 2013",
+    "description": "when third Sunday is the 21st, the last day of the third week",
     "expected": "2013-04-21",
     "input": {
       "dayofweek": "Sunday",
@@ -714,7 +724,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "fourth Monday of March 2013",
+    "description": "when fourth Monday is some day in the middle of the fourth week",
     "expected": "2013-03-25",
     "input": {
       "dayofweek": "Monday",
@@ -725,7 +735,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "fourth Monday of April 2013",
+    "description": "when fourth Monday is the 22nd, the first day of the fourth week",
     "expected": "2013-04-22",
     "input": {
       "dayofweek": "Monday",
@@ -736,7 +746,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "fourth Tuesday of May 2013",
+    "description": "when fourth Tuesday is the 28th, the last day of the fourth week",
     "expected": "2013-05-28",
     "input": {
       "dayofweek": "Tuesday",
@@ -747,7 +757,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "fourth Tuesday of June 2013",
+    "description": "when fourth Tuesday is some day in the middle of the fourth week",
     "expected": "2013-06-25",
     "input": {
       "dayofweek": "Tuesday",
@@ -758,7 +768,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "fourth Wednesday of July 2013",
+    "description": "when fourth Wednesday is some day in the middle of the fourth week",
     "expected": "2013-07-24",
     "input": {
       "dayofweek": "Wednesday",
@@ -769,7 +779,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "fourth Wednesday of August 2013",
+    "description": "when fourth Wednesday is the 28th, the last day of the fourth week",
     "expected": "2013-08-28",
     "input": {
       "dayofweek": "Wednesday",
@@ -780,7 +790,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "fourth Thursday of September 2013",
+    "description": "when fourth Thursday is some day in the middle of the fourth week",
     "expected": "2013-09-26",
     "input": {
       "dayofweek": "Thursday",
@@ -791,7 +801,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "fourth Thursday of October 2013",
+    "description": "when fourth Thursday is another day in the middle of the fourth week",
     "expected": "2013-10-24",
     "input": {
       "dayofweek": "Thursday",
@@ -802,7 +812,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "fourth Friday of November 2013",
+    "description": "when fourth Friday is the 22nd, the first day of the fourth week",
     "expected": "2013-11-22",
     "input": {
       "dayofweek": "Friday",
@@ -813,7 +823,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "fourth Friday of December 2013",
+    "description": "when fourth Friday is some day in the middle of the fourth week",
     "expected": "2013-12-27",
     "input": {
       "dayofweek": "Friday",
@@ -824,7 +834,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "fourth Saturday of January 2013",
+    "description": "when fourth Saturday is some day in the middle of the fourth week",
     "expected": "2013-01-26",
     "input": {
       "dayofweek": "Saturday",
@@ -835,7 +845,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "fourth Saturday of February 2013",
+    "description": "when fourth Saturday is another day in the middle of the fourth week",
     "expected": "2013-02-23",
     "input": {
       "dayofweek": "Saturday",
@@ -846,7 +856,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "fourth Sunday of March 2013",
+    "description": "when fourth Sunday is some day in the middle of the fourth week",
     "expected": "2013-03-24",
     "input": {
       "dayofweek": "Sunday",
@@ -857,7 +867,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "fourth Sunday of April 2013",
+    "description": "when fourth Sunday is the 28th, the last day of the fourth week",
     "expected": "2013-04-28",
     "input": {
       "dayofweek": "Sunday",
@@ -868,7 +878,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "last Monday of March 2013",
+    "description": "last Monday in a month with four Mondays",
     "expected": "2013-03-25",
     "input": {
       "dayofweek": "Monday",
@@ -879,7 +889,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "last Monday of April 2013",
+    "description": "last Monday in a month with five Mondays",
     "expected": "2013-04-29",
     "input": {
       "dayofweek": "Monday",
@@ -890,7 +900,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "last Tuesday of May 2013",
+    "description": "last Tuesday in a month with four Tuesdays",
     "expected": "2013-05-28",
     "input": {
       "dayofweek": "Tuesday",
@@ -901,7 +911,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "last Tuesday of June 2013",
+    "description": "last Tuesday in another month with four Tuesdays",
     "expected": "2013-06-25",
     "input": {
       "dayofweek": "Tuesday",
@@ -912,7 +922,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "last Wednesday of July 2013",
+    "description": "last Wednesday in a month with five Wednesdays",
     "expected": "2013-07-31",
     "input": {
       "dayofweek": "Wednesday",
@@ -923,7 +933,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "last Wednesday of August 2013",
+    "description": "last Wednesday in a month with four Wednesdays",
     "expected": "2013-08-28",
     "input": {
       "dayofweek": "Wednesday",
@@ -934,7 +944,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "last Thursday of September 2013",
+    "description": "last Thursday in a month with four Thursdays",
     "expected": "2013-09-26",
     "input": {
       "dayofweek": "Thursday",
@@ -945,7 +955,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "last Thursday of October 2013",
+    "description": "last Thursday in a month with five Thursdays",
     "expected": "2013-10-31",
     "input": {
       "dayofweek": "Thursday",
@@ -956,7 +966,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "last Friday of November 2013",
+    "description": "last Friday in a month with five Fridays",
     "expected": "2013-11-29",
     "input": {
       "dayofweek": "Friday",
@@ -967,7 +977,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "last Friday of December 2013",
+    "description": "last Friday in a month with four Fridays",
     "expected": "2013-12-27",
     "input": {
       "dayofweek": "Friday",
@@ -978,7 +988,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "last Saturday of January 2013",
+    "description": "last Saturday in a month with four Saturdays",
     "expected": "2013-01-26",
     "input": {
       "dayofweek": "Saturday",
@@ -989,7 +999,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "last Saturday of February 2013",
+    "description": "last Saturday in another month with four Saturdays",
     "expected": "2013-02-23",
     "input": {
       "dayofweek": "Saturday",
@@ -1000,7 +1010,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "last Sunday of March 2013",
+    "description": "last Sunday in a month with five Sundays",
     "expected": "2013-03-31",
     "input": {
       "dayofweek": "Sunday",
@@ -1011,7 +1021,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "last Sunday of April 2013",
+    "description": "last Sunday in a month with four Sundays",
     "expected": "2013-04-28",
     "input": {
       "dayofweek": "Sunday",
@@ -1022,7 +1032,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "last Wednesday of February 2012",
+    "description": "when last Wednesday in February in a leap year is the 29th",
     "expected": "2012-02-29",
     "input": {
       "dayofweek": "Wednesday",
@@ -1033,7 +1043,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "last Wednesday of December 2014",
+    "description": "last Wednesday in December that is also the last day of the year",
     "expected": "2014-12-31",
     "input": {
       "dayofweek": "Wednesday",
@@ -1044,7 +1054,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "last Sunday of February 2015",
+    "description": "when last Sunday in February in a non-leap year is not the 29th",
     "expected": "2015-02-22",
     "input": {
       "dayofweek": "Sunday",
@@ -1055,7 +1065,7 @@ __DATA__
     "property": "meetup"
   },
   {
-    "description": "first Friday of December 2012",
+    "description": "when first Friday is the 7th, the last day of the first week",
     "expected": "2012-12-07",
     "input": {
       "dayofweek": "Friday",

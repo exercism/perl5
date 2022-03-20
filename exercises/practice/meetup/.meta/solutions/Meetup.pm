@@ -8,24 +8,28 @@ use Time::Piece;
 use Time::Seconds;
 
 use constant WEEKS => {
-  first  => 1,
-  second => 8,
-  teenth => 13,
-  third  => 15,
-  fourth => 22,
+  First  => 1,
+  Second => 8,
+  Teenth => 13,
+  Third  => 15,
+  Fourth => 22,
 };
 
 sub meetup {
-  my ($input) = @_;
-  my $t = Time::Piece->strptime(
-    join( '-',
-      @{$input}{qw(year month)},
-      WEEKS->{ $input->{week} } // 1 ),
-    '%Y-%m-%d'
-  );
+  my ($desc) = @_;
+  $desc =~ /^(\w+) (\w+) of (\w+) (\d+)$/;
 
-  $t = $t->add_months(1) - ONE_WEEK if $input->{week} eq 'last';
-  $t += ONE_DAY until $t->fullday eq $input->{dayofweek};
+  my $t = Time::Piece->strptime( ( WEEKS->{$1} // 1 ) . " $3 $4",
+    '%d %B %Y' );
+
+  if ( $1 eq 'Last' ) {
+    $t = $t->add_months(1) - ONE_WEEK;
+  }
+
+  until ( $t->fullday eq $2 ) {
+    $t += ONE_DAY;
+  }
+
   return $t->ymd;
 }
 
