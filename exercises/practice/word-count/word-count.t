@@ -124,11 +124,14 @@ __DATA__
       "cry": 1,
       "don't": 2,
       "first": 1,
+      "getting": 1,
+      "it": 1,
       "laugh": 1,
-      "then": 1
+      "then": 1,
+      "you're": 1
     },
     "input": {
-      "sentence": "First: don't laugh. Then: don't cry."
+      "sentence": "'First: don't laugh. Then: don't cry. You're getting it.'"
     },
     "property": "countWords"
   },
