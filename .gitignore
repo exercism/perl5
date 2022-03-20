@@ -1,10 +1,6 @@
-*.beam
-*.swp
-.DS_Store
-.problem-specifications
-tmp
 bin/configlet
 bin/configlet.exe
+.problem-specifications
 
 # Carton-installed files
 local/
