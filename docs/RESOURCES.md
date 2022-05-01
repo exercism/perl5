@@ -18,7 +18,7 @@ A very fast and straightforward module installer.
 There is a tutorial available on [CPAN](https://metacpan.org/pod/App::cpm::Tutorial).
 
 You will have this already installed if you followed the `local::lib`
-instructions from the [installation documentation](https://exercism.io/tracks/perl5/installation).
+instructions from the [installation documentation](https://exercism.org/tracks/perl5/installation).
 
 Simply run `cpm install` to install required modules from a `cpanfile`,
 and use the `--with-recommends` or `--with-suggested` to install recommended
