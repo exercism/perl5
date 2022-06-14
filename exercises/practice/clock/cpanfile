@@ -1,4 +1,3 @@
 recommends 'Moo';       # https://perldoc.pl/Moo
 suggests 'Mo';          # https://perldoc.pl/Mo
-suggests 'Moose';       # https://perldoc.pl/Moose
 suggests 'Class::Tiny'; # https://perldoc.pl/Class::Tiny

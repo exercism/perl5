@@ -6,17 +6,16 @@ use constant JSON => JSON::PP->new;
 use FindBin qw<$Bin>;
 use lib $Bin, "$Bin/local/lib/perl5";
 
-use Clock ();
+use Clock      ();
 use List::Util qw(any);
 
 my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };
-plan 4;
+plan 53;
 
 can_ok 'Clock', qw<new time add_minutes subtract_minutes> or bail_out;
 
-subtest create => sub {
-  plan 20;
-  for my $case ( grep { $_->{property} eq 'create' } @test_cases ) {
+for my $case (@test_cases) {
+  if ( $case->{property} eq 'create' ) {
     is(
       Clock->new( $case->{input} ),
       object {
@@ -26,17 +25,7 @@ subtest create => sub {
       $case->{description}
     );
   }
-};
-
-subtest 'add/subtract' => sub {
-  plan 16;
-  for my $case (
-    grep {
-      my $prop = $_->{property};
-      any { $prop eq $_ } qw< add subtract >;
-    } @test_cases
-    )
-  {
+  elsif ( any { $case->{property} eq $_ } qw<add subtract> ) {
     is(
       Clock->new(
         { hour   => $case->{input}{hour},
@@ -56,11 +45,7 @@ subtest 'add/subtract' => sub {
       $case->{description}
     );
   }
-};
-
-subtest equal => sub {
-  plan 16;
-  for my $case ( grep { $_->{property} eq 'equal' } @test_cases ) {
+  elsif ( $case->{property} eq 'equal' ) {
     my ( $clock1, $clock2 )
       = ( map { Clock->new($_) }
         @{ $case->{input} }{qw<clock1 clock2>} );
@@ -71,7 +56,7 @@ subtest equal => sub {
       isnt $clock1, $clock2, $case->{description};
     }
   }
-};
+}
 
 __DATA__
 [
