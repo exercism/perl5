@@ -15,47 +15,45 @@ plan 53;
 can_ok 'Clock', qw<new time add_minutes subtract_minutes> or bail_out;
 
 for my $case (@test_cases) {
-  if ( $case->{property} eq 'create' ) {
-    is(
-      Clock->new( $case->{input} ),
-      object {
-        prop blessed => 'Clock';
-        call time => $case->{expected};
-      },
-      $case->{description}
-    );
-  }
-  elsif ( any { $case->{property} eq $_ } qw<add subtract> ) {
-    is(
-      Clock->new(
-        { hour   => $case->{input}{hour},
-          minute => $case->{input}{minute},
-        }
-      ),
+    if ( $case->{property} eq 'create' ) {
+        is( Clock->new( $case->{input} ),
+            object {
+                prop blessed => 'Clock';
+                call time => $case->{expected};
+            },
+            $case->{description}
+        );
+    }
+    elsif ( any { $case->{property} eq $_ } qw<add subtract> ) {
+        is( Clock->new(
+                {   hour   => $case->{input}{hour},
+                    minute => $case->{input}{minute},
+                }
+            ),
 
-      # Check that the add/subtract_minutes methods
-      # return a Clock object with the correct time
-      object {
-        call [ $case->{property} . '_minutes',
-          $case->{input}{value} ] => object {
-          prop blessed => 'Clock';
-          call time => $case->{expected};
-          };
-      },
-      $case->{description}
-    );
-  }
-  elsif ( $case->{property} eq 'equal' ) {
-    my ( $clock1, $clock2 )
-      = ( map { Clock->new($_) }
-        @{ $case->{input} }{qw<clock1 clock2>} );
-    if ( $case->{expected} ) {
-      is $clock1, $clock2, $case->{description};
+            # Check that the add/subtract_minutes methods
+            # return a Clock object with the correct time
+            object {
+                call [ $case->{property} . '_minutes',
+                    $case->{input}{value} ] => object {
+                    prop blessed => 'Clock';
+                    call time => $case->{expected};
+                    };
+            },
+            $case->{description}
+        );
     }
-    else {
-      isnt $clock1, $clock2, $case->{description};
+    elsif ( $case->{property} eq 'equal' ) {
+        my ( $clock1, $clock2 )
+            = ( map { Clock->new($_) }
+                @{ $case->{input} }{qw<clock1 clock2>} );
+        if ( $case->{expected} ) {
+            is $clock1, $clock2, $case->{description};
+        }
+        else {
+            isnt $clock1, $clock2, $case->{description};
+        }
     }
-  }
 }
 
 __DATA__
