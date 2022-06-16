@@ -9,25 +9,21 @@ use lib $Bin, "$Bin/local/lib/perl5";
 use BinarySearchTree qw<tree treeSort>;
 
 my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };
+plan 11;
 
 imported_ok qw<tree treeSort> or bail_out;
 
-subtest data => sub {
-  for my $case ( grep { $_->{property} eq 'data' } @test_cases ) {
+for my $case (@test_cases) {
+  if ( $case->{property} eq 'data' ) {
     is( tree( $case->{input}{treeData} ),
       $case->{expected}, $case->{description}, );
   }
-};
 
-subtest sorting => sub {
-  for my $case ( grep { $_->{property} eq 'sortedData' } @test_cases )
-  {
+  elsif ( $case->{property} eq 'sortedData' ) {
     is( treeSort( $case->{input}{treeData} ),
       $case->{expected}, $case->{description}, );
   }
-};
-
-done_testing;
+}
 
 __DATA__
 [

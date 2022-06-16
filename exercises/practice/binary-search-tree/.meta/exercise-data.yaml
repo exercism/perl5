@@ -1,24 +1,23 @@
 subs: tree treeSort
+plan: 11
 tests: |-
-  subtest data => sub {
-    for my $case (grep {$_->{property} eq 'data'} @test_cases) {
+  for my $case (@test_cases) {
+    if ($case->{property} eq 'data') {
       is(
         tree($case->{input}{treeData}),
         $case->{expected},
         $case->{description},
       );
     }
-  };
 
-  subtest sorting => sub {
-    for my $case (grep {$_->{property} eq 'sortedData'} @test_cases) {
+    elsif ($case->{property} eq 'sortedData') {
       is(
         treeSort($case->{input}{treeData}),
         $case->{expected},
         $case->{description},
       );
     }
-  };
+  }
 
 example: |-
   sub tree {
