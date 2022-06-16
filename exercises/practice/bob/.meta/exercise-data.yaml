@@ -7,6 +7,8 @@ tests: |-
 
 lib_comment: '# Find modules in the same dir as this file.'
 plan_comment: '# This is how many tests we expect to run.'
+package_comment: "# Declare package 'Bob'"
+feature_comment: '# Use the `say` function to output debugging info in the online editor.'
 
 example: |-
   sub hey {
@@ -25,5 +27,3 @@ stub: |-
     my ($msg) = @_;
     return undef; # Replace this with your own code to pass the tests.
   }
-
-package_comment: "# Declare package 'Bob'"

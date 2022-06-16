@@ -10,6 +10,8 @@ tests: |-
 
 lib_comment: '# Find modules in the same dir as this file.'
 plan_comment: '# This is how many tests we expect to run.'
+package_comment: "# Declare package 'HelloWorld'"
+feature_comment: '# Use the `say` function to output debugging info in the online editor.'
 
 example: |-
   sub hello {
@@ -18,7 +20,5 @@ example: |-
 
 stub: |-
   sub hello {
-    # Remove the comments and write some code here to pass the test suite.
+    return 'Goodbye, Mars!';
   }
-
-package_comment: "# Declare package 'HelloWorld'"

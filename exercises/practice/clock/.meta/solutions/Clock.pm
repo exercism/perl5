@@ -1,5 +1,7 @@
 package Clock;
+
 use Moo;
+use feature qw<say>;
 
 use POSIX ();
 

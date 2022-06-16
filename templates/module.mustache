@@ -1,8 +1,12 @@
 {{#package_comment}}{{&package_comment}}
-{{/package_comment}}package {{&package}};{{#moo}}
+{{/package_comment}}package {{&package}};
+
+{{#moo}}
 use Moo;{{/moo}}{{^moo}}
 use strict;
-use warnings;{{/moo}}{{#subs}}
+use warnings;
+{{/moo}}use feature qw<say>;{{#feature_comment}} {{&feature_comment}}{{/feature_comment}}
+{{#subs}}
 use Exporter qw<import>;
 our @EXPORT_OK = qw<{{&subs}}>;{{/subs}}{{#module_file}}
 

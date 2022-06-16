@@ -6,7 +6,7 @@ use constant JSON => JSON::PP->new;
 use FindBin qw<$Bin>;
 use lib $Bin, "$Bin/local/lib/perl5";
 
-use Clock ();
+use Clock      ();
 use List::Util qw(any);
 
 my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };

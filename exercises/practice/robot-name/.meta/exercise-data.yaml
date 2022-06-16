@@ -1,6 +1,7 @@
 package_comment: "# This will be class 'RobotName', defined using Moo (https://perlmaven.com/oop-with-moo)"
 lib_comment: '# Find modules in the same dir as this file.'
 plan_comment: '# This is how many tests we expect to run.'
+feature_comment: '# Use the `say` function to output debugging info in the online editor.'
 
 moo: true
 methods: new name reset_name
