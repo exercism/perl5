@@ -6,10 +6,12 @@ tmp
 bin/configlet
 bin/configlet.exe
 
-# Carton-installed files
+# Carton/Carmel-installed files
 local/
 cpanfile.snapshot
+.carmel/
 
 # Ditto, for exercises
 **/cpanfile.snapshot
 **/local/
+**/.carmel/
