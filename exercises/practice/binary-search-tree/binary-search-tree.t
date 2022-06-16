@@ -14,15 +14,15 @@ plan 11;
 imported_ok qw<tree treeSort> or bail_out;
 
 for my $case (@test_cases) {
-  if ( $case->{property} eq 'data' ) {
-    is( tree( $case->{input}{treeData} ),
-      $case->{expected}, $case->{description}, );
-  }
+    if ( $case->{property} eq 'data' ) {
+        is( tree( $case->{input}{treeData} ),
+            $case->{expected}, $case->{description}, );
+    }
 
-  elsif ( $case->{property} eq 'sortedData' ) {
-    is( treeSort( $case->{input}{treeData} ),
-      $case->{expected}, $case->{description}, );
-  }
+    elsif ( $case->{property} eq 'sortedData' ) {
+        is( treeSort( $case->{input}{treeData} ),
+            $case->{expected}, $case->{description}, );
+    }
 }
 
 __DATA__
