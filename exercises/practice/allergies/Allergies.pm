@@ -1,6 +1,9 @@
 package Allergies;
+
 use strict;
 use warnings;
+use feature qw<say>;
+
 use Exporter qw<import>;
 our @EXPORT_OK = qw<allergic_to list_allergies>;
 
