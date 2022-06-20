@@ -10,68 +10,50 @@ use Clock      ();
 use List::Util qw(any);
 
 my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };
-plan 4;
+plan 53;
 
 can_ok 'Clock', qw<new time add_minutes subtract_minutes> or bail_out;
 
-subtest create => sub {
-  plan 20;
-  for my $case ( grep { $_->{property} eq 'create' } @test_cases ) {
-    is(
-      Clock->new( $case->{input} ),
-      object {
-        prop blessed => 'Clock';
-        call time => $case->{expected};
-      },
-      $case->{description}
-    );
-  }
-};
+for my $case (@test_cases) {
+    if ( $case->{property} eq 'create' ) {
+        is( Clock->new( %{ $case->{input} } ),
+            object {
+                prop blessed => 'Clock';
+                call time => $case->{expected};
+            },
+            $case->{description}
+        );
+    }
+    elsif ( any { $case->{property} eq $_ } qw<add subtract> ) {
+        is( Clock->new(
+                hour   => $case->{input}{hour},
+                minute => $case->{input}{minute},
+            ),
 
-subtest 'add/subtract' => sub {
-  plan 16;
-  for my $case (
-    grep {
-      my $prop = $_->{property};
-      any { $prop eq $_ } qw< add subtract >;
-    } @test_cases
-    )
-  {
-    is(
-      Clock->new(
-        { hour   => $case->{input}{hour},
-          minute => $case->{input}{minute},
+            # Check that the add/subtract_minutes methods
+            # return a Clock object with the correct time
+            object {
+                call [ $case->{property} . '_minutes',
+                    $case->{input}{value} ] => object {
+                    prop blessed => 'Clock';
+                    call time => $case->{expected};
+                    };
+            },
+            $case->{description}
+        );
+    }
+    elsif ( $case->{property} eq 'equal' ) {
+        my ( $clock1, $clock2 )
+            = ( map { Clock->new( %{$_} ) }
+                @{ $case->{input} }{qw<clock1 clock2>} );
+        if ( $case->{expected} ) {
+            is $clock1, $clock2, $case->{description};
         }
-      ),
-
-      # Check that the add/subtract_minutes methods
-      # return a Clock object with the correct time
-      object {
-        call [ $case->{property} . '_minutes',
-          $case->{input}{value} ] => object {
-          prop blessed => 'Clock';
-          call time => $case->{expected};
-          };
-      },
-      $case->{description}
-    );
-  }
-};
-
-subtest equal => sub {
-  plan 16;
-  for my $case ( grep { $_->{property} eq 'equal' } @test_cases ) {
-    my ( $clock1, $clock2 )
-      = ( map { Clock->new($_) }
-        @{ $case->{input} }{qw<clock1 clock2>} );
-    if ( $case->{expected} ) {
-      is $clock1, $clock2, $case->{description};
+        else {
+            isnt $clock1, $clock2, $case->{description};
+        }
     }
-    else {
-      isnt $clock1, $clock2, $case->{description};
-    }
-  }
-};
+}
 
 __DATA__
 [

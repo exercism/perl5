@@ -1,4 +1,5 @@
 recommends 'Moo';       # https://perldoc.pl/Moo
 suggests 'Mo';          # https://perldoc.pl/Mo
 suggests 'Moose';       # https://perldoc.pl/Moose
-suggests 'Class::Tiny'; # https://perldoc.pl/Class::Tiny
+suggests 'Object::Pad'  # https://perldoc.pl/Object::Pad
+suggests 'Class::Tiny'; # https://perldoc.pl/Class::Tiny#Why-this-instead-of-Moose-or-Moo?
