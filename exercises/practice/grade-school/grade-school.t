@@ -14,8 +14,8 @@ plan 8;
 imported_ok qw<roster> or bail_out;
 
 for my $case (@test_cases) {
-  is roster( $case->{input}{students}, $case->{input}{desiredGrade} ),
-    $case->{expected}, $case->{description};
+    is roster( $case->{input}{students}, $case->{input}{desiredGrade} ),
+        $case->{expected}, $case->{description};
 }
 
 __DATA__

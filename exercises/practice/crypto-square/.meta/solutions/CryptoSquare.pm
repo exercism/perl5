@@ -11,12 +11,12 @@ use lib 'lib';
 use Exercism::QuickSolve;
 
 sub cipher {
-  my ($text) = @_;
+    my ($text) = @_;
 
-  quicksolve(
-    input     => $text,
-    input_key => 'plaintext',
-  );
+    quicksolve(
+        input     => $text,
+        input_key => 'plaintext',
+    );
 }
 
 1;

@@ -13,12 +13,11 @@ my %dict;
 @dict{ 'a' .. 'z' } = reverse( 'a' .. 'z' );
 
 sub encode_atbash {
-  join( ' ', pairvalues split( /(\w{1,5})/, decode_atbash(@_) ) );
+    join( ' ', pairvalues split( /(\w{1,5})/, decode_atbash(@_) ) );
 }
 
 sub decode_atbash {
-  join '',
-    map { /\d/ ? $_ : $dict{$_} } split( //, lc $_[0] =~ s/\W//gr );
+    join '', map { /\d/ ? $_ : $dict{$_} } split( //, lc $_[0] =~ s/\W//gr );
 }
 
 1;

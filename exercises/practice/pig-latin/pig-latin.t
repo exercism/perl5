@@ -14,8 +14,8 @@ plan 23;
 imported_ok qw<translate> or bail_out;
 
 for my $case (@test_cases) {
-  is translate( $case->{input}{phrase} ), $case->{expected},
-    $case->{description};
+    is translate( $case->{input}{phrase} ), $case->{expected},
+        $case->{description};
 }
 
 __DATA__

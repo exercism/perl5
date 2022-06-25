@@ -8,8 +8,8 @@ use Exporter qw<import>;
 our @EXPORT_OK = qw<accumulate>;
 
 sub accumulate {
-  my ( $list, $func ) = @_;
-  return undef;
+    my ( $list, $func ) = @_;
+    return undef;
 }
 
 1;

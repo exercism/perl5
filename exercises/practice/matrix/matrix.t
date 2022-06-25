@@ -13,16 +13,15 @@ my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };
 imported_ok qw<row column> or bail_out;
 
 for my $case (@test_cases) {
-  my $func;
-  if ( $case->{property} eq 'row' ) {
-    $func = \&row;
-  }
-  elsif ( $case->{property} eq 'column' ) {
-    $func = \&column;
-  }
+    my $func;
+    if ( $case->{property} eq 'row' ) {
+        $func = \&row;
+    }
+    elsif ( $case->{property} eq 'column' ) {
+        $func = \&column;
+    }
 
-  is( $func->( $case->{input} ),
-    $case->{expected}, $case->{description}, );
+    is( $func->( $case->{input} ), $case->{expected}, $case->{description}, );
 }
 
 done_testing;

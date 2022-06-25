@@ -3,33 +3,33 @@ use strict;
 use warnings;
 
 sub new {
-  my ( $class, %data ) = @_;
+    my ( $class, %data ) = @_;
 
-  return undef;
+    return undef;
 }
 
 sub white {
-  my ($self) = @_;
-  
-  return undef;
+    my ($self) = @_;
+
+    return undef;
 }
 
 sub black {
-  my ($self) = @_;
-  
-  return undef;
+    my ($self) = @_;
+
+    return undef;
 }
 
 sub to_string {
-  my ($self) = @_;
-  
-  return undef;
+    my ($self) = @_;
+
+    return undef;
 }
 
 sub can_attack {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  return undef;
+    return undef;
 }
 
 1;

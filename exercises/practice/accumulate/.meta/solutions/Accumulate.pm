@@ -8,14 +8,14 @@ use Exporter qw<import>;
 our @EXPORT_OK = qw<accumulate>;
 
 sub accumulate {
-  my ( $list, $func ) = @_;
-  my @results;
+    my ( $list, $func ) = @_;
+    my @results;
 
-  for ( @{$list} ) {
-    push @results, $func->($_);
-  }
+    for ( @{$list} ) {
+        push @results, $func->($_);
+    }
 
-  return \@results;
+    return \@results;
 }
 
 1;

@@ -13,8 +13,7 @@ my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };
 imported_ok qw<recite> or bail_out;
 
 for my $case (@test_cases) {
-  is( recite( $case->{input} ),
-    $case->{expected}, $case->{description}, );
+    is( recite( $case->{input} ), $case->{expected}, $case->{description}, );
 }
 
 done_testing;

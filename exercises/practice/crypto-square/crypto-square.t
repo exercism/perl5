@@ -13,8 +13,8 @@ my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };
 imported_ok qw<cipher> or bail_out;
 
 for my $case (@test_cases) {
-  is( cipher( $case->{input}{plaintext} ),
-    $case->{expected}, $case->{description}, );
+    is( cipher( $case->{input}{plaintext} ),
+        $case->{expected}, $case->{description}, );
 }
 
 done_testing;

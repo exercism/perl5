@@ -4,33 +4,33 @@ use strict;
 use warnings;
 
 sub new {
-  my ( $class, @args ) = @_;
+    my ( $class, @args ) = @_;
 
-  return undef;
+    return undef;
 }
 
 sub is_pythagorean {
-  my $self = shift;
-  
-  return undef;
+    my $self = shift;
+
+    return undef;
 }
 
 sub sum {
-  my $self = shift;
-  
-  return undef;
+    my $self = shift;
+
+    return undef;
 }
 
 sub product {
-  my $self = shift;
+    my $self = shift;
 
-  return undef;
+    return undef;
 }
 
 sub products {
-  my $self = shift;
+    my $self = shift;
 
-  return undef;
+    return undef;
 }
 
 1;

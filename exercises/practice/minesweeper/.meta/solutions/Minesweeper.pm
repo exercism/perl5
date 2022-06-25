@@ -11,12 +11,12 @@ use lib 'lib';
 use Exercism::QuickSolve;
 
 sub annotate {
-  my ($minefield) = @_;
+    my ($minefield) = @_;
 
-  quicksolve(
-    input     => $minefield,
-    input_key => 'minefield',
-  );
+    quicksolve(
+        input     => $minefield,
+        input_key => 'minefield',
+    );
 }
 
 1;

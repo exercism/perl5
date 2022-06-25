@@ -9,7 +9,7 @@ use Exporter qw<import>;
 our @EXPORT_OK = qw<hello>;
 
 sub hello {
-  return 'Hello, World!';
+    return 'Hello, World!';
 }
 
 1;

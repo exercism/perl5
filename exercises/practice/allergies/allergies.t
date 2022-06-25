@@ -14,17 +14,17 @@ plan 50;
 imported_ok qw<allergic_to list_allergies> or bail_out;
 
 for my $case (@test_cases) {
-  if ( $case->{property} eq 'allergicTo' ) {
-    is allergic_to( $case->{input} ), $case->{expected} ? T : DF,
-      $case->{description};
-  }
-  elsif ( $case->{property} eq 'list' ) {
-    is
-      list_allergies( $case->{input}{score} ), bag {
-      item $_ for @{ $case->{expected} };
-      end;
-      }, $case->{description};
-  }
+    if ( $case->{property} eq 'allergicTo' ) {
+        is allergic_to( $case->{input} ), $case->{expected} ? T : DF,
+            $case->{description};
+    }
+    elsif ( $case->{property} eq 'list' ) {
+        is
+            list_allergies( $case->{input}{score} ), bag {
+            item $_ for @{ $case->{expected} };
+            end;
+            }, $case->{description};
+    }
 }
 
 __DATA__

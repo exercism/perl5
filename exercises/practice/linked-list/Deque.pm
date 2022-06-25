@@ -3,33 +3,33 @@ use strict;
 use warnings;
 
 sub new {
-  my ($class) = @_;
-  
-  return undef;
+    my ($class) = @_;
+
+    return undef;
 }
 
 sub push {
-  my ( $self, $value ) = @_;
+    my ( $self, $value ) = @_;
 
-  return undef;
+    return undef;
 }
 
 sub pop {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  return undef;
+    return undef;
 }
 
 sub shift {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  return undef;
+    return undef;
 }
 
 sub unshift {
-  my ( $self, $value ) = @_;
+    my ( $self, $value ) = @_;
 
-  return undef;
+    return undef;
 }
 
 package Element;
@@ -37,9 +37,9 @@ use strict;
 use warnings;
 
 sub new {
-  my ( $class, %data ) = @_;
-  
-  return undef;
+    my ( $class, %data ) = @_;
+
+    return undef;
 }
 
 1;

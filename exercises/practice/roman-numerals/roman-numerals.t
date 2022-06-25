@@ -14,8 +14,8 @@ plan 25;
 imported_ok qw<to_roman> or bail_out;
 
 for my $case (@test_cases) {
-  is to_roman( $case->{input}{number} ), $case->{expected},
-    $case->{description};
+    is to_roman( $case->{input}{number} ), $case->{expected},
+        $case->{description};
 }
 
 __DATA__

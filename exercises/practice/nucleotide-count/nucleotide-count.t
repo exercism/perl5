@@ -14,14 +14,14 @@ plan 6;
 imported_ok qw<count_nucleotides> or bail_out;
 
 for my $case (@test_cases) {
-  if ( $case->{expected}{error} ) {
-    like dies( sub { count_nucleotides( $case->{input}{strand} ) } ),
-      qr/$case->{expected}{error}/, $case->{description};
-  }
-  else {
-    is count_nucleotides( $case->{input}{strand} ),
-      $case->{expected}, $case->{description};
-  }
+    if ( $case->{expected}{error} ) {
+        like dies( sub { count_nucleotides( $case->{input}{strand} ) } ),
+            qr/$case->{expected}{error}/, $case->{description};
+    }
+    else {
+        is count_nucleotides( $case->{input}{strand} ),
+            $case->{expected}, $case->{description};
+    }
 }
 
 __DATA__

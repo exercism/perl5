@@ -14,18 +14,16 @@ plan 96;
 imported_ok qw<meetup> or bail_out;
 
 use constant MONTHS => qw<
-  January February March     April   May      June
-  July    August   September October November December
+    January February March     April   May      June
+    July    August   September October November December
 >;
 
 for my $case (@test_cases) {
-  my $input_string = sprintf( '%s %s of %s %u',
-    ucfirst( $case->{input}{week} ),
-    $case->{input}{dayofweek},
-    (MONTHS)[ $case->{input}{month} - 1 ],
-    $case->{input}{year} );
+    my $input_string = sprintf( '%s %s of %s %u',
+        ucfirst( $case->{input}{week} ),       $case->{input}{dayofweek},
+        (MONTHS)[ $case->{input}{month} - 1 ], $case->{input}{year} );
 
-  is meetup($input_string), $case->{expected}, $case->{description};
+    is meetup($input_string), $case->{expected}, $case->{description};
 }
 
 __DATA__

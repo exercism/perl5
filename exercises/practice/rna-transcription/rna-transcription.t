@@ -14,8 +14,7 @@ plan 7;
 imported_ok qw<to_rna> or bail_out;
 
 for my $case (@test_cases) {
-  is to_rna( $case->{input}{dna} ), $case->{expected},
-    $case->{description};
+    is to_rna( $case->{input}{dna} ), $case->{expected}, $case->{description};
 }
 
 __DATA__

@@ -14,7 +14,7 @@ plan 26;                                 # This is how many tests we expect to r
 imported_ok qw<hey> or bail_out;
 
 for (@test_cases) {
-  is hey( $_->{input}{heyBob} ), $_->{expected}, $_->{description};
+    is hey( $_->{input}{heyBob} ), $_->{expected}, $_->{description};
 }
 
 __DATA__

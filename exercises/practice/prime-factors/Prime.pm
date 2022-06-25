@@ -3,9 +3,9 @@ use strict;
 use warnings;
 
 sub factors {
-  my ($num) = @_;
+    my ($num) = @_;
 
-  return undef;
+    return undef;
 }
 
 1;

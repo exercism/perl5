@@ -13,8 +13,8 @@ my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };
 imported_ok qw<scrabble_score> or bail_out;
 
 for my $case (@test_cases) {
-  is( scrabble_score( $case->{input}{word} ),
-    $case->{expected}, $case->{description}, );
+    is( scrabble_score( $case->{input}{word} ),
+        $case->{expected}, $case->{description}, );
 }
 
 done_testing;

@@ -11,9 +11,9 @@ use lib 'lib';
 use Exercism::QuickSolve;
 
 sub compare_lists {
-  my ($args) = @_;
+    my ($args) = @_;
 
-  quicksolve( input => $args );
+    quicksolve( input => $args );
 }
 
 1;

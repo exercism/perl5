@@ -13,8 +13,8 @@ my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };
 imported_ok qw<sum_of_multiples> or bail_out;
 
 for my $case (@test_cases) {
-  is( sum_of_multiples( $case->{input} ),
-    $case->{expected}, $case->{description}, );
+    is( sum_of_multiples( $case->{input} ),
+        $case->{expected}, $case->{description}, );
 }
 
 done_testing;

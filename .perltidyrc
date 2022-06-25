@@ -1,6 +1,3 @@
 --perl-best-practices
 --nostandard-output
---indent-columns=2
---continuation-indentation=2
---maximum-line-length=70
 --ignore-side-comment-lengths

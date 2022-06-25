@@ -11,15 +11,15 @@ use lib 'lib';
 use Exercism::QuickSolve;
 
 sub row {
-  my ($input) = @_;
+    my ($input) = @_;
 
-  quicksolve( input => $input );
+    quicksolve( input => $input );
 }
 
 sub column {
-  my ($input) = @_;
+    my ($input) = @_;
 
-  quicksolve( input => $input );
+    quicksolve( input => $input );
 }
 
 1;
