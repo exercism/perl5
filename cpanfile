@@ -7,3 +7,4 @@ requires 'Template::Mustache';
 requires 'Test2::V0';
 requires 'TOML::Parser';
 requires 'YAML';
+requires 'Data::Dump';

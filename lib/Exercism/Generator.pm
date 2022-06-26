@@ -3,6 +3,7 @@ package Exercism::Generator;
 use Moo;
 use namespace::autoclean;
 
+use Data::Dump         qw<pp quote>;
 use JSON::PP           ();
 use List::Util         qw<any>;
 use Path::Tiny         qw<path>;
@@ -42,6 +43,7 @@ has [qw<case_uuids cases>] => (
 
 has [
     qw<
+        bool_tests
         json_tests
         package
     >
@@ -74,6 +76,10 @@ sub _render {
     my %data = %{ $self->data };
     $data{cases}   //= $self->json_tests;
     $data{package} //= $self->package;
+    if ( $data{bool_tests} ) {
+        $data{tests} = join( "\n", @{ $self->bool_tests } );
+        $data{cases} = undef;
+    }
 
     my $rendered = Template::Mustache->render(
         BASE_DIR->child( 'templates',
@@ -229,6 +235,29 @@ sub _build_json_tests {
     return @{ $self->cases }
         ? JSON->encode( $self->cases ) =~ s/^\s+|\s+$//gr
         : '';
+}
+
+sub _build_bool_tests {
+    my ($self) = @_;
+    my ( $input, @tests );
+    for my $case ( @{ $self->cases } ) {
+        if ( my $key = $self->data->{bool_input_key} ) {
+            $input = $case->{input}{$key};
+        }
+        elsif ( ref $case->{input} ) {
+            $input = pp( $case->{input} );
+        }
+        push @tests,
+            sprintf(
+            <<~SPRINTF, lc( $case->{property} =~ s/(\p{Upper})/_$1/r ), $input, $case->{expected} ? 'T, # True' : 'DF, # Defined but False', quote( $case->{description} ) );
+            is(
+                %s(%s),
+                %s
+                %s,
+            );
+            SPRINTF
+    }
+    return [@tests];
 }
 
 1;
