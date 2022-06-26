@@ -14,19 +14,19 @@ plan 10;
 imported_ok qw<hamming_distance> or bail_out;
 
 for my $case (@test_cases) {
-  if ( !ref $case->{expected} ) {
-    is hamming_distance( @{ $case->{input} }{qw(strand1 strand2)} ),
-      $case->{expected}, $case->{description};
-  }
-  else {
-    like dies(
-      sub {
-        hamming_distance( @{ $case->{input} }{qw(strand1 strand2)} );
-      }
-      ),
-      qr/left and right strands must be of equal length/,
-      $case->{description};
-  }
+    if ( !ref $case->{expected} ) {
+        is hamming_distance( @{ $case->{input} }{qw(strand1 strand2)} ),
+            $case->{expected}, $case->{description};
+    }
+    else {
+        like dies(
+            sub {
+                hamming_distance( @{ $case->{input} }{qw(strand1 strand2)} );
+            }
+            ),
+            qr/left and right strands must be of equal length/,
+            $case->{description};
+    }
 }
 
 __DATA__

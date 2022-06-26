@@ -8,7 +8,7 @@ use Exporter qw<import>;
 our @EXPORT_OK = qw<recite>;
 
 sub recite {
-  return '';
+    return '';
 }
 
 1;

@@ -11,12 +11,12 @@ use lib 'lib';
 use Exercism::QuickSolve;
 
 sub answer {
-  my ($question) = @_;
+    my ($question) = @_;
 
-  quicksolve(
-    input     => $question,
-    input_key => 'question',
-  );
+    quicksolve(
+        input     => $question,
+        input_key => 'question',
+    );
 }
 
 1;

@@ -4,21 +4,21 @@ use strict;
 use warnings;
 
 sub map {
-  my ( $func, $list ) = @_;
+    my ( $func, $list ) = @_;
 
-  return undef;
+    return undef;
 }
 
 sub reduce {
-  my ( $func, $list ) = @_;
+    my ( $func, $list ) = @_;
 
-  return undef;
+    return undef;
 }
 
 sub length {
-  my $list = shift;
+    my $list = shift;
 
-  return undef;
+    return undef;
 }
 
 1;

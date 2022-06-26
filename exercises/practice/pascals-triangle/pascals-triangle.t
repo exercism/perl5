@@ -14,9 +14,9 @@ plan 9;
 imported_ok qw<pascal_rows> or bail_out;
 
 for my $case (@test_cases) {
-  is pascal_rows( $case->{input}{count} ),
-    join( "\n", map { join ' ', @$_ } @{ $case->{expected} } ),
-    $case->{description};
+    is pascal_rows( $case->{input}{count} ),
+        join( "\n", map { join ' ', @$_ } @{ $case->{expected} } ),
+        $case->{description};
 }
 
 __DATA__

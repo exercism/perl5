@@ -14,10 +14,9 @@ plan 5;
 imported_ok qw<transform> or bail_out;
 
 for my $case (@test_cases) {
-  &is(
-    transform( $case->{input}{legacy} ),
-    @{$case}{qw<expected description>}
-  );
+    &is(transform( $case->{input}{legacy} ),
+        @{$case}{qw<expected description>}
+    );
 }
 
 __DATA__

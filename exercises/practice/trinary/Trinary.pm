@@ -4,14 +4,14 @@ use strict;
 use warnings;
 
 sub new {
-  my ( $class, $trinary ) = @_;
-  
-  return undef;
+    my ( $class, $trinary ) = @_;
+
+    return undef;
 }
 
 sub to_decimal {
-  my $self = shift;
+    my $self = shift;
 
-  return undef;
+    return undef;
 }
 __PACKAGE__;

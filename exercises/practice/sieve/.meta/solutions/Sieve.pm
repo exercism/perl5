@@ -11,12 +11,12 @@ use lib 'lib';
 use Exercism::QuickSolve;
 
 sub find_primes {
-  my ($limit) = @_;
+    my ($limit) = @_;
 
-  quicksolve(
-    input     => $limit,
-    input_key => 'limit',
-  );
+    quicksolve(
+        input     => $limit,
+        input_key => 'limit',
+    );
 }
 
 1;

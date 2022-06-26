@@ -15,28 +15,26 @@ plan 6;
 imported_ok qw<accumulate> or bail_out;
 
 for my $case (@test_cases) {
-  my $func = sub {die};
-  for ( $case->{input}{accumulator} ) {
-    if ( $_ eq '(x) => x * x' ) {
-      $func = sub ($x) { $x * $x };
+    my $func = sub {die};
+    for ( $case->{input}{accumulator} ) {
+        if ( $_ eq '(x) => x * x' ) {
+            $func = sub ($x) { $x * $x };
+        }
+        elsif ( $_ eq '(x) => upcase(x)' ) {
+            $func = sub ($x) { uc $x };
+        }
+        elsif ( $_ eq '(x) => reverse(x)' ) {
+            $func = sub ($x) { scalar reverse $x };
+        }
+        elsif ( $_ eq '(x) => accumulate(["1", "2", "3"], (y) => x + y))' ) {
+            $func = sub ($x) {
+                accumulate( [ 1 .. 3 ], sub ($y) { $x . $y } );
+            };
+        }
     }
-    elsif ( $_ eq '(x) => upcase(x)' ) {
-      $func = sub ($x) { uc $x };
-    }
-    elsif ( $_ eq '(x) => reverse(x)' ) {
-      $func = sub ($x) { scalar reverse $x };
-    }
-    elsif (
-      $_ eq '(x) => accumulate(["1", "2", "3"], (y) => x + y))' )
-    {
-      $func = sub ($x) {
-        accumulate( [ 1 .. 3 ], sub ($y) { $x . $y } );
-      };
-    }
-  }
 
-  is( accumulate( $case->{input}{list}, $func ),
-    $case->{expected}, $case->{description} );
+    is( accumulate( $case->{input}{list}, $func ),
+        $case->{expected}, $case->{description} );
 }
 
 __DATA__

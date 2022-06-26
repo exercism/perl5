@@ -13,8 +13,8 @@ my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };
 imported_ok qw<compare_lists> or bail_out;
 
 for my $case (@test_cases) {
-  is( compare_lists( $case->{input} ),
-    $case->{expected}, $case->{description}, );
+    is( compare_lists( $case->{input} ),
+        $case->{expected}, $case->{description}, );
 }
 
 done_testing;

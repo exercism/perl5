@@ -13,22 +13,21 @@ my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };
 imported_ok qw<is_equilateral is_isosceles is_scalene> or bail_out;
 
 for my $case (@test_cases) {
-  my $func;
-  if ( $case->{property} eq 'equilateral' ) {
-    $func = \&is_equilateral;
-  }
-  elsif ( $case->{property} eq 'isosceles' ) {
-    $func = \&is_isosceles;
-  }
-  elsif ( $case->{property} eq 'scalene' ) {
-    $func = \&is_scalene;
-  }
+    my $func;
+    if ( $case->{property} eq 'equilateral' ) {
+        $func = \&is_equilateral;
+    }
+    elsif ( $case->{property} eq 'isosceles' ) {
+        $func = \&is_isosceles;
+    }
+    elsif ( $case->{property} eq 'scalene' ) {
+        $func = \&is_scalene;
+    }
 
-  is(
-    $func->( $case->{input}{sides} ),
-    $case->{expected} ? T : DF,
-    $case->{description},
-  );
+    is( $func->( $case->{input}{sides} ),
+        $case->{expected} ? T : DF,
+        $case->{description},
+    );
 }
 
 done_testing;

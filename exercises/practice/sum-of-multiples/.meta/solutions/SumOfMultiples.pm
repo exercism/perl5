@@ -11,9 +11,9 @@ use lib 'lib';
 use Exercism::QuickSolve;
 
 sub sum_of_multiples {
-  my ($input) = @_;
+    my ($input) = @_;
 
-  quicksolve( input => $input );
+    quicksolve( input => $input );
 }
 
 1;

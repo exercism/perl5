@@ -13,8 +13,8 @@ my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };
 imported_ok qw<handshake> or bail_out;
 
 for my $case (@test_cases) {
-  is( handshake( $case->{input}{number} ),
-    $case->{expected}, $case->{description}, );
+    is( handshake( $case->{input}{number} ),
+        $case->{expected}, $case->{description}, );
 }
 
 done_testing;

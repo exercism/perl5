@@ -14,11 +14,10 @@ plan 10;                                 # This is how many tests we expect to r
 imported_ok qw<is_leap_year> or bail_out;
 
 for my $case (@test_cases) {
-  is(
-    is_leap_year( $case->{input}{year} ),
-    $case->{expected} ? T : DF,    # Check if True, or Defined but False
-    $case->{description}
-  );
+    is( is_leap_year( $case->{input}{year} ),
+        $case->{expected} ? T : DF,    # Check if True, or Defined but False
+        $case->{description}
+    );
 }
 
 __DATA__

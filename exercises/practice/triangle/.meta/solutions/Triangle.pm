@@ -12,27 +12,27 @@ use lib 'lib';
 use Exercism::QuickSolve;
 
 sub is_equilateral ($triangle) {
-  !!quicksolve(
-    input     => $triangle,
-    input_key => 'sides',
-    property  => 'equilateral',
-  );
+    !!quicksolve(
+        input     => $triangle,
+        input_key => 'sides',
+        property  => 'equilateral',
+    );
 }
 
 sub is_isosceles ($triangle) {
-  !!quicksolve(
-    input     => $triangle,
-    input_key => 'sides',
-    property  => 'isosceles',
-  );
+    !!quicksolve(
+        input     => $triangle,
+        input_key => 'sides',
+        property  => 'isosceles',
+    );
 }
 
 sub is_scalene ($triangle) {
-  !!quicksolve(
-    input     => $triangle,
-    input_key => 'sides',
-    property  => 'scalene',
-  );
+    !!quicksolve(
+        input     => $triangle,
+        input_key => 'sides',
+        property  => 'scalene',
+    );
 }
 
 1;

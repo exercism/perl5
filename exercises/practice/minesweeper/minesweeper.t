@@ -13,8 +13,8 @@ my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };
 imported_ok qw<annotate> or bail_out;
 
 for my $case (@test_cases) {
-  is( annotate( $case->{input}{minefield} ),
-    $case->{expected}, $case->{description}, );
+    is( annotate( $case->{input}{minefield} ),
+        $case->{expected}, $case->{description}, );
 }
 
 done_testing;

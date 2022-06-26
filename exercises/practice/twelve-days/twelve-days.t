@@ -14,17 +14,16 @@ plan 16;
 imported_ok qw<recite> or bail_out;
 
 for my $case (@test_cases) {
-  is [
-    split(
-      /\n/,
-      recite(
-        { start => $case->{input}{startVerse},
-          end   => $case->{input}{endVerse},
-        }
-      )
-    )
-    ],
-    $case->{expected}, $case->{description};
+    is [split(
+            /\n/,
+            recite(
+                {   start => $case->{input}{startVerse},
+                    end   => $case->{input}{endVerse},
+                }
+            )
+        )
+        ],
+        $case->{expected}, $case->{description};
 }
 
 __DATA__

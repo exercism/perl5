@@ -11,9 +11,9 @@ use lib 'lib';
 use Exercism::QuickSolve;
 
 sub slices {
-  my ($args) = @_;
+    my ($args) = @_;
 
-  quicksolve( input => $args );
+    quicksolve( input => $args );
 }
 
 1;

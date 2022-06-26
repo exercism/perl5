@@ -14,15 +14,15 @@ plan 12;
 imported_ok qw<binary_search> or bail_out;
 
 for my $case (@test_cases) {
-  if ( !ref $case->{expected} ) {
-    is binary_search( $case->{input} ), number( $case->{expected} ),
-      $case->{description};
-  }
-  else {
-    like dies( sub { binary_search( $case->{input} ) } ),
-      qr/$case->{expected}{error}/,
-      $case->{description};
-  }
+    if ( !ref $case->{expected} ) {
+        is binary_search( $case->{input} ), number( $case->{expected} ),
+            $case->{description};
+    }
+    else {
+        like dies( sub { binary_search( $case->{input} ) } ),
+            qr/$case->{expected}{error}/,
+            $case->{description};
+    }
 }
 
 __DATA__

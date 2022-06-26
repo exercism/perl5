@@ -10,24 +10,23 @@ use Exercism::Generator;
 use constant BASE_DIR => path(GIT_ROOT);
 
 if ( !BASE_DIR->child('.problem-specifications')->is_dir ) {
-  bail_out 'problem-specifications directory required';
+    bail_out 'problem-specifications directory required';
 }
 
 for ( sort { $a cmp $b }
-  BASE_DIR->child( 'exercises', 'practice' )->children )
+    BASE_DIR->child( 'exercises', 'practice' )->children )
 {
-  if ( $_->child( '.meta', 'exercise-data.yaml' )->is_file ) {
-    is(
-      [ split( /\n/, $_->child( $_->basename . '.t' )->slurp_utf8 ) ],
-      [ split(
-          /\n/,
-          Exercism::Generator->new( { exercise => $_->basename } )
-            ->test
-        )
-      ],
-      $_->basename . ': test suite matches generated'
-    );
-  }
+    if ( $_->child( '.meta', 'exercise-data.yaml' )->is_file ) {
+        is( [ split( /\n/, $_->child( $_->basename . '.t' )->slurp_utf8 ) ],
+            [   split(
+                    /\n/,
+                    Exercism::Generator->new( { exercise => $_->basename } )
+                        ->test
+                )
+            ],
+            $_->basename . ': test suite matches generated'
+        );
+    }
 }
 
 done_testing;

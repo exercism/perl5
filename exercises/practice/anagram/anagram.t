@@ -14,8 +14,8 @@ plan 15;
 imported_ok qw<match_anagrams> or bail_out;
 
 for my $case (@test_cases) {
-  is match_anagrams( $case->{input} ), $case->{expected},
-    $case->{description};
+    is match_anagrams( $case->{input} ), $case->{expected},
+        $case->{description};
 }
 
 __DATA__

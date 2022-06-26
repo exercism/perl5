@@ -15,21 +15,20 @@ imported_ok qw<sing> or bail_out;
 
 for my $case (@test_cases) {
 
-  # Your result should be a string, which is transformed into
-  # an array here when matching for a cleaner test output.
-  is(
-    [ split(
-        /\n/,
-        sing(
-          { bottles => $case->{input}{startBottles},
-            verses  => $case->{input}{takeDown},
-          }
-        )
-      )
-    ],
-    $case->{expected},
-    $case->{description}
-  );
+    # Your result should be a string, which is transformed into
+    # an array here when matching for a cleaner test output.
+    is( [   split(
+                /\n/,
+                sing(
+                    {   bottles => $case->{input}{startBottles},
+                        verses  => $case->{input}{takeDown},
+                    }
+                )
+            )
+        ],
+        $case->{expected},
+        $case->{description}
+    );
 }
 
 __DATA__

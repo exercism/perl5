@@ -11,8 +11,8 @@ use lib 'lib';
 use Exercism::QuickSolve;
 
 sub recite {
-  my ($input) = @_;
-  quicksolve( input => $input );
+    my ($input) = @_;
+    quicksolve( input => $input );
 }
 
 1;

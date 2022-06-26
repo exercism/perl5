@@ -7,27 +7,27 @@ use FindBin qw<$Bin>;
 use lib $Bin, "$Bin/local/lib/perl5";
 
 use DifferenceOfSquares
-  qw<square_of_sum sum_of_squares difference_of_squares>;
+    qw<square_of_sum sum_of_squares difference_of_squares>;
 
 my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };
 
 imported_ok qw<square_of_sum sum_of_squares difference_of_squares>
-  or bail_out;
+    or bail_out;
 
 for my $case (@test_cases) {
-  my $func;
-  if ( $case->{property} eq 'squareOfSum' ) {
-    $func = \&square_of_sum;
-  }
-  elsif ( $case->{property} eq 'sumOfSquares' ) {
-    $func = \&sum_of_squares;
-  }
-  elsif ( $case->{property} eq 'differenceOfSquares' ) {
-    $func = \&difference_of_squares;
-  }
+    my $func;
+    if ( $case->{property} eq 'squareOfSum' ) {
+        $func = \&square_of_sum;
+    }
+    elsif ( $case->{property} eq 'sumOfSquares' ) {
+        $func = \&sum_of_squares;
+    }
+    elsif ( $case->{property} eq 'differenceOfSquares' ) {
+        $func = \&difference_of_squares;
+    }
 
-  is( $func->( $case->{input}{number} ),
-    $case->{expected}, $case->{description}, );
+    is( $func->( $case->{input}{number} ),
+        $case->{expected}, $case->{description}, );
 }
 
 done_testing;

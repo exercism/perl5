@@ -14,8 +14,8 @@ plan 6;
 imported_ok qw<add_gigasecond> or bail_out;
 
 for my $case (@test_cases) {
-  is add_gigasecond( $case->{input}{moment} ), $case->{expected},
-    $case->{description};
+    is add_gigasecond( $case->{input}{moment} ), $case->{expected},
+        $case->{description};
 }
 
 __DATA__

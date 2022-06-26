@@ -11,12 +11,12 @@ use lib 'lib';
 use Exercism::QuickSolve;
 
 sub scrabble_score {
-  my ($word) = @_;
+    my ($word) = @_;
 
-  quicksolve(
-    input     => $word,
-    input_key => 'word',
-  );
+    quicksolve(
+        input     => $word,
+        input_key => 'word',
+    );
 }
 
 1;

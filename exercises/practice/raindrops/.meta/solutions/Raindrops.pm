@@ -8,20 +8,20 @@ use Exporter qw<import>;
 our @EXPORT_OK = qw<raindrop>;
 
 sub raindrop {
-  my ($number) = @_;
-  my $drops = '';
+    my ($number) = @_;
+    my $drops = '';
 
-  if ( $number % 3 == 0 ) {
-    $drops .= 'Pling';
-  }
-  if ( $number % 5 == 0 ) {
-    $drops .= 'Plang';
-  }
-  if ( $number % 7 == 0 ) {
-    $drops .= 'Plong';
-  }
+    if ( $number % 3 == 0 ) {
+        $drops .= 'Pling';
+    }
+    if ( $number % 5 == 0 ) {
+        $drops .= 'Plang';
+    }
+    if ( $number % 7 == 0 ) {
+        $drops .= 'Plong';
+    }
 
-  return $drops || $number;
+    return $drops || $number;
 }
 
 1;

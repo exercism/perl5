@@ -14,18 +14,18 @@ plan 12;
 imported_ok qw<grains_on_square total_grains> or bail_out;
 
 for my $case (@test_cases) {
-  if ( ref $case->{expected} ) {
-    like dies( sub { grains_on_square( $case->{input}{square} ) } ),
-      qr/$case->{expected}{error}/,
-      $case->{description};
-  }
-  elsif ( $case->{property} eq 'square' ) {
-    is( grains_on_square( $case->{input}{square} ),
-      $case->{expected}, 'square no. ' . $case->{description} );
-  }
-  elsif ( $case->{property} eq 'total' ) {
-    is( total_grains(), $case->{expected}, $case->{description} );
-  }
+    if ( ref $case->{expected} ) {
+        like dies( sub { grains_on_square( $case->{input}{square} ) } ),
+            qr/$case->{expected}{error}/,
+            $case->{description};
+    }
+    elsif ( $case->{property} eq 'square' ) {
+        is( grains_on_square( $case->{input}{square} ),
+            $case->{expected}, 'square no. ' . $case->{description} );
+    }
+    elsif ( $case->{property} eq 'total' ) {
+        is( total_grains(), $case->{expected}, $case->{description} );
+    }
 }
 
 __DATA__

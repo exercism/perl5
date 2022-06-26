@@ -14,8 +14,8 @@ plan 19;
 imported_ok qw<raindrop> or bail_out;
 
 for my $case (@test_cases) {
-  is raindrop( $case->{input}{number} ), $case->{expected},
-    $case->{description};
+    is raindrop( $case->{input}{number} ), $case->{expected},
+        $case->{description};
 }
 
 __DATA__

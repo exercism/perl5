@@ -9,8 +9,8 @@ use feature qw<say>;    # Use the `say` function to output debugging info in the
 has name => ( is => 'rwp' );
 
 sub reset_name {
-  my ($self) = @_;
-  return undef;    # Replace this with your own code to pass the tests.
+    my ($self) = @_;
+    return undef;    # Replace this with your own code to pass the tests.
 }
 
 1;

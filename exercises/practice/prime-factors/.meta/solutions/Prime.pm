@@ -3,23 +3,23 @@ use strict;
 use warnings;
 
 sub factors {
-  my ($num) = @_;
+    my ($num) = @_;
 
-  return [] if $num == 1;
-  my @factors;
-  my $i = 2;
-  while ( $i * $i <= $num ) {
-    my $div = $num / $i;
-    if ( $div == int $div ) {
-      push @factors, $i;
-      $num = $div;
-      next;
+    return [] if $num == 1;
+    my @factors;
+    my $i = 2;
+    while ( $i * $i <= $num ) {
+        my $div = $num / $i;
+        if ( $div == int $div ) {
+            push @factors, $i;
+            $num = $div;
+            next;
+        }
+        $i++;
     }
-    $i++;
-  }
-  push @factors, $num;
+    push @factors, $num;
 
-  return \@factors;
+    return \@factors;
 }
 
 1;

@@ -3,8 +3,8 @@ use lib::gitroot qw<:lib :once>;
 use Test2::V0 -target => 'Exercism::Generator';
 
 subtest 'Rendered test files' => sub {
-  is new_generator(), object {
-    call test => <<~'TEST';
+    is new_generator(), object {
+        call test => <<~'TEST';
       #!/usr/bin/env perl
       use Test2::V0;
 
@@ -15,10 +15,10 @@ subtest 'Rendered test files' => sub {
 
       done_testing;
       TEST
-  }, 'No data';
+    }, 'No data';
 
-  is new_generator( data => { plan => 1 } ), object {
-    call test => <<~'TEST';
+    is new_generator( data => { plan => 1 } ), object {
+        call test => <<~'TEST';
       #!/usr/bin/env perl
       use Test2::V0;
 
@@ -28,10 +28,10 @@ subtest 'Rendered test files' => sub {
       use TestExercise ();
       plan 1;
       TEST
-  }, 'A plan';
+    }, 'A plan';
 
-  is new_generator( data => { tests => 'ok 1;' } ), object {
-    call test => <<~'TEST';
+    is new_generator( data => { tests => 'ok 1;' } ), object {
+        call test => <<~'TEST';
       #!/usr/bin/env perl
       use Test2::V0;
 
@@ -44,10 +44,10 @@ subtest 'Rendered test files' => sub {
 
       done_testing;
       TEST
-  }, 'A test';
+    }, 'A test';
 
-  is new_generator( json_tests => '[]' ), object {
-    call test => <<~'TEST';
+    is new_generator( json_tests => '[]' ), object {
+        call test => <<~'TEST';
       #!/usr/bin/env perl
       use Test2::V0;
       use JSON::PP;
@@ -65,14 +65,14 @@ subtest 'Rendered test files' => sub {
       __DATA__
       []
       TEST
-  }, 'JSON tests';
+    }, 'JSON tests';
 
-  is new_generator(
-    data       => { tests => 'ok $_ for @test_cases;' },
-    json_tests => '[true]',
-    ),
-    object {
-    call test => <<~'TEST';
+    is new_generator(
+        data       => { tests => 'ok $_ for @test_cases;' },
+        json_tests => '[true]',
+        ),
+        object {
+        call test => <<~'TEST';
       #!/usr/bin/env perl
       use Test2::V0;
       use JSON::PP;
@@ -92,10 +92,10 @@ subtest 'Rendered test files' => sub {
       __DATA__
       [true]
       TEST
-    }, 'Tests with JSON';
+        }, 'Tests with JSON';
 
-  is new_generator( data => { subs => 'foo' } ), object {
-    call test => <<~'TEST';
+    is new_generator( data => { subs => 'foo' } ), object {
+        call test => <<~'TEST';
       #!/usr/bin/env perl
       use Test2::V0;
 
@@ -108,10 +108,10 @@ subtest 'Rendered test files' => sub {
 
       done_testing;
       TEST
-  }, 'Subs';
+    }, 'Subs';
 
-  is new_generator( data => { methods => 'foo' } ), object {
-    call test => <<~'TEST';
+    is new_generator( data => { methods => 'foo' } ), object {
+        call test => <<~'TEST';
       #!/usr/bin/env perl
       use Test2::V0;
 
@@ -124,11 +124,11 @@ subtest 'Rendered test files' => sub {
 
       done_testing;
       TEST
-  }, 'Methods';
+    }, 'Methods';
 };
 
 done_testing;
 
 sub new_generator {
-  CLASS->new( exercise => 'test-exercise', @_ );
+    CLASS->new( exercise => 'test-exercise', @_ );
 }

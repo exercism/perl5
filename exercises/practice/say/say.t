@@ -13,14 +13,14 @@ my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };
 imported_ok qw<say_number> or bail_out;
 
 for my $case (@test_cases) {
-  if ( !ref $case->{expected} ) {
-    is( say_number( $case->{input}{number} ),
-      $case->{expected}, $case->{description}, );
-  }
-  else {
-    like dies( sub { say_number( $case->{input}{number} ) } ),
-      qr/$case->{expected}{error}/, $case->{description};
-  }
+    if ( !ref $case->{expected} ) {
+        is( say_number( $case->{input}{number} ),
+            $case->{expected}, $case->{description}, );
+    }
+    else {
+        like dies( sub { say_number( $case->{input}{number} ) } ),
+            qr/$case->{expected}{error}/, $case->{description};
+    }
 }
 
 done_testing;

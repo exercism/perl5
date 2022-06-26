@@ -8,8 +8,8 @@ use Exporter qw<import>;
 our @EXPORT_OK = qw<recite>;
 
 sub recite {
-  my ($input) = @_;
-  return undef;
+    my ($input) = @_;
+    return undef;
 }
 
 1;

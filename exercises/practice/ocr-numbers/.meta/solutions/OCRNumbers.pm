@@ -11,12 +11,12 @@ use lib 'lib';
 use Exercism::QuickSolve;
 
 sub convert {
-  my ($rows) = @_;
+    my ($rows) = @_;
 
-  quicksolve(
-    input     => $rows,
-    input_key => 'rows',
-  );
+    quicksolve(
+        input     => $rows,
+        input_key => 'rows',
+    );
 }
 
 1;

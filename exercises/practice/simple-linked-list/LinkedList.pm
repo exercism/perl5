@@ -4,27 +4,27 @@ use strict;
 use warnings;
 
 sub new {
-  my $class = shift;
-  
-  return undef;
+    my $class = shift;
+
+    return undef;
 }
 
 sub from_array {
-  my ( $pkg, $array ) = @_;
+    my ( $pkg, $array ) = @_;
 
-  return undef;
+    return undef;
 }
 
 sub to_array {
-  my $self = shift;
+    my $self = shift;
 
-  return undef;
+    return undef;
 }
 
 sub reverse : method {
-  my $self = shift;
+    my $self = shift;
 
-  return undef;
+    return undef;
 }
 
 1;
