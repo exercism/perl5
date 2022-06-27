@@ -19,14 +19,14 @@ use constant ALLERGENS => {
 };
 
 sub allergic_to {
-    my ($input) = @_;
-    ALLERGENS->{ $input->{item} } & $input->{score};
+    my ( $item, $score ) = @_;
+    ALLERGENS->{$item} & $score;
 }
 
 sub list_allergies {
     my ($score) = @_;
     return [
-        grep { allergic_to { item => $_, score => $score } }
+        grep { allergic_to $_, $score }
             keys %{ +ALLERGENS }
     ];
 }

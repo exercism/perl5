@@ -1,7 +1,15 @@
 plan: 10
-subs: leap_year
-bool_tests: true
-bool_input_key: year
+subs: is_leap_year
+properties:
+  leapYear:
+    test: |-
+      sprintf(<<'END', $case->{input}{year}, $case->{expected} ? 'T, # True' : 'DF, # Defined but False', $case->{description});
+      is(
+          is_leap_year(%s),
+          %s
+          '%s',
+      );
+      END
 
 lib_comment: '# Find modules in the same dir as this file.'
 plan_comment: '# This is how many tests we expect to run.'
@@ -9,14 +17,13 @@ package_comment: "# Declare package 'Leap'"
 feature_comment: '# Use the `say` function to output debugging info in the online editor.'
 
 example: |-
-  sub leap_year {
+  sub is_leap_year {
       my ($year) = @_;
       return $year % 4 == 0 && $year % 100 != 0 || $year % 400 == 0;
   }
 
-
 stub: |-
-  sub leap_year {
+  sub is_leap_year {
       my ($year) = @_;
       return undef; # Replace this with your own code to pass the tests.
   }

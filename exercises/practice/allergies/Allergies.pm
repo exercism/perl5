@@ -8,7 +8,7 @@ use Exporter qw<import>;
 our @EXPORT_OK = qw<allergic_to list_allergies>;
 
 sub allergic_to {
-    my ($input) = @_;
+    my ( $item, $score ) = @_;
     return undef;
 }
 

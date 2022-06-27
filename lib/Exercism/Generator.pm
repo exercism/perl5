@@ -3,7 +3,6 @@ package Exercism::Generator;
 use Moo;
 use namespace::autoclean;
 
-use Data::Dump         qw<pp quote>;
 use JSON::PP           ();
 use List::Util         qw<any>;
 use Path::Tiny         qw<path>;
@@ -43,9 +42,9 @@ has [qw<case_uuids cases>] => (
 
 has [
     qw<
-        bool_tests
         json_tests
         package
+        property_tests
     >
 ] => ( is => 'lazy' );
 
@@ -76,8 +75,9 @@ sub _render {
     my %data = %{ $self->data };
     $data{cases}   //= $self->json_tests;
     $data{package} //= $self->package;
-    if ( $data{bool_tests} ) {
-        $data{tests} = join( "\n", @{ $self->bool_tests } );
+    if ( $data{properties} ) {
+        $data{tests} .= "\n" if $data{tests};
+        $data{tests} .= join( "\n", @{ $self->property_tests } );
         $data{cases} = undef;
     }
 
@@ -237,25 +237,14 @@ sub _build_json_tests {
         : '';
 }
 
-sub _build_bool_tests {
+sub _build_property_tests {
     my ($self) = @_;
     my ( $input, @tests );
     for my $case ( @{ $self->cases } ) {
-        if ( my $key = $self->data->{bool_input_key} ) {
-            $input = $case->{input}{$key};
+        if ( my $eval = $self->data->{properties}{ $case->{property} }{test} )
+        {
+            push @tests, eval "$eval";
         }
-        elsif ( ref $case->{input} ) {
-            $input = pp( $case->{input} );
-        }
-        push @tests,
-            sprintf(
-            <<~SPRINTF, lc( $case->{property} =~ s/(\p{Upper})/_$1/r ), $input, $case->{expected} ? 'T, # True' : 'DF, # Defined but False', quote( $case->{description} ) );
-            is(
-                %s(%s),
-                %s
-                %s,
-            );
-            SPRINTF
     }
     return [@tests];
 }
