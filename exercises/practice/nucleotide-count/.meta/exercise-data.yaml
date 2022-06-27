@@ -1,16 +1,18 @@
 plan: 6
 subs: count_nucleotides
-tests: |-
-  for my $case ( @test_cases ) {
-    if ($case->{expected}{error}) {
-      like dies( sub { count_nucleotides($case->{input}{strand}) } ),
-        qr/$case->{expected}{error}/, $case->{description};
-    }
-    else {
-      is count_nucleotides($case->{input}{strand}),
-        $case->{expected}, $case->{description};
-    }
-  }
+properties:
+  nucleotideCounts:
+    test: |-
+      use Data::Dump qw<pp>;
+      if ($case->{expected}{error}) {
+          sprintf(<<~'END', $case->{input}{strand}, $case->{expected}{error}, $case->{description});
+              like dies( sub { count_nucleotides '%s'  } ),
+                qr/%s/, '%s';
+          END
+      }
+      else {
+          sprintf("is count_nucleotides('%s'), %s, '%s';\n", $case->{input}{strand}, pp($case->{expected}), $case->{description});
+      }
 
 example: |-
   sub count_nucleotides {
