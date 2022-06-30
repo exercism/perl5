@@ -3,11 +3,12 @@ subs: is_leap_year
 properties:
   leapYear:
     test: |-
-      sprintf(<<'END', $case->{input}{year}, $case->{expected} ? 'T, # True' : 'DF, # Defined but False', $case->{description});
+      use Data::Dump qw<quote>;
+      sprintf(<<'END', $case->{input}{year}, $case->{expected} ? ('T', '# True') : ('DF', '# Defined but False'), quote($case->{description}));
       is(
           is_leap_year(%s),
-          %s
-          '%s',
+          %s, %s
+          %s,
       );
       END
 
