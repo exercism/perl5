@@ -3,8 +3,8 @@ subs: allergic_to list_allergies
 properties:
   allergicTo:
     test: |-
-      use Data::Dump qw<quote>;
-      sprintf(<<'END', quote($case->{input}{item}), $case->{input}{score}, $case->{expected} ? ('T', '# True') : ('DF', '# Defined but False'), quote($case->{description}));
+      use Data::Dmp;
+      sprintf(<<'END', dmp($case->{input}{item}), $case->{input}{score}, $case->{expected} ? ('T', '# True') : ('DF', '# Defined but False'), dmp($case->{description}));
       is(
           allergic_to(%s, %s),
           %s, %s
@@ -13,8 +13,8 @@ properties:
       END
   list:
     test: |-
-      use Data::Dump qw<quote>;
-      sprintf(<<'END', $case->{input}{score}, 'bag {' . (join '', map {'item ' . quote($_) . ';'} @{$case->{expected}}) . 'end;}', quote($case->{description}));
+      use Data::Dmp;
+      sprintf(<<'END', $case->{input}{score}, 'bag {' . (join '', map {'item ' . dmp($_) . ';'} @{$case->{expected}}) . 'end;}', dmp($case->{description}));
       is(
           list_allergies(%s),
           %s,

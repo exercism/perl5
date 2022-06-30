@@ -3,18 +3,18 @@ subs: count_nucleotides
 properties:
   nucleotideCounts:
     test: |-
-      use Data::Dump qw<quote pp>;
+      use Data::Dmp;
       if ($case->{expected}{error}) {
-          sprintf(<<~'END', quote($case->{input}{strand}), $case->{expected}{error}, quote($case->{description}));
+          sprintf(<<~'END', map {dmp($_)} $case->{input}{strand}, qr/$case->{expected}{error}/, $case->{description});
           like(
               dies( sub { count_nucleotides %s } ),
-              qr/%s/,
+              %s,
               %s,
           );
           END
       }
       else {
-          sprintf(<<~'END', quote($case->{input}{strand}), pp($case->{expected}), quote($case->{description}));
+          sprintf(<<~'END', map {dmp($_)} $case->{input}{strand}, $case->{expected}, $case->{description});
           is(
               count_nucleotides(%s),
               %s,

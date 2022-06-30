@@ -31,7 +31,7 @@ is( count_nucleotides(
 
 like(
     dies( sub { count_nucleotides "AGXXACT" } ),
-    qr/Invalid nucleotide in strand/,
+    qr(Invalid nucleotide in strand),
     "strand with invalid nucleotides",
 );
 
