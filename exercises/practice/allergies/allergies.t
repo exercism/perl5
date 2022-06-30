@@ -5,7 +5,6 @@ use FindBin qw<$Bin>;
 use lib $Bin, "$Bin/local/lib/perl5";
 
 use Allergies qw<allergic_to list_allergies>;
-plan 50;
 
 imported_ok qw<allergic_to list_allergies> or bail_out;
 
@@ -274,3 +273,4 @@ is( list_allergies(509),
     "list when: no allergen score parts",
 );
 
+done_testing;

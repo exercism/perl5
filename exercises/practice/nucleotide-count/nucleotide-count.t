@@ -5,7 +5,6 @@ use FindBin qw<$Bin>;
 use lib $Bin, "$Bin/local/lib/perl5";
 
 use NucleotideCount qw<count_nucleotides>;
-plan 6;
 
 imported_ok qw<count_nucleotides> or bail_out;
 
@@ -35,3 +34,4 @@ like(
     "strand with invalid nucleotides",
 );
 
+done_testing;

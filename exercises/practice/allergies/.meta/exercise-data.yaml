@@ -1,4 +1,3 @@
-plan: 50
 subs: allergic_to list_allergies
 properties:
   allergicTo:

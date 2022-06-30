@@ -1,4 +1,3 @@
-plan: 10
 subs: is_leap_year
 properties:
   leapYear:
@@ -13,7 +12,6 @@ properties:
       END
 
 lib_comment: '# Find modules in the same dir as this file.'
-plan_comment: '# This is how many tests we expect to run.'
 package_comment: "# Declare package 'Leap'"
 feature_comment: '# Use the `say` function to output debugging info in the online editor.'
 

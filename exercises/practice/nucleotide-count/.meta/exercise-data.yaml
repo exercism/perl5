@@ -1,4 +1,3 @@
-plan: 6
 subs: count_nucleotides
 properties:
   nucleotideCounts:
