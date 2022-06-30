@@ -12,7 +12,10 @@ is $CLASS->new( exercise => 'hello-world', case_uuids => [] ), object {
 is $CLASS->new(
     exercise   => 'hello-world',
     case_uuids => [qw<af9ffe10-dc13-42d8-a742-e7bdafac449d>],
-    data       => { package => 'TEST' },
+    data       => {
+        package    => 'TEST',
+        properties => { hello => { test => '$case->{expected}' } }
+    },
     ),
     object {
     call package    => 'TEST';
@@ -24,7 +27,8 @@ is $CLASS->new(
             expected    => 'Hello, World!',
         }
     ];
-    call json_tests => <<'JSON' =~ s/^\s+|\s+$//gr;
+    call property_tests => ['Hello, World!'];
+    call json_tests     => <<'JSON' =~ s/^\s+|\s+$//gr;
 [
   {
     "description": "Say Hi!",
