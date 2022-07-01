@@ -44,6 +44,7 @@ has [
     qw<
         json_tests
         package
+        property_tests
     >
 ] => ( is => 'lazy' );
 
@@ -74,6 +75,11 @@ sub _render {
     my %data = %{ $self->data };
     $data{cases}   //= $self->json_tests;
     $data{package} //= $self->package;
+    if ( $data{properties} ) {
+        $data{tests} .= "\n" if $data{tests};
+        $data{tests} .= join( "\n", @{ $self->property_tests } );
+        $data{cases} = undef;
+    }
 
     my $rendered = Template::Mustache->render(
         BASE_DIR->child( 'templates',
@@ -229,6 +235,18 @@ sub _build_json_tests {
     return @{ $self->cases }
         ? JSON->encode( $self->cases ) =~ s/^\s+|\s+$//gr
         : '';
+}
+
+sub _build_property_tests {
+    my ($self) = @_;
+    my ( $input, @tests );
+    for my $case ( @{ $self->cases } ) {
+        if ( my $eval = $self->data->{properties}{ $case->{property} }{test} )
+        {
+            push @tests, eval "$eval";
+        }
+    }
+    return [@tests];
 }
 
 1;

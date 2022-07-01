@@ -1,16 +1,26 @@
-plan: 6
 subs: count_nucleotides
-tests: |-
-  for my $case ( @test_cases ) {
-    if ($case->{expected}{error}) {
-      like dies( sub { count_nucleotides($case->{input}{strand}) } ),
-        qr/$case->{expected}{error}/, $case->{description};
-    }
-    else {
-      is count_nucleotides($case->{input}{strand}),
-        $case->{expected}, $case->{description};
-    }
-  }
+properties:
+  nucleotideCounts:
+    test: |-
+      use Data::Dmp;
+      if ($case->{expected}{error}) {
+          sprintf(<<~'END', map {dmp($_)} $case->{input}{strand}, qr/$case->{expected}{error}/, $case->{description});
+          like(
+              dies( sub { count_nucleotides %s } ),
+              %s,
+              %s,
+          );
+          END
+      }
+      else {
+          sprintf(<<~'END', map {dmp($_)} $case->{input}{strand}, $case->{expected}, $case->{description});
+          is(
+              count_nucleotides(%s),
+              %s,
+              %s,
+          );
+          END
+      }
 
 example: |-
   sub count_nucleotides {

@@ -1,21 +1,27 @@
-plan: 50
 subs: allergic_to list_allergies
-tests: |-
-  for my $case (@test_cases) {
-    if ( $case->{property} eq 'allergicTo' ) {
-      is allergic_to( $case->{input} ), $case->{expected} ? T : DF,
-        $case->{description};
-    }
-    elsif ( $case->{property} eq 'list' ) {
-      is
-        list_allergies( $case->{input}{score} ),
-        bag {
-          item $_ for @{ $case->{expected} };
-          end;
-        },
-        $case->{description};
-    }
-  }
+properties:
+  allergicTo:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<'END', dmp($case->{input}{item}), $case->{input}{score}, $case->{expected} ? ('T', '# True') : ('DF', '# Defined but False'), dmp($case->{description}));
+      is(
+          allergic_to(%s, %s),
+          %s, %s
+          %s,
+      );
+      END
+  list:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<'END', $case->{input}{score}, 'bag {' . (join '', map {'item ' . dmp($_) . ';'} @{$case->{expected}}) . 'end;}', dmp($case->{description}));
+      is(
+          list_allergies(%s),
+          %s,
+          %s,
+      );
+      END
+
+
 
 example: |-
   use constant ALLERGENS => {
@@ -30,19 +36,19 @@ example: |-
   };
 
   sub allergic_to {
-    my ($input) = @_;
-    ALLERGENS->{ $input->{item} } & $input->{score};
+    my ($item, $score) = @_;
+    ALLERGENS->{ $item } & $score;
   }
 
   sub list_allergies {
     my ($score) = @_;
-    return [ grep { allergic_to { item => $_, score => $score } }
+    return [ grep { allergic_to $_, $score }
         keys %{ +ALLERGENS } ];
   }
 
 stub: |-
   sub allergic_to {
-    my ($input) = @_;
+    my ($item, $score) = @_;
     return undef;
   }
 
