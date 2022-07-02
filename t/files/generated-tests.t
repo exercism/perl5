@@ -9,7 +9,13 @@ use Exercism::Generator;
 
 use constant BASE_DIR => path(GIT_ROOT);
 
-if ( !BASE_DIR->child('.problem-specifications')->is_dir ) {
+if (!path(
+        $ENV{HOME}, '.cache',
+        'exercism', 'configlet',
+        'problem-specifications'
+    )->is_dir
+    )
+{
     bail_out 'problem-specifications directory required';
 }
 

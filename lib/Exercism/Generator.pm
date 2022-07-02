@@ -215,8 +215,9 @@ sub _build_cases {
 sub _build_cdata {
     my ($self) = @_;
     my $cdata_file
-        = BASE_DIR->child( '.problem-specifications', 'exercises',
-        $self->exercise, 'canonical-data.json' );
+        = path( $ENV{HOME}, '.cache', 'exercism', 'configlet',
+        'problem-specifications', 'exercises',
+        $self->exercise,          'canonical-data.json' );
 
     return $cdata_file->is_file
         ? JSON->decode( $cdata_file->slurp_utf8 )

@@ -2,11 +2,6 @@
 
 Exercism exercises in Perl 5
 
-## Getting started
-
-- Clone this repository
-- `git submodule update --init --recursive`.  This will pull in the [Exercism problem specification] repository.
-
 ## Dependencies
 
 Each exercise has its own cpanfile (if necessary) for any dependencies it might have.
@@ -20,13 +15,6 @@ Install the Carton module, run `carton install` to install the dependencies from
 Each exercise should have an `exercise-data.yaml` file inside a directory named `.meta` (please add one if the exercise does not have one yet).
 This is used by the `exercise-gen.pl` script in the `bin` directory to generate the module and test for an exercise.
 Documentation for the generator can be found in the `bin` directory.
-
-If the [Exercism problem specification] for the exercise has been updated, run
-
-    git submodule update --recursive --remote --checkout --force
-    git add problem-specifications
-
-to update the submodule to the latest.
 
 ## Testing the Tests
 
@@ -60,6 +48,6 @@ It is trademarked, and we have adapted it--changing the color--with their permis
 The Perl Foundation does not support or endorse Exercism.
 
 [Carton]: https://metacpan.org/pod/Carton
-[contributing guide]: https://github.com/exercism/docs/blob/master/contributing-to-language-tracks/README.md
+[contributing guide]: https://exercism.org/docs/building
 [Exercism problem specification]: https://github.com/exercism/problem-specifications
 [Perl Foundation]: https://www.perlfoundation.org/
