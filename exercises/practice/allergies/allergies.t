@@ -273,4 +273,9 @@ is( list_allergies(509),
     "list when: no allergen score parts",
 );
 
+is( list_allergies(257),
+    bag { item "eggs"; end; },
+    "list when: no allergen score parts without highest valid score",
+);
+
 done_testing;
