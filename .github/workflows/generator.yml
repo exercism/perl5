@@ -12,11 +12,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Checkout problem-specifications
-        uses: actions/checkout@v3
-        with:
-          repository: exercism/problem-specifications
-          path: .problem-specifications
+      - run: bin/fetch-configlet
+      - run: bin/configlet sync || true
 
       - name: Set up perl
         uses: shogo82148/actions-setup-perl@v1

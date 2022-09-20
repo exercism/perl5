@@ -11,9 +11,16 @@ use Exercism::Generator;
 
 use constant BASE_DIR => path(GIT_ROOT);
 
-if ( !BASE_DIR->child('.problem-specifications')->is_dir ) {
-    warn
-        "`.problem-specifications` directory not found; exercise(s) may generate incorrectly.\n";
+if (!path(
+        $ENV{HOME}, '.cache',
+        'exercism', 'configlet',
+        'problem-specifications'
+    )->is_dir
+    )
+{
+    warn "`problem-specifications` directory not found; "
+        . "exercise(s) may generate incorrectly.\n"
+        . "Run `bin/configlet sync` to sync data.\n";
 }
 
 my @exercises;
