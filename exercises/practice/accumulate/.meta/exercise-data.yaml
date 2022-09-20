@@ -1,35 +1,35 @@
-plan: 6
+subs: accumulate
 modules:
   - use: experimental qw<signatures>;
-subs: accumulate
-tests: |-
-   for my $case (@test_cases) {
-     my $func = sub {die};
-     for ( $case->{input}{accumulator} ) {
-       if ( $_ eq '(x) => x * x' ) {
-         $func = sub ($x) { $x * $x };
-       }
-       elsif ( $_ eq '(x) => upcase(x)' ) {
-         $func = sub ($x) { uc $x };
-       }
-       elsif ( $_ eq '(x) => reverse(x)' ) {
-         $func = sub ($x) { scalar reverse $x };
-       }
-       elsif (
-         $_ eq '(x) => accumulate(["1", "2", "3"], (y) => x + y))' )
-       {
-         $func = sub ($x) {
-           accumulate( [ 1 .. 3 ], sub ($y) { $x . $y } )
-         };
-       }
-     }
+properties:
+  accumulate:
+    test: |-
+      use Data::Dmp;
+      my $func;
+      if ( $case->{input}{accumulator} eq '(x) => x * x' ) {
+          $func = 'sub ($x) { $x * $x }';
+      }
+      elsif ( $case->{input}{accumulator} eq '(x) => upcase(x)' ) {
+          $func = 'sub ($x) { uc $x }';
+      }
+      elsif ( $case->{input}{accumulator} eq '(x) => reverse(x)' ) {
+         $func = 'sub ($x) { scalar reverse $x }';
+      }
+      elsif (
+          $case->{input}{accumulator} eq '(x) => accumulate(["1", "2", "3"], (y) => x + y)' )
+      {
+          $func = 'sub ($x) {
+              accumulate( [ 1 .. 3 ], sub ($y) { $x . $y } )
+          }';
+      }
 
-     is(
-       accumulate( $case->{input}{list}, $func ),
-       $case->{expected},
-       $case->{description}
-     );
-   }
+      sprintf(<<'END', dmp($case->{input}{list}), $func, dmp($case->{expected}), dmp($case->{description}));
+      is(
+          accumulate( %s, %s ),
+          %s,
+          %s,
+      );
+      END
 
 example: |-
   sub accumulate {
