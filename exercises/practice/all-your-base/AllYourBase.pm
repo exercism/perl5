@@ -14,7 +14,7 @@ my @errors = (
 );
 
 sub rebase {
-    my ($input) = @_;
+    my ( $digits, $input_base, $output_base ) = @_;
     return undef;
 }
 

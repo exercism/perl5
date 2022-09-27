@@ -1,18 +1,26 @@
 subs: rebase
-tests: |-
-  for my $case (@test_cases) {
-    if ( ref $case->{expected} ne 'HASH' ) {
+properties:
+  rebase:
+    test: |-
+      use Data::Dmp;
+      if (ref $case->{expected} ne 'HASH') {
+          sprintf(<<'END', map {dmp($_)} @{$case->{input}}{qw<digits inputBase outputBase>}, @{$case}{qw<expected description>});
       is(
-        rebase($case->{input}),
-        $case->{expected},
-        $case->{description},
+          rebase( %s, %s, %s ),
+          %s,
+          %s,
       );
-    }
-    else {
-      like dies( sub { rebase($case->{input}) } ),
-      qr/$case->{expected}{error}/, $case->{description};
-    }
-  }
+      END
+      }
+      else {
+          sprintf(<<'END', (map {dmp($_)} @{$case->{input}}{qw<digits inputBase outputBase>}), $case->{expected}{error}, dmp($case->{description}));
+      like(
+          dies( sub { rebase( %s, %s, %s ) } ),
+          qr/%s/,
+          %s,
+      );
+      END
+      }
 
 example: |-
   my @errors = (
@@ -22,22 +30,22 @@ example: |-
   );
 
   sub rebase {
-    my ($input) = @_;
+    my ($digits, $input_base, $output_base) = @_;
 
-    if ( $input->{inputBase} < 2 ) {
+    if ( $input_base < 2 ) {
       die $errors[0];
     }
-    if ( $input->{outputBase} < 2 ) {
+    if ( $output_base < 2 ) {
       die $errors[1];
     }
-    for my $digit ( @{ $input->{digits} } ) {
-      if ( $digit < 0 || $digit >= $input->{inputBase} ) {
+    for my $digit ( @{$digits} ) {
+      if ( $digit < 0 || $digit >= $input_base ) {
         die $errors[2];
       }
     }
 
-    return from_decimal( $input->{outputBase},
-      to_decimal( $input->{inputBase}, $input->{digits} ) );
+    return from_decimal( $output_base,
+      to_decimal( $input_base, $digits ) );
   }
 
   sub to_decimal {
@@ -79,6 +87,6 @@ stub: |-
   );
 
   sub rebase {
-    my ($input) = @_;
+    my ($digits, $input_base, $output_base) = @_;
     return undef;
   }
