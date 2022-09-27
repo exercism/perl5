@@ -14,22 +14,21 @@ my @errors = (
 );
 
 sub rebase {
-    my ($input) = @_;
+    my ( $digits, $input_base, $output_base ) = @_;
 
-    if ( $input->{inputBase} < 2 ) {
+    if ( $input_base < 2 ) {
         die $errors[0];
     }
-    if ( $input->{outputBase} < 2 ) {
+    if ( $output_base < 2 ) {
         die $errors[1];
     }
-    for my $digit ( @{ $input->{digits} } ) {
-        if ( $digit < 0 || $digit >= $input->{inputBase} ) {
+    for my $digit ( @{$digits} ) {
+        if ( $digit < 0 || $digit >= $input_base ) {
             die $errors[2];
         }
     }
 
-    return from_decimal( $input->{outputBase},
-        to_decimal( $input->{inputBase}, $input->{digits} ) );
+    return from_decimal( $output_base, to_decimal( $input_base, $digits ) );
 }
 
 sub to_decimal {
