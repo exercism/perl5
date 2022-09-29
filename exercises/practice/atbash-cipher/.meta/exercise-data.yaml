@@ -1,15 +1,25 @@
-plan: 15
 subs: encode_atbash decode_atbash
-tests: |-
-  for my $case (@test_cases) {
-    is(
-      $case->{property} eq 'encode'
-        ? encode_atbash($case->{input}{phrase})
-        : decode_atbash($case->{input}{phrase}),
-      $case->{expected},
-      $case->{description}
-    );
-  }
+properties:
+  encode:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<'END', map {dmp($_)} $case->{input}{phrase}, @{$case}{qw<expected description>} );
+      is(
+          encode_atbash(%s),
+          %s,
+          %s,
+      );
+      END
+  decode:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<'END', map {dmp($_)} $case->{input}{phrase}, @{$case}{qw<expected description>} );
+      is(
+          decode_atbash(%s),
+          %s,
+          %s,
+      );
+      END
 
 example: |-
   use List::Util qw<pairvalues>;
