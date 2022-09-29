@@ -8,14 +8,14 @@ use Exporter qw<import>;
 our @EXPORT_OK = qw<match_anagrams>;
 
 sub match_anagrams {
-    my ($input) = @_;
+    my ( $subject, $candidates ) = @_;
 
     return [
         grep {
-            lc $_ ne lc $input->{subject}
+            lc $_ ne lc $subject
                 && join( '', sort( split( //, lc $_ ) ) ) eq
-                join( '', sort( split( //, lc $input->{subject} ) ) )
-        } @{ $input->{candidates} }
+                join( '', sort( split( //, lc $subject ) ) )
+        } @{$candidates}
     ];
 }
 

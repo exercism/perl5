@@ -1,26 +1,32 @@
-exercise: Anagram
-plan: 15
 subs: match_anagrams
-tests: |-
-  for my $case (@test_cases) {
-    is match_anagrams($case->{input}), $case->{expected}, $case->{description};
-  }
+
+properties:
+  findAnagrams:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<'END', (map {dmp($_)} @{$case->{input}}{qw<subject candidates>}), 'bag {' . (join '', map {'item ' . dmp($_) . ';'} @{$case->{expected}}) . 'end;}', dmp($case->{description}));
+      is(
+          match_anagrams( %s, %s ),
+          %s,
+          %s,
+      );
+      END
 
 example: |-
   sub match_anagrams {
-    my ($input) = @_;
+    my ($subject, $candidates) = @_;
 
     return [
       grep {
-        lc $_ ne lc $input->{subject}
+        lc $_ ne lc $subject
           && join( '', sort( split( //, lc $_ ) ) ) eq
-          join( '', sort( split( //, lc $input->{subject} ) ) )
-      } @{ $input->{candidates} }
+          join( '', sort( split( //, lc $subject ) ) )
+      } @{ $candidates }
     ];
   }
 
 stub: |-
   sub match_anagrams {
-    my ($input) = @_;
-    return undef;
+      my ($subject, $candidates) = @_;
+      return undef;
   }
