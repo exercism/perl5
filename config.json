@@ -187,7 +187,7 @@
       },
       {
         "slug": "difference-of-squares",
-        "name": "Difference Of Squares",
+        "name": "Difference of Squares",
         "uuid": "590270ac-b638-4292-bbdc-eee1705904f1",
         "practices": [],
         "prerequisites": [],
@@ -198,7 +198,7 @@
       },
       {
         "slug": "etl",
-        "name": "Etl",
+        "name": "ETL",
         "uuid": "e193fb19-5122-405f-88e0-59e5ee94f64b",
         "practices": [],
         "prerequisites": [],
@@ -362,7 +362,7 @@
       },
       {
         "slug": "ocr-numbers",
-        "name": "Ocr Numbers",
+        "name": "OCR Numbers",
         "uuid": "70c36cde-e574-4b6d-9f71-3d284694ecb1",
         "practices": [],
         "prerequisites": [],
@@ -382,7 +382,7 @@
       },
       {
         "slug": "pascals-triangle",
-        "name": "Pascals Triangle",
+        "name": "Pascal's Triangle",
         "uuid": "3fc3e55d-ecf0-4c5b-8612-937c96a0cb45",
         "practices": [],
         "prerequisites": [],
@@ -460,7 +460,7 @@
       },
       {
         "slug": "rna-transcription",
-        "name": "Rna Transcription",
+        "name": "RNA Transcription",
         "uuid": "08343954-918c-4383-a6b8-b8d3d6ef836c",
         "practices": [],
         "prerequisites": [],
@@ -597,7 +597,7 @@
       },
       {
         "slug": "sum-of-multiples",
-        "name": "Sum Of Multiples",
+        "name": "Sum of Multiples",
         "uuid": "9c855ef0-08b4-4810-9a58-285a44082b94",
         "practices": [],
         "prerequisites": [],
