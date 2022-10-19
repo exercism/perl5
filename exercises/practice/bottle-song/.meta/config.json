@@ -1,0 +1,17 @@
+{
+  "authors": ["m-dango"],
+  "files": {
+    "solution": [
+      "BottleSong.pm"
+    ],
+    "test": [
+      "bottle-song.t"
+    ],
+    "example": [
+      ".meta/solutions/BottleSong.pm"
+    ]
+  },
+  "blurb": "Produce the lyrics to the popular children's repetitive song: Ten Green Bottles.",
+  "source": "Wikipedia",
+  "source_url": "https://en.wikipedia.org/wiki/Ten_Green_Bottles"
+}
