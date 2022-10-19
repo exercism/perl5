@@ -129,7 +129,8 @@
         "practices": [],
         "prerequisites": [],
         "difficulty": 1,
-        "topics": []
+        "topics": null,
+        "status": "deprecated"
       },
       {
         "slug": "binary-search",
@@ -646,6 +647,15 @@
         "slug": "wordy",
         "name": "Wordy",
         "uuid": "b2c9b704-0266-4c16-a2f7-54294789a7f1",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 1,
+        "topics": []
+      },
+      {
+        "slug": "bottle-song",
+        "name": "Bottle Song",
+        "uuid": "527307e6-95ce-4766-8bb8-9d5adb868333",
         "practices": [],
         "prerequisites": [],
         "difficulty": 1,

@@ -1,0 +1,63 @@
+subs: sing
+properties:
+  recite:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<'END', @{$case->{input}}{qw<startBottles takeDown>}, dmp($case->{expected}), dmp($case->{description}));
+      is(
+          [split(/\n/, sing( %s, %s ) // '')],
+          %s,
+          %s,
+      );
+      END
+
+example: |-
+  my %numbers = (
+      1  => 'one',
+      2  => 'two',
+      3  => 'three',
+      4  => 'four',
+      5  => 'five',
+      6  => 'six',
+      7  => 'seven',
+      8  => 'eight',
+      9  => 'nine',
+      10 => 'ten',
+  );
+
+  sub sing {
+    my ($bottles, $verses) = @_;
+    my @verses;
+    for ( 1..$verses ) {
+        my $s = $bottles > 1 ? 's' : '';
+        push @verses,
+            ucfirst(
+            "$numbers{$bottles} green bottle$s hanging on the wall,\n") x 2
+            . "And if one green bottle should accidentally fall,\n"
+            . "There'll be "
+            . ( $numbers{ --$bottles } || 'no' )
+            . ' green bottle'
+            . ( $bottles == 1 ? '' : 's' )
+            . ' hanging on the wall.';
+    }
+    return join "\n\n", @verses;
+  }
+
+stub: |-
+  my %numbers = (
+      1  => 'one',
+      2  => 'two',
+      3  => 'three',
+      4  => 'four',
+      5  => 'five',
+      6  => 'six',
+      7  => 'seven',
+      8  => 'eight',
+      9  => 'nine',
+      10 => 'ten',
+  );
+
+  sub sing {
+    my ($bottles, $verses) = @_;
+    return undef;
+  }
