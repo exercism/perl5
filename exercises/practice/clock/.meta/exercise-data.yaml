@@ -1,50 +1,44 @@
-plan: 53
 methods: new time add_minutes subtract_minutes
-modules:
-  - use: List::Util qw(any)
-tests: |-
-  for my $case (@test_cases) {
-    if ($case->{property} eq 'create') {
+properties:
+  create:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<'END', @{$case->{input}}{qw<hour minute>}, map {dmp($_)} @{$case}{qw<expected description>});
       is(
-        Clock->new( %{ $case->{input} } ),
-        object {
-          prop blessed => 'Clock';
-          call time    => $case->{expected};
-        },
-        $case->{description}
+          Clock->new( hour => %s, minute => %s )->time,
+          %s,
+          %s,
       );
-    }
-    elsif (any { $case->{property} eq $_ } qw<add subtract> ) {
+      END
+  add:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<'END', @{$case->{input}}{qw<hour minute value>}, map {dmp($_)} @{$case}{qw<expected description>});
       is(
-        Clock->new(
-          hour   => $case->{input}{hour},
-          minute => $case->{input}{minute},
-        ),
-
-        # Check that the add/subtract_minutes methods
-        # return a Clock object with the correct time
-        object {
-          call [ $case->{property} . '_minutes',
-            $case->{input}{value} ] => object {
-            prop blessed => 'Clock';
-            call time    => $case->{expected};
-            };
-        },
-        $case->{description}
+          Clock->new( hour => %s, minute => %s )->add_minutes( %s )->time,
+          %s,
+          %s,
       );
-    }
-    elsif ($case->{property} eq 'equal') {
-      my ( $clock1, $clock2 )
-        = ( map { Clock->new(%{$_}) }
-          @{ $case->{input} }{qw<clock1 clock2>} );
-      if ( $case->{expected} ) {
-        is $clock1, $clock2, $case->{description};
-      }
-      else {
-        isnt $clock1, $clock2, $case->{description};
-      }
-    }
-  }
+      END
+  subtract:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<'END', @{$case->{input}}{qw<hour minute value>}, map {dmp($_)} @{$case}{qw<expected description>});
+      is(
+          Clock->new( hour => %s, minute => %s )->subtract_minutes( %s )->time,
+          %s,
+          %s,
+      );
+      END
+  equal:
+    test: |-
+      ($case->{expected} ? 'is' : 'isnt') . sprintf(<<'END', (map {@{$_}{qw<hour minute>}} @{$case->{input}}{qw<clock1 clock2>} ), dmp($case->{description}));
+      (
+          Clock->new( hour => %s, minute => %s ),
+          Clock->new( hour => %s, minute => %s ),
+          %s,
+      );
+      END
 
 moo: true
 
@@ -60,12 +54,12 @@ stub: |-
 
   sub add_minutes {
     my ($self, $amount) = @_;
-    return undef;
+    return $self;
   }
 
   sub subtract_minutes {
     my ($self, $amount) = @_;
-    return undef;
+    return $self;
   }
 
 example: |-

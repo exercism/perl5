@@ -245,6 +245,7 @@ sub _build_property_tests {
         if ( my $eval = $self->data->{properties}{ $case->{property} }{test} )
         {
             push @tests, eval "$eval";
+            warn $@ if $@;
         }
     }
     return [@tests];

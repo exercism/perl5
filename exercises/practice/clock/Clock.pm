@@ -14,12 +14,12 @@ sub time {
 
 sub add_minutes {
     my ( $self, $amount ) = @_;
-    return undef;
+    return $self;
 }
 
 sub subtract_minutes {
     my ( $self, $amount ) = @_;
-    return undef;
+    return $self;
 }
 
 1;
