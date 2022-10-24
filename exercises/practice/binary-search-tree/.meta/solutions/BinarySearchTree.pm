@@ -1,57 +1,58 @@
 package BinarySearchTree;
 
-use strict;
-use warnings;
+use Moo;
 use feature qw<say>;
 
-use Exporter qw<import>;
-our @EXPORT_OK = qw<tree treeSort>;
+package BinarySearchTree::Node {
+    use Moo;
 
-sub tree {
-    my ($data) = @_;
-    my $tree = leaf();
-    insert( $tree, $_ ) for @$data;
-    return $tree;
+    has data             => ( is => 'ro' );
+    has [qw<left right>] => ( is => 'rw' );
+
+    sub set {
+        my ( $self, $data ) = @_;
+        if ( $data > $self->data ) {
+            if ( $self->right ) {
+                $self->right->set($data);
+            }
+            else {
+                $self->right( BinarySearchTree::Node->new( data => $data ) );
+            }
+        }
+        elsif ( $self->left ) {
+            $self->left->set($data);
+        }
+        else {
+            $self->left( BinarySearchTree::Node->new( data => $data ) );
+        }
+    }
+};
+
+has root => ( is => 'rw' );
+
+sub add {
+    my ( $self, $data ) = @_;
+    $self->root->set($data);
 }
 
-sub leaf {
-    return {
-        data  => undef,
-        left  => undef,
-        right => undef,
+sub sort {
+    my ($self) = @_;
+    my @sorted;
+    my $sub;
+    $sub = sub {
+        my ($node) = @_;
+        if ( $node->left ) {
+            $sub->( $node->left );
+        }
+
+        push @sorted, $node->data;
+
+        if ( $node->right ) {
+            $sub->( $node->right );
+        }
     };
-}
-
-sub insert {
-    my ( $tree, $value ) = @_;
-    if ( not defined $tree->{data} ) {
-        $tree->{data} = $value;
-    }
-    elsif ( $value <= $tree->{data} ) {
-        $tree->{left} //= leaf();
-        insert( $tree->{left}, $value );
-    }
-    else {
-        $tree->{right} //= leaf();
-        insert( $tree->{right}, $value );
-    }
-    return;
-}
-
-sub treeSort {
-    my ($data) = @_;
-    my $tree   = tree($data);
-    my @values = ();
-    walk( $tree, sub { push @values, (shift)->{data} } );
-    return \@values;
-}
-
-sub walk {
-    my ( $tree, $sub ) = @_;
-    walk( $tree->{left}, $sub ) if defined $tree->{left};
-    $sub->($tree);
-    walk( $tree->{right}, $sub ) if defined $tree->{right};
-    return;
+    $sub->( $self->root );
+    return [@sorted];
 }
 
 1;

@@ -1,22 +1,26 @@
 package BinarySearchTree;
 
-use strict;
-use warnings;
+use Moo;
 use feature qw<say>;
 
-use Exporter qw<import>;
-our @EXPORT_OK = qw<tree treeSort>;
+package BinarySearchTree::Node {
+    use Moo;
 
-sub tree {
-    my ($data) = @_;
-    return undef;
+    has data             => ( is => 'ro' );
+    has [qw<left right>] => ( is => 'rw' );
+};
+
+has root => ( is => 'rw' );
+
+sub add {
+    my ($self) = @_;
+
+    # $self->root contains the initial node.
 }
 
-# You are expected to create a tree and then do an in-order walk.
-# Using the sort() function is cheating!
-sub treeSort {
-    my ($data) = @_;
-    return undef;
+sub sort {
+    my ($self) = @_;
+    return [];
 }
 
 1;
