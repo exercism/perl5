@@ -1,221 +1,86 @@
 #!/usr/bin/env perl
 use Test2::V0;
-use JSON::PP;
-use constant JSON => JSON::PP->new;
 
 use FindBin qw<$Bin>;
 use lib $Bin, "$Bin/local/lib/perl5";
 
-use BinarySearchTree qw<tree treeSort>;
+use BinarySearchTree ();
 
-my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };
-plan 11;
+can_ok 'BinarySearchTree', qw<add sort> or bail_out;
 
-imported_ok qw<tree treeSort> or bail_out;
+my $bst;
+my $init;
 
-for my $case (@test_cases) {
-    if ( $case->{property} eq 'data' ) {
-        is( tree( $case->{input}{treeData} ),
-            $case->{expected}, $case->{description}, );
+$init = 1;
+for my $data (2) {
+    if ($init) {
+        $bst = BinarySearchTree->new(
+            root => BinarySearchTree::Node->new( data => $data ) );
+        $init = 0;
+        next;
     }
-
-    elsif ( $case->{property} eq 'sortedData' ) {
-        is( treeSort( $case->{input}{treeData} ),
-            $case->{expected}, $case->{description}, );
-    }
+    $bst->add($data);
 }
+is( $bst->sort, [2], "can sort data: can sort single number", );
 
-__DATA__
-[
-  {
-    "description": "data is retained",
-    "expected": {
-      "data": "4",
-      "left": null,
-      "right": null
-    },
-    "input": {
-      "treeData": [
-        "4"
-      ]
-    },
-    "property": "data"
-  },
-  {
-    "description": "insert data at proper node: smaller number at left node",
-    "expected": {
-      "data": "4",
-      "left": {
-        "data": "2",
-        "left": null,
-        "right": null
-      },
-      "right": null
-    },
-    "input": {
-      "treeData": [
-        "4",
-        "2"
-      ]
-    },
-    "property": "data"
-  },
-  {
-    "description": "insert data at proper node: same number at left node",
-    "expected": {
-      "data": "4",
-      "left": {
-        "data": "4",
-        "left": null,
-        "right": null
-      },
-      "right": null
-    },
-    "input": {
-      "treeData": [
-        "4",
-        "4"
-      ]
-    },
-    "property": "data"
-  },
-  {
-    "description": "insert data at proper node: greater number at right node",
-    "expected": {
-      "data": "4",
-      "left": null,
-      "right": {
-        "data": "5",
-        "left": null,
-        "right": null
-      }
-    },
-    "input": {
-      "treeData": [
-        "4",
-        "5"
-      ]
-    },
-    "property": "data"
-  },
-  {
-    "description": "can create complex tree",
-    "expected": {
-      "data": "4",
-      "left": {
-        "data": "2",
-        "left": {
-          "data": "1",
-          "left": null,
-          "right": null
-        },
-        "right": {
-          "data": "3",
-          "left": null,
-          "right": null
-        }
-      },
-      "right": {
-        "data": "6",
-        "left": {
-          "data": "5",
-          "left": null,
-          "right": null
-        },
-        "right": {
-          "data": "7",
-          "left": null,
-          "right": null
-        }
-      }
-    },
-    "input": {
-      "treeData": [
-        "4",
-        "2",
-        "6",
-        "1",
-        "3",
-        "5",
-        "7"
-      ]
-    },
-    "property": "data"
-  },
-  {
-    "description": "can sort data: can sort single number",
-    "expected": [
-      "2"
-    ],
-    "input": {
-      "treeData": [
-        "2"
-      ]
-    },
-    "property": "sortedData"
-  },
-  {
-    "description": "can sort data: can sort if second number is smaller than first",
-    "expected": [
-      "1",
-      "2"
-    ],
-    "input": {
-      "treeData": [
-        "2",
-        "1"
-      ]
-    },
-    "property": "sortedData"
-  },
-  {
-    "description": "can sort data: can sort if second number is same as first",
-    "expected": [
-      "2",
-      "2"
-    ],
-    "input": {
-      "treeData": [
-        "2",
-        "2"
-      ]
-    },
-    "property": "sortedData"
-  },
-  {
-    "description": "can sort data: can sort if second number is greater than first",
-    "expected": [
-      "2",
-      "3"
-    ],
-    "input": {
-      "treeData": [
-        "2",
-        "3"
-      ]
-    },
-    "property": "sortedData"
-  },
-  {
-    "description": "can sort data: can sort complex tree",
-    "expected": [
-      "1",
-      "2",
-      "3",
-      "5",
-      "6",
-      "7"
-    ],
-    "input": {
-      "treeData": [
-        "2",
-        "1",
-        "3",
-        "6",
-        "7",
-        "5"
-      ]
-    },
-    "property": "sortedData"
-  }
-]
+$init = 1;
+for my $data ( 2, 1 ) {
+    if ($init) {
+        $bst = BinarySearchTree->new(
+            root => BinarySearchTree::Node->new( data => $data ) );
+        $init = 0;
+        next;
+    }
+    $bst->add($data);
+}
+is( $bst->sort,
+    [ 1, 2 ],
+    "can sort data: can sort if second number is smaller than first",
+);
+
+$init = 1;
+for my $data ( 2, 2 ) {
+    if ($init) {
+        $bst = BinarySearchTree->new(
+            root => BinarySearchTree::Node->new( data => $data ) );
+        $init = 0;
+        next;
+    }
+    $bst->add($data);
+}
+is( $bst->sort,
+    [ 2, 2 ],
+    "can sort data: can sort if second number is same as first",
+);
+
+$init = 1;
+for my $data ( 2, 3 ) {
+    if ($init) {
+        $bst = BinarySearchTree->new(
+            root => BinarySearchTree::Node->new( data => $data ) );
+        $init = 0;
+        next;
+    }
+    $bst->add($data);
+}
+is( $bst->sort,
+    [ 2, 3 ],
+    "can sort data: can sort if second number is greater than first",
+);
+
+$init = 1;
+for my $data ( 2, 1, 3, 6, 7, 5 ) {
+    if ($init) {
+        $bst = BinarySearchTree->new(
+            root => BinarySearchTree::Node->new( data => $data ) );
+        $init = 0;
+        next;
+    }
+    $bst->add($data);
+}
+is( $bst->sort,
+    [ 1, 2, 3, 5, 6, 7 ],
+    "can sort data: can sort complex tree",
+);
+
+done_testing;
