@@ -1,5 +1,5 @@
 {
-  "language": "Perl 5",
+  "language": "Perl",
   "slug": "perl5",
   "active": true,
   "status": {
@@ -8,7 +8,7 @@
     "representer": false,
     "analyzer": false
   },
-  "blurb": "Perl 5 is a highly capable, feature-rich programming language with over 30 years of development. Perl 5 runs on over 100 platforms from portables to mainframes and is suitable for both rapid prototyping and large scale development projects.",
+  "blurb": "Perl is a highly capable, feature-rich programming language with over 30 years of development. Perl runs on over 100 platforms from portables to mainframes and is suitable for both rapid prototyping and large scale development projects.",
   "version": 3,
   "online_editor": {
     "indent_style": "space",
