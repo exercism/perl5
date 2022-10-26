@@ -1,29 +1,51 @@
-plan: 12
 subs: binary_search
-tests: |-
-  for my $case (@test_cases) {
-    if ( !ref $case->{expected} ) {
-      is binary_search($case->{input}), number($case->{expected}), $case->{description};
-    }
-    else {
-      like dies( sub { binary_search($case->{input}) } ),
-      qr/$case->{expected}{error}/,
-      $case->{description}
-    }
-  }
+properties:
+  find:
+    test: |-
+      use Data::Dmp;
+      if (ref $case->{expected}) {
+          sprintf(<<'END', (map {dmp($_)} @{$case->{input}}{qw<array value>}), $case->{expected}{error}, dmp($case->{description}));
+      like(
+          dies( sub { binary_search( %s, %s ) } ),
+          qr/%s/,
+          %s,
+      );
+      END
+      }
+      else {
+          sprintf(<<'END', map {dmp($_)} @{$case->{input}}{qw<array value>}, @{$case}{qw<expected description>});
+      is(
+          binary_search( %s, %s ),
+          %s,
+          %s,
+      );
+      END
+      }
 
 example: |-
   sub binary_search {
-    my ($input) = @_;
-    #TODO: Not a proper solution
-    for ( 0 .. $#{ $input->{array} } ) {
-      return $_ if ${ $input->{array} }[$_] == $input->{value};
+    my ($array, $value, $low, $high) = @_;
+
+    return binary_search($array, $value, 0, scalar(@{$array}) - 1) unless defined $high;
+
+    die 'value not in array' if $low > $high;
+
+    my $mid = int(($low + $high) / 2);
+    my $found = $array->[$mid];
+
+    if ($value > $found) {
+        return binary_search($array, $value, $mid + 1, $high);
     }
-    die 'value not in array';
+    elsif ($value < $found) {
+        return binary_search($array, $value, $low, $mid - 1);
+    }
+    else {
+        return $mid;
+    }
   }
 
 stub: |-
   sub binary_search {
-    my ($input) = @_;
+    my ($array, $value) = @_;
     return undef;
   }
