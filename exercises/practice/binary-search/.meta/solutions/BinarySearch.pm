@@ -8,13 +8,25 @@ use Exporter qw<import>;
 our @EXPORT_OK = qw<binary_search>;
 
 sub binary_search {
-    my ($input) = @_;
+    my ( $array, $value, $low, $high ) = @_;
 
-    #TODO: Not a proper solution
-    for ( 0 .. $#{ $input->{array} } ) {
-        return $_ if ${ $input->{array} }[$_] == $input->{value};
+    return binary_search( $array, $value, 0, scalar( @{$array} ) - 1 )
+        unless defined $high;
+
+    die 'value not in array' if $low > $high;
+
+    my $mid   = int( ( $low + $high ) / 2 );
+    my $found = $array->[$mid];
+
+    if ( $value > $found ) {
+        return binary_search( $array, $value, $mid + 1, $high );
     }
-    die 'value not in array';
+    elsif ( $value < $found ) {
+        return binary_search( $array, $value, $low, $mid - 1 );
+    }
+    else {
+        return $mid;
+    }
 }
 
 1;
