@@ -1,28 +1,53 @@
 subs: cipher
-tests: |-
-  for my $case (@test_cases) {
-    is(
-      cipher($case->{input}{plaintext}),
-      $case->{expected},
-      $case->{description},
-    );
-  }
+properties:
+  ciphertext:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<'END', map {dmp($_)} $case->{input}{plaintext}, @{$case}{qw<expected description>});
+      is(
+          cipher(%s),
+          %s,
+          %s
+      );
+      END
 
 example: |-
-  use lib 'lib';
-  use Exercism::QuickSolve;
-
   sub cipher {
-    my ($text) = @_;
+      my ($text) = @_;
 
-    quicksolve(
-      input => $text,
-      input_key => 'plaintext',
-    );
+      $text = lc($text);
+      $text =~ s/[^a-z0-9]//g;
+
+      my ($cols, $rows) = (1, 0);
+      until ($cols * $rows >= length($text)) {
+          if ($cols > $rows) {
+              $rows++;
+          }
+          else {
+              $cols++;
+          }
+      }
+
+      $text .= ' ' x ($cols * $rows - length($text));
+
+      my @matrix;
+      for (my $i = 0; $i < $cols * $rows; $i += $cols) {
+          push @matrix, [split //, substr($text, $i, $cols)];
+      }
+
+      my $result = '';
+      for my $j (0..$cols - 1) {
+          $result .= ' ' if $result;
+          for my $k (0..$rows - 1) {
+              $result .= $matrix[$k][$j];
+          }
+      }
+
+      return $result;
   }
 
 stub: |-
   sub cipher {
-    my ($text) = @_;
-    return undef;
+      my ($text) = @_;
+      return undef;
   }
