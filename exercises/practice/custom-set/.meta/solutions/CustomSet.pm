@@ -1,81 +1,77 @@
 package CustomSet;
+
 use strict;
 use warnings;
+use feature qw<say>;
 
-sub new {
-    my ( $class, @members ) = @_;
-    my %set;
-    @set{@members} = ();
-    bless \%set, $class;
+use Exporter qw<import>;
+our @EXPORT_OK
+    = qw<is_empty_set set_contains is_subset is_disjoint_set is_equal_set add_set_element set_intersection set_difference set_union>;
+
+sub is_empty_set {
+    my ($set) = @_;
+    return !@{$set};
 }
 
-sub add {
-    my ( $self, $member ) = @_;
-    $self->{$member} = 1;
-    return $self;
-}
-
-sub remove {
-    my ( $self, $member ) = @_;
-    delete $self->{$member};
-    return $self;
-}
-
-sub is_empty {
-    my ($self) = @_;
-    return !%$self;
-}
-
-sub is_member {
-    my ( $self, $member ) = @_;
-    return exists $self->{$member};
-}
-
-sub size {
-    my ($self) = @_;
-    return scalar keys %$self;
-}
-
-sub to_list {
-    my ($self) = @_;
-    return keys %$self;
-}
-
-sub union {
-    my ( $self, $other ) = @_;
-    return __PACKAGE__->new( keys %$self, keys %$other );
-}
-
-sub intersect {
-    my ( $self, $other ) = @_;
-    return __PACKAGE__->new(
-        grep { $self->is_member($_) }
-            keys %$other
-    );
-}
-
-sub difference {
-    my ( $self, $other ) = @_;
-    return __PACKAGE__->new(
-        grep { !$other->is_member($_) }
-            keys %$self
-    );
-}
-
-sub is_disjoint {
-    my ( $self, $other ) = @_;
-    return $self->intersect($other)->is_empty;
+sub set_contains {
+    my ( $set, $element ) = @_;
+    my %set = ( map { $_ => 1 } @{$set} );
+    return $set{$element} // 0;
 }
 
 sub is_subset {
-    my ( $self, $other ) = @_;
-    return $other->difference($self)->is_empty;
+    my ( $subset, $set ) = @_;
+    my %set    = ( map { $_ => 1 } @{$set} );
+    my %subset = ( map { $_ => 1 } @{$subset} );
+    for my $key ( keys %subset ) {
+        return 0 unless $set{$key};
+    }
+    return 1;
 }
 
-sub is_equal {
-    my ( $self, $other ) = @_;
-    return $self->is_subset($other) && $other->is_subset($self);
+sub is_disjoint_set {
+    my ( $set1, $set2 ) = @_;
+    my %set1 = ( map { $_ => 1 } @{$set1} );
+    my %set2 = ( map { $_ => 1 } @{$set2} );
+    for my $key ( keys %set1 ) {
+        return 0 if $set2{$key};
+    }
+    return 1;
+}
+
+sub is_equal_set {
+    my ( $set1, $set2 ) = @_;
+    return 0 if @{$set1} != @{$set2};
+    my %set1 = ( map { $_ => 1 } @{$set1} );
+    my %set2 = ( map { $_ => 1 } @{$set2} );
+    for my $key ( keys %set1 ) {
+        return 0 unless $set2{$key};
+    }
+    return 1;
+}
+
+sub add_set_element {
+    my ( $set, $element ) = @_;
+    return [ keys %{ { map { $_ => 1 } @{$set}, $element } } ];
+}
+
+sub set_intersection {
+    my ( $set1, $set2 ) = @_;
+    my %set1 = ( map { $_ => 1 } @{$set1} );
+    my %set2 = ( map { $_ => 1 } @{$set2} );
+    return [ grep { $set1{$_} && $set2{$_} } keys %{ { %set1, %set2 } } ];
+}
+
+sub set_difference {
+    my ( $set1, $set2 ) = @_;
+    my %set1 = ( map { $_ => 1 } @{$set1} );
+    my %set2 = ( map { $_ => 1 } @{$set2} );
+    return [ grep { $set1{$_} && !$set2{$_} } keys %{ { %set1, %set2 } } ];
+}
+
+sub set_union {
+    my ( $set1, $set2 ) = @_;
+    return [ keys %{ { map { $_ => 1 } @{$set1}, @{$set2} } } ];
 }
 
 1;
-

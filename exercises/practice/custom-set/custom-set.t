@@ -1,216 +1,203 @@
 #!/usr/bin/env perl
-use strict;
-use warnings;
-use Test2::Bundle::More;
-plan 26;
+use Test2::V0;
 
-use FindBin qw($Bin);
+use FindBin qw<$Bin>;
 use lib $Bin, "$Bin/local/lib/perl5";
-use CustomSet ();
 
-my $module = 'CustomSet';
+use CustomSet
+    qw<is_empty_set set_contains is_subset is_disjoint_set is_equal_set add_set_element set_intersection set_difference set_union>;
 
-for my $method (
-    qw(
-    new add remove is_empty
-    is_member size to_list
-    union intersect difference
-    is_disjoint is_equal is_subset)
-    )
-{
-    can_ok( $module, $method )
-        or BAIL_OUT("You need to implement the method '$method'");
-}
+imported_ok
+    qw<is_empty_set set_contains is_subset is_disjoint_set is_equal_set add_set_element set_intersection set_difference set_union>
+    or bail_out;
 
-sub set { return $module->new(@_) }
+is( is_empty_set( [] ),
+    T,
+    "Returns true if the set contains no elements: sets with no elements are empty",
+);
 
-subtest 'Tested new()' => sub {
-    plan 1;
+is( is_empty_set( [1] ),
+    DF,
+    "Returns true if the set contains no elements: sets with elements are not empty",
+);
 
-    isa_ok( $module->new(), $module );
-};
+is( set_contains( [], 1 ),
+    DF,
+    "Sets can report if they contain an element: nothing is contained in an empty set",
+);
 
-subtest 'Tested add()' => sub {
-    plan 4;
+is( set_contains( [ 1, 2, 3 ], 1 ),
+    T,
+    "Sets can report if they contain an element: when the element is in the set",
+);
 
-    isa_ok( set()->add(1), $module );
-    ok( set()->add(1)->is_equal( set(1) ), "adding to empty set" );
-    ok( set( 1, 2, 4 )->add(3)->is_equal( set( 1 .. 4 ) ),
-        "adding to non-empty set" );
-    ok( set( 1, 2, 3 )->add(3)->is_equal( set( 1 .. 3 ) ),
-        "adding existing member is noop" );
-};
+is( set_contains( [ 1, 2, 3 ], 4 ),
+    DF,
+    "Sets can report if they contain an element: when the element is not in the set",
+);
 
-subtest 'Tested remove()' => sub {
-    plan 3;
+is( is_subset( [], [] ),
+    T,
+    "A set is a subset if all of its elements are contained in the other set: empty set is a subset of another empty set",
+);
 
-    isa_ok( set( 3, 2, 1 )->remove(2), $module );
-    ok( set( 3, 2, 1 )->remove(2)->is_equal( set( 1, 3 ) ),
-        "removing single element" );
-    ok( set( 3, 2, 1 )->remove(4)->is_equal( set( 1 .. 3 ) ),
-        "removing non-existant element" );
-};
+is( is_subset( [], [1] ),
+    T,
+    "A set is a subset if all of its elements are contained in the other set: empty set is a subset of non-empty set",
+);
 
-subtest 'Tested is_empty()' => sub {
-    plan 2;
+is( is_subset( [1], [] ),
+    DF,
+    "A set is a subset if all of its elements are contained in the other set: non-empty set is not a subset of empty set",
+);
 
-    ok( set()->is_empty(),   "sets with no elements are empty" );
-    ok( !set(1)->is_empty(), "sets with elements are not empty" );
-};
+is( is_subset( [ 1, 2, 3 ], [ 1, 2, 3 ] ),
+    T,
+    "A set is a subset if all of its elements are contained in the other set: set is a subset of set with exact same elements",
+);
 
-subtest 'Tested is_member()' => sub {
-    plan 4;
+is( is_subset( [ 1, 2, 3 ], [ 4, 1, 2, 3 ] ),
+    T,
+    "A set is a subset if all of its elements are contained in the other set: set is a subset of larger set with same elements",
+);
 
-    ok( set( 1, 2, 3 )->is_member(2),   "element is member" );
-    ok( set( 1 .. 10 )->is_member(10),  "edge element is also member" );
-    ok( !set( 1 .. 10 )->is_member(11), "element is not member" );
-    ok( !set()->is_member(1), "nothing is member of the empty set" );
-};
+is( is_subset( [ 1, 2, 3 ], [ 4, 1, 3 ] ),
+    DF,
+    "A set is a subset if all of its elements are contained in the other set: set is not a subset of set that does not contain its elements",
+);
 
-subtest 'Tested size()' => sub {
-    plan 3;
+is( is_disjoint_set( [], [] ),
+    T,
+    "Sets are disjoint if they share no elements: the empty set is disjoint with itself",
+);
 
-    is( set()->size(),         0, "size of empty set is 0" );
-    is( set( 1 .. 3 )->size(), 3, "size of set with 3 members is 3!" );
-    is( set( 1, 2, 3, 2 )->size(),
-        3, "size of set with 3 members is still 3!" );
-};
+is( is_disjoint_set( [], [1] ),
+    T,
+    "Sets are disjoint if they share no elements: empty set is disjoint with non-empty set",
+);
 
-subtest 'Tested to_list()' => sub {
-    plan 3;
+is( is_disjoint_set( [1], [] ),
+    T,
+    "Sets are disjoint if they share no elements: non-empty set is disjoint with empty set",
+);
 
-    is_deeply( [ sort +set()->to_list() ],
-        [], "empty set results in empty list" );
-    is_deeply(
-        [ sort +set( 1 .. 3 )->to_list() ],
-        [ 1, 2, 3 ],
-        "set with elements results in list with elements"
-    );
-    is_deeply(
-        [ sort +set( 3, 1, 2, 1 )->to_list() ],
-        [ 1, 2, 3 ],
-        "set with duplicate elements still results in list with uniq elements"
-    );
-};
+is( is_disjoint_set( [ 1, 2 ], [ 2, 3 ] ),
+    DF,
+    "Sets are disjoint if they share no elements: sets are not disjoint if they share an element",
+);
 
-subtest 'Tested union()' => sub {
-    plan 7;
+is( is_disjoint_set( [ 1, 2 ], [ 3, 4 ] ),
+    T,
+    "Sets are disjoint if they share no elements: sets are disjoint if they share no elements",
+);
 
-    isa_ok( set()->union( set() ), $module );
-    ok( set()->union( set() )->is_equal( set() ),
-        "union of empty sets is an empty set"
-    );
-    ok( set(2)->union( set() )->is_equal( set(2) ),
-        "union of non-empty set and empty set is non-empty set" );
-    ok( set()->union( set(2) )->is_equal( set(2) ),
-        "union of empty set and non-empty set is non-empty set" );
-    ok( set( 1, 3 )->union( set( 3, 1 ) )->is_equal( set( 1, 3 ) ),
-        "union with self is self" );
-    ok( set( 1, 3 )->union( set( 2, 4 ) )->is_equal( set( 1 .. 4 ) ),
-        "small union" );
-    ok( set( 1 .. 10, 20 .. 30 )->union( set( 5 .. 25 ) )
-            ->is_equal( set( 1 .. 30 ) ),
-        "large union"
-    );
-};
+is( is_equal_set( [], [] ),
+    T, "Sets with the same elements are equal: empty sets are equal",
+);
 
-subtest 'Tested intersect()' => sub {
-    plan 7;
+is( is_equal_set( [], [ 1, 2, 3 ] ),
+    DF,
+    "Sets with the same elements are equal: empty set is not equal to non-empty set",
+);
 
-    isa_ok( set()->intersect( set() ), $module );
-    ok( set( 1 .. 10 )->intersect( set( 5 .. 10 ) )
-            ->is_equal( set( 5 .. 10 ) ),
-        "intersect with subset returns subset"
-    );
-    ok( set( 3 .. 6 )->intersect( set( 5 .. 8 ) )->is_equal( set( 5, 6 ) ),
-        "intersect non-subset" );
-    ok( set( 1 .. 3 )->intersect( set( 4 .. 6 ) )->is_equal( set() ),
-        "nothing in common" );
-    ok( set( 1, 3, 5, 7, 9 )->intersect( set( 3 .. 7 ) )
-            ->is_equal( set( 3, 5, 7 ) ),
-        "intersect with odd numbers"
-    );
-    ok( set()->intersect( set() )->is_equal( set() ),
-        "an empty set is an empty set" );
-    ok( set( 1 .. 3 )->intersect( set(3) )->is_equal( set(3) ),
-        "Intersect with unary set results in unary set"
-    );
-};
+is( is_equal_set( [ 1, 2, 3 ], [] ),
+    DF,
+    "Sets with the same elements are equal: non-empty set is not equal to empty set",
+);
 
-subtest 'Tested difference()' => sub {
-    plan 6;
+is( is_equal_set( [ 1, 2 ], [ 2, 1 ] ),
+    T,
+    "Sets with the same elements are equal: sets with the same elements are equal",
+);
 
-    isa_ok( set()->difference( set() ), $module );
-    ok( set()->difference( set() )->is_equal( set() ),
-        "difference of two empty sets is an empty set"
-    );
-    ok( set()->difference( set( 1 .. 3 ) )->is_equal( set() ),
-        "difference between empty set and non-empty set"
-    );
-    ok( set( 1 .. 3 )->difference( set() )->is_equal( set( 1 .. 3 ) ),
-        "difference between non-empty set and empty set"
-    );
-    ok( set( 1, 2, 3 )->difference( set( 2, 4 ) )->is_equal( set( 1, 3 ) ),
-        "small differemce" );
-    ok( set( 1 .. 10, 20 .. 30 )->difference( set( 5 .. 25 ) )
-            ->is_equal( set( 1 .. 4, 26 .. 30 ) ),
-        "large difference"
-    );
-};
+is( is_equal_set( [ 1, 2, 3 ], [ 1, 2, 4 ] ),
+    DF,
+    "Sets with the same elements are equal: sets with different elements are not equal",
+);
 
-subtest 'Tested is_disjoint()' => sub {
-    plan 5;
+is( is_equal_set( [ 1, 2, 3 ], [ 1, 2, 3, 4 ] ),
+    DF,
+    "Sets with the same elements are equal: set is not equal to larger set with same elements",
+);
 
-    ok( set( 1, 2 )->is_disjoint( set( 3, 4 ) ),
-        "disjointed sets are disjoint"
-    );
-    ok( !set( 1, 2 )->is_disjoint( set( 2, 3 ) ),
-        "sets sharing elements are not disjoint"
-    );
-    ok( set()->is_disjoint( set() ), "empty sets are disjoint" );
-    ok( set()->is_disjoint( set( 1 .. 3 ) ),
-        "an empty set is disjoint to a non-empty set"
-    );
-    ok( set( 1 .. 3 )->is_disjoint( set() ),
-        "a non-empty set is disjoint to an empty set"
-    );
-};
+is( add_set_element( [], 3 ),
+    bag { item 3; end; },
+    "Unique elements can be added to a set: add to empty set",
+);
 
-subtest 'Tested is_subset()' => sub {
-    plan 8;
+is( add_set_element( [ 1, 2, 4 ], 3 ),
+    bag { item 1; item 2; item 3; item 4; end; },
+    "Unique elements can be added to a set: add to non-empty set",
+);
 
-    ok( set()->is_subset( set() ), "empty set is a subset of the empty set" );
-    ok( !set()->is_subset( set( 1 .. 3 ) ),
-        "non-empty set can not be subset of empty set" );
-    ok( set( 1 .. 3 )->is_subset( set() ),
-        "empty set is a subset of anything"
-    );
-    ok( set( 1, 2, 3 )->is_subset( set( 1, 2, 3 ) ),
-        "a set is a subset of itself" );
-    ok( set( 4, 1, 2, 3 )->is_subset( set( 1, 2, 3 ) ), "a proper subset" );
-    ok( !set( 4, 1, 3 )->is_subset( set( 1, 2, 3 ) ),
-        "same number of elements but not a subset"
-    );
-    ok( !set( 2 .. 4 )->is_subset( set( 1 .. 5 ) ),
-        "superset is not a subset" );
-    ok( !set( 1 .. 10 )->is_subset( set( 1 .. 3, 11 ) ),
-        "smaller number of elements but still not a subset"
-    );
-};
+is( add_set_element( [ 1, 2, 3 ], 3 ),
+    bag { item 1; item 2; item 3; end; },
+    "Unique elements can be added to a set: adding an existing element does not change the set",
+);
 
-subtest 'Tested equal()' => sub {
-    plan 6;
+is( set_intersection( [], [] ),
+    bag { end; },
+    "Intersection returns a set of all shared elements: intersection of two empty sets is an empty set",
+);
 
-    ok( set( 1, 3 )->is_equal( set( 3, 1 ) ), "order doesn't matter" );
-    ok( set()->is_equal( set() ),             "empty sets are equal" );
-    ok( !set( 1 .. 3 )->is_equal( set( 3 .. 5 ) ),
-        "different sets are not equal" );
-    ok( !set()->is_equal( set( 1 .. 3 ) ),
-        "empty set is not equal to non-empty set"
-    );
-    ok( !set( 1 .. 3 )->is_equal( set() ),
-        "non-empty set is not equal to empty set"
-    );
-    ok( !set( 1 .. 4 )->is_equal( set( 3 .. 6 ) ),
-        "partial subsets are not equal" );
-};
+is( set_intersection( [], [ 3, 2, 5 ] ),
+    bag { end; },
+    "Intersection returns a set of all shared elements: intersection of an empty set and non-empty set is an empty set",
+);
+
+is( set_intersection( [ 1, 2, 3, 4 ], [] ),
+    bag { end; },
+    "Intersection returns a set of all shared elements: intersection of a non-empty set and an empty set is an empty set",
+);
+
+is( set_intersection( [ 1, 2, 3 ], [ 4, 5, 6 ] ),
+    bag { end; },
+    "Intersection returns a set of all shared elements: intersection of two sets with no shared elements is an empty set",
+);
+
+is( set_intersection( [ 1, 2, 3, 4 ], [ 3, 2, 5 ] ),
+    bag { item 2; item 3; end; },
+    "Intersection returns a set of all shared elements: intersection of two sets with shared elements is a set of the shared elements",
+);
+
+is( set_difference( [], [] ),
+    bag { end; },
+    "Difference (or Complement) of a set is a set of all elements that are only in the first set: difference of two empty sets is an empty set",
+);
+
+is( set_difference( [], [ 3, 2, 5 ] ),
+    bag { end; },
+    "Difference (or Complement) of a set is a set of all elements that are only in the first set: difference of empty set and non-empty set is an empty set",
+);
+
+is( set_difference( [ 1, 2, 3, 4 ], [] ),
+    bag { item 1; item 2; item 3; item 4; end; },
+    "Difference (or Complement) of a set is a set of all elements that are only in the first set: difference of a non-empty set and an empty set is the non-empty set",
+);
+
+is( set_difference( [ 3, 2, 1 ], [ 2, 4 ] ),
+    bag { item 1; item 3; end; },
+    "Difference (or Complement) of a set is a set of all elements that are only in the first set: difference of two non-empty sets is a set of elements that are only in the first set",
+);
+
+is( set_union( [], [] ),
+    bag { end; },
+    "Union returns a set of all elements in either set: union of empty sets is an empty set",
+);
+
+is( set_union( [], [2] ),
+    bag { item 2; end; },
+    "Union returns a set of all elements in either set: union of an empty set and non-empty set is the non-empty set",
+);
+
+is( set_union( [ 1, 3 ], [] ),
+    bag { item 1; item 3; end; },
+    "Union returns a set of all elements in either set: union of a non-empty set and empty set is the non-empty set",
+);
+
+is( set_union( [ 1, 3 ], [ 2, 3 ] ),
+    bag { item 3; item 2; item 1; end; },
+    "Union returns a set of all elements in either set: union of non-empty sets contains all unique elements",
+);
+
+done_testing;
