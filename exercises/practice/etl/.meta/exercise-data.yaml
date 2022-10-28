@@ -1,14 +1,17 @@
 package: ETL
-plan: 5
 subs: transform
 
-tests: |-
-  for my $case (@test_cases) {
-    &is(
-      transform( $case->{input}{legacy} ),
-      @{$case}{qw<expected description>}
-    );
-  }
+properties:
+  transform:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<'END', map {dmp($_)} $case->{input}{legacy}, @{$case}{qw<expected description>});
+      is(
+          transform(%s),
+          %s,
+          %s,
+      );
+      END
 
 example: |-
   sub transform {
