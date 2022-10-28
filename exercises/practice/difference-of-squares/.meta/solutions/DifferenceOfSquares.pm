@@ -7,37 +7,21 @@ use feature qw<say>;
 use Exporter qw<import>;
 our @EXPORT_OK = qw<square_of_sum sum_of_squares difference_of_squares>;
 
-use lib 'lib';
-use Exercism::QuickSolve;
+use List::Util qw<sum>;
 
 sub square_of_sum {
     my ($number) = @_;
-
-    quicksolve(
-        input     => $number,
-        input_key => 'number',
-        property  => 'squareOfSum',
-    );
+    return sum( 1 .. $number )**2;
 }
 
 sub sum_of_squares {
     my ($number) = @_;
-
-    quicksolve(
-        input     => $number,
-        input_key => 'number',
-        property  => 'sumOfSquares',
-    );
+    return sum( map { $_**2 } 1 .. $number );
 }
 
 sub difference_of_squares {
     my ($number) = @_;
-
-    quicksolve(
-        input     => $number,
-        input_key => 'number',
-        property  => 'differenceOfSquares',
-    );
+    return square_of_sum($number) - sum_of_squares($number);
 }
 
 1;
