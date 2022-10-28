@@ -1,3 +1,4 @@
 --perl-best-practices
 --nostandard-output
 --ignore-side-comment-lengths
+--keep-old-breakpoints-after='('
