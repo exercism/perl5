@@ -1,73 +1,56 @@
 package CustomSet;
+
 use strict;
 use warnings;
+use feature qw<say>;
 
-# Replace `...` with a correct implementation.
-# https://perldoc.pl/perlsyn#The-Ellipsis-Statement
+use Exporter qw<import>;
+our @EXPORT_OK
+    = qw<is_empty_set set_contains is_subset is_disjoint_set is_equal_set add_set_element set_intersection set_difference set_union>;
 
-sub new {
-    my ( $class, @members ) = @_;
-    ...;
+sub is_empty_set {
+    my ($set) = @_;
+    return undef;
 }
 
-sub add {
-    my ( $self, $member ) = @_;
-    ...;
-}
-
-sub remove {
-    my ( $self, $member ) = @_;
-    ...;
-}
-
-sub is_empty {
-    my ($self) = @_;
-    ...;
-}
-
-sub is_member {
-    my ( $self, $member ) = @_;
-    ...;
-}
-
-sub size {
-    my ($self) = @_;
-    ...;
-}
-
-sub to_list {
-    my ($self) = @_;
-    ...;
-}
-
-sub union {
-    my ( $self, $other ) = @_;
-    ...;
-}
-
-sub intersect {
-    my ( $self, $other ) = @_;
-    ...;
-}
-
-sub difference {
-    my ( $self, $other ) = @_;
-    ...;
-}
-
-sub is_disjoint {
-    my ( $self, $other ) = @_;
-    ...;
+sub set_contains {
+    my ( $set, $element ) = @_;
+    return undef;
 }
 
 sub is_subset {
-    my ( $self, $other ) = @_;
-    ...;
+    my ( $subset, $set ) = @_;
+    return undef;
 }
 
-sub is_equal {
-    my ( $self, $other ) = @_;
-    ...;
+sub is_disjoint_set {
+    my ( $set1, $set2 ) = @_;
+    return undef;
+}
+
+sub is_equal_set {
+    my ( $set1, $set2 ) = @_;
+    return undef;
+}
+
+sub add_set_element {
+    my ( $set, $element ) = @_;
+    return undef;
+}
+
+sub set_intersection {
+    my ( $set1, $set2 ) = @_;
+    return undef;
+}
+
+sub set_difference {
+    my ( $set1, $set2 ) = @_;
+    return undef;
+}
+
+sub set_union {
+    my ( $set1, $set2 ) = @_;
+    return undef;
 }
 
 1;
