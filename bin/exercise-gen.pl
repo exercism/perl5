@@ -37,12 +37,12 @@ if (@ARGV) {
 }
 else {
     say 'No args given; working in current directory.';
-    if ( path( '.meta', 'exercise-data.yaml' )->is_file ) {
+    if ( path( '.meta', 'template-data.yaml' )->is_file ) {
         push @exercises, cwd->basename;
     }
     else {
         say
-            '.meta/exercise-data.yaml not found in current directory; exiting.';
+            '.meta/template-data.yaml not found in current directory; exiting.';
         exit 1;
     }
 }
@@ -50,7 +50,7 @@ else {
 my ( @dir_not_found, @data_not_found );
 for my $exercise (@exercises) {
     my $exercise_dir = BASE_DIR->child( 'exercises', 'practice', $exercise );
-    my $yaml         = $exercise_dir->child( '.meta', 'exercise-data.yaml' );
+    my $yaml         = $exercise_dir->child( '.meta', 'template-data.yaml' );
 
     unless ( $exercise_dir->is_dir ) {
         push @dir_not_found, $exercise;
@@ -72,6 +72,6 @@ if (@dir_not_found) {
         . join( q| |, @dir_not_found ) . "\n";
 }
 if (@data_not_found) {
-    warn '.meta/exercise-data.yaml not found for: '
+    warn '.meta/template-data.yaml not found for: '
         . join( q| |, @data_not_found ) . "\n";
 }

@@ -12,7 +12,7 @@ Install the Carton module, run `carton install` to install the dependencies from
 
 ## Adding/Updating an Exercise
 
-Each exercise should have an `exercise-data.yaml` file inside a directory named `.meta` (please add one if the exercise does not have one yet).
+Each exercise should have an `template-data.yaml` file inside a directory named `.meta` (please add one if the exercise does not have one yet).
 This is used by the `exercise-gen.pl` script in the `bin` directory to generate the module and test for an exercise.
 Documentation for the generator can be found in the `bin` directory.
 

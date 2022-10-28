@@ -22,7 +22,7 @@ if (!path(
 for ( sort { $a cmp $b }
     BASE_DIR->child( 'exercises', 'practice' )->children )
 {
-    if ( $_->child( '.meta', 'exercise-data.yaml' )->is_file ) {
+    if ( $_->child( '.meta', 'template-data.yaml' )->is_file ) {
         is( [ split( /\n/, $_->child( $_->basename . '.t' )->slurp_utf8 ) ],
             [   split(
                     /\n/,
