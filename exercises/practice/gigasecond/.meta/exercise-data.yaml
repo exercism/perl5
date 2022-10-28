@@ -1,19 +1,25 @@
-plan: 6
 subs: add_gigasecond
-tests: |
-  for my $case ( @test_cases ) {
-    is add_gigasecond($case->{input}{moment}), $case->{expected}, $case->{description}
-  }
+properties:
+  add:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<'END', map {dmp($_)} $case->{input}{moment}, @{$case}{qw<expected description>});
+      is(
+          add_gigasecond(%s),
+          %s,
+          %s,
+      );
+      END
 
 example: |
   use Time::Piece;
 
   sub add_gigasecond {
-    (Time::Piece->strptime(shift, '%Y-%m-%dT%T') + 10**9)->datetime;
+      (Time::Piece->strptime(shift, '%Y-%m-%dT%T') + 10**9)->datetime;
   }
 
 stub: |
   sub add_gigasecond {
-    my ($time) = @_;
-    return undef;
+      my ($time) = @_;
+      return undef;
   }
