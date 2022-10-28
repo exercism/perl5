@@ -1,56 +1,52 @@
 subs: square_of_sum sum_of_squares difference_of_squares
-tests: |-
-  for my $case (@test_cases) {
-    my $func;
-    if ( $case->{property} eq 'squareOfSum' ) {
-      $func = \&square_of_sum;
-    }
-    elsif ( $case->{property} eq 'sumOfSquares' ) {
-      $func = \&sum_of_squares;
-    }
-    elsif ( $case->{property} eq 'differenceOfSquares' ) {
-      $func = \&difference_of_squares;
-    }
-
-    is(
-      $func->($case->{input}{number}),
-      $case->{expected},
-      $case->{description},
-    );
-  }
+properties:
+  differenceOfSquares:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<'END', $case->{input}{number}, $case->{expected}, dmp($case->{description}));
+      is(
+          difference_of_squares(%s),
+          number(%s),
+          %s,
+      );
+      END
+  sumOfSquares:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<'END', $case->{input}{number}, $case->{expected}, dmp($case->{description}));
+      is(
+          sum_of_squares(%s),
+          number(%s),
+          %s,
+      );
+      END
+  squareOfSum:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<'END', $case->{input}{number}, $case->{expected}, dmp($case->{description}));
+      is(
+          square_of_sum(%s),
+          number(%s),
+          %s,
+      );
+      END
 
 example: |-
-  use lib 'lib';
-  use Exercism::QuickSolve;
+  use List::Util qw<sum>;
 
   sub square_of_sum {
     my ($number) = @_;
-
-    quicksolve(
-      input => $number,
-      input_key => 'number',
-      property => 'squareOfSum',
-    );
+    return sum(1..$number) ** 2;
   }
 
   sub sum_of_squares {
     my ($number) = @_;
-
-    quicksolve(
-      input => $number,
-      input_key => 'number',
-      property => 'sumOfSquares',
-    );
+    return sum(map {$_ ** 2} 1..$number);
   }
 
   sub difference_of_squares {
     my ($number) = @_;
-
-    quicksolve(
-      input     => $number,
-      input_key => 'number',
-      property  => 'differenceOfSquares',
-    );
+    return square_of_sum($number) - sum_of_squares($number);
   }
 
 stub: |-
