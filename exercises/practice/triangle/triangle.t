@@ -24,7 +24,8 @@ for my $case (@test_cases) {
         $func = \&is_scalene;
     }
 
-    is( $func->( $case->{input}{sides} ),
+    is(
+        $func->( $case->{input}{sides} ),
         $case->{expected} ? T : DF,
         $case->{description},
     );

@@ -56,7 +56,8 @@ my $combined = [
     @{ keep( $input, $function )    // [] },
     @{ discard( $input, $function ) // [] }
 ];
-is( [ sort @$combined ],
+is(
+    [ sort @$combined ],
     [ sort @$expected ],
     "combine keep and discard results. keep + discard"
 );

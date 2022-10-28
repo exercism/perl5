@@ -21,7 +21,11 @@ for my $case (@test_cases) {
         $func = \&column;
     }
 
-    is( $func->( $case->{input} ), $case->{expected}, $case->{description}, );
+    is(
+        $func->( $case->{input} ),
+        $case->{expected},
+        $case->{description},
+    );
 }
 
 done_testing;

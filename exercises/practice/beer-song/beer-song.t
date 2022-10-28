@@ -17,7 +17,8 @@ for my $case (@test_cases) {
 
     # Your result should be a string, which is transformed into
     # an array here when matching for a cleaner test output.
-    is( [   split(
+    is(
+        [   split(
                 /\n/,
                 sing(
                     {   bottles => $case->{input}{startBottles},

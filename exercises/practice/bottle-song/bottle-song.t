@@ -8,7 +8,8 @@ use BottleSong qw<sing>;
 
 imported_ok qw<sing> or bail_out;
 
-is( [ split( /\n/, sing( 10, 1 ) // '' ) ],
+is(
+    [ split( /\n/, sing( 10, 1 ) // '' ) ],
     [   "Ten green bottles hanging on the wall,",
         "Ten green bottles hanging on the wall,",
         "And if one green bottle should accidentally fall,",
@@ -17,7 +18,8 @@ is( [ split( /\n/, sing( 10, 1 ) // '' ) ],
     "verse: single verse: first generic verse",
 );
 
-is( [ split( /\n/, sing( 3, 1 ) // '' ) ],
+is(
+    [ split( /\n/, sing( 3, 1 ) // '' ) ],
     [   "Three green bottles hanging on the wall,",
         "Three green bottles hanging on the wall,",
         "And if one green bottle should accidentally fall,",
@@ -26,7 +28,8 @@ is( [ split( /\n/, sing( 3, 1 ) // '' ) ],
     "verse: single verse: last generic verse",
 );
 
-is( [ split( /\n/, sing( 2, 1 ) // '' ) ],
+is(
+    [ split( /\n/, sing( 2, 1 ) // '' ) ],
     [   "Two green bottles hanging on the wall,",
         "Two green bottles hanging on the wall,",
         "And if one green bottle should accidentally fall,",
@@ -35,7 +38,8 @@ is( [ split( /\n/, sing( 2, 1 ) // '' ) ],
     "verse: single verse: verse with 2 bottles",
 );
 
-is( [ split( /\n/, sing( 1, 1 ) // '' ) ],
+is(
+    [ split( /\n/, sing( 1, 1 ) // '' ) ],
     [   "One green bottle hanging on the wall,",
         "One green bottle hanging on the wall,",
         "And if one green bottle should accidentally fall,",
@@ -44,7 +48,8 @@ is( [ split( /\n/, sing( 1, 1 ) // '' ) ],
     "verse: single verse: verse with 1 bottle",
 );
 
-is( [ split( /\n/, sing( 10, 2 ) // '' ) ],
+is(
+    [ split( /\n/, sing( 10, 2 ) // '' ) ],
     [   "Ten green bottles hanging on the wall,",
         "Ten green bottles hanging on the wall,",
         "And if one green bottle should accidentally fall,",
@@ -58,7 +63,8 @@ is( [ split( /\n/, sing( 10, 2 ) // '' ) ],
     "lyrics: multiple verses: first two verses",
 );
 
-is( [ split( /\n/, sing( 3, 3 ) // '' ) ],
+is(
+    [ split( /\n/, sing( 3, 3 ) // '' ) ],
     [   "Three green bottles hanging on the wall,",
         "Three green bottles hanging on the wall,",
         "And if one green bottle should accidentally fall,",
@@ -77,7 +83,8 @@ is( [ split( /\n/, sing( 3, 3 ) // '' ) ],
     "lyrics: multiple verses: last three verses",
 );
 
-is( [ split( /\n/, sing( 10, 10 ) // '' ) ],
+is(
+    [ split( /\n/, sing( 10, 10 ) // '' ) ],
     [   "Ten green bottles hanging on the wall,",
         "Ten green bottles hanging on the wall,",
         "And if one green bottle should accidentally fall,",

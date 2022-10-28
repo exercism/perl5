@@ -9,19 +9,26 @@ use experimental qw<signatures>;
 
 imported_ok qw<accumulate> or bail_out;
 
-is( accumulate( [], sub ($x) { $x * $x } ), [], "accumulate empty", );
+is(
+    accumulate( [], sub ($x) { $x * $x } ),
+    [],
+    "accumulate empty",
+);
 
-is( accumulate( [ 1, 2, 3 ], sub ($x) { $x * $x } ),
+is(
+    accumulate( [ 1, 2, 3 ], sub ($x) { $x * $x } ),
     [ 1, 4, 9 ],
     "accumulate squares",
 );
 
-is( accumulate( [ "Hello", "world" ], sub ($x) { uc $x } ),
+is(
+    accumulate( [ "Hello", "world" ], sub ($x) { uc $x } ),
     [ "HELLO", "WORLD" ],
     "accumulate upcases",
 );
 
-is( accumulate(
+is(
+    accumulate(
         [ "the", "quick", "brown", "fox", "etc" ],
         sub ($x) { scalar reverse $x }
     ),
@@ -29,7 +36,8 @@ is( accumulate(
     "accumulate reversed strings",
 );
 
-is( accumulate(
+is(
+    accumulate(
         [ "a", "b", "c" ],
         sub ($x) {
             accumulate( [ 1 .. 3 ], sub ($y) { $x . $y } );

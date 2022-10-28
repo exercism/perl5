@@ -21,7 +21,11 @@ for my $data (2) {
     }
     $bst->add($data);
 }
-is( $bst->sort, [2], "can sort data: can sort single number", );
+is(
+    $bst->sort,
+    [2],
+    "can sort data: can sort single number",
+);
 
 $init = 1;
 for my $data ( 2, 1 ) {
@@ -33,7 +37,8 @@ for my $data ( 2, 1 ) {
     }
     $bst->add($data);
 }
-is( $bst->sort,
+is(
+    $bst->sort,
     [ 1, 2 ],
     "can sort data: can sort if second number is smaller than first",
 );
@@ -48,7 +53,8 @@ for my $data ( 2, 2 ) {
     }
     $bst->add($data);
 }
-is( $bst->sort,
+is(
+    $bst->sort,
     [ 2, 2 ],
     "can sort data: can sort if second number is same as first",
 );
@@ -63,7 +69,8 @@ for my $data ( 2, 3 ) {
     }
     $bst->add($data);
 }
-is( $bst->sort,
+is(
+    $bst->sort,
     [ 2, 3 ],
     "can sort data: can sort if second number is greater than first",
 );
@@ -78,7 +85,8 @@ for my $data ( 2, 1, 3, 6, 7, 5 ) {
     }
     $bst->add($data);
 }
-is( $bst->sort,
+is(
+    $bst->sort,
     [ 1, 2, 3, 5, 6, 7 ],
     "can sort data: can sort complex tree",
 );

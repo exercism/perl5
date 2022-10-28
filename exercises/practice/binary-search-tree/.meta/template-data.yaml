@@ -29,10 +29,10 @@ example: |-
       use Moo;
 
       has data => (
-        is => 'ro'
+          is => 'ro',
       );
       has [qw<left right>] => (
-        is => 'rw'
+          is => 'rw',
       );
 
       sub set {
@@ -55,7 +55,7 @@ example: |-
   };
 
   has root => (
-      is => 'rw'
+      is => 'rw',
   );
 
   sub add {
@@ -88,15 +88,15 @@ stub: |-
       use Moo;
 
       has data => (
-        is => 'ro'
+        is => 'ro',
       );
       has [qw<left right>] => (
-        is => 'rw'
+        is => 'rw',
       );
   };
 
   has root => (
-      is => 'rw'
+      is => 'rw',
   );
 
   sub add {

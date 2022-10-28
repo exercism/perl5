@@ -13,7 +13,9 @@ use Exercism::QuickSolve;
 sub plants {
     my ($input) = @_;
 
-    quicksolve( input => $input, );
+    quicksolve(
+        input => $input,
+    );
 }
 
 1;
