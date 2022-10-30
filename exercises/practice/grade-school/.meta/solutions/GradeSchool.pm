@@ -1,23 +1,37 @@
 package GradeSchool;
 
-use strict;
-use warnings;
+use Moo;
 use feature qw<say>;
 
-use Exporter qw<import>;
-our @EXPORT_OK = qw<roster>;
+has grades => (
+    is      => 'rwp',
+    default => sub { {} },
+);
+
+sub add {
+    my ( $self, $student, $grade ) = @_;
+    my %grades   = %{ $self->grades // {} };
+    my %students = map {
+        map { $_ => 1 } @{$_}
+    } values %grades;
+
+    if ( $students{$student} ) {
+        return 0;
+    }
+
+    $grades{$grade} = [ sort @{ $grades{$grade} // [] }, $student ];
+    $self->_set_grades( {%grades} );
+
+    return 1;
+}
 
 sub roster {
-    my ( $students, $grade ) = @_;
-    my %roster;
-    map { push @{ $roster{ $_->[1] } }, $_->[0] } @{$students};
-    for ( keys %roster ) {
-        $roster{$_} = [ sort { $a cmp $b } @{ $roster{$_} } ];
+    my ( $self, $grade ) = @_;
+    if ( defined $grade ) {
+        return $self->grades->{$grade} // [];
     }
-    if ($grade) {
-        return $roster{$grade} || [];
-    }
-    return [ map {@$_} @roster{ sort { $a <=> $b } keys %roster } ];
+    return [ map { @{ $self->grades->{$_} } }
+            sort( keys %{ $self->grades } ) ];
 }
 
 1;

@@ -1,26 +1,84 @@
-plan: 8
-subs: roster
-tests: |-
-  for my $case ( @test_cases ) {
-    is roster($case->{input}{students}, $case->{input}{desiredGrade}), $case->{expected}, $case->{description};
+methods: add roster
+tests: |
+  my $grade_school;
+
+properties:
+  add:
+    test: |-
+      use Data::Dmp;
+      my $i;
+      "\$grade_school = GradeSchool->new;\n"
+      . join('', map { sprintf(<<'END', '$grade_school->add(' . dmp($_->[0]) . ',' . $_->[1] . ')', ($case->{expected}[$i++] ? 'T' : 'DF'), dmp($case->{description})) } @{$case->{input}{students}});
+      is(
+          %s,
+          %s,
+          %s,
+      );
+      END
+
+  roster:
+    test: |-
+      use Data::Dmp;
+      '$grade_school = GradeSchool->new;'
+      . sprintf(<<'END', join("\n", map {'$grade_school->add(' . dmp($_->[0]) . ',' . $_->[1] . ');'} @{$case->{input}{students}}), map {dmp($_)} @{$case}{qw<expected description>});
+      %s
+      is(
+          $grade_school->roster,
+          %s,
+          %s,
+      );
+      END
+
+  grade:
+    test: |-
+      use Data::Dmp;
+      '$grade_school = GradeSchool->new;'
+      . sprintf(<<'END', join("\n", map {'$grade_school->add(' . dmp($_->[0]) . ',' . $_->[1] . ');'} @{$case->{input}{students}}), $case->{input}{desiredGrade} ,map {dmp($_)} @{$case}{qw<expected description>});
+      %s
+      is(
+          $grade_school->roster(%s),
+          %s,
+          %s,
+      );
+      END
+
+moo: true
+example: |-
+  has grades => (
+      is => 'rwp',
+      default => sub { {} },
+  );
+
+  sub add {
+      my ($self, $student, $grade) = @_;
+      my %grades = %{$self->grades // {}};
+      my %students = map { map {$_ => 1} @{$_} } values %grades;
+
+      if ($students{$student}) {
+          return 0;
+      }
+
+      $grades{$grade} = [ sort @{ $grades{$grade} // [] }, $student ];
+      $self->_set_grades({%grades});
+
+      return 1;
   }
 
-example: |-
   sub roster {
-    my ($students, $grade) = @_;
-    my %roster;
-    map {push @{$roster{$_->[1]}}, $_->[0]} @{$students};
-    for (keys %roster) {
-      $roster{$_} = [sort {$a cmp $b} @{$roster{$_}}];
-    }
-    if ($grade) {
-      return $roster{$grade} || [];
-    }
-    return [map {@$_} @roster{sort {$a <=> $b} keys %roster}];
+      my ($self, $grade) = @_;
+      if (defined $grade) {
+          return $self->grades->{$grade} // [];
+      }
+      return [ map { @{$self->grades->{$_}} } sort(keys %{$self->grades}) ];
   }
 
 stub: |-
+  sub add {
+      my ($self, $student, $grade) = @_;
+      return undef;
+  }
+
   sub roster {
-    my ($students, $grade) = @_;
-    return undef;
+      my ($self, $grade) = @_;
+      return undef;
   }
