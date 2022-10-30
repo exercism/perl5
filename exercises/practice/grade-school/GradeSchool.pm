@@ -1,14 +1,15 @@
 package GradeSchool;
 
-use strict;
-use warnings;
+use Moo;
 use feature qw<say>;
 
-use Exporter qw<import>;
-our @EXPORT_OK = qw<roster>;
+sub add {
+    my ( $self, $student, $grade ) = @_;
+    return undef;
+}
 
 sub roster {
-    my ( $students, $grade ) = @_;
+    my ( $self, $grade ) = @_;
     return undef;
 }
 
