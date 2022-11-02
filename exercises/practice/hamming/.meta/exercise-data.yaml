@@ -1,18 +1,27 @@
-plan: 10
 subs: hamming_distance
 
-tests: |-
-  for my $case ( @test_cases ) {
-    if ( !ref $case->{expected} ) {
-      is hamming_distance( @{$case->{input}}{qw(strand1 strand2)} ),
-        $case->{expected}, $case->{description};
-    }
-    else {
-      like dies( sub { hamming_distance( @{$case->{input}}{qw(strand1 strand2)} ) } ),
-        qr/left and right strands must be of equal length/,
-        $case->{description};
-    }
-  }
+properties:
+  distance:
+    test: |-
+      use Data::Dmp;
+      if (!ref $case->{expected}) {
+          sprintf(<<'END', (map {dmp($_)} @{$case->{input}}{qw<strand1 strand2>}), $case->{expected}, dmp($case->{description}));
+      is(
+          hamming_distance( %s, %s ),
+          %s,
+          %s,
+      );
+      END
+      }
+      else {
+          sprintf(<<'END', (map {dmp($_)} @{$case->{input}}{qw<strand1 strand2>}), $case->{expected}{error}, dmp($case->{description}));
+      like(
+          dies( sub { hamming_distance( %s, %s ) } ),
+          qr/%s/,
+          %s,
+      );
+      END
+      }
 
 example: |-
   sub hamming_distance {
