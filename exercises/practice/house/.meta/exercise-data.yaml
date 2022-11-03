@@ -1,24 +1,49 @@
 subs: recite
-tests: |-
-  for my $case (@test_cases) {
-    is(
-      recite( $case->{input} ),
-      $case->{expected},
-      $case->{description},
-    );
-  }
+
+properties:
+  recite:
+    test: |-
+      use Data::Dmp;
+      if (@{$case->{expected}} == 1) {
+          sprintf(<<'END', @{$case->{input}}{qw<startVerse endVerse>}, dmp($case->{expected}[0]), dmp($case->{description}));
+      is(
+          recite( %s, %s ),
+          %s,
+          %s,
+      );
+      END
+      }
+      else {
+          sprintf(<<'END', @{$case->{input}}{qw<startVerse endVerse>}, map {dmp($_)} @{$case}{qw<expected description>});
+      is(
+          [ split( /\n/, recite( %s, %s ) // '' ) ],
+          %s,
+          %s,
+      );
+      END
+      }
 
 example: |-
-  use lib 'lib';
-  use Exercism::QuickSolve;
-
   sub recite {
-    my ($input) = @_;
-    quicksolve( input => $input );
+      my ($start, $end) = @_;
+      return join "\n", @{[
+        "This is the house that Jack built.",
+        "This is the malt that lay in the house that Jack built.",
+        "This is the rat that ate the malt that lay in the house that Jack built.",
+        "This is the cat that killed the rat that ate the malt that lay in the house that Jack built.",
+        "This is the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built.",
+        "This is the cow with the crumpled horn that tossed the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built.",
+        "This is the maiden all forlorn that milked the cow with the crumpled horn that tossed the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built.",
+        "This is the man all tattered and torn that kissed the maiden all forlorn that milked the cow with the crumpled horn that tossed the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built.",
+        "This is the priest all shaven and shorn that married the man all tattered and torn that kissed the maiden all forlorn that milked the cow with the crumpled horn that tossed the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built.",
+        "This is the rooster that crowed in the morn that woke the priest all shaven and shorn that married the man all tattered and torn that kissed the maiden all forlorn that milked the cow with the crumpled horn that tossed the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built.",
+        "This is the farmer sowing his corn that kept the rooster that crowed in the morn that woke the priest all shaven and shorn that married the man all tattered and torn that kissed the maiden all forlorn that milked the cow with the crumpled horn that tossed the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built.",
+        "This is the horse and the hound and the horn that belonged to the farmer sowing his corn that kept the rooster that crowed in the morn that woke the priest all shaven and shorn that married the man all tattered and torn that kissed the maiden all forlorn that milked the cow with the crumpled horn that tossed the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built."
+      ]}[ $start - 1 .. $end - 1 ];
   }
 
 stub: |-
   sub recite {
-    my ($input) = @_;
-    return undef;
+      my ($start, $end) = @_;
+      return undef;
   }
