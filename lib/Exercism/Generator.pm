@@ -144,7 +144,7 @@ sub _build_data {
     my ($self) = @_;
     my $yaml
         = BASE_DIR->child( 'exercises', 'practice', $self->exercise,
-        '.meta', 'exercise-data.yaml' );
+        '.meta', 'template-data.yaml' );
     return $yaml->is_file ? LoadFile($yaml) : {};
 }
 

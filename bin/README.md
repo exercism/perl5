@@ -8,7 +8,7 @@ The `exercise-gen.pl` file can be used in the following ways:
   i.e `./exercise-gen.pl --all`
 
 You will need to sync the exercise data using Exercism's configlet script.
-The generator will retrieve data from `.meta/exercise-data.yaml` within each exercise directory, and use the contained information to generate test files using `templates/test.mustache`, and `.pm` files using `templates/module.mustache`.
+The generator will retrieve data from `.meta/template-data.yaml` within each exercise directory, and use the contained information to generate test files using `templates/test.mustache`, and `.pm` files using `templates/module.mustache`.
 If it finds a `canonical-data.json` file for the exercise in question (via `bin/configlet sync`), the data can be used to generate tests for each `property` found in this data.
 
 Example of a yaml file:
