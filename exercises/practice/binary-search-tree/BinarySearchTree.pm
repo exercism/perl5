@@ -6,11 +6,17 @@ use feature qw<say>;
 package BinarySearchTree::Node {
     use Moo;
 
-    has data             => ( is => 'ro' );
-    has [qw<left right>] => ( is => 'rw' );
+    has data => (
+        is => 'ro',
+    );
+    has [qw<left right>] => (
+        is => 'rw',
+    );
 };
 
-has root => ( is => 'rw' );
+has root => (
+    is => 'rw',
+);
 
 sub add {
     my ($self) = @_;

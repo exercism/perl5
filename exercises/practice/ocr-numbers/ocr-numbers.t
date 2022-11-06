@@ -14,8 +14,11 @@ imported_ok qw<convert> or bail_out;
 
 for my $case (@test_cases) {
     if ( !ref $case->{expected} ) {
-        is( convert( $case->{input}{rows} ),
-            $case->{expected}, $case->{description}, );
+        is(
+            convert( $case->{input}{rows} ),
+            $case->{expected},
+            $case->{description},
+        );
     }
     else {
         like dies( sub { convert( $case->{input}{rows} ) } ),

@@ -14,8 +14,11 @@ imported_ok qw<say_number> or bail_out;
 
 for my $case (@test_cases) {
     if ( !ref $case->{expected} ) {
-        is( say_number( $case->{input}{number} ),
-            $case->{expected}, $case->{description}, );
+        is(
+            say_number( $case->{input}{number} ),
+            $case->{expected},
+            $case->{description},
+        );
     }
     else {
         like dies( sub { say_number( $case->{input}{number} ) } ),

@@ -8,20 +8,26 @@ use NucleotideCount qw<count_nucleotides>;
 
 imported_ok qw<count_nucleotides> or bail_out;
 
-is( count_nucleotides(""), { A => 0, C => 0, G => 0, T => 0 },
-    "empty strand", );
+is(
+    count_nucleotides(""),
+    { A => 0, C => 0, G => 0, T => 0 },
+    "empty strand",
+);
 
-is( count_nucleotides("G"),
+is(
+    count_nucleotides("G"),
     { A => 0, C => 0, G => 1, T => 0 },
     "can count one nucleotide in single-character input",
 );
 
-is( count_nucleotides("GGGGGGG"),
+is(
+    count_nucleotides("GGGGGGG"),
     { A => 0, C => 0, G => 7, T => 0 },
     "strand with repeated nucleotide",
 );
 
-is( count_nucleotides(
+is(
+    count_nucleotides(
         "AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC"
     ),
     { A => 20, C => 12, G => 17, T => 21 },

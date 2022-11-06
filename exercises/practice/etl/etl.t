@@ -8,19 +8,26 @@ use ETL qw<transform>;
 
 imported_ok qw<transform> or bail_out;
 
-is( transform( { 1 => ["A"] } ), { a => 1 }, "single letter", );
+is(
+    transform( { 1 => ["A"] } ),
+    { a => 1 },
+    "single letter",
+);
 
-is( transform( { 1 => [ "A", "E", "I", "O", "U" ] } ),
+is(
+    transform( { 1 => [ "A", "E", "I", "O", "U" ] } ),
     { a => 1, e => 1, i => 1, o => 1, u => 1 },
     "single score with multiple letters",
 );
 
-is( transform( { 1 => [ "A", "E" ], 2 => [ "D", "G" ] } ),
+is(
+    transform( { 1 => [ "A", "E" ], 2 => [ "D", "G" ] } ),
     { a => 1, d => 2, e => 1, g => 2 },
     "multiple scores with multiple letters",
 );
 
-is( transform(
+is(
+    transform(
         {   1  => [ "A", "E", "I", "O", "U", "L", "N", "R", "S", "T" ],
             10 => [ "Q", "Z" ],
             2  => [ "D", "G" ],

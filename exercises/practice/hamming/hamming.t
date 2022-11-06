@@ -8,18 +8,34 @@ use Hamming qw<hamming_distance>;
 
 imported_ok qw<hamming_distance> or bail_out;
 
-is( hamming_distance( "", "" ), 0, "empty strands", );
-
-is( hamming_distance( "A", "A" ), 0, "single letter identical strands", );
-
-is( hamming_distance( "G", "T" ), 1, "single letter different strands", );
-
-is( hamming_distance( "GGACTGAAATCTG", "GGACTGAAATCTG" ),
-    0, "long identical strands",
+is(
+    hamming_distance( "", "" ),
+    0,
+    "empty strands",
 );
 
-is( hamming_distance( "GGACGGATTCTG", "AGGACGGATTCT" ),
-    9, "long different strands",
+is(
+    hamming_distance( "A", "A" ),
+    0,
+    "single letter identical strands",
+);
+
+is(
+    hamming_distance( "G", "T" ),
+    1,
+    "single letter different strands",
+);
+
+is(
+    hamming_distance( "GGACTGAAATCTG", "GGACTGAAATCTG" ),
+    0,
+    "long identical strands",
+);
+
+is(
+    hamming_distance( "GGACGGATTCTG", "AGGACGGATTCT" ),
+    9,
+    "long different strands",
 );
 
 like(

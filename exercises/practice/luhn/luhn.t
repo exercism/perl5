@@ -14,7 +14,8 @@ plan 19;
 imported_ok qw<is_luhn_valid> or bail_out;
 
 for my $case (@test_cases) {
-    is( is_luhn_valid( $case->{input}{value} ),
+    is(
+        is_luhn_valid( $case->{input}{value} ),
         $case->{expected}
         ? T
         : DF,

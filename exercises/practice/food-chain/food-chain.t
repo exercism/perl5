@@ -8,14 +8,16 @@ use FoodChain qw<recite>;
 
 imported_ok qw<recite> or bail_out;
 
-is( [ split( /\n/, recite( 1, 1 ) // '' ) ],
+is(
+    [ split( /\n/, recite( 1, 1 ) // '' ) ],
     [   "I know an old lady who swallowed a fly.",
         "I don't know why she swallowed the fly. Perhaps she'll die."
     ],
     "fly",
 );
 
-is( [ split( /\n/, recite( 2, 2 ) // '' ) ],
+is(
+    [ split( /\n/, recite( 2, 2 ) // '' ) ],
     [   "I know an old lady who swallowed a spider.",
         "It wriggled and jiggled and tickled inside her.",
         "She swallowed the spider to catch the fly.",
@@ -24,7 +26,8 @@ is( [ split( /\n/, recite( 2, 2 ) // '' ) ],
     "spider",
 );
 
-is( [ split( /\n/, recite( 3, 3 ) // '' ) ],
+is(
+    [ split( /\n/, recite( 3, 3 ) // '' ) ],
     [   "I know an old lady who swallowed a bird.",
         "How absurd to swallow a bird!",
         "She swallowed the bird to catch the spider that wriggled and jiggled and tickled inside her.",
@@ -34,7 +37,8 @@ is( [ split( /\n/, recite( 3, 3 ) // '' ) ],
     "bird",
 );
 
-is( [ split( /\n/, recite( 4, 4 ) // '' ) ],
+is(
+    [ split( /\n/, recite( 4, 4 ) // '' ) ],
     [   "I know an old lady who swallowed a cat.",
         "Imagine that, to swallow a cat!",
         "She swallowed the cat to catch the bird.",
@@ -45,7 +49,8 @@ is( [ split( /\n/, recite( 4, 4 ) // '' ) ],
     "cat",
 );
 
-is( [ split( /\n/, recite( 5, 5 ) // '' ) ],
+is(
+    [ split( /\n/, recite( 5, 5 ) // '' ) ],
     [   "I know an old lady who swallowed a dog.",
         "What a hog, to swallow a dog!",
         "She swallowed the dog to catch the cat.",
@@ -57,7 +62,8 @@ is( [ split( /\n/, recite( 5, 5 ) // '' ) ],
     "dog",
 );
 
-is( [ split( /\n/, recite( 6, 6 ) // '' ) ],
+is(
+    [ split( /\n/, recite( 6, 6 ) // '' ) ],
     [   "I know an old lady who swallowed a goat.",
         "Just opened her throat and swallowed a goat!",
         "She swallowed the goat to catch the dog.",
@@ -70,7 +76,8 @@ is( [ split( /\n/, recite( 6, 6 ) // '' ) ],
     "goat",
 );
 
-is( [ split( /\n/, recite( 7, 7 ) // '' ) ],
+is(
+    [ split( /\n/, recite( 7, 7 ) // '' ) ],
     [   "I know an old lady who swallowed a cow.",
         "I don't know how she swallowed a cow!",
         "She swallowed the cow to catch the goat.",
@@ -84,12 +91,14 @@ is( [ split( /\n/, recite( 7, 7 ) // '' ) ],
     "cow",
 );
 
-is( [ split( /\n/, recite( 8, 8 ) // '' ) ],
+is(
+    [ split( /\n/, recite( 8, 8 ) // '' ) ],
     [ "I know an old lady who swallowed a horse.", "She's dead, of course!" ],
     "horse",
 );
 
-is( [ split( /\n/, recite( 1, 3 ) // '' ) ],
+is(
+    [ split( /\n/, recite( 1, 3 ) // '' ) ],
     [   "I know an old lady who swallowed a fly.",
         "I don't know why she swallowed the fly. Perhaps she'll die.",
         "",
@@ -107,7 +116,8 @@ is( [ split( /\n/, recite( 1, 3 ) // '' ) ],
     "multiple verses",
 );
 
-is( [ split( /\n/, recite( 1, 8 ) // '' ) ],
+is(
+    [ split( /\n/, recite( 1, 8 ) // '' ) ],
     [   "I know an old lady who swallowed a fly.",
         "I don't know why she swallowed the fly. Perhaps she'll die.",
         "",

@@ -14,8 +14,11 @@ imported_ok qw<largest_product> or bail_out;
 
 for my $case (@test_cases) {
     if ( !ref $case->{expected} ) {
-        is( largest_product( $case->{input} ),
-            $case->{expected}, $case->{description}, );
+        is(
+            largest_product( $case->{input} ),
+            $case->{expected},
+            $case->{description},
+        );
     }
     else {
         like dies( sub { largest_product( $case->{input} ) } ),
