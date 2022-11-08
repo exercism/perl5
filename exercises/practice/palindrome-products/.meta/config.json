@@ -10,15 +10,15 @@
   ],
   "files": {
     "solution": [
-      "Palindrome.pm"
+      "PalindromeProducts.pm"
     ],
     "test": [
-      "palindrome.t"
+      "palindrome-products.t"
     ],
     "example": [
-      ".meta/solutions/Palindrome.pm"
+      ".meta/solutions/PalindromeProducts.pm"
     ]
   },
   "source": "Problem 4 at Project Euler",
-  "source_url": "http://projecteuler.net/problem=4"
+  "source_url": "https://projecteuler.net/problem=4"
 }
