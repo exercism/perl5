@@ -1,0 +1,112 @@
+subs: smallest_palindrome largest_palindrome
+properties:
+  smallest:
+    test: |-
+      use Data::Dmp;
+      if (!$case->{expected}{error}) {
+          sprintf(<<'END', @{$case->{input}}{qw<min max>}, map {dmp($_)} @{$case}{qw<expected description>});
+      is(
+          smallest_palindrome( %s, %s ),
+          %s,
+          %s,
+      );
+      END
+      }
+      else {
+          sprintf(<<'END', @{$case->{input}}{qw<min max>}, $case->{expected}{error}, dmp($case->{description}));
+      like(
+          dies( sub { smallest_palindrome( %s, %s ) } ),
+          qr/%s/,
+          %s,
+      );
+      END
+      }
+  largest:
+    test: |-
+      use Data::Dmp;
+      if (!$case->{expected}{error}) {
+          sprintf(<<'END', @{$case->{input}}{qw<min max>}, map {dmp($_)} @{$case}{qw<expected description>});
+      is(
+          largest_palindrome( %s, %s ),
+          %s,
+          %s,
+      );
+      END
+      }
+      else {
+          sprintf(<<'END', @{$case->{input}}{qw<min max>}, $case->{expected}{error}, dmp($case->{description}));
+      like(
+          dies( sub { largest_palindrome( %s, %s ) } ),
+          qr/%s/,
+          %s,
+      );
+      END
+      }
+
+example: |-
+  sub smallest_palindrome {
+      my ( $min, $max ) = @_;
+      die 'min must be <= max' if $min > $max;
+
+      my %result = (
+          factors => [],
+          value => undef,
+      );
+
+      for my $i ( $min..$max ) {
+          last if $result{value} && $result{value} < $i * $i;
+          for my $j ( $i..$max ) {
+              my $prod = $i * $j;
+              if ($prod eq reverse $prod) {
+                  if (!defined $result{value} || $prod < $result{value}) {
+                      $result{value} = $prod;
+                      $result{factors} = [];
+                  }
+                  if ($result{value} == $prod) {
+                      push @{ $result{factors} }, [$i, $j];
+                  }
+              }
+          }
+      }
+
+      return \%result;
+  }
+
+  sub largest_palindrome {
+      my ( $min, $max ) = @_;
+      die 'min must be <= max' if $min > $max;
+
+      my %result = (
+          factors => [],
+          value => undef,
+      );
+
+      for my $i ( reverse $min..$max ) {
+          last if $result{value} && $result{value} > $i * $i;
+          for my $j ( reverse $min..$i ) {
+              my $prod = $i * $j;
+              if ($prod eq reverse $prod) {
+                  if ($prod > ($result{value} // 0)) {
+                      $result{value} = $prod;
+                      $result{factors} = [];
+                  }
+                  if ($result{value} == $prod) {
+                      push @{ $result{factors} }, [$j, $i];
+                  }
+              }
+          }
+      }
+
+      return \%result;
+  }
+
+stub: |-
+  sub smallest_palindrome {
+      my ( $min, $max ) = @_;
+      return undef;
+  }
+
+  sub largest_palindrome {
+      my ( $min, $max ) = @_;
+      return undef;
+  }
