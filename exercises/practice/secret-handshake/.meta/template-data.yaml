@@ -1,28 +1,31 @@
 subs: handshake
-tests: |-
-  for my $case (@test_cases) {
-    is(
-      handshake( $case->{input}{number} ),
-      $case->{expected},
-      $case->{description},
-    );
-  }
+
+properties:
+  commands:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<'END', $case->{input}{number}, map {dmp($_)} @{$case}{qw<expected description>});
+      is(
+          handshake( %s ),
+          %s,
+          %s,
+      );
+      END
 
 example: |-
-  use lib 'lib';
-  use Exercism::QuickSolve;
-
   sub handshake {
-    my ($number) = @_;
-
-    quicksolve(
-      input     => $number,
-      input_key => 'number',
-    );
+      my ($number) = @_;
+      my @result;
+      push @result, 'wink'            if 0b00001 & $number;
+      push @result, 'double blink'    if 0b00010 & $number;
+      push @result, 'close your eyes' if 0b00100 & $number;
+      push @result, 'jump'            if 0b01000 & $number;
+      @result = reverse @result       if 0b10000 & $number;
+      return \@result;
   }
 
 stub: |-
   sub handshake {
-    my ($number) = @_;
-    return undef;
+      my ($number) = @_;
+      return undef;
   }
