@@ -1,45 +1,48 @@
-plan: 19
 subs: is_luhn_valid
-tests: |-
-  for my $case ( @test_cases ) {
-    is(
-      is_luhn_valid($case->{input}{value}),
-      $case->{expected}
-        ? T
-        : DF,
-      $case->{description}
-    );
-  }
+
+properties:
+  valid:
+    test: |-
+      use Data::Dmp;
+      $Data::Dmp::OPT_STRINGIFY_NUMBERS = 1;
+      sprintf(<<'END', dmp($case->{input}{value}), $case->{expected} ? ('T', '# True') : ('DF', '# Defined but False'), dmp($case->{description}));
+      is(
+          is_luhn_valid(%s),
+          %s, %s
+          %s,
+      );
+      END
+
 
 example: |-
   sub is_luhn_valid {
-    my ($input) = @_;
-    $input =~ s/\s+//g;
-    if (length $input < 2 || $input =~ /\D+/) {return 0}
+      my ($number) = @_;
+      $number =~ s/\s+//g;
+      if (length $number < 2 || $number =~ /\D+/) {return 0}
 
-    my @num = split(//, $input);
-    unshift @num, 0 if scalar @num % 2;
+      my @num = split(//, $number);
+      unshift @num, 0 if scalar @num % 2;
 
-    my $count = 1;
-    my $sum = 0;
+      my $count = 1;
+      my $sum = 0;
 
-    foreach (@num) {
-      if ($count % 2) {
-        $sum += $_ * 2;
-        $sum -= 9 if $_ * 2 > 9;
+      for (@num) {
+          if ($count % 2) {
+              $sum += $_ * 2;
+              $sum -= 9 if $_ * 2 > 9;
+          }
+          else {
+              $sum += $_;
+          }
+          $count += 1;
       }
-      else {
-        $sum += $_;
-      }
-      $count += 1;
-    }
 
-    if ($sum % 10) {return 0};
-    return 1;
+      if ($sum % 10) {return 0};
+      return 1;
   }
 
 stub: |-
   sub is_luhn_valid {
-    my ($input) = @_;
-    return undef;
+      my ($number) = @_;
+      return undef;
   }

@@ -1,172 +1,143 @@
 #!/usr/bin/env perl
 use Test2::V0;
-use JSON::PP;
-use constant JSON => JSON::PP->new;
 
 use FindBin qw<$Bin>;
 use lib $Bin, "$Bin/local/lib/perl5";
 
 use Luhn qw<is_luhn_valid>;
 
-my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };
-plan 19;
-
 imported_ok qw<is_luhn_valid> or bail_out;
 
-for my $case (@test_cases) {
-    is(
-        is_luhn_valid( $case->{input}{value} ),
-        $case->{expected}
-        ? T
-        : DF,
-        $case->{description}
-    );
-}
+is(
+    is_luhn_valid("1"),
+    DF,    # Defined but False
+    "single digit strings can not be valid",
+);
 
-__DATA__
-[
-  {
-    "description": "single digit strings can not be valid",
-    "expected": false,
-    "input": {
-      "value": "1"
-    },
-    "property": "valid"
-  },
-  {
-    "description": "a single zero is invalid",
-    "expected": false,
-    "input": {
-      "value": "0"
-    },
-    "property": "valid"
-  },
-  {
-    "description": "a simple valid SIN that remains valid if reversed",
-    "expected": true,
-    "input": {
-      "value": "059"
-    },
-    "property": "valid"
-  },
-  {
-    "description": "a simple valid SIN that becomes invalid if reversed",
-    "expected": true,
-    "input": {
-      "value": "59"
-    },
-    "property": "valid"
-  },
-  {
-    "description": "a valid Canadian SIN",
-    "expected": true,
-    "input": {
-      "value": "055 444 285"
-    },
-    "property": "valid"
-  },
-  {
-    "description": "invalid Canadian SIN",
-    "expected": false,
-    "input": {
-      "value": "055 444 286"
-    },
-    "property": "valid"
-  },
-  {
-    "description": "invalid credit card",
-    "expected": false,
-    "input": {
-      "value": "8273 1232 7352 0569"
-    },
-    "property": "valid"
-  },
-  {
-    "description": "invalid long number with an even remainder",
-    "expected": false,
-    "input": {
-      "value": "1 2345 6789 1234 5678 9012"
-    },
-    "property": "valid"
-  },
-  {
-    "description": "valid number with an even number of digits",
-    "expected": true,
-    "input": {
-      "value": "095 245 88"
-    },
-    "property": "valid"
-  },
-  {
-    "description": "valid number with an odd number of spaces",
-    "expected": true,
-    "input": {
-      "value": "234 567 891 234"
-    },
-    "property": "valid"
-  },
-  {
-    "description": "valid strings with a non-digit added at the end become invalid",
-    "expected": false,
-    "input": {
-      "value": "059a"
-    },
-    "property": "valid"
-  },
-  {
-    "description": "valid strings with punctuation included become invalid",
-    "expected": false,
-    "input": {
-      "value": "055-444-285"
-    },
-    "property": "valid"
-  },
-  {
-    "description": "valid strings with symbols included become invalid",
-    "expected": false,
-    "input": {
-      "value": "055# 444$ 285"
-    },
-    "property": "valid"
-  },
-  {
-    "description": "single zero with space is invalid",
-    "expected": false,
-    "input": {
-      "value": " 0"
-    },
-    "property": "valid"
-  },
-  {
-    "description": "more than a single zero is valid",
-    "expected": true,
-    "input": {
-      "value": "0000 0"
-    },
-    "property": "valid"
-  },
-  {
-    "description": "input digit 9 is correctly converted to output digit 9",
-    "expected": true,
-    "input": {
-      "value": "091"
-    },
-    "property": "valid"
-  },
-  {
-    "description": "using ascii value for non-doubled non-digit isn't allowed",
-    "expected": false,
-    "input": {
-      "value": "055b 444 285"
-    },
-    "property": "valid"
-  },
-  {
-    "description": "using ascii value for doubled non-digit isn't allowed",
-    "expected": false,
-    "input": {
-      "value": ":9"
-    },
-    "property": "valid"
-  }
-]
+is(
+    is_luhn_valid("0"),
+    DF,    # Defined but False
+    "a single zero is invalid",
+);
+
+is(
+    is_luhn_valid("059"),
+    T,     # True
+    "a simple valid SIN that remains valid if reversed",
+);
+
+is(
+    is_luhn_valid("59"),
+    T,     # True
+    "a simple valid SIN that becomes invalid if reversed",
+);
+
+is(
+    is_luhn_valid("055 444 285"),
+    T,     # True
+    "a valid Canadian SIN",
+);
+
+is(
+    is_luhn_valid("055 444 286"),
+    DF,    # Defined but False
+    "invalid Canadian SIN",
+);
+
+is(
+    is_luhn_valid("8273 1232 7352 0569"),
+    DF,    # Defined but False
+    "invalid credit card",
+);
+
+is(
+    is_luhn_valid("1 2345 6789 1234 5678 9012"),
+    DF,    # Defined but False
+    "invalid long number with an even remainder",
+);
+
+is(
+    is_luhn_valid("1 2345 6789 1234 5678 9013"),
+    DF,    # Defined but False
+    "invalid long number with a remainder divisible by 5",
+);
+
+is(
+    is_luhn_valid("095 245 88"),
+    T,     # True
+    "valid number with an even number of digits",
+);
+
+is(
+    is_luhn_valid("234 567 891 234"),
+    T,     # True
+    "valid number with an odd number of spaces",
+);
+
+is(
+    is_luhn_valid("059a"),
+    DF,    # Defined but False
+    "valid strings with a non-digit added at the end become invalid",
+);
+
+is(
+    is_luhn_valid("055-444-285"),
+    DF,    # Defined but False
+    "valid strings with punctuation included become invalid",
+);
+
+is(
+    is_luhn_valid("055# 444\$ 285"),
+    DF,    # Defined but False
+    "valid strings with symbols included become invalid",
+);
+
+is(
+    is_luhn_valid(" 0"),
+    DF,    # Defined but False
+    "single zero with space is invalid",
+);
+
+is(
+    is_luhn_valid("0000 0"),
+    T,     # True
+    "more than a single zero is valid",
+);
+
+is(
+    is_luhn_valid("091"),
+    T,     # True
+    "input digit 9 is correctly converted to output digit 9",
+);
+
+is(
+    is_luhn_valid("9999999999 9999999999 9999999999 9999999999"),
+    T,     # True
+    "very long input is valid",
+);
+
+is(
+    is_luhn_valid("109"),
+    T,     # True
+    "valid luhn with an odd number of digits and non zero first digit",
+);
+
+is(
+    is_luhn_valid("055b 444 285"),
+    DF,    # Defined but False
+    "using ascii value for non-doubled non-digit isn't allowed",
+);
+
+is(
+    is_luhn_valid(":9"),
+    DF,    # Defined but False
+    "using ascii value for doubled non-digit isn't allowed",
+);
+
+is(
+    is_luhn_valid("59%59"),
+    DF,    # Defined but False
+    "non-numeric, non-space char in the middle with a sum that's divisible by 10 isn't allowed",
+);
+
+done_testing;
