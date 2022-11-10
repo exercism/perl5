@@ -8,16 +8,9 @@ use experimental qw<signatures postderef postderef_qq>;
 use Exporter qw<import>;
 our @EXPORT_OK = qw<annotate>;
 
-use lib 'lib';
-use Exercism::QuickSolve;
-
 sub annotate {
     my ($minefield) = @_;
-
-    quicksolve(
-        input     => $minefield,
-        input_key => 'minefield',
-    );
+    return undef;
 }
 
 1;

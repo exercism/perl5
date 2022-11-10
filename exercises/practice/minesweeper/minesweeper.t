@@ -1,217 +1,83 @@
 #!/usr/bin/env perl
 use Test2::V0;
-use JSON::PP;
-use constant JSON => JSON::PP->new;
 
 use FindBin qw<$Bin>;
 use lib $Bin, "$Bin/local/lib/perl5";
 
 use Minesweeper qw<annotate>;
 
-my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };
-
 imported_ok qw<annotate> or bail_out;
 
-for my $case (@test_cases) {
-    is(
-        annotate( $case->{input}{minefield} ),
-        $case->{expected},
-        $case->{description},
-    );
-}
+is(
+    annotate(""),
+    "",
+    "no rows",
+);
+
+is(
+    annotate(""),
+    "",
+    "no columns",
+);
+
+is(
+    annotate("   \n   \n   "),
+    "   \n   \n   ",
+    "no mines",
+);
+
+is(
+    annotate("***\n***\n***"),
+    "***\n***\n***",
+    "minefield with only mines",
+);
+
+is(
+    annotate("   \n * \n   "),
+    "111\n1*1\n111",
+    "mine surrounded by spaces",
+);
+
+is(
+    annotate("***\n* *\n***"),
+    "***\n*8*\n***",
+    "space surrounded by mines",
+);
+
+is(
+    annotate(" * * "),
+    "1*2*1",
+    "horizontal line",
+);
+
+is(
+    annotate("*   *"),
+    "*1 1*",
+    "horizontal line, mines at edges",
+);
+
+is(
+    annotate(" \n*\n \n*\n "),
+    "1\n*\n2\n*\n1",
+    "vertical line",
+);
+
+is(
+    annotate("*\n \n \n \n*"),
+    "*\n1\n \n1\n*",
+    "vertical line, mines at edges",
+);
+
+is(
+    annotate("  *  \n  *  \n*****\n  *  \n  *  "),
+    " 2*2 \n25*52\n*****\n25*52\n 2*2 ",
+    "cross",
+);
+
+is(
+    annotate(" *  * \n  *   \n    * \n   * *\n *  * \n      "),
+    "1*22*1\n12*322\n 123*2\n112*4*\n1*22*2\n111111",
+    "large minefield",
+);
 
 done_testing;
-
-__DATA__
-[
-  {
-    "description": "no rows",
-    "expected": [],
-    "input": {
-      "minefield": []
-    },
-    "property": "annotate"
-  },
-  {
-    "description": "no columns",
-    "expected": [
-      ""
-    ],
-    "input": {
-      "minefield": [
-        ""
-      ]
-    },
-    "property": "annotate"
-  },
-  {
-    "description": "no mines",
-    "expected": [
-      "   ",
-      "   ",
-      "   "
-    ],
-    "input": {
-      "minefield": [
-        "   ",
-        "   ",
-        "   "
-      ]
-    },
-    "property": "annotate"
-  },
-  {
-    "description": "minefield with only mines",
-    "expected": [
-      "***",
-      "***",
-      "***"
-    ],
-    "input": {
-      "minefield": [
-        "***",
-        "***",
-        "***"
-      ]
-    },
-    "property": "annotate"
-  },
-  {
-    "description": "mine surrounded by spaces",
-    "expected": [
-      "111",
-      "1*1",
-      "111"
-    ],
-    "input": {
-      "minefield": [
-        "   ",
-        " * ",
-        "   "
-      ]
-    },
-    "property": "annotate"
-  },
-  {
-    "description": "space surrounded by mines",
-    "expected": [
-      "***",
-      "*8*",
-      "***"
-    ],
-    "input": {
-      "minefield": [
-        "***",
-        "* *",
-        "***"
-      ]
-    },
-    "property": "annotate"
-  },
-  {
-    "description": "horizontal line",
-    "expected": [
-      "1*2*1"
-    ],
-    "input": {
-      "minefield": [
-        " * * "
-      ]
-    },
-    "property": "annotate"
-  },
-  {
-    "description": "horizontal line, mines at edges",
-    "expected": [
-      "*1 1*"
-    ],
-    "input": {
-      "minefield": [
-        "*   *"
-      ]
-    },
-    "property": "annotate"
-  },
-  {
-    "description": "vertical line",
-    "expected": [
-      "1",
-      "*",
-      "2",
-      "*",
-      "1"
-    ],
-    "input": {
-      "minefield": [
-        " ",
-        "*",
-        " ",
-        "*",
-        " "
-      ]
-    },
-    "property": "annotate"
-  },
-  {
-    "description": "vertical line, mines at edges",
-    "expected": [
-      "*",
-      "1",
-      " ",
-      "1",
-      "*"
-    ],
-    "input": {
-      "minefield": [
-        "*",
-        " ",
-        " ",
-        " ",
-        "*"
-      ]
-    },
-    "property": "annotate"
-  },
-  {
-    "description": "cross",
-    "expected": [
-      " 2*2 ",
-      "25*52",
-      "*****",
-      "25*52",
-      " 2*2 "
-    ],
-    "input": {
-      "minefield": [
-        "  *  ",
-        "  *  ",
-        "*****",
-        "  *  ",
-        "  *  "
-      ]
-    },
-    "property": "annotate"
-  },
-  {
-    "description": "large minefield",
-    "expected": [
-      "1*22*1",
-      "12*322",
-      " 123*2",
-      "112*4*",
-      "1*22*2",
-      "111111"
-    ],
-    "input": {
-      "minefield": [
-        " *  * ",
-        "  *   ",
-        "    * ",
-        "   * *",
-        " *  * ",
-        "      "
-      ]
-    },
-    "property": "annotate"
-  }
-]
