@@ -1,20 +1,27 @@
-plan: 96
 subs: meetup
-tests: |
-  use constant MONTHS => qw<
-    January February March     April   May      June
-    July    August   September October November December
-  >;
 
-  for my $case ( @test_cases ) {
-    my $input_string = sprintf( '%s %s of %s %u',
-      ucfirst( $case->{input}{week} ),
-      $case->{input}{dayofweek},
-      (MONTHS)[ $case->{input}{month} - 1 ],
-      $case->{input}{year} );
+properties:
+  meetup:
+    test: |-
+      use Data::Dmp;
+      use constant MONTHS => qw<
+        January February March     April   May      June
+        July    August   September October November December
+      >;
+      my $input_string = sprintf( '%s %s of %s %u',
+        ucfirst( $case->{input}{week} ),
+        $case->{input}{dayofweek},
+        (MONTHS)[ $case->{input}{month} - 1 ],
+        $case->{input}{year} );
 
-    is meetup($input_string), $case->{expected}, $case->{description};
-  }
+      sprintf(<<'END', map {dmp($_)} $input_string, @{$case}{qw<expected description>});
+      is(
+          meetup(%s),
+          %s,
+          %s,
+      );
+      END
+
 
 example: |
   use Time::Piece;
@@ -48,6 +55,6 @@ example: |
 
 stub: |
   sub meetup {
-    my ($desc) = @_;
-    return undef;
+      my ($desc) = @_;
+      return undef;
   }
