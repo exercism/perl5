@@ -1,27 +1,47 @@
 subs: plants
-tests: |-
-  for my $case (@test_cases) {
-    is(
-      plants( $case->{input} ),
-      $case->{expected},
-      $case->{description},
-    );
-  }
+
+properties:
+  plants:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<'END', map {dmp($_)} @{$case->{input}}{qw<diagram student>}, @{$case}{qw<expected description>});
+      is(
+          plants( %s, %s ),
+          %s,
+          %s,
+      );
+      END
 
 example: |-
-  use lib 'lib';
-  use Exercism::QuickSolve;
-
   sub plants {
-    my ($input) = @_;
+      my ($diagram, $student) = @_;
+      my %plants = (
+          C => 'clover',
+          G => 'grass',
+          R => 'radishes',
+          V => 'violets',
+      );
+      my @rows = split /\n/, $diagram;
 
-    quicksolve(
-      input => $input,
-    );
+      my $i = 0;
+      for ('A'..'Z') {
+          last if substr($student, 0, 1) eq $_;
+          $i += 2;
+      }
+
+      return [ map { $plants{$_} } map {split //, substr $_, $i, 2} @rows ];
+
   }
 
 stub: |-
   sub plants {
-    my ($input) = @_;
-    return undef;
+      my ($diagram, $student) = @_;
+      my %plants = (
+          C => 'clover',
+          G => 'grass',
+          R => 'radishes',
+          V => 'violets',
+      );
+
+      return undef;
   }
