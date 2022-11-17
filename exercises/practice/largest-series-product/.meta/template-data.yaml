@@ -1,31 +1,57 @@
 subs: largest_product
-tests: |-
-  for my $case (@test_cases) {
-    if ( !ref $case->{expected} ) {
+
+properties:
+  largestProduct:
+    test: |-
+      use Data::Dmp;
+      $Data::Dmp::OPT_STRINGIFY_NUMBERS = 1;
+      if (!ref $case->{expected}) {
+          sprintf(<<'END', dmp($case->{input}{digits}), $case->{input}{span}, $case->{expected}, dmp($case->{description}));
       is(
-        largest_product( $case->{input} ),
-        $case->{expected},
-        $case->{description},
+          largest_product( %s, %s ),
+          %s,
+          %s,
       );
-    }
-    else {
-      like dies( sub { largest_product( $case->{input} ) } ),
-      qr/$case->{expected}{error}/, $case->{description};
-    }
-  }
+      END
+      }
+      else {
+          sprintf(<<'END', dmp($case->{input}{digits}), $case->{input}{span}, $case->{expected}{error}, dmp($case->{description}));
+      like(
+          dies( sub { largest_product( %s, %s ) } ),
+          qr/%s/,
+          %s,
+      );
+      END
+      }
+
 
 example: |-
-  use lib 'lib';
-  use Exercism::QuickSolve;
+  use List::Util qw<product>;
 
   sub largest_product {
-    my ($input) = @_;
+      my ($digits, $span) = @_;
 
-    quicksolve( input => $input );
+      die 'span must be smaller than string length' if length($digits) < $span;
+      die 'digits input must only contain digits' if $digits =~ /\D/;
+      die 'span must not be negative' if $span < 0;
+
+      return 1 if $span == 0;
+
+      my $i = 0;
+      my $prod = 0;
+      while (1) {
+          my $str = substr $digits, $i, $span;
+          last if length($str) < $span;
+          my $new_prod = product split //, $str;
+          $prod = $new_prod if $new_prod > $prod;
+          $i++;
+      }
+
+      return $prod;
   }
 
 stub: |-
   sub largest_product {
-    my ($input) = @_;
-    return undef;
+      my ($digits, $span) = @_;
+      return undef;
   }
