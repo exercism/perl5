@@ -1,25 +1,23 @@
 package Matrix;
 
-use strict;
-use warnings;
+use Moo;
 use feature qw<say>;
 
-use Exporter qw<import>;
-our @EXPORT_OK = qw<row column>;
-
-use lib 'lib';
-use Exercism::QuickSolve;
+has string => (
+    is => 'ro',
+);
 
 sub row {
-    my ($input) = @_;
-
-    quicksolve( input => $input );
+    my ( $self, $index ) = @_;
+    return [ split / /, [ split /\n/, $self->string ]->[ $index - 1 ] ];
 }
 
 sub column {
-    my ($input) = @_;
-
-    quicksolve( input => $input );
+    my ( $self, $index ) = @_;
+    return [
+        map { [ split / /, $_ ]->[ $index - 1 ] } split /\n/,
+        $self->string
+    ];
 }
 
 1;
