@@ -23,14 +23,16 @@ for ( sort { $a cmp $b }
     BASE_DIR->child( 'exercises', 'practice' )->children )
 {
     if ( $_->child( '.meta', 'template-data.yaml' )->is_file ) {
-        is( [ split( /\n/, $_->child( $_->basename . '.t' )->slurp_utf8 ) ],
+        $Data::Dmp::OPT_STRINGIFY_NUMBERS = 0;    # Option is used in several exercises, reset to default before running generator.
+        is(
+            [ split( /\n/, $_->child( $_->basename . '.t' )->slurp_utf8 ) ],
             [   split(
                     /\n/,
                     Exercism::Generator->new( { exercise => $_->basename } )
                         ->test
                 )
             ],
-            $_->basename . ': test suite matches generated'
+            $_->basename . ': test suite matches generated',
         );
     }
 }
