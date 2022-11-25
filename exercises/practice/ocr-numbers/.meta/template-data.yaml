@@ -1,35 +1,42 @@
 package: OCRNumbers
-subs: convert
-tests: |-
-  for my $case (@test_cases) {
-    if ( !ref $case->{expected} ) {
-       is(
-         convert( $case->{input}{rows} ),
-         $case->{expected},
-         $case->{description},
-       );
-    }
-    else {
-      like dies( sub { convert( $case->{input}{rows} ) } ),
-      qr/$case->{expected}{error}/, $case->{description};
-    }
-  }
+subs: convert_ocr
+
+properties:
+  convert:
+    test: |-
+      use Data::Dmp;
+      if (!ref $case->{expected}) {
+          sprintf(<<'END', join("\n", @{$case->{input}{rows}}), map {dmp($_)} @{$case}{qw<expected description>});
+      is(
+          convert_ocr(<<'OCR' =~ s/\n\z//r),
+      %s
+      OCR
+          %s,
+          %s,
+      );
+      END
+      }
+      else {
+          sprintf(<<'END', join("\n", @{$case->{input}{rows}}), $case->{expected}{error}, dmp($case->{description}));
+      like(
+          dies( sub { convert_ocr(<<'OCR' =~ s/\n\z//r) } ),
+      %s
+      OCR
+          qr/%s/,
+          %s,
+      );
+      END
+      }
+
 
 example: |-
-  use lib 'lib';
-  use Exercism::QuickSolve;
-
-  sub convert {
-    my ($rows) = @_;
-
-    quicksolve(
-      input     => $rows,
-      input_key => 'rows',
-    );
+  sub convert_ocr {
+      my ($string) = @_;
+      return $string;
   }
 
 stub: |-
-  sub convert {
-    my ($rows) = @_;
-    return undef;
+  sub convert_ocr {
+      my ($string) = @_;
+      return undef;
   }

@@ -6,18 +6,11 @@ use feature      qw<say>;
 use experimental qw<signatures postderef_qq>;
 
 use Exporter qw<import>;
-our @EXPORT_OK = qw<convert>;
+our @EXPORT_OK = qw<convert_ocr>;
 
-use lib 'lib';
-use Exercism::QuickSolve;
-
-sub convert {
-    my ($rows) = @_;
-
-    quicksolve(
-        input     => $rows,
-        input_key => 'rows',
-    );
+sub convert_ocr {
+    my ($string) = @_;
+    return $string;
 }
 
 1;
