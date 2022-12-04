@@ -1,5 +1,7 @@
 {
-  "authors": ["m-dango"],
+  "authors": [
+    "m-dango"
+  ],
   "files": {
     "solution": [
       "BottleSong.pm"

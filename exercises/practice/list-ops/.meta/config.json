@@ -1,5 +1,4 @@
 {
-  "blurb": "Implement basic list operations",
   "authors": [],
   "contributors": [
     "kytrinyx",
@@ -16,5 +15,6 @@
     "example": [
       ".meta/solutions/ListOps.pm"
     ]
-  }
+  },
+  "blurb": "Implement basic list operations"
 }

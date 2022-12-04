@@ -1,5 +1,4 @@
 {
-  "blurb": "Implement a doubly linked list",
   "authors": [
     "szabgab"
   ],
@@ -19,5 +18,6 @@
       ".meta/solutions/Deque.pm"
     ]
   },
+  "blurb": "Implement a doubly linked list",
   "source": "Classic computer science topic"
 }
