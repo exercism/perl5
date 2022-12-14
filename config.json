@@ -37,7 +37,18 @@
     ]
   },
   "exercises": {
-    "concept": [],
+    "concept": [
+      {
+        "slug": "lasagna",
+        "name": "Lasagna",
+        "uuid": "ca84c27a-adaf-4055-9361-6acc5151c134",
+        "concepts": [
+          "basics"
+        ],
+        "prerequisites": [],
+        "status": "wip"
+      }
+    ],
     "practice": [
       {
         "slug": "binary",
