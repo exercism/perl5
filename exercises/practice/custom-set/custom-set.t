@@ -10,39 +10,39 @@ can_ok 'CustomSet',
     qw<is_empty contains is_subset_of is_disjoint_of is_equal_to add intersection difference union>
     or bail_out;
 
-my ( $set, $set1, $set2 );
+my ( $set1, $set2 );
 
-$set = CustomSet->new( elements => [] );
+$set1 = CustomSet->new( elements => [] );
 is(
-    $set->is_empty,
+    $set1->is_empty,
     T,
     "Returns true if the set contains no elements: sets with no elements are empty",
 );
 
-$set = CustomSet->new( elements => [1] );
+$set1 = CustomSet->new( elements => [1] );
 is(
-    $set->is_empty,
+    $set1->is_empty,
     DF,
     "Returns true if the set contains no elements: sets with elements are not empty",
 );
 
-$set = CustomSet->new( elements => [] );
+$set1 = CustomSet->new( elements => [] );
 is(
-    $set->contains(1),
+    $set1->contains(1),
     DF,
     "Sets can report if they contain an element: nothing is contained in an empty set",
 );
 
-$set = CustomSet->new( elements => [ 1, 2, 3 ] );
+$set1 = CustomSet->new( elements => [ 1, 2, 3 ] );
 is(
-    $set->contains(1),
+    $set1->contains(1),
     T,
     "Sets can report if they contain an element: when the element is in the set",
 );
 
-$set = CustomSet->new( elements => [ 1, 2, 3 ] );
+$set1 = CustomSet->new( elements => [ 1, 2, 3 ] );
 is(
-    $set->contains(4),
+    $set1->contains(4),
     DF,
     "Sets can report if they contain an element: when the element is not in the set",
 );
@@ -183,23 +183,23 @@ is(
     "Sets with the same elements are equal: set is not equal to larger set with same elements",
 );
 
-$set = CustomSet->new( elements => [] );
+$set1 = CustomSet->new( elements => [] );
 is(
-    $set->add(3),
+    $set1->add(3),
     CustomSet->new( elements => [3] ),
     "Unique elements can be added to a set: add to empty set",
 );
 
-$set = CustomSet->new( elements => [ 1, 2, 4 ] );
+$set1 = CustomSet->new( elements => [ 1, 2, 4 ] );
 is(
-    $set->add(3),
+    $set1->add(3),
     CustomSet->new( elements => [ 1, 2, 3, 4 ] ),
     "Unique elements can be added to a set: add to non-empty set",
 );
 
-$set = CustomSet->new( elements => [ 1, 2, 3 ] );
+$set1 = CustomSet->new( elements => [ 1, 2, 3 ] );
 is(
-    $set->add(3),
+    $set1->add(3),
     CustomSet->new( elements => [ 1, 2, 3 ] ),
     "Unique elements can be added to a set: adding an existing element does not change the set",
 );

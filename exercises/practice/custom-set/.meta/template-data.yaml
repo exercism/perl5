@@ -1,15 +1,15 @@
 methods: is_empty contains is_subset_of is_disjoint_of is_equal_to add intersection difference union
 moo: true
 tests: |
-  my ($set, $set1, $set2);
+  my ($set1, $set2);
 properties:
   empty:
     test: |-
       use Data::Dmp;
       sprintf(<<'END', dmp($case->{input}{set}), $case->{expected} ? 'T' : 'DF', dmp($case->{description}));
-      $set = CustomSet->new(elements => %s);
+      $set1 = CustomSet->new(elements => %s);
       is(
-          $set->is_empty,
+          $set1->is_empty,
           %s,
           %s,
       );
@@ -18,9 +18,9 @@ properties:
     test: |-
       use Data::Dmp;
       sprintf(<<'END', dmp($case->{input}{set}), $case->{input}{element}, $case->{expected} ? 'T' : 'DF', dmp($case->{description}));
-      $set = CustomSet->new(elements => %s);
+      $set1 = CustomSet->new(elements => %s);
       is(
-          $set->contains( %s ),
+          $set1->contains( %s ),
           %s,
           %s,
       );
@@ -65,9 +65,9 @@ properties:
     test: |-
       use Data::Dmp;
       sprintf(<<'END', dmp($case->{input}{set}), $case->{input}{element}, dmp($case->{expected}), dmp($case->{description}));
-      $set = CustomSet->new(elements => %s);
+      $set1 = CustomSet->new(elements => %s);
       is(
-          $set->add( %s ),
+          $set1->add( %s ),
           CustomSet->new(elements => %s),
           %s,
       );
@@ -110,28 +110,37 @@ properties:
       END
 
 example: |-
+  use Types::Common qw<-types>;
+  use namespace::clean;
+
   has elements => (
       is => 'ro',
-      coerce => sub {
-          if (ref $_[0] eq 'ARRAY') {
-              return { map { $_ => 1 } @{$_[0]} };
-          }
+      isa => (HashRef[Bool])->plus_coercions(
+          ArrayRef, sub { +{ map { $_ => 1 } @{$_[0]} } },
+      ),
+      coerce => 1,
+  );
+
+  has _keys => (
+      is => 'lazy',
+      builder => sub {
+          [ keys %{ $_[0]->elements } ];
       },
   );
 
   sub is_empty {
       my ($self) = @_;
-      return !keys %{ $self->elements };
+      return !@{$self->_keys};
   }
 
   sub contains {
       my ($self, $element) = @_;
-      return $self->elements->{$element} // 0;
+      return !!$self->elements->{$element};
   }
 
   sub is_subset_of {
       my ($self, $set) = @_;
-      for my $key (keys %{ $self->elements }) {
+      for my $key (@{ $self->_keys }) {
           return 0 unless $set->contains($key);
       }
       return 1;
@@ -139,7 +148,7 @@ example: |-
 
   sub is_disjoint_of {
       my ($self, $set) = @_;
-      for my $key (keys %{ $self->elements }) {
+      for my $key (@{ $self->_keys }) {
           return 0 if $set->contains($key);
       }
       return 1;
@@ -147,8 +156,8 @@ example: |-
 
   sub is_equal_to {
       my ($self, $set) = @_;
-      return 0 if keys %{ $self->elements } != keys %{ $set->elements };
-      for my $key (keys %{ $self->elements } ) {
+      return 0 if @{ $self->_keys } != @{ $set->_keys };
+      for my $key (@{ $self->_keys } ) {
           return 0 unless $set->contains($key);
       }
       return 1;
@@ -156,22 +165,22 @@ example: |-
 
   sub add {
       my ($self, $element) = @_;
-      return __PACKAGE__->new(elements => [keys %{$self->elements}, $element]);
+      return __PACKAGE__->new(elements => [@{$self->_keys}, $element]);
   }
 
   sub intersection {
       my ($self, $set) = @_;
-      return __PACKAGE__->new(elements => [ grep { $self->elements->{$_} && $set->elements->{$_} } keys %{$self->elements}, keys %{$set->elements} ]);
+      return __PACKAGE__->new(elements => [ grep { $self->contains($_) && $set->contains($_) } @{$self->_keys}, @{$set->_keys} ]);
   }
 
   sub difference {
       my ($self, $set) = @_;
-      return __PACKAGE__->new(elements => [ grep { $self->elements->{$_} && !$set->elements->{$_} } keys %{$self->elements} , keys %{$set->elements} ]);
+      return __PACKAGE__->new(elements => [ grep { $self->contains($_) && !$set->contains($_) } @{$self->_keys} , @{$set->_keys} ]);
   }
 
   sub union {
       my ($self, $set) = @_;
-      return __PACKAGE__->new(elements => [ keys %{ $self->elements }, keys %{ $set->elements } ]);
+      return __PACKAGE__->new(elements => [ @{ $self->_keys }, @{ $set->_keys } ]);
   }
 
 stub: |-
