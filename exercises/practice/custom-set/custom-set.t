@@ -4,238 +4,307 @@ use Test2::V0;
 use FindBin qw<$Bin>;
 use lib $Bin, "$Bin/local/lib/perl5";
 
-use CustomSet
-    qw<is_empty_set set_contains is_subset is_disjoint_set is_equal_set add_set_element set_intersection set_difference set_union>;
+use CustomSet ();
 
-imported_ok
-    qw<is_empty_set set_contains is_subset is_disjoint_set is_equal_set add_set_element set_intersection set_difference set_union>
+can_ok 'CustomSet',
+    qw<is_empty contains is_subset_of is_disjoint_of is_equal_to add intersection difference union>
     or bail_out;
 
+my ( $set, $set1, $set2 );
+
+$set = CustomSet->new( elements => [] );
 is(
-    is_empty_set( [] ),
+    $set->is_empty,
     T,
     "Returns true if the set contains no elements: sets with no elements are empty",
 );
 
+$set = CustomSet->new( elements => [1] );
 is(
-    is_empty_set( [1] ),
+    $set->is_empty,
     DF,
     "Returns true if the set contains no elements: sets with elements are not empty",
 );
 
+$set = CustomSet->new( elements => [] );
 is(
-    set_contains( [], 1 ),
+    $set->contains(1),
     DF,
     "Sets can report if they contain an element: nothing is contained in an empty set",
 );
 
+$set = CustomSet->new( elements => [ 1, 2, 3 ] );
 is(
-    set_contains( [ 1, 2, 3 ], 1 ),
+    $set->contains(1),
     T,
     "Sets can report if they contain an element: when the element is in the set",
 );
 
+$set = CustomSet->new( elements => [ 1, 2, 3 ] );
 is(
-    set_contains( [ 1, 2, 3 ], 4 ),
+    $set->contains(4),
     DF,
     "Sets can report if they contain an element: when the element is not in the set",
 );
 
+$set1 = CustomSet->new( elements => [] );
+$set2 = CustomSet->new( elements => [] );
 is(
-    is_subset( [], [] ),
+    $set1->is_subset_of($set2),
     T,
     "A set is a subset if all of its elements are contained in the other set: empty set is a subset of another empty set",
 );
 
+$set1 = CustomSet->new( elements => [] );
+$set2 = CustomSet->new( elements => [1] );
 is(
-    is_subset( [], [1] ),
+    $set1->is_subset_of($set2),
     T,
     "A set is a subset if all of its elements are contained in the other set: empty set is a subset of non-empty set",
 );
 
+$set1 = CustomSet->new( elements => [1] );
+$set2 = CustomSet->new( elements => [] );
 is(
-    is_subset( [1], [] ),
+    $set1->is_subset_of($set2),
     DF,
     "A set is a subset if all of its elements are contained in the other set: non-empty set is not a subset of empty set",
 );
 
+$set1 = CustomSet->new( elements => [ 1, 2, 3 ] );
+$set2 = CustomSet->new( elements => [ 1, 2, 3 ] );
 is(
-    is_subset( [ 1, 2, 3 ], [ 1, 2, 3 ] ),
+    $set1->is_subset_of($set2),
     T,
     "A set is a subset if all of its elements are contained in the other set: set is a subset of set with exact same elements",
 );
 
+$set1 = CustomSet->new( elements => [ 1, 2, 3 ] );
+$set2 = CustomSet->new( elements => [ 4, 1, 2, 3 ] );
 is(
-    is_subset( [ 1, 2, 3 ], [ 4, 1, 2, 3 ] ),
+    $set1->is_subset_of($set2),
     T,
     "A set is a subset if all of its elements are contained in the other set: set is a subset of larger set with same elements",
 );
 
+$set1 = CustomSet->new( elements => [ 1, 2, 3 ] );
+$set2 = CustomSet->new( elements => [ 4, 1, 3 ] );
 is(
-    is_subset( [ 1, 2, 3 ], [ 4, 1, 3 ] ),
+    $set1->is_subset_of($set2),
     DF,
     "A set is a subset if all of its elements are contained in the other set: set is not a subset of set that does not contain its elements",
 );
 
+$set1 = CustomSet->new( elements => [] );
+$set2 = CustomSet->new( elements => [] );
 is(
-    is_disjoint_set( [], [] ),
+    $set1->is_disjoint_of($set2),
     T,
     "Sets are disjoint if they share no elements: the empty set is disjoint with itself",
 );
 
+$set1 = CustomSet->new( elements => [] );
+$set2 = CustomSet->new( elements => [1] );
 is(
-    is_disjoint_set( [], [1] ),
+    $set1->is_disjoint_of($set2),
     T,
     "Sets are disjoint if they share no elements: empty set is disjoint with non-empty set",
 );
 
+$set1 = CustomSet->new( elements => [1] );
+$set2 = CustomSet->new( elements => [] );
 is(
-    is_disjoint_set( [1], [] ),
+    $set1->is_disjoint_of($set2),
     T,
     "Sets are disjoint if they share no elements: non-empty set is disjoint with empty set",
 );
 
+$set1 = CustomSet->new( elements => [ 1, 2 ] );
+$set2 = CustomSet->new( elements => [ 2, 3 ] );
 is(
-    is_disjoint_set( [ 1, 2 ], [ 2, 3 ] ),
+    $set1->is_disjoint_of($set2),
     DF,
     "Sets are disjoint if they share no elements: sets are not disjoint if they share an element",
 );
 
+$set1 = CustomSet->new( elements => [ 1, 2 ] );
+$set2 = CustomSet->new( elements => [ 3, 4 ] );
 is(
-    is_disjoint_set( [ 1, 2 ], [ 3, 4 ] ),
+    $set1->is_disjoint_of($set2),
     T,
     "Sets are disjoint if they share no elements: sets are disjoint if they share no elements",
 );
 
+$set1 = CustomSet->new( elements => [] );
+$set2 = CustomSet->new( elements => [] );
 is(
-    is_equal_set( [], [] ),
+    $set1->is_equal_to($set2),
     T,
     "Sets with the same elements are equal: empty sets are equal",
 );
 
+$set1 = CustomSet->new( elements => [] );
+$set2 = CustomSet->new( elements => [ 1, 2, 3 ] );
 is(
-    is_equal_set( [], [ 1, 2, 3 ] ),
+    $set1->is_equal_to($set2),
     DF,
     "Sets with the same elements are equal: empty set is not equal to non-empty set",
 );
 
+$set1 = CustomSet->new( elements => [ 1, 2, 3 ] );
+$set2 = CustomSet->new( elements => [] );
 is(
-    is_equal_set( [ 1, 2, 3 ], [] ),
+    $set1->is_equal_to($set2),
     DF,
     "Sets with the same elements are equal: non-empty set is not equal to empty set",
 );
 
+$set1 = CustomSet->new( elements => [ 1, 2 ] );
+$set2 = CustomSet->new( elements => [ 2, 1 ] );
 is(
-    is_equal_set( [ 1, 2 ], [ 2, 1 ] ),
+    $set1->is_equal_to($set2),
     T,
     "Sets with the same elements are equal: sets with the same elements are equal",
 );
 
+$set1 = CustomSet->new( elements => [ 1, 2, 3 ] );
+$set2 = CustomSet->new( elements => [ 1, 2, 4 ] );
 is(
-    is_equal_set( [ 1, 2, 3 ], [ 1, 2, 4 ] ),
+    $set1->is_equal_to($set2),
     DF,
     "Sets with the same elements are equal: sets with different elements are not equal",
 );
 
+$set1 = CustomSet->new( elements => [ 1, 2, 3 ] );
+$set2 = CustomSet->new( elements => [ 1, 2, 3, 4 ] );
 is(
-    is_equal_set( [ 1, 2, 3 ], [ 1, 2, 3, 4 ] ),
+    $set1->is_equal_to($set2),
     DF,
     "Sets with the same elements are equal: set is not equal to larger set with same elements",
 );
 
+$set = CustomSet->new( elements => [] );
 is(
-    add_set_element( [], 3 ),
-    bag { item 3; end; },
+    $set->add(3),
+    CustomSet->new( elements => [3] ),
     "Unique elements can be added to a set: add to empty set",
 );
 
+$set = CustomSet->new( elements => [ 1, 2, 4 ] );
 is(
-    add_set_element( [ 1, 2, 4 ], 3 ),
-    bag { item 1; item 2; item 3; item 4; end; },
+    $set->add(3),
+    CustomSet->new( elements => [ 1, 2, 3, 4 ] ),
     "Unique elements can be added to a set: add to non-empty set",
 );
 
+$set = CustomSet->new( elements => [ 1, 2, 3 ] );
 is(
-    add_set_element( [ 1, 2, 3 ], 3 ),
-    bag { item 1; item 2; item 3; end; },
+    $set->add(3),
+    CustomSet->new( elements => [ 1, 2, 3 ] ),
     "Unique elements can be added to a set: adding an existing element does not change the set",
 );
 
+$set1 = CustomSet->new( elements => [] );
+$set2 = CustomSet->new( elements => [] );
 is(
-    set_intersection( [], [] ),
-    bag { end; },
+    $set1->intersection($set2),
+    CustomSet->new( elements => [] ),
     "Intersection returns a set of all shared elements: intersection of two empty sets is an empty set",
 );
 
+$set1 = CustomSet->new( elements => [] );
+$set2 = CustomSet->new( elements => [ 3, 2, 5 ] );
 is(
-    set_intersection( [], [ 3, 2, 5 ] ),
-    bag { end; },
+    $set1->intersection($set2),
+    CustomSet->new( elements => [] ),
     "Intersection returns a set of all shared elements: intersection of an empty set and non-empty set is an empty set",
 );
 
+$set1 = CustomSet->new( elements => [ 1, 2, 3, 4 ] );
+$set2 = CustomSet->new( elements => [] );
 is(
-    set_intersection( [ 1, 2, 3, 4 ], [] ),
-    bag { end; },
+    $set1->intersection($set2),
+    CustomSet->new( elements => [] ),
     "Intersection returns a set of all shared elements: intersection of a non-empty set and an empty set is an empty set",
 );
 
+$set1 = CustomSet->new( elements => [ 1, 2, 3 ] );
+$set2 = CustomSet->new( elements => [ 4, 5, 6 ] );
 is(
-    set_intersection( [ 1, 2, 3 ], [ 4, 5, 6 ] ),
-    bag { end; },
+    $set1->intersection($set2),
+    CustomSet->new( elements => [] ),
     "Intersection returns a set of all shared elements: intersection of two sets with no shared elements is an empty set",
 );
 
+$set1 = CustomSet->new( elements => [ 1, 2, 3, 4 ] );
+$set2 = CustomSet->new( elements => [ 3, 2, 5 ] );
 is(
-    set_intersection( [ 1, 2, 3, 4 ], [ 3, 2, 5 ] ),
-    bag { item 2; item 3; end; },
+    $set1->intersection($set2),
+    CustomSet->new( elements => [ 2, 3 ] ),
     "Intersection returns a set of all shared elements: intersection of two sets with shared elements is a set of the shared elements",
 );
 
+$set1 = CustomSet->new( elements => [] );
+$set2 = CustomSet->new( elements => [] );
 is(
-    set_difference( [], [] ),
-    bag { end; },
+    $set1->difference($set2),
+    CustomSet->new( elements => [] ),
     "Difference (or Complement) of a set is a set of all elements that are only in the first set: difference of two empty sets is an empty set",
 );
 
+$set1 = CustomSet->new( elements => [] );
+$set2 = CustomSet->new( elements => [ 3, 2, 5 ] );
 is(
-    set_difference( [], [ 3, 2, 5 ] ),
-    bag { end; },
+    $set1->difference($set2),
+    CustomSet->new( elements => [] ),
     "Difference (or Complement) of a set is a set of all elements that are only in the first set: difference of empty set and non-empty set is an empty set",
 );
 
+$set1 = CustomSet->new( elements => [ 1, 2, 3, 4 ] );
+$set2 = CustomSet->new( elements => [] );
 is(
-    set_difference( [ 1, 2, 3, 4 ], [] ),
-    bag { item 1; item 2; item 3; item 4; end; },
+    $set1->difference($set2),
+    CustomSet->new( elements => [ 1, 2, 3, 4 ] ),
     "Difference (or Complement) of a set is a set of all elements that are only in the first set: difference of a non-empty set and an empty set is the non-empty set",
 );
 
+$set1 = CustomSet->new( elements => [ 3, 2, 1 ] );
+$set2 = CustomSet->new( elements => [ 2, 4 ] );
 is(
-    set_difference( [ 3, 2, 1 ], [ 2, 4 ] ),
-    bag { item 1; item 3; end; },
+    $set1->difference($set2),
+    CustomSet->new( elements => [ 1, 3 ] ),
     "Difference (or Complement) of a set is a set of all elements that are only in the first set: difference of two non-empty sets is a set of elements that are only in the first set",
 );
 
+$set1 = CustomSet->new( elements => [] );
+$set2 = CustomSet->new( elements => [] );
 is(
-    set_union( [], [] ),
-    bag { end; },
+    $set1->union($set2),
+    CustomSet->new( elements => [] ),
     "Union returns a set of all elements in either set: union of empty sets is an empty set",
 );
 
+$set1 = CustomSet->new( elements => [] );
+$set2 = CustomSet->new( elements => [2] );
 is(
-    set_union( [], [2] ),
-    bag { item 2; end; },
+    $set1->union($set2),
+    CustomSet->new( elements => [2] ),
     "Union returns a set of all elements in either set: union of an empty set and non-empty set is the non-empty set",
 );
 
+$set1 = CustomSet->new( elements => [ 1, 3 ] );
+$set2 = CustomSet->new( elements => [] );
 is(
-    set_union( [ 1, 3 ], [] ),
-    bag { item 1; item 3; end; },
+    $set1->union($set2),
+    CustomSet->new( elements => [ 1, 3 ] ),
     "Union returns a set of all elements in either set: union of a non-empty set and empty set is the non-empty set",
 );
 
+$set1 = CustomSet->new( elements => [ 1, 3 ] );
+$set2 = CustomSet->new( elements => [ 2, 3 ] );
 is(
-    set_union( [ 1, 3 ], [ 2, 3 ] ),
-    bag { item 3; item 2; item 1; end; },
+    $set1->union($set2),
+    CustomSet->new( elements => [ 3, 2, 1 ] ),
     "Union returns a set of all elements in either set: union of non-empty sets contains all unique elements",
 );
 
