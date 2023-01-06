@@ -20,7 +20,7 @@ properties:
       sprintf(<<'END', dmp($case->{input}{set}), $case->{input}{element}, $case->{expected} ? 'T' : 'DF', dmp($case->{description}));
       $set1 = CustomSet->new(elements => %s);
       is(
-          $set1->contains( %s ),
+          $set1->contains(%s),
           %s,
           %s,
       );
@@ -32,7 +32,7 @@ properties:
       $set1 = CustomSet->new(elements => %s);
       $set2 = CustomSet->new(elements => %s);
       is(
-          $set1->is_subset_of( $set2 ),
+          $set1->is_subset_of($set2),
           %s,
           %s,
       );
@@ -44,7 +44,7 @@ properties:
       $set1 = CustomSet->new(elements => %s);
       $set2 = CustomSet->new(elements => %s);
       is(
-          $set1->is_disjoint_of( $set2 ),
+          $set1->is_disjoint_of($set2),
           %s,
           %s,
       );
@@ -56,7 +56,7 @@ properties:
       $set1 = CustomSet->new(elements => %s);
       $set2 = CustomSet->new(elements => %s);
       is(
-          $set1->is_equal_to( $set2 ),
+          $set1->is_equal_to($set2),
           %s,
           %s,
       );
@@ -67,7 +67,7 @@ properties:
       sprintf(<<'END', dmp($case->{input}{set}), $case->{input}{element}, dmp($case->{expected}), dmp($case->{description}));
       $set1 = CustomSet->new(elements => %s);
       is(
-          $set1->add( %s ),
+          $set1->add(%s),
           CustomSet->new(elements => %s),
           %s,
       );
@@ -79,7 +79,7 @@ properties:
       $set1 = CustomSet->new(elements => %s);
       $set2 = CustomSet->new(elements => %s);
       is(
-          $set1->intersection( $set2 ),
+          $set1->intersection($set2),
           CustomSet->new(elements => %s),
           %s,
       );
@@ -91,7 +91,7 @@ properties:
       $set1 = CustomSet->new(elements => %s);
       $set2 = CustomSet->new(elements => %s);
       is(
-          $set1->difference( $set2 ),
+          $set1->difference($set2),
           CustomSet->new(elements => %s),
           %s,
       );
@@ -103,7 +103,7 @@ properties:
       $set1 = CustomSet->new(elements => %s);
       $set2 = CustomSet->new(elements => %s);
       is(
-          $set1->union( $set2 ),
+          $set1->union($set2),
           CustomSet->new(elements => %s),
           %s,
       );
@@ -121,16 +121,12 @@ example: |-
       coerce => 1,
   );
 
-  has _keys => (
-      is => 'lazy',
-      builder => sub {
-          [ keys %{ $_[0]->elements } ];
-      },
-  );
+  sub _keys {
+      keys %{ $_[0]->elements };
+  }
 
   sub is_empty {
-      my ($self) = @_;
-      return !@{$self->_keys};
+      !$_[0]->_keys;
   }
 
   sub contains {
@@ -139,48 +135,48 @@ example: |-
   }
 
   sub is_subset_of {
-      my ($self, $set) = @_;
-      for my $key (@{ $self->_keys }) {
-          return 0 unless $set->contains($key);
+      my ($self, $other) = @_;
+      for my $key ($self->_keys) {
+          return 0 unless $other->contains($key);
       }
       return 1;
   }
 
   sub is_disjoint_of {
-      my ($self, $set) = @_;
-      for my $key (@{ $self->_keys }) {
-          return 0 if $set->contains($key);
+      my ($self, $other) = @_;
+      for my $key ($self->_keys) {
+          return 0 if $other->contains($key);
       }
       return 1;
   }
 
   sub is_equal_to {
-      my ($self, $set) = @_;
-      return 0 if @{ $self->_keys } != @{ $set->_keys };
-      for my $key (@{ $self->_keys } ) {
-          return 0 unless $set->contains($key);
+      my ($self, $other) = @_;
+      return 0 if $self->_keys != $other->_keys;
+      for my $key ($self->_keys) {
+          return 0 unless $other->contains($key);
       }
       return 1;
   }
 
   sub add {
       my ($self, $element) = @_;
-      return __PACKAGE__->new(elements => [@{$self->_keys}, $element]);
+      return __PACKAGE__->new(elements => [$self->_keys, $element]);
   }
 
   sub intersection {
-      my ($self, $set) = @_;
-      return __PACKAGE__->new(elements => [ grep { $self->contains($_) && $set->contains($_) } @{$self->_keys}, @{$set->_keys} ]);
+      my ($self, $other) = @_;
+      return __PACKAGE__->new(elements => [ grep { $self->contains($_) && $other->contains($_) } $self->_keys, $other->_keys ]);
   }
 
   sub difference {
-      my ($self, $set) = @_;
-      return __PACKAGE__->new(elements => [ grep { $self->contains($_) && !$set->contains($_) } @{$self->_keys} , @{$set->_keys} ]);
+      my ($self, $other) = @_;
+      return __PACKAGE__->new(elements => [ grep { $self->contains($_) && !$other->contains($_) } $self->_keys , $other->_keys ]);
   }
 
   sub union {
-      my ($self, $set) = @_;
-      return __PACKAGE__->new(elements => [ @{ $self->_keys }, @{ $set->_keys } ]);
+      my ($self, $other) = @_;
+      return __PACKAGE__->new(elements => [ $self->_keys, $other->_keys ]);
   }
 
 stub: |-
@@ -199,17 +195,17 @@ stub: |-
   }
 
   sub is_subset_of {
-      my ($self, $set) = @_;
+      my ($self, $other) = @_;
       return undef;
   }
 
   sub is_disjoint_of {
-      my ($self, $set) = @_;
+      my ($self, $other) = @_;
       return undef;
   }
 
   sub is_equal_to {
-      my ($self, $set) = @_;
+      my ($self, $other) = @_;
       return undef;
   }
 
@@ -219,16 +215,16 @@ stub: |-
   }
 
   sub intersection {
-      my ($self, $set) = @_;
+      my ($self, $other) = @_;
       return undef;
   }
 
   sub difference {
-      my ($self, $set) = @_;
+      my ($self, $other) = @_;
       return undef;
   }
 
   sub union {
-      my ($self, $set) = @_;
+      my ($self, $other) = @_;
       return undef;
   }

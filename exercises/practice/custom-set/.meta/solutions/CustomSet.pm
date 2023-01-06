@@ -17,16 +17,12 @@ has elements => (
     coerce => 1,
 );
 
-has _keys => (
-    is      => 'lazy',
-    builder => sub {
-        [ keys %{ $_[0]->elements } ];
-    },
-);
+sub _keys {
+    keys %{ $_[0]->elements };
+}
 
 sub is_empty {
-    my ($self) = @_;
-    return !@{ $self->_keys };
+    !$_[0]->_keys;
 }
 
 sub contains {
@@ -35,61 +31,59 @@ sub contains {
 }
 
 sub is_subset_of {
-    my ( $self, $set ) = @_;
-    for my $key ( @{ $self->_keys } ) {
-        return 0 unless $set->contains($key);
+    my ( $self, $other ) = @_;
+    for my $key ( $self->_keys ) {
+        return 0 unless $other->contains($key);
     }
     return 1;
 }
 
 sub is_disjoint_of {
-    my ( $self, $set ) = @_;
-    for my $key ( @{ $self->_keys } ) {
-        return 0 if $set->contains($key);
+    my ( $self, $other ) = @_;
+    for my $key ( $self->_keys ) {
+        return 0 if $other->contains($key);
     }
     return 1;
 }
 
 sub is_equal_to {
-    my ( $self, $set ) = @_;
-    return 0 if @{ $self->_keys } != @{ $set->_keys };
-    for my $key ( @{ $self->_keys } ) {
-        return 0 unless $set->contains($key);
+    my ( $self, $other ) = @_;
+    return 0 if $self->_keys != $other->_keys;
+    for my $key ( $self->_keys ) {
+        return 0 unless $other->contains($key);
     }
     return 1;
 }
 
 sub add {
     my ( $self, $element ) = @_;
-    return __PACKAGE__->new( elements => [ @{ $self->_keys }, $element ] );
+    return __PACKAGE__->new( elements => [ $self->_keys, $element ] );
 }
 
 sub intersection {
-    my ( $self, $set ) = @_;
+    my ( $self, $other ) = @_;
     return __PACKAGE__->new(
         elements => [
-            grep { $self->contains($_) && $set->contains($_) }
-                @{ $self->_keys },
-            @{ $set->_keys }
+            grep { $self->contains($_) && $other->contains($_) } $self->_keys,
+            $other->_keys
         ]
     );
 }
 
 sub difference {
-    my ( $self, $set ) = @_;
+    my ( $self, $other ) = @_;
     return __PACKAGE__->new(
         elements => [
-            grep { $self->contains($_) && !$set->contains($_) }
-                @{ $self->_keys },
-            @{ $set->_keys }
+            grep { $self->contains($_) && !$other->contains($_) }
+                $self->_keys,
+            $other->_keys
         ]
     );
 }
 
 sub union {
-    my ( $self, $set ) = @_;
-    return __PACKAGE__->new(
-        elements => [ @{ $self->_keys }, @{ $set->_keys } ] );
+    my ( $self, $other ) = @_;
+    return __PACKAGE__->new( elements => [ $self->_keys, $other->_keys ] );
 }
 
 1;

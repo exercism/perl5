@@ -18,17 +18,17 @@ sub contains {
 }
 
 sub is_subset_of {
-    my ( $self, $set ) = @_;
+    my ( $self, $other ) = @_;
     return undef;
 }
 
 sub is_disjoint_of {
-    my ( $self, $set ) = @_;
+    my ( $self, $other ) = @_;
     return undef;
 }
 
 sub is_equal_to {
-    my ( $self, $set ) = @_;
+    my ( $self, $other ) = @_;
     return undef;
 }
 
@@ -38,17 +38,17 @@ sub add {
 }
 
 sub intersection {
-    my ( $self, $set ) = @_;
+    my ( $self, $other ) = @_;
     return undef;
 }
 
 sub difference {
-    my ( $self, $set ) = @_;
+    my ( $self, $other ) = @_;
     return undef;
 }
 
 sub union {
-    my ( $self, $set ) = @_;
+    my ( $self, $other ) = @_;
     return undef;
 }
 
