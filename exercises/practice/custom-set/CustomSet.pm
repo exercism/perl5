@@ -5,6 +5,11 @@ use feature qw<say>;
 
 has elements => (
     is => 'ro',
+
+   #coerce => sub {...},
+   # If you wish, one way of normalizing your objects
+   # e.g. making (elements => [1, 2, 3]) and (elements => [3, 2, 1]) identical
+   # would be to use the 'coerce' option: https://metacpan.org/pod/Moo#coerce
 );
 
 sub is_empty {
