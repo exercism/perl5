@@ -65,10 +65,10 @@ properties:
     test: |-
       use Data::Dmp;
       sprintf(<<'END', dmp($case->{input}{set}), $case->{input}{element}, dmp($case->{expected}), dmp($case->{description}));
-      $set1 = CustomSet->new(elements => %s);
+      $set1 = CustomSet->new(elements => %s)->add(%s);
       is(
-          $set1->add(%s),
-          CustomSet->new(elements => %s),
+          $set1->is_equal_to(CustomSet->new(elements => %s)),
+          T,
           %s,
       );
       END
@@ -79,8 +79,8 @@ properties:
       $set1 = CustomSet->new(elements => %s);
       $set2 = CustomSet->new(elements => %s);
       is(
-          $set1->intersection($set2),
-          CustomSet->new(elements => %s),
+          $set1->intersection($set2)->is_equal_to(CustomSet->new(elements => %s)),
+          T,
           %s,
       );
       END
@@ -91,8 +91,8 @@ properties:
       $set1 = CustomSet->new(elements => %s);
       $set2 = CustomSet->new(elements => %s);
       is(
-          $set1->difference($set2),
-          CustomSet->new(elements => %s),
+          $set1->difference($set2)->is_equal_to(CustomSet->new(elements => %s)),
+          T,
           %s,
       );
       END
@@ -103,8 +103,8 @@ properties:
       $set1 = CustomSet->new(elements => %s);
       $set2 = CustomSet->new(elements => %s);
       is(
-          $set1->union($set2),
-          CustomSet->new(elements => %s),
+          $set1->union($set2)->is_equal_to(CustomSet->new(elements => %s)),
+          T,
           %s,
       );
       END
