@@ -1,55 +1,59 @@
 package CustomSet;
 
-use strict;
-use warnings;
+use Moo;
 use feature qw<say>;
 
-use Exporter qw<import>;
-our @EXPORT_OK
-    = qw<is_empty_set set_contains is_subset is_disjoint_set is_equal_set add_set_element set_intersection set_difference set_union>;
+has elements => (
+    is => 'ro',
 
-sub is_empty_set {
-    my ($set) = @_;
+   #coerce => sub {...},
+   # If you wish, one way of normalizing your objects
+   # e.g. making (elements => [1, 2, 3]) and (elements => [3, 2, 1]) identical
+   # would be to use the 'coerce' option: https://metacpan.org/pod/Moo#coerce
+);
+
+sub is_empty {
+    my ($self) = @_;
     return undef;
 }
 
-sub set_contains {
-    my ( $set, $element ) = @_;
+sub contains {
+    my ( $self, $element ) = @_;
     return undef;
 }
 
-sub is_subset {
-    my ( $subset, $set ) = @_;
+sub is_subset_of {
+    my ( $self, $other ) = @_;
     return undef;
 }
 
-sub is_disjoint_set {
-    my ( $set1, $set2 ) = @_;
+sub is_disjoint_of {
+    my ( $self, $other ) = @_;
     return undef;
 }
 
-sub is_equal_set {
-    my ( $set1, $set2 ) = @_;
+sub is_equal_to {
+    my ( $self, $other ) = @_;
     return undef;
 }
 
-sub add_set_element {
-    my ( $set, $element ) = @_;
+sub add {
+    my ( $self, $element ) = @_;
     return undef;
 }
 
-sub set_intersection {
-    my ( $set1, $set2 ) = @_;
+sub intersection {
+    my ( $self, $other ) = @_;
     return undef;
 }
 
-sub set_difference {
-    my ( $set1, $set2 ) = @_;
+sub difference {
+    my ( $self, $other ) = @_;
     return undef;
 }
 
-sub set_union {
-    my ( $set1, $set2 ) = @_;
+sub union {
+    my ( $self, $other ) = @_;
     return undef;
 }
 

@@ -1,11 +1,15 @@
-subs: is_empty_set set_contains is_subset is_disjoint_set is_equal_set add_set_element set_intersection set_difference set_union
+methods: is_empty contains is_subset_of is_disjoint_of is_equal_to add intersection difference union
+moo: true
+tests: |
+  my ($set1, $set2);
 properties:
   empty:
     test: |-
       use Data::Dmp;
       sprintf(<<'END', dmp($case->{input}{set}), $case->{expected} ? 'T' : 'DF', dmp($case->{description}));
+      $set1 = CustomSet->new(elements => %s);
       is(
-          is_empty_set(%s),
+          $set1->is_empty,
           %s,
           %s,
       );
@@ -14,8 +18,9 @@ properties:
     test: |-
       use Data::Dmp;
       sprintf(<<'END', dmp($case->{input}{set}), $case->{input}{element}, $case->{expected} ? 'T' : 'DF', dmp($case->{description}));
+      $set1 = CustomSet->new(elements => %s);
       is(
-          set_contains( %s, %s ),
+          $set1->contains(%s),
           %s,
           %s,
       );
@@ -24,8 +29,10 @@ properties:
     test: |-
       use Data::Dmp;
       sprintf(<<'END', (map {dmp($_)} @{$case->{input}}{qw<set1 set2>}), $case->{expected} ? 'T' : 'DF', dmp($case->{description}));
+      $set1 = CustomSet->new(elements => %s);
+      $set2 = CustomSet->new(elements => %s);
       is(
-          is_subset( %s, %s ),
+          $set1->is_subset_of($set2),
           %s,
           %s,
       );
@@ -34,8 +41,10 @@ properties:
     test: |-
       use Data::Dmp;
       sprintf(<<'END', (map {dmp($_)} @{$case->{input}}{qw<set1 set2>}), $case->{expected} ? 'T' : 'DF', dmp($case->{description}));
+      $set1 = CustomSet->new(elements => %s);
+      $set2 = CustomSet->new(elements => %s);
       is(
-          is_disjoint_set( %s, %s ),
+          $set1->is_disjoint_of($set2),
           %s,
           %s,
       );
@@ -44,8 +53,10 @@ properties:
     test: |-
       use Data::Dmp;
       sprintf(<<'END', (map {dmp($_)} @{$case->{input}}{qw<set1 set2>}), $case->{expected} ? 'T' : 'DF', dmp($case->{description}));
+      $set1 = CustomSet->new(elements => %s);
+      $set2 = CustomSet->new(elements => %s);
       is(
-          is_equal_set( %s, %s ),
+          $set1->is_equal_to($set2),
           %s,
           %s,
       );
@@ -53,154 +64,171 @@ properties:
   add:
     test: |-
       use Data::Dmp;
-      sprintf(<<'END', dmp($case->{input}{set}), $case->{input}{element}, ('bag {' . join('', (map {"item $_;"} @{$case->{expected}})) . 'end;}'), dmp($case->{description}));
+      sprintf(<<'END', dmp($case->{input}{set}), $case->{input}{element}, dmp($case->{expected}), dmp($case->{description}));
+      $set1 = CustomSet->new(elements => %s)->add(%s);
       is(
-          add_set_element( %s, %s ),
-          %s,
+          $set1->is_equal_to(CustomSet->new(elements => %s)),
+          T,
           %s,
       );
       END
   intersection:
     test: |-
       use Data::Dmp;
-      sprintf(<<'END', (map {dmp($_)} @{$case->{input}}{qw<set1 set2>}), ('bag {' . join('', (map {"item $_;"} @{$case->{expected}})) . 'end;}'), dmp($case->{description}));
+      sprintf(<<'END', (map {dmp($_)} @{$case->{input}}{qw<set1 set2>}, $case->{expected}), dmp($case->{description}));
+      $set1 = CustomSet->new(elements => %s);
+      $set2 = CustomSet->new(elements => %s);
       is(
-          set_intersection( %s, %s ),
-          %s,
+          $set1->intersection($set2)->is_equal_to(CustomSet->new(elements => %s)),
+          T,
           %s,
       );
       END
   difference:
     test: |-
       use Data::Dmp;
-      sprintf(<<'END', (map {dmp($_)} @{$case->{input}}{qw<set1 set2>}), ('bag {' . join('', (map {"item $_;"} @{$case->{expected}})) . 'end;}'), dmp($case->{description}));
+      sprintf(<<'END', (map {dmp($_)} @{$case->{input}}{qw<set1 set2>}, $case->{expected}), dmp($case->{description}));
+      $set1 = CustomSet->new(elements => %s);
+      $set2 = CustomSet->new(elements => %s);
       is(
-          set_difference( %s, %s ),
-          %s,
+          $set1->difference($set2)->is_equal_to(CustomSet->new(elements => %s)),
+          T,
           %s,
       );
       END
   union:
     test: |-
       use Data::Dmp;
-      sprintf(<<'END', (map {dmp($_)} @{$case->{input}}{qw<set1 set2>}), ('bag {' . join('', (map {"item $_;"} @{$case->{expected}})) . 'end;}'), dmp($case->{description}));
+      sprintf(<<'END', map {dmp($_)} @{$case->{input}}{qw<set1 set2>}, $case->{expected}, $case->{description});
+      $set1 = CustomSet->new(elements => %s);
+      $set2 = CustomSet->new(elements => %s);
       is(
-          set_union( %s, %s ),
-          %s,
+          $set1->union($set2)->is_equal_to(CustomSet->new(elements => %s)),
+          T,
           %s,
       );
       END
 
 example: |-
-  sub is_empty_set {
-      my ($set) = @_;
-      return !@{$set};
+  use Types::Common qw<-types>;
+  use namespace::clean;
+
+  has elements => (
+      is => 'ro',
+      isa => (HashRef[Bool])->plus_coercions(
+          ArrayRef, sub { +{ map { $_ => 1 } @{$_[0]} } },
+      ),
+      coerce => 1,
+  );
+
+  sub _keys {
+      keys %{ $_[0]->elements };
   }
 
-  sub set_contains {
-      my ($set, $element) = @_;
-      my %set = (map {$_ => 1} @{$set});
-      return $set{$element} // 0;
+  sub is_empty {
+      !$_[0]->_keys;
   }
 
-  sub is_subset {
-      my ($subset, $set) = @_;
-      my %set = (map {$_ => 1} @{$set});
-      my %subset = (map {$_ => 1} @{$subset});
-      for my $key (keys %subset) {
-          return 0 unless $set{$key};
+  sub contains {
+      my ($self, $element) = @_;
+      return !!$self->elements->{$element};
+  }
+
+  sub is_subset_of {
+      my ($self, $other) = @_;
+      for my $key ($self->_keys) {
+          return 0 unless $other->contains($key);
       }
       return 1;
   }
 
-  sub is_disjoint_set {
-      my ($set1, $set2) = @_;
-      my %set1 = (map {$_ => 1} @{$set1});
-      my %set2 = (map {$_ => 1} @{$set2});
-      for my $key (keys %set1) {
-          return 0 if $set2{$key};
+  sub is_disjoint_of {
+      my ($self, $other) = @_;
+      for my $key ($self->_keys) {
+          return 0 if $other->contains($key);
       }
       return 1;
   }
 
-  sub is_equal_set {
-      my ($set1, $set2) = @_;
-      return 0 if @{$set1} != @{$set2};
-      my %set1 = (map {$_ => 1} @{$set1});
-      my %set2 = (map {$_ => 1} @{$set2});
-      for my $key (keys %set1) {
-          return 0 unless $set2{$key};
+  sub is_equal_to {
+      my ($self, $other) = @_;
+      return 0 if $self->_keys != $other->_keys;
+      for my $key ($self->_keys) {
+          return 0 unless $other->contains($key);
       }
       return 1;
   }
 
-  sub add_set_element {
-      my ($set, $element) = @_;
-      return [ keys %{ { map {$_ => 1} @{$set}, $element } } ];
+  sub add {
+      my ($self, $element) = @_;
+      return __PACKAGE__->new(elements => [$self->_keys, $element]);
   }
 
-  sub set_intersection {
-      my ($set1, $set2) = @_;
-      my %set1 = (map {$_ => 1} @{$set1});
-      my %set2 = (map {$_ => 1} @{$set2});
-      return [ grep { $set1{$_} && $set2{$_} } keys %{ {%set1, %set2} } ];
+  sub intersection {
+      my ($self, $other) = @_;
+      return __PACKAGE__->new(elements => [ grep { $self->contains($_) && $other->contains($_) } $self->_keys, $other->_keys ]);
   }
 
-  sub set_difference {
-      my ($set1, $set2) = @_;
-      my %set1 = (map {$_ => 1} @{$set1});
-      my %set2 = (map {$_ => 1} @{$set2});
-      return [ grep {$set1{$_} && !$set2{$_}} keys %{ {%set1, %set2} } ];
+  sub difference {
+      my ($self, $other) = @_;
+      return __PACKAGE__->new(elements => [ grep { $self->contains($_) && !$other->contains($_) } $self->_keys , $other->_keys ]);
   }
 
-  sub set_union {
-      my ($set1, $set2) = @_;
-      return [ keys %{ { map {$_ => 1} @{$set1}, @{$set2} } } ]
+  sub union {
+      my ($self, $other) = @_;
+      return __PACKAGE__->new(elements => [ $self->_keys, $other->_keys ]);
   }
 
 stub: |-
-  sub is_empty_set {
-      my ($set) = @_;
+  has elements => (
+      is => 'ro',
+      #coerce => sub {...},
+      # If you wish, one way of normalizing your objects
+      # e.g. making (elements => [1, 2, 3]) and (elements => [3, 2, 1]) identical
+      # would be to use the 'coerce' option: https://metacpan.org/pod/Moo#coerce
+  );
+
+  sub is_empty {
+      my ($self) = @_;
       return undef;
   }
 
-  sub set_contains {
-      my ($set, $element) = @_;
+  sub contains {
+      my ($self, $element) = @_;
       return undef;
   }
 
-  sub is_subset {
-      my ($subset, $set) = @_;
+  sub is_subset_of {
+      my ($self, $other) = @_;
       return undef;
   }
 
-  sub is_disjoint_set {
-      my ($set1, $set2) = @_;
+  sub is_disjoint_of {
+      my ($self, $other) = @_;
       return undef;
   }
 
-  sub is_equal_set {
-      my ($set1, $set2) = @_;
+  sub is_equal_to {
+      my ($self, $other) = @_;
       return undef;
   }
 
-  sub add_set_element {
-      my ($set, $element) = @_;
+  sub add {
+      my ($self, $element) = @_;
       return undef;
   }
 
-  sub set_intersection {
-      my ($set1, $set2) = @_;
+  sub intersection {
+      my ($self, $other) = @_;
       return undef;
   }
 
-  sub set_difference {
-      my ($set1, $set2) = @_;
+  sub difference {
+      my ($self, $other) = @_;
       return undef;
   }
 
-  sub set_union {
-      my ($set1, $set2) = @_;
+  sub union {
+      my ($self, $other) = @_;
       return undef;
   }
-

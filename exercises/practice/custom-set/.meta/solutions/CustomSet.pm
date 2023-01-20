@@ -1,77 +1,89 @@
 package CustomSet;
 
-use strict;
-use warnings;
+use Moo;
 use feature qw<say>;
 
-use Exporter qw<import>;
-our @EXPORT_OK
-    = qw<is_empty_set set_contains is_subset is_disjoint_set is_equal_set add_set_element set_intersection set_difference set_union>;
+use Types::Common qw<-types>;
+use namespace::clean;
 
-sub is_empty_set {
-    my ($set) = @_;
-    return !@{$set};
+has elements => (
+    is  => 'ro',
+    isa => ( HashRef [Bool] )->plus_coercions(
+        ArrayRef,
+        sub {
+            +{ map { $_ => 1 } @{ $_[0] } };
+        },
+    ),
+    coerce => 1,
+);
+
+sub _keys {
+    keys %{ $_[0]->elements };
 }
 
-sub set_contains {
-    my ( $set, $element ) = @_;
-    my %set = ( map { $_ => 1 } @{$set} );
-    return $set{$element} // 0;
+sub is_empty {
+    !$_[0]->_keys;
 }
 
-sub is_subset {
-    my ( $subset, $set ) = @_;
-    my %set    = ( map { $_ => 1 } @{$set} );
-    my %subset = ( map { $_ => 1 } @{$subset} );
-    for my $key ( keys %subset ) {
-        return 0 unless $set{$key};
+sub contains {
+    my ( $self, $element ) = @_;
+    return !!$self->elements->{$element};
+}
+
+sub is_subset_of {
+    my ( $self, $other ) = @_;
+    for my $key ( $self->_keys ) {
+        return 0 unless $other->contains($key);
     }
     return 1;
 }
 
-sub is_disjoint_set {
-    my ( $set1, $set2 ) = @_;
-    my %set1 = ( map { $_ => 1 } @{$set1} );
-    my %set2 = ( map { $_ => 1 } @{$set2} );
-    for my $key ( keys %set1 ) {
-        return 0 if $set2{$key};
+sub is_disjoint_of {
+    my ( $self, $other ) = @_;
+    for my $key ( $self->_keys ) {
+        return 0 if $other->contains($key);
     }
     return 1;
 }
 
-sub is_equal_set {
-    my ( $set1, $set2 ) = @_;
-    return 0 if @{$set1} != @{$set2};
-    my %set1 = ( map { $_ => 1 } @{$set1} );
-    my %set2 = ( map { $_ => 1 } @{$set2} );
-    for my $key ( keys %set1 ) {
-        return 0 unless $set2{$key};
+sub is_equal_to {
+    my ( $self, $other ) = @_;
+    return 0 if $self->_keys != $other->_keys;
+    for my $key ( $self->_keys ) {
+        return 0 unless $other->contains($key);
     }
     return 1;
 }
 
-sub add_set_element {
-    my ( $set, $element ) = @_;
-    return [ keys %{ { map { $_ => 1 } @{$set}, $element } } ];
+sub add {
+    my ( $self, $element ) = @_;
+    return __PACKAGE__->new( elements => [ $self->_keys, $element ] );
 }
 
-sub set_intersection {
-    my ( $set1, $set2 ) = @_;
-    my %set1 = ( map { $_ => 1 } @{$set1} );
-    my %set2 = ( map { $_ => 1 } @{$set2} );
-    return [ grep { $set1{$_} && $set2{$_} } keys %{ { %set1, %set2 } } ];
+sub intersection {
+    my ( $self, $other ) = @_;
+    return __PACKAGE__->new(
+        elements => [
+            grep { $self->contains($_) && $other->contains($_) } $self->_keys,
+            $other->_keys
+        ]
+    );
 }
 
-sub set_difference {
-    my ( $set1, $set2 ) = @_;
-    my %set1 = ( map { $_ => 1 } @{$set1} );
-    my %set2 = ( map { $_ => 1 } @{$set2} );
-    return [ grep { $set1{$_} && !$set2{$_} } keys %{ { %set1, %set2 } } ];
+sub difference {
+    my ( $self, $other ) = @_;
+    return __PACKAGE__->new(
+        elements => [
+            grep { $self->contains($_) && !$other->contains($_) }
+                $self->_keys,
+            $other->_keys
+        ]
+    );
 }
 
-sub set_union {
-    my ( $set1, $set2 ) = @_;
-    return [ keys %{ { map { $_ => 1 } @{$set1}, @{$set2} } } ];
+sub union {
+    my ( $self, $other ) = @_;
+    return __PACKAGE__->new( elements => [ $self->_keys, $other->_keys ] );
 }
 
 1;
