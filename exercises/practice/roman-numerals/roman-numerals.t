@@ -77,6 +77,14 @@ __DATA__
     "property": "roman"
   },
   {
+    "description": "16 is XVI",
+    "expected": "XVI",
+    "input": {
+      "number": 16
+    },
+    "property": "roman"
+  },
+  {
     "description": "27 is XXVII",
     "expected": "XXVII",
     "input": {
@@ -109,6 +117,14 @@ __DATA__
     "property": "roman"
   },
   {
+    "description": "66 is LXVI",
+    "expected": "LXVI",
+    "input": {
+      "number": 66
+    },
+    "property": "roman"
+  },
+  {
     "description": "93 is XCIII",
     "expected": "XCIII",
     "input": {
@@ -133,6 +149,14 @@ __DATA__
     "property": "roman"
   },
   {
+    "description": "166 is CLXVI",
+    "expected": "CLXVI",
+    "input": {
+      "number": 166
+    },
+    "property": "roman"
+  },
+  {
     "description": "402 is CDII",
     "expected": "CDII",
     "input": {
@@ -145,6 +169,14 @@ __DATA__
     "expected": "DLXXV",
     "input": {
       "number": 575
+    },
+    "property": "roman"
+  },
+  {
+    "description": "666 is DCLXVI",
+    "expected": "DCLXVI",
+    "input": {
+      "number": 666
     },
     "property": "roman"
   },
@@ -165,50 +197,18 @@ __DATA__
     "property": "roman"
   },
   {
-    "description": "3000 is MMM",
-    "expected": "MMM",
-    "input": {
-      "number": 3000
-    },
-    "property": "roman"
-  },
-  {
-    "description": "16 is XVI",
-    "expected": "XVI",
-    "input": {
-      "number": 16
-    },
-    "property": "roman"
-  },
-  {
-    "description": "66 is LXVI",
-    "expected": "LXVI",
-    "input": {
-      "number": 66
-    },
-    "property": "roman"
-  },
-  {
-    "description": "166 is CLXVI",
-    "expected": "CLXVI",
-    "input": {
-      "number": 166
-    },
-    "property": "roman"
-  },
-  {
-    "description": "666 is DCLXVI",
-    "expected": "DCLXVI",
-    "input": {
-      "number": 666
-    },
-    "property": "roman"
-  },
-  {
     "description": "1666 is MDCLXVI",
     "expected": "MDCLXVI",
     "input": {
       "number": 1666
+    },
+    "property": "roman"
+  },
+  {
+    "description": "3000 is MMM",
+    "expected": "MMM",
+    "input": {
+      "number": 3000
     },
     "property": "roman"
   }
