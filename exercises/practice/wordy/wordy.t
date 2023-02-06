@@ -229,5 +229,15 @@ __DATA__
       "question": "What is plus 1 2?"
     },
     "property": "answer"
+  },
+  {
+    "description": "illegal divide by zero",
+    "expected": {
+      "error": "syntax error"
+    },
+    "input": {
+      "question": "What is 1 divided by 0?"
+    },
+    "property": "answer"
   }
 ]
