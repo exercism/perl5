@@ -15,8 +15,10 @@ imported_ok qw<clean_number> or bail_out;
 
 for my $case (@test_cases) {
     if ( !ref $case->{expected} ) {
-        is clean_number( $case->{input}{phrase} ), $case->{expected},
-            $case->{description};
+        lives {
+            is clean_number( $case->{input}{phrase} ), $case->{expected},
+                $case->{description};
+        }
     }
     else {
         like dies( sub { clean_number( $case->{input}{phrase} ) } ),
