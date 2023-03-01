@@ -1,16 +1,27 @@
-plan: 19
 subs: clean_number
-tests: |-
-  for my $case (@test_cases) {
-    if ( !ref $case->{expected} ) {
-      is clean_number( $case->{input}{phrase} ), $case->{expected},
-        $case->{description};
-    }
-    else {
-      like dies( sub { clean_number( $case->{input}{phrase} ) } ),
-        qr/$case->{expected}{error}/, $case->{description};
-    }
-  }
+properties:
+  clean:
+    test: |-
+      use Data::Dmp;
+      $Data::Dmp::OPT_STRINGIFY_NUMBERS = 1;
+      if (!ref $case->{expected}) {
+          sprintf(<<~END, map {dmp $_} $case->{input}{phrase}, @{$case}{qw<expected description>});
+          is(
+              clean_number( %s ),
+              %s,
+              %s,
+          );
+          END
+      }
+      else {
+          sprintf(<<~END, dmp($case->{input}{phrase}), $case->{expected}{error}, dmp($case->{description}));
+          like(
+              dies( sub { clean_number %s } ),
+              qr/%s/,
+              %s,
+          );
+          END
+      }
 
 example: |
   sub clean_number {
