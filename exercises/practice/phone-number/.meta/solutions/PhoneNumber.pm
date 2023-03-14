@@ -23,10 +23,10 @@ sub clean_number {
         }
     }
     else {
-        die 'more than 11 digits'        if length $number > 11;
-        die 'incorrect number of digits' if length $number < 10;
-        die 'letters not permitted'      if $number =~ /[a-z]/i;
-        die 'punctuations not permitted' if $number =~ /\W/;
+        die 'must not be greater than 11 digits' if length $number > 11;
+        die 'must not be fewer than 10 digits'   if length $number < 10;
+        die 'letters not permitted'              if $number =~ /[a-z]/i;
+        die 'punctuations not permitted'         if $number =~ /\W/;
         die '11 digits must start with 1';
     }
     return $1;
