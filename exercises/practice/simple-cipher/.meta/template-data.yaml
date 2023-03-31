@@ -18,7 +18,6 @@ properties:
   encode:
     test: |-
       use Data::Dmp;
-      use List::Util qw<any>;
       if ($case->{input}{key}) {
           sprintf(<<~'END', map {dmp($_)} @{$case->{input}}{qw<key plaintext>}, @{$case}{qw<expected description>});
           $cipher = SimpleCipher->new(key => %s);
@@ -43,7 +42,6 @@ properties:
   decode:
     test: |-
       use Data::Dmp;
-      use List::Util qw<any>;
       if ($case->{input}{key}) {
           if ($case->{input}{plaintext}) {
               sprintf(<<~'END', map {dmp($_)} @{$case->{input}}{qw<key plaintext>}, @{$case}{qw<expected description>});
