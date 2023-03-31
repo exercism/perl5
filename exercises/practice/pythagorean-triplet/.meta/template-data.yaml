@@ -1,0 +1,24 @@
+subs: triplets_with_sum
+properties:
+  tripletsWithSum:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<~'END', $case->{input}{n}, map {dmp($_)} @{$case}{qw<expected description>});
+      is(
+          triplets_with_sum(%d),
+          %s,
+          %s,
+      );
+      END
+
+example: |-
+  sub triplets_with_sum {
+      my ($number) = @_;
+      return [];
+  }
+
+stub: |-
+  sub triplets_with_sum {
+      my ($number) = @_;
+      return undef;
+  }
