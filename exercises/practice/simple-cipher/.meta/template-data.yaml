@@ -1,0 +1,126 @@
+methods: key encode decode
+moo: true
+tests: |
+    my $cipher;
+properties:
+  key:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<~'END', $case->{expected}{match}, dmp($case->{description}));
+      $cipher = SimpleCipher->new;
+      like(
+          $cipher->key,
+          qr/%s/,
+          %s,
+      );
+      END
+      
+  encode:
+    test: |-
+      use Data::Dmp;
+      use List::Util qw<any>;
+      if ($case->{input}{key}) {
+          sprintf(<<~'END', map {dmp($_)} @{$case->{input}}{qw<key plaintext>}, @{$case}{qw<expected description>});
+          $cipher = SimpleCipher->new(key => %s);
+          is(
+              $cipher->encode(%s),
+              %s,
+              %s,
+          );
+          END
+      }
+      else {
+          sprintf(<<~'END', dmp($case->{input}{plaintext}), length($case->{input}{plaintext}), dmp($case->{description}));
+          $cipher = SimpleCipher->new;
+          is(
+              $cipher->encode(%s),
+              substr( $cipher->key, 0, %u ),
+              %s,
+          );
+          END
+      }
+
+  decode:
+    test: |-
+      use Data::Dmp;
+      use List::Util qw<any>;
+      if ($case->{input}{key}) {
+          if ($case->{input}{plaintext}) {
+              sprintf(<<~'END', map {dmp($_)} @{$case->{input}}{qw<key plaintext>}, @{$case}{qw<expected description>});
+              $cipher = SimpleCipher->new( key => %s );
+              is(
+                  $cipher->decode($cipher->encode(%s)),
+                  %s,
+                  %s,
+              );
+              END
+          }
+          else {
+              sprintf(<<~'END', map {dmp($_)} @{$case->{input}}{qw<key ciphertext>}, @{$case}{qw<expected description>});
+              $cipher = SimpleCipher->new( key => %s );
+              is(
+                  $cipher->decode(%s),
+                  %s,
+                  %s,
+              );
+              END
+          }
+      }
+      elsif ($case->{input}{plaintext}) {
+          sprintf(<<~'END', map {dmp($_)} $case->{input}{plaintext}, @{$case}{qw<expected description>});
+          $cipher = SimpleCipher->new;
+          is(
+              $cipher->decode($cipher->encode(%s)),
+              %s,
+              %s,
+          );
+          END
+      }
+      else {
+          sprintf(<<~'END', length($case->{expected}), map {dmp($_)} @{$case}{qw<expected description>});
+          $cipher = SimpleCipher->new;
+          is(
+              $cipher->decode( substr( $cipher->key, 0, %u ) ),
+              %s,
+              %s,
+          );
+          END
+      }
+
+example: |-
+  has key => (
+      is => 'lazy',
+  );
+  
+  sub encode {
+      my ($self) = @_;
+      return undef;
+  }
+  
+  sub decode {
+      my ($self) = @_;
+      return undef;
+  }
+  
+  sub _build_key {
+      return undef;
+  }
+
+stub: |-
+  has key => (
+      is => 'lazy',
+  );
+  
+  sub encode {
+      my ($self) = @_;
+      return undef;
+  }
+  
+  sub decode {
+      my ($self) = @_;
+      return undef;
+  }
+  
+  sub _build_key {
+      return undef;
+  }
