@@ -1,0 +1,68 @@
+package: Queen
+moo: true
+methods: row column can_attack
+tests: |
+  my %queens;
+properties:
+  create:
+    test: |-
+      use Data::Dmp;
+      if (ref $case->{expected}) {
+          sprintf(<<~'END', @{$case->{input}{queen}{position}}{qw<row column>}, $case->{expected}{error}, dmp($case->{description}));
+          like(
+              dies { Queen->new( row => %d, column => %d ) },
+              qr/%s/,
+              %s,
+          );
+          END
+      }
+      else {
+          sprintf(<<~'END', @{$case->{input}{queen}{position}}{qw<row column>}, dmp($case->{description}));
+          is(
+              lives { Queen->new( row => %d, column => %d ) },
+              T,
+              %s,
+          );
+          END
+      }
+
+  canAttack:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<~'END', ( map { @{$case->{input}{$_ . '_queen'}{position}}{qw<row column>} } qw<white black> ), ( $case->{expected} ? 'T' : 'DF' ), dmp($case->{description}) );
+      $queens{white} = Queen->new( row => %d, column => %d );
+      $queens{black} = Queen->new( row => %d, column => %d );
+      is(
+          $queens{white}->can_attack($queens{black}),
+          %s,
+          %s,
+      );
+      END
+
+example: |-
+  has row => (
+      is  => 'ro',
+  );
+
+  has column => (
+      is  => 'ro',
+  );
+  
+  sub can_attack {
+      my ($self, $other) = @_;
+      return undef;
+  }
+
+stub: |-
+  has row => (
+      is  => 'ro',
+  );
+
+  has column => (
+      is  => 'ro',
+  );
+  
+  sub can_attack {
+      my ($self, $other) = @_;
+      return undef;
+  }
