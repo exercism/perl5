@@ -1,0 +1,24 @@
+subs: saddle_points
+properties:
+  saddlePoints:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<~'END', map {dmp($_)} $case->{input}{matrix}, @{$case}{qw<expected description>});
+      is(
+          saddle_points(%s),
+          %s,
+          %s,
+      );
+      END
+
+example: |-
+  sub saddle_points {
+      my ($matrix) = @_;
+      return [];
+  }
+
+stub: |-
+  sub saddle_points {
+      my ($matrix) = @_;
+      return undef;
+  }
