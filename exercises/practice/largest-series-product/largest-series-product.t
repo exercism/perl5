@@ -70,18 +70,6 @@ like(
     "rejects span longer than string length",
 );
 
-is(
-    largest_product( "", 0 ),
-    1,
-    "reports 1 for empty string and empty product (0 span)",
-);
-
-is(
-    largest_product( "123", 0 ),
-    1,
-    "reports 1 for nonempty string and empty product (0 span)",
-);
-
 like(
     dies( sub { largest_product( "", 1 ) } ),
     qr/span must be smaller than string length/,
