@@ -20,6 +20,8 @@ properties:
       END
 
 example: |-
+  use List::Util qw<none>;
+
   has x => (
       is => 'rwp',
   );
@@ -29,7 +31,10 @@ example: |-
   );
 
   has direction => (
-      is => 'rwp',
+      is  => 'rwp',
+      isa => sub {
+          die if none { $_[0] eq $_ } qw<north south east west>;
+      },
   );
   
   sub enact {
@@ -84,6 +89,8 @@ example: |-
   }
 
 stub: |-
+  use List::Util qw<none>;
+
   has x => (
       is => 'rwp',
   );
@@ -93,7 +100,10 @@ stub: |-
   );
 
   has direction => (
-      is => 'rwp',
+      is  => 'rwp',
+      isa => sub {
+          die if none { $_[0] eq $_ } qw<north south east west>;
+      },
   );
 
   sub enact {
