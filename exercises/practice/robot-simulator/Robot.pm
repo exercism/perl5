@@ -16,7 +16,7 @@ has direction => (
 );
 
 sub enact {
-    my ($self) = @_;
+    my ( $self, $instructions ) = @_;
     return $self;
 }
 
