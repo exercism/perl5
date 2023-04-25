@@ -13,7 +13,7 @@
       "Robot.pm"
     ],
     "test": [
-      "robot_simulator.t"
+      "robot-simulator.t"
     ],
     "example": [
       ".meta/solutions/Robot.pm"
