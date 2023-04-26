@@ -1,81 +1,28 @@
-# there are 2 packages in this file; separate them once multiple files are supported
+package Robot;
 
-use strict;
-use warnings;
+use Moo;
+use feature qw<say>;
 
-{
+use List::Util qw<none>;
 
-    package Robot;
+has x => (
+    is => 'rwp',
+);
 
-    sub new {
-        return undef;
-    }
+has y => (
+    is => 'rwp',
+);
 
-    sub bearing {
-        return undef;
-    }
+has direction => (
+    is  => 'rwp',
+    isa => sub {
+        die if none { $_[0] eq $_ } qw<north south east west>;
+    },
+);
 
-    sub coordinates {
-        return undef;
-    }
-
-    sub orient {
-        my ( $self, $direction ) = @_;
-
-        return undef;
-    }
-
-    sub turn_right {
-        my $self = shift;
-
-        return undef;
-    }
-
-    sub turn_left {
-        my $self = shift;
-
-        return undef;
-    }
-
-    sub at {
-        my ( $self, $x, $y ) = @_;
-
-        return undef;
-    }
-
-    sub advance {
-        my $self = shift;
-
-        return undef;
-    }
-
-}    # end of Package Example;
-
-{
-
-    package Simulator;
-
-    sub new {
-        return undef;
-    }
-
-    sub place {
-        my ( $self, $robot, $options ) = @_;
-
-        return undef;
-    }
-
-    sub evaluate {
-        my ( $self, $robot, $abbreviation ) = @_;
-
-        return undef;
-    }
-
-    sub instructions {
-        my ( $self, $abbreviation ) = @_;
-
-        return undef;
-    }
+sub enact {
+    my ( $self, $instructions ) = @_;
+    return $self;
 }
 
 1;

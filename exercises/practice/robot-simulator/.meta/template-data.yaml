@@ -1,0 +1,112 @@
+moo: true
+package: Robot
+tests: |
+  my $robot;
+properties:
+  move:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<~'END', @{$case->{input}{position}}{qw<x y>}, dmp($case->{input}{direction}), dmp($case->{input}{instructions}), @{$case->{expected}{position}}{qw<x y>}, dmp($case->{expected}{direction}), dmp($case->{description}));
+      $robot = Robot->new( x => %d, y => %d, direction => %s )->enact( %s );
+      is(
+          $robot,
+          object {
+              call x         => %d;
+              call y         => %d;
+              call direction => %s;
+          },
+          %s,
+      );
+      END
+
+example: |-
+  use List::Util qw<none>;
+
+  has x => (
+      is => 'rwp',
+  );
+
+  has y => (
+      is => 'rwp',
+  );
+
+  has direction => (
+      is  => 'rwp',
+      isa => sub {
+          die if none { $_[0] eq $_ } qw<north south east west>;
+      },
+  );
+  
+  sub enact {
+      my ( $self, $instructions ) = @_;
+
+      for my $step (split //, $instructions) {
+          if ( $step eq 'A' ) {
+              if ($self->direction eq 'north') {
+                  $self->_set_y( $self->y + 1 );
+              }
+              elsif ($self->direction eq 'south') {
+                  $self->_set_y( $self->y - 1 );
+              }
+              elsif ($self->direction eq 'east') {
+                  $self->_set_x( $self->x + 1 );
+              }
+              elsif ($self->direction eq 'west') {
+                  $self->_set_x( $self->x - 1 );
+              }
+          }
+          elsif ($step eq 'L') {
+              if ($self->direction eq 'north') {
+                  $self->_set_direction('west');
+              }
+              elsif ($self->direction eq 'west') {
+                  $self->_set_direction('south');
+              }
+              elsif ($self->direction eq 'south') {
+                  $self->_set_direction('east');
+              }
+              elsif ($self->direction eq 'east') {
+                  $self->_set_direction('north');
+              }
+          }
+          elsif ($step eq 'R') {
+              if ($self->direction eq 'north') {
+                  $self->_set_direction('east');
+              }
+              elsif ($self->direction eq 'east') {
+                  $self->_set_direction('south');
+              }
+              elsif ($self->direction eq 'south') {
+                  $self->_set_direction('west');
+              }
+              elsif ($self->direction eq 'west') {
+                  $self->_set_direction('north');
+              }
+          }
+      }
+
+      return $self;
+  }
+
+stub: |-
+  use List::Util qw<none>;
+
+  has x => (
+      is => 'rwp',
+  );
+
+  has y => (
+      is => 'rwp',
+  );
+
+  has direction => (
+      is  => 'rwp',
+      isa => sub {
+          die if none { $_[0] eq $_ } qw<north south east west>;
+      },
+  );
+
+  sub enact {
+      my ( $self, $instructions ) = @_;
+      return $self;
+  }
