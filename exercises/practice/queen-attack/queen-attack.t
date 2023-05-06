@@ -18,8 +18,8 @@ is(
 
 like(
     dies { Queen->new( row => -2, column => 2 ) },
-    qr/row not positive/,
-    "Test creation of Queens with valid and invalid positions: queen must have positive row",
+    qr/row not on board/,
+    "Test creation of Queens with valid and invalid positions: queen must have on board row",
 );
 
 like(
@@ -30,8 +30,8 @@ like(
 
 like(
     dies { Queen->new( row => 2, column => -2 ) },
-    qr/column not positive/,
-    "Test creation of Queens with valid and invalid positions: queen must have positive column",
+    qr/column not on board/,
+    "Test creation of Queens with valid and invalid positions: queen must have on board column",
 );
 
 like(
