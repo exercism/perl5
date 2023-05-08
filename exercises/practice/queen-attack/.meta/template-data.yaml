@@ -1,0 +1,81 @@
+package: Queen
+moo: true
+methods: row column can_attack
+tests: |
+  my %queens;
+properties:
+  create:
+    test: |-
+      use Data::Dmp;
+      if (ref $case->{expected}) {
+          sprintf(<<~'END', @{$case->{input}{queen}{position}}{qw<row column>}, map { $_ =~ s/positive/on board/r } $case->{expected}{error}, dmp($case->{description}));
+          like(
+              dies { Queen->new( row => %d, column => %d ) },
+              qr/%s/,
+              %s,
+          );
+          END
+      }
+      else {
+          sprintf(<<~'END', @{$case->{input}{queen}{position}}{qw<row column>}, dmp($case->{description}));
+          is(
+              lives { Queen->new( row => %d, column => %d ) },
+              T,
+              %s,
+          );
+          END
+      }
+
+  canAttack:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<~'END', ( map { @{$case->{input}{$_ . '_queen'}{position}}{qw<row column>} } qw<white black> ), ( $case->{expected} ? 'T' : 'DF' ), dmp($case->{description}) );
+      $queens{white} = Queen->new( row => %d, column => %d );
+      $queens{black} = Queen->new( row => %d, column => %d );
+      is(
+          $queens{white}->can_attack($queens{black}),
+          %s,
+          %s,
+      );
+      END
+
+example: |-
+  has row => (
+      is  => 'ro',
+      isa => sub {
+          die 'row not on board' if $_[0] < 0 || $_[0] > 7;
+      },
+  );
+
+  has column => (
+      is  => 'ro',
+      isa => sub {
+          die 'column not on board' if $_[0] < 0 || $_[0] > 7;
+      },
+  );
+  
+  sub can_attack {
+      my ($self, $other) = @_;
+
+      # Same row or column
+      return 1 if $self->row == $other->row || $self->column == $other->column;
+
+      # Same diagonal
+      return 1 if abs($self->row - $other->row) == abs($self->column - $other->column);
+
+      return 0;
+  }
+
+stub: |-
+  has row => (
+      is  => 'ro',
+  );
+
+  has column => (
+      is  => 'ro',
+  );
+  
+  sub can_attack {
+      my ($self, $other) = @_;
+      return undef;
+  }
