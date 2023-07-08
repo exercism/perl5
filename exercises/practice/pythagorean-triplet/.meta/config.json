@@ -10,13 +10,13 @@
   ],
   "files": {
     "solution": [
-      "Triplet.pm"
+      "PythagoreanTriplet.pm"
     ],
     "test": [
-      "triplet.t"
+      "pythagorean-triplet.t"
     ],
     "example": [
-      ".meta/solutions/Triplet.pm"
+      ".meta/solutions/PythagoreanTriplet.pm"
     ]
   },
   "blurb": "There exists exactly one Pythagorean triplet for which a + b + c = 1000. Find the product a * b * c.",
