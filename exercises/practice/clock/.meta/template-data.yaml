@@ -1,4 +1,6 @@
 methods: new time add_minutes subtract_minutes
+tests: |
+  my $todo;
 properties:
   create:
     test: |-
@@ -32,12 +34,15 @@ properties:
       END
   equal:
     test: |-
+      use Data::Dmp;
+      q{$todo = todo 'experimental feature' if Clock->new( hour => 0, minute => 0) =~ /OBJECT/;} . "\n" .
       ($case->{expected} ? 'is' : 'isnt') . sprintf(<<'END', (map {@{$_}{qw<hour minute>}} @{$case->{input}}{qw<clock1 clock2>} ), dmp($case->{description}));
       (
           Clock->new( hour => %s, minute => %s ),
           Clock->new( hour => %s, minute => %s ),
           %s,
       );
+      $todo = undef;
       END
 
 moo: true
