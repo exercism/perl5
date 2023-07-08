@@ -8,6 +8,8 @@ use Clock ();
 
 can_ok 'Clock', qw<new time add_minutes subtract_minutes> or bail_out;
 
+my $todo;
+
 is(
     Clock->new( hour => 8, minute => 0 )->time,
     "08:00",
@@ -224,100 +226,148 @@ is(
     "Subtract minutes: subtract more than two days",
 );
 
+$todo = todo 'experimental feature'
+    if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
 is(
     Clock->new( hour => 15, minute => 37 ),
     Clock->new( hour => 15, minute => 37 ),
     "Compare two clocks for equality: clocks with same time",
 );
+$todo = undef;
 
+$todo = todo 'experimental feature'
+    if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
 isnt(
     Clock->new( hour => 15, minute => 36 ),
     Clock->new( hour => 15, minute => 37 ),
     "Compare two clocks for equality: clocks a minute apart",
 );
+$todo = undef;
 
+$todo = todo 'experimental feature'
+    if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
 isnt(
     Clock->new( hour => 14, minute => 37 ),
     Clock->new( hour => 15, minute => 37 ),
     "Compare two clocks for equality: clocks an hour apart",
 );
+$todo = undef;
 
+$todo = todo 'experimental feature'
+    if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
 is(
     Clock->new( hour => 10, minute => 37 ),
     Clock->new( hour => 34, minute => 37 ),
     "Compare two clocks for equality: clocks with hour overflow",
 );
+$todo = undef;
 
+$todo = todo 'experimental feature'
+    if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
 is(
     Clock->new( hour => 3,  minute => 11 ),
     Clock->new( hour => 99, minute => 11 ),
     "Compare two clocks for equality: clocks with hour overflow by several days",
 );
+$todo = undef;
 
+$todo = todo 'experimental feature'
+    if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
 is(
     Clock->new( hour => 22, minute => 40 ),
     Clock->new( hour => -2, minute => 40 ),
     "Compare two clocks for equality: clocks with negative hour",
 );
+$todo = undef;
 
+$todo = todo 'experimental feature'
+    if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
 is(
     Clock->new( hour => 17,  minute => 3 ),
     Clock->new( hour => -31, minute => 3 ),
     "Compare two clocks for equality: clocks with negative hour that wraps",
 );
+$todo = undef;
 
+$todo = todo 'experimental feature'
+    if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
 is(
     Clock->new( hour => 13,  minute => 49 ),
     Clock->new( hour => -83, minute => 49 ),
     "Compare two clocks for equality: clocks with negative hour that wraps multiple times",
 );
+$todo = undef;
 
+$todo = todo 'experimental feature'
+    if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
 is(
     Clock->new( hour => 0, minute => 1 ),
     Clock->new( hour => 0, minute => 1441 ),
     "Compare two clocks for equality: clocks with minute overflow",
 );
+$todo = undef;
 
+$todo = todo 'experimental feature'
+    if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
 is(
     Clock->new( hour => 2, minute => 2 ),
     Clock->new( hour => 2, minute => 4322 ),
     "Compare two clocks for equality: clocks with minute overflow by several days",
 );
+$todo = undef;
 
+$todo = todo 'experimental feature'
+    if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
 is(
     Clock->new( hour => 2, minute => 40 ),
     Clock->new( hour => 3, minute => -20 ),
     "Compare two clocks for equality: clocks with negative minute",
 );
+$todo = undef;
 
+$todo = todo 'experimental feature'
+    if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
 is(
     Clock->new( hour => 4, minute => 10 ),
     Clock->new( hour => 5, minute => -1490 ),
     "Compare two clocks for equality: clocks with negative minute that wraps",
 );
+$todo = undef;
 
+$todo = todo 'experimental feature'
+    if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
 is(
     Clock->new( hour => 6, minute => 15 ),
     Clock->new( hour => 6, minute => -4305 ),
     "Compare two clocks for equality: clocks with negative minute that wraps multiple times",
 );
+$todo = undef;
 
+$todo = todo 'experimental feature'
+    if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
 is(
     Clock->new( hour => 7,   minute => 32 ),
     Clock->new( hour => -12, minute => -268 ),
     "Compare two clocks for equality: clocks with negative hours and minutes",
 );
+$todo = undef;
 
+$todo = todo 'experimental feature'
+    if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
 is(
     Clock->new( hour => 18,  minute => 7 ),
     Clock->new( hour => -54, minute => -11513 ),
     "Compare two clocks for equality: clocks with negative hours and minutes that wrap",
 );
+$todo = undef;
 
+$todo = todo 'experimental feature'
+    if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
 is(
     Clock->new( hour => 24, minute => 0 ),
     Clock->new( hour => 0,  minute => 0 ),
     "Compare two clocks for equality: full clock and zeroed clock",
 );
+$todo = undef;
 
 done_testing;
