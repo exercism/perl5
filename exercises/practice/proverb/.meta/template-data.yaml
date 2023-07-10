@@ -1,0 +1,38 @@
+subs: proverb
+
+properties:
+  recite:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<'END', dmp($case->{input}{strings}), ($case->{input}{strings}->@* ? "<<'TEXT' =~ s/\\n\$//r,\n" . join("\n", $case->{expected}->@*) . "\nTEXT" : '"",'), dmp($case->{description}) );
+      is(
+          proverb(%s),
+          %s
+          %s,
+      );
+      END
+      
+example: |-
+  sub proverb {
+      my ($items) = @_;
+      return '' unless $items->@*;
+      my @proverb;
+
+      my $last_line = "And all for the want of a $items->[0].";
+
+      while ( @$items > 1 ) {
+          push @proverb, sprintf(
+              "For want of a %s the %s was lost.",
+              shift @$items,
+              $items->[0]
+          );
+      }
+
+      return join "\n", @proverb, $last_line;
+  }
+
+stub: |-
+  sub proverb {
+      my ($items) = @_;
+      return undef;
+  }
