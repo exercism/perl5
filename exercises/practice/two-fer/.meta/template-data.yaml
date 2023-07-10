@@ -1,23 +1,28 @@
-plan: 4
 subs: two_fer
-tests: |-
-  for my $case ( @test_cases ) {
-    is $case->{input}{name}
-      ? two_fer($case->{input}{name})
-      : two_fer(),
-      $case->{expected}, $case->{description};
-  }
+  
+properties:
+  twoFer:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<'END', ($case->{input}{name} ? dmp($case->{input}{name}) : ''), map {dmp $_} $case->@{qw<expected description>});
+      is(
+          two_fer(%s),
+          %s,
+          %s,
+      );
+      END
 
 example: |-
-  sub two_fer {
-    my $name = shift || 'you';
-    return "One for $name, one for me.";
+  use feature qw<signatures>;
+
+  sub two_fer ($name = 'you') {
+      return "One for $name, one for me.";
   }
 
 stub: |-
   sub two_fer {
-    my ($name) = @_;
-    return undef;
+      my ($name) = @_;
+      return undef;
   }
 
   1;
@@ -27,6 +32,6 @@ stub: |-
   can replace the existing sub declaration
   with the following code:
 
-  use experimental qw(signatures);
+  use feature qw(signatures);
 
   sub two_fer ($name = undef) {}
