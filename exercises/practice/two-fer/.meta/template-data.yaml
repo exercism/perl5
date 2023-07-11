@@ -13,8 +13,6 @@ properties:
       END
 
 example: |-
-  use feature qw<signatures>;
-
   sub two_fer ($name = 'you') {
       return "One for $name, one for me.";
   }

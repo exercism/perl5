@@ -19,7 +19,7 @@ If you are using perl v5.20 or newer, you
 can replace the existing sub declaration
 with the following code:
 
-use experimental qw(signatures);
+use feature qw(signatures);
 
 sub two_fer ($name = undef) {}
 
