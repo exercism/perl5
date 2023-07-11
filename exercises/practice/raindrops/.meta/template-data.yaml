@@ -14,8 +14,6 @@ properties:
       END
 
 example: |-
-  use feature qw<signatures>;
-
   sub raindrop ($number) {
       my $drops = '';
 

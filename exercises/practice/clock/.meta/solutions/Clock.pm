@@ -1,7 +1,8 @@
 package Clock;
 
 use Moo;
-use feature qw<say>;
+use feature      qw<say>;
+use experimental qw<signatures postderef_qq>;
 
 use POSIX ();
 
