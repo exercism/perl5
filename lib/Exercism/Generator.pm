@@ -64,14 +64,14 @@ sub examples {
     my ($self) = @_;
     return $self->data->{examples}
         ? {
-        map { $_ => $self->_render( $self->data->{examples}{$_} ) }
+        map { $_ => $self->_render( $self->data->{examples}{$_}, 1 ) }
             keys %{ $self->data->{examples} }
         }
-        : { base => $self->_render( $self->data->{example} || '' ) };
+        : { base => $self->_render( $self->data->{example} || '', 1 ) };
 }
 
 sub _render {
-    my ( $self, $module_file ) = @_;
+    my ( $self, $module_file, $is_example ) = @_;
     my %data = %{ $self->data };
     $data{cases}   //= $self->json_tests;
     $data{package} //= $self->package;
@@ -81,11 +81,18 @@ sub _render {
         $data{cases} = undef;
     }
 
+    if ( $is_example ) {
+        $data{experimental} = 1;
+    }
+
     my $rendered = Template::Mustache->render(
         BASE_DIR->child( 'templates',
             ( $module_file ? 'module' : 'test' ) . '.mustache' )->slurp_utf8,
         { %data, module_file => $module_file }
     );
+
+    delete $data{experimental};
+    undef $Data::Dmp::OPT_STRINGIFY_NUMBERS;
 
     Perl::Tidy::perltidy(
         source      => \$rendered,

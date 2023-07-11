@@ -5,7 +5,8 @@
 use Moo;{{/moo}}{{^moo}}
 use strict;
 use warnings;
-{{/moo}}use feature qw<say>;{{#feature_comment}} {{&feature_comment}}{{/feature_comment}}
+{{/moo}}use feature qw<say>;{{#feature_comment}} {{&feature_comment}}{{/feature_comment}}{{#experimental}}
+use experimental qw<signatures postderef_qq>;{{/experimental}}
 {{#subs}}
 use Exporter qw<import>;
 our @EXPORT_OK = qw<{{&subs}}>;{{/subs}}{{#module_file}}
