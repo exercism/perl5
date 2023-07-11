@@ -7,8 +7,9 @@ use feature qw<say>;
 use Exporter qw<import>;
 our @EXPORT_OK = qw<raindrop>;
 
-sub raindrop {
-    my ($number) = @_;
+use feature qw<signatures>;
+
+sub raindrop ($number) {
     my $drops = '';
 
     if ( $number % 3 == 0 ) {
