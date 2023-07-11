@@ -7,8 +7,9 @@ use feature qw<say>;
 use Exporter qw<import>;
 our @EXPORT_OK = qw<two_fer>;
 
-sub two_fer {
-    my $name = shift || 'you';
+use feature qw<signatures>;
+
+sub two_fer ( $name = 'you' ) {
     return "One for $name, one for me.";
 }
 
