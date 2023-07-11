@@ -5,10 +5,10 @@ use warnings;
 use feature qw<say>;
 
 use Exporter qw<import>;
-our @EXPORT_OK = qw<convert>;
+our @EXPORT_OK = qw<convert_ocr>;
 
-sub convert {
-    my ($rows) = @_;
+sub convert_ocr {
+    my ($string) = @_;
     return undef;
 }
 
