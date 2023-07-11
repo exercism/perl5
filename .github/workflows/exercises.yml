@@ -38,11 +38,11 @@ jobs:
           })
 
       - name: Test with prove
-        run: prove exercises/practice/*/.meta/solutions/ --recurse --jobs 2 -M"experimental qw<signatures postderef_qq>"
+        run: prove exercises/practice/*/.meta/solutions/ --recurse --jobs 2 -M"experimental=signatures,postderef_qq"
 
       - run: cpm install -g App::Yath
         if: runner.os != 'Windows'
 
       - name: Test with yath
-        run: yath test exercises/practice/*/.meta/solutions/ --jobs 2 -M 'experimental qw<signatures postderef_qq>'
+        run: yath test exercises/practice/*/.meta/solutions/ --jobs 2 -M "experimental=signatures,postderef_qq"
         if: runner.os != 'Windows'
