@@ -2,7 +2,7 @@ package Matrix;
 
 use Moo;
 use feature      qw<say>;
-use experimental qw<signatures postderef_qq>;
+use experimental qw<signatures postderef postderef_qq>;
 
 has string => (
     is => 'ro',

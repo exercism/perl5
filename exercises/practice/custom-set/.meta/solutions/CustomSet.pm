@@ -2,7 +2,7 @@ package CustomSet;
 
 use Moo;
 use feature      qw<say>;
-use experimental qw<signatures postderef_qq>;
+use experimental qw<signatures postderef postderef_qq>;
 
 use Types::Common qw<-types>;
 use namespace::clean;
