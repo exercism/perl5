@@ -309,7 +309,8 @@
         "practices": [],
         "prerequisites": [],
         "difficulty": 1,
-        "topics": []
+        "topics": [],
+        "status": "wip"
       },
       {
         "slug": "list-ops",
@@ -318,7 +319,8 @@
         "practices": [],
         "prerequisites": [],
         "difficulty": 1,
-        "topics": []
+        "topics": [],
+        "status": "wip"
       },
       {
         "slug": "luhn",
@@ -354,7 +356,8 @@
         "practices": [],
         "prerequisites": [],
         "difficulty": 1,
-        "topics": []
+        "topics": [],
+        "status": "wip"
       },
       {
         "slug": "nucleotide-count",
@@ -423,7 +426,8 @@
         "difficulty": 1,
         "topics": [
           "math"
-        ]
+        ],
+        "status": "wip"
       },
       {
         "slug": "proverb",
@@ -506,7 +510,8 @@
         "practices": [],
         "prerequisites": [],
         "difficulty": 1,
-        "topics": []
+        "topics": [],
+        "status": "wip"
       },
       {
         "slug": "say",
@@ -562,7 +567,8 @@
         "practices": [],
         "prerequisites": [],
         "difficulty": 1,
-        "topics": []
+        "topics": [],
+        "status": "wip"
       },
       {
         "slug": "simple-linked-list",
@@ -571,7 +577,8 @@
         "practices": [],
         "prerequisites": [],
         "difficulty": 1,
-        "topics": []
+        "topics": [],
+        "status": "wip"
       },
       {
         "slug": "space-age",
