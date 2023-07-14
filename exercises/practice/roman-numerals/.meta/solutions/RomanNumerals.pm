@@ -24,8 +24,7 @@ my %ROMANS = qw(
     1 I
 );
 
-sub to_roman {
-    my ($number) = @_;
+sub to_roman ($number) {
     my $roman;
     my @places = sort { $b <=> $a } keys %ROMANS;
 

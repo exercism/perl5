@@ -1,9 +1,16 @@
-plan: 25
 subs: to_roman
-tests: |-
-  for my $case ( @test_cases ) {
-    is to_roman($case->{input}{number}), $case->{expected}, $case->{description};
-  }
+
+properties:
+  roman:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<'END', $case->{input}{number}, map {dmp $_} $case->@{qw<expected description>});
+      is(
+          to_roman(%s),
+          %s,
+          %s,
+      );
+      END
 
 example: |-
   my %ROMANS = qw(
@@ -22,18 +29,17 @@ example: |-
          1 I
   );
 
-  sub to_roman {
-      my ($number) = @_;
+  sub to_roman ($number) {
       my $roman;
       my @places = sort {$b <=> $a} keys %ROMANS;
 
       use integer;
 
       while ( $number > 0 ) {
-          my $key = shift @places;
+          my $key    = shift @places;
           my $repeat = $number / $key;
-          $number  -= $key * $repeat;
-          $roman   .= $ROMANS{$key} x $repeat;
+          $number    -= $key * $repeat;
+          $roman     .= $ROMANS{$key} x $repeat;
       }
 
       return $roman;
@@ -41,6 +47,6 @@ example: |-
 
 stub: |-
   sub to_roman {
-    my ($number) = @_;
-    return undef;
+      my ($number) = @_;
+      return undef;
   }
