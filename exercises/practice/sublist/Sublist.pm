@@ -8,7 +8,7 @@ use Exporter qw<import>;
 our @EXPORT_OK = qw<compare_lists>;
 
 sub compare_lists {
-    my ($args) = @_;
+    my ( $list1, $list2 ) = @_;
     return undef;
 }
 
