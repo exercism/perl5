@@ -25,7 +25,6 @@ is $CLASS->new(
             property    => 'hello',
             input       => {},
             expected    => 'Hello, World!',
-            uuid        => 'af9ffe10-dc13-42d8-a742-e7bdafac449d',
         }
     ];
     call property_tests => ['Hello, World!'];
@@ -35,8 +34,7 @@ is $CLASS->new(
     "description": "Say Hi!",
     "expected": "Hello, World!",
     "input": {},
-    "property": "hello",
-    "uuid": "af9ffe10-dc13-42d8-a742-e7bdafac449d"
+    "property": "hello"
   }
 ]
 JSON
