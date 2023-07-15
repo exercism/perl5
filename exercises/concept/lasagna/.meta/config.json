@@ -13,6 +13,6 @@
       ".meta/Lasagna.pm"
     ]
   },
-  "language_versions": ">=5.36",
+  "language_versions": ">=5.38",
   "blurb": "wip"
 }

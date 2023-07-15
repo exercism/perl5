@@ -1,6 +1,6 @@
 package Lasagna;
 
-use v5.36;
+use v5.38;
 
 our $EXPECTED_MINUTES_IN_OVEN = 40;
 
@@ -19,5 +19,3 @@ sub total_time_in_minutes ($number_of_layers, $actual_minutes_in_oven) {
 sub alarm () {
     return 'Ding!';
 }
-
-1;
