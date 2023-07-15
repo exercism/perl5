@@ -9,74 +9,172 @@ use Minesweeper qw<annotate>;
 imported_ok qw<annotate> or bail_out;
 
 is(
-    annotate(""),
-    "",
+    annotate( <<'INPUT' =~ s/\n$//r ),
+
+INPUT
+    <<'EXPECTED' =~ s/\n$//r,
+
+EXPECTED
     "no rows",
 );
 
 is(
-    annotate(""),
-    "",
+    annotate( <<'INPUT' =~ s/\n$//r ),
+
+INPUT
+    <<'EXPECTED' =~ s/\n$//r,
+
+EXPECTED
     "no columns",
 );
 
 is(
-    annotate("   \n   \n   "),
-    "   \n   \n   ",
+    annotate( <<'INPUT' =~ s/\n$//r ),
+   
+   
+   
+INPUT
+    <<'EXPECTED' =~ s/\n$//r,
+   
+   
+   
+EXPECTED
     "no mines",
 );
 
 is(
-    annotate("***\n***\n***"),
-    "***\n***\n***",
+    annotate( <<'INPUT' =~ s/\n$//r ),
+***
+***
+***
+INPUT
+    <<'EXPECTED' =~ s/\n$//r,
+***
+***
+***
+EXPECTED
     "minefield with only mines",
 );
 
 is(
-    annotate("   \n * \n   "),
-    "111\n1*1\n111",
+    annotate( <<'INPUT' =~ s/\n$//r ),
+   
+ * 
+   
+INPUT
+    <<'EXPECTED' =~ s/\n$//r,
+111
+1*1
+111
+EXPECTED
     "mine surrounded by spaces",
 );
 
 is(
-    annotate("***\n* *\n***"),
-    "***\n*8*\n***",
+    annotate( <<'INPUT' =~ s/\n$//r ),
+***
+* *
+***
+INPUT
+    <<'EXPECTED' =~ s/\n$//r,
+***
+*8*
+***
+EXPECTED
     "space surrounded by mines",
 );
 
 is(
-    annotate(" * * "),
-    "1*2*1",
+    annotate( <<'INPUT' =~ s/\n$//r ),
+ * * 
+INPUT
+    <<'EXPECTED' =~ s/\n$//r,
+1*2*1
+EXPECTED
     "horizontal line",
 );
 
 is(
-    annotate("*   *"),
-    "*1 1*",
+    annotate( <<'INPUT' =~ s/\n$//r ),
+*   *
+INPUT
+    <<'EXPECTED' =~ s/\n$//r,
+*1 1*
+EXPECTED
     "horizontal line, mines at edges",
 );
 
 is(
-    annotate(" \n*\n \n*\n "),
-    "1\n*\n2\n*\n1",
+    annotate( <<'INPUT' =~ s/\n$//r ),
+ 
+*
+ 
+*
+ 
+INPUT
+    <<'EXPECTED' =~ s/\n$//r,
+1
+*
+2
+*
+1
+EXPECTED
     "vertical line",
 );
 
 is(
-    annotate("*\n \n \n \n*"),
-    "*\n1\n \n1\n*",
+    annotate( <<'INPUT' =~ s/\n$//r ),
+*
+ 
+ 
+ 
+*
+INPUT
+    <<'EXPECTED' =~ s/\n$//r,
+*
+1
+ 
+1
+*
+EXPECTED
     "vertical line, mines at edges",
 );
 
 is(
-    annotate("  *  \n  *  \n*****\n  *  \n  *  "),
-    " 2*2 \n25*52\n*****\n25*52\n 2*2 ",
+    annotate( <<'INPUT' =~ s/\n$//r ),
+  *  
+  *  
+*****
+  *  
+  *  
+INPUT
+    <<'EXPECTED' =~ s/\n$//r,
+ 2*2 
+25*52
+*****
+25*52
+ 2*2 
+EXPECTED
     "cross",
 );
 
 is(
-    annotate(" *  * \n  *   \n    * \n   * *\n *  * \n      "),
-    "1*22*1\n12*322\n 123*2\n112*4*\n1*22*2\n111111",
+    annotate( <<'INPUT' =~ s/\n$//r ),
+ *  * 
+  *   
+    * 
+   * *
+ *  * 
+      
+INPUT
+    <<'EXPECTED' =~ s/\n$//r,
+1*22*1
+12*322
+ 123*2
+112*4*
+1*22*2
+111111
+EXPECTED
     "large minefield",
 );
 
