@@ -354,7 +354,8 @@
         "practices": [],
         "prerequisites": [],
         "difficulty": 1,
-        "topics": []
+        "topics": [],
+        "status": "beta"
       },
       {
         "slug": "nucleotide-count",
