@@ -3,8 +3,8 @@ properties:
   saddlePoints:
     test: |-
       use Data::Dmp;
-      my $expected = $case->{description} =~ /non square/ ? [ $case->{expected}->@[1,0] ] : $case->{expected};
-      sprintf(<<'END', map {dmp($_)} $case->{input}{matrix}, $expected, $case->{description});
+      my $expected = 'bag {' . ( join "\n", map { 'item ' . dmp($_) . ';'} $case->{expected}->@* ) . 'end;}';
+      sprintf(<<'END', dmp($case->{input}{matrix}), $expected, dmp($case->{description}));
       is(
           saddle_points(%s),
           %s,
