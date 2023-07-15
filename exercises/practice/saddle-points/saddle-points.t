@@ -52,7 +52,7 @@ is(
 
 is(
     saddle_points( [ [ 3, 1, 3 ], [ 3, 2, 4 ] ] ),
-    [ { column => 3, row => 1 }, { column => 1, row => 1 } ],
+    [ { column => 1, row => 1 }, { column => 3, row => 1 } ],
     "Can identify saddle points in a non square matrix",
 );
 

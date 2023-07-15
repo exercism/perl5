@@ -215,7 +215,7 @@ sub _build_cases {
     }
     elsif ( any { $_ eq $obj->{uuid} } @{ $self->case_uuids } ) {
         return [
-            {   %{$obj}{qw<input expected property>},
+            {   %{$obj}{qw<input expected property uuid>},
                 description => $description . $obj->{description}
             }
         ];
