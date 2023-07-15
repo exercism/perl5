@@ -12,13 +12,13 @@
   ],
   "files": {
     "solution": [
-      "ScrabbleScore.pm"
+      "Scrabble.pm"
     ],
     "test": [
       "scrabble-score.t"
     ],
     "example": [
-      ".meta/solutions/ScrabbleScore.pm"
+      ".meta/solutions/Scrabble.pm"
     ]
   },
   "blurb": "Given a word, compute the Scrabble score for that word.",
