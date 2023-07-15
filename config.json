@@ -356,8 +356,7 @@
         "practices": [],
         "prerequisites": [],
         "difficulty": 1,
-        "topics": [],
-        "status": "wip"
+        "topics": []
       },
       {
         "slug": "nucleotide-count",
@@ -566,8 +565,7 @@
         "practices": [],
         "prerequisites": [],
         "difficulty": 1,
-        "topics": [],
-        "status": "wip"
+        "topics": []
       },
       {
         "slug": "simple-linked-list",
