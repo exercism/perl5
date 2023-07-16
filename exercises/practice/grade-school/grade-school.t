@@ -11,7 +11,6 @@ can_ok 'GradeSchool', qw<add roster> or bail_out;
 my $grade_school;
 
 $grade_school = GradeSchool->new; # begin: a3f0fb58-f240-4723-8ddc-e644666b85cc
-
 is(
     $grade_school->roster,
     [],
@@ -182,7 +181,6 @@ is(
 ); # end: 180a8ff9-5b94-43fc-9db1-d46b4a8c93b6
 
 $grade_school = GradeSchool->new; # begin: 5e67aa3c-a3c6-4407-a183-d8fe59cd1630
-
 is(
     $grade_school->roster(1),
     [],
