@@ -25,16 +25,18 @@ is $CLASS->new(
             property    => 'hello',
             input       => {},
             expected    => 'Hello, World!',
+            uuid        => 'af9ffe10-dc13-42d8-a742-e7bdafac449d',
         }
     ];
-    call property_tests => ['Hello, World!'];
+    call property_tests => ["Hello, World! # case: af9ffe10-dc13-42d8-a742-e7bdafac449d\n"];
     call json_tests     => <<'JSON' =~ s/^\s+|\s+$//gr;
 [
   {
     "description": "Say Hi!",
     "expected": "Hello, World!",
     "input": {},
-    "property": "hello"
+    "property": "hello",
+    "uuid": "af9ffe10-dc13-42d8-a742-e7bdafac449d"
   }
 ]
 JSON

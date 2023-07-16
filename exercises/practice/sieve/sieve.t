@@ -8,31 +8,31 @@ use Sieve qw<find_primes>;
 
 imported_ok qw<find_primes> or bail_out;
 
-is(
+is(    # begin: 88529125-c4ce-43cc-bb36-1eb4ddd7b44f
     find_primes(1),
     [],
     "no primes under two",
-);
+);     # end: 88529125-c4ce-43cc-bb36-1eb4ddd7b44f
 
-is(
+is(    # begin: 4afe9474-c705-4477-9923-840e1024cc2b
     find_primes(2),
     [2],
     "find first prime",
-);
+);     # end: 4afe9474-c705-4477-9923-840e1024cc2b
 
-is(
+is(    # begin: 974945d8-8cd9-4f00-9463-7d813c7f17b7
     find_primes(10),
     [ 2, 3, 5, 7 ],
     "find primes up to 10",
-);
+);     # end: 974945d8-8cd9-4f00-9463-7d813c7f17b7
 
-is(
+is(    # begin: 2e2417b7-3f3a-452a-8594-b9af08af6d82
     find_primes(13),
     [ 2, 3, 5, 7, 11, 13 ],
     "limit is prime",
-);
+);     # end: 2e2417b7-3f3a-452a-8594-b9af08af6d82
 
-is(
+is(    # begin: 92102a05-4c7c-47de-9ed0-b7d5fcd00f21
     find_primes(1000),
     [   2,   3,   5,   7,   11,  13,  17,  19,  23,  29,  31,  37,
         41,  43,  47,  53,  59,  61,  67,  71,  73,  79,  83,  89,
@@ -50,6 +50,6 @@ is(
         919, 929, 937, 941, 947, 953, 967, 971, 977, 983, 991, 997
     ],
     "find primes up to 1000",
-);
+);    # end: 92102a05-4c7c-47de-9ed0-b7d5fcd00f21
 
 done_testing;

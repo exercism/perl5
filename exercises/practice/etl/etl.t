@@ -8,25 +8,25 @@ use ETL qw<transform>;
 
 imported_ok qw<transform> or bail_out;
 
-is(
+is(    # begin: 78a7a9f9-4490-4a47-8ee9-5a38bb47d28f
     transform( { 1 => ["A"] } ),
     { a => 1 },
     "single letter",
-);
+);     # end: 78a7a9f9-4490-4a47-8ee9-5a38bb47d28f
 
-is(
+is(    # begin: 60dbd000-451d-44c7-bdbb-97c73ac1f497
     transform( { 1 => [ "A", "E", "I", "O", "U" ] } ),
     { a => 1, e => 1, i => 1, o => 1, u => 1 },
     "single score with multiple letters",
-);
+);     # end: 60dbd000-451d-44c7-bdbb-97c73ac1f497
 
-is(
+is(    # begin: f5c5de0c-301f-4fdd-a0e5-df97d4214f54
     transform( { 1 => [ "A", "E" ], 2 => [ "D", "G" ] } ),
     { a => 1, d => 2, e => 1, g => 2 },
     "multiple scores with multiple letters",
-);
+);     # end: f5c5de0c-301f-4fdd-a0e5-df97d4214f54
 
-is(
+is(    # begin: 5db8ea89-ecb4-4dcd-902f-2b418cc87b9d
     transform(
         {   1  => [ "A", "E", "I", "O", "U", "L", "N", "R", "S", "T" ],
             10 => [ "Q", "Z" ],
@@ -65,6 +65,6 @@ is(
         z => 10
     },
     "multiple scores with differing numbers of letters",
-);
+);    # end: 5db8ea89-ecb4-4dcd-902f-2b418cc87b9d
 
 done_testing;

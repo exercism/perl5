@@ -8,11 +8,11 @@ use HelloWorld qw<hello>;
 
 imported_ok qw<hello> or bail_out;
 
-# Run the 'is' sub from 'Test2::V0' with three arguments.
+# Run the 'is' sub from 'Test2::V0' with three arguments. # begin: af9ffe10-dc13-42d8-a742-e7bdafac449d
 is(
     hello(),            # Run the 'hello' sub imported from the module.
     "Hello, World!",    # The expected result to compare with 'hello'.
     "Say Hi!"           # The test description.
-);
+);                      # end: af9ffe10-dc13-42d8-a742-e7bdafac449d
 
 done_testing;
