@@ -5,7 +5,6 @@ use FindBin qw<$Bin>;
 use lib $Bin, "$Bin/local/lib/perl5"; # Find modules in the same dir as this file.
 
 use RobotName ();
-plan 7; # This is how many tests we expect to run.
 
 my $robot = RobotName->new;
 isa_ok $robot, 'RobotName';
@@ -19,3 +18,5 @@ isnt $robot->name, RobotName->new->name,
 isnt $robot->reset_name, $name,
     'reset_name should change the robot name';
 like $robot->name, $schema, 'New name should match schema';
+
+done_testing;
