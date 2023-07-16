@@ -1,51 +1,62 @@
 subs: is_equilateral is_isosceles is_scalene
-tests: |-
-  for my $case (@test_cases) {
-    my $func;
-    if ($case->{property} eq 'equilateral') {
-      $func = \&is_equilateral;
-    }
-    elsif ($case->{property} eq 'isosceles') {
-      $func = \&is_isosceles;
-    }
-    elsif ($case->{property} eq 'scalene') {
-      $func = \&is_scalene;
-    }
 
-    is(
-      $func->( $case->{input}{sides} ),
-      $case->{expected} ? T : DF,
-      $case->{description},
-    );
-  }
+properties:
+  equilateral:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<~'END', dmp($case->{input}{sides}), $case->{expected} ? 'T' : 'DF', dmp($case->{description}));
+      is(
+          is_equilateral(%s),
+          %s,
+          %s,
+      );
+      END
+
+  isosceles:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<~'END', dmp($case->{input}{sides}), $case->{expected} ? 'T' : 'DF', dmp($case->{description}));
+      is(
+          is_isosceles(%s),
+          %s,
+          %s,
+      );
+      END
+
+  scalene:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<~'END', dmp($case->{input}{sides}), $case->{expected} ? 'T' : 'DF', dmp($case->{description}));
+      is(
+          is_scalene(%s),
+          %s,
+          %s,
+      );
+      END
 
 example: |-
-  use experimental qw<signatures>;
-  use lib 'lib';
-  use Exercism::QuickSolve;
-
-  sub is_equilateral ($triangle) {
-    !!quicksolve(
-      input     => $triangle,
-      input_key => 'sides',
-      property  => 'equilateral',
-    );
+  # Solution by GitHub Copilot
+  sub is_equilateral ($sides) {
+      my $first_side = $sides->[0];
+      for my $side (@$sides) {
+          return 0 if $side == 0;
+          return 0 if $side != $first_side;
+      }
+      return 1;
   }
 
-  sub is_isosceles ($triangle) {
-    !!quicksolve(
-      input     => $triangle,
-      input_key => 'sides',
-      property  => 'isosceles',
-    );
+  sub is_isosceles ($sides) {
+      my ($first_side, $second_side, $third_side) = sort { $a <=> $b } @$sides;
+      return 0 if $first_side + $second_side <= $third_side;
+      return 1 if $first_side == $second_side || $second_side == $third_side;
+      return 0;
   }
 
-  sub is_scalene ($triangle) {
-    !!quicksolve(
-      input     => $triangle,
-      input_key => 'sides',
-      property  => 'scalene',
-    );
+  sub is_scalene ($sides) {
+      my ($first_side, $second_side, $third_side) = sort { $a <=> $b } @$sides;
+      return 0 if $first_side + $second_side <= $third_side;
+      return 1 if $first_side != $second_side && $second_side != $third_side;
+      return 0;
   }
 
 stub: |-
