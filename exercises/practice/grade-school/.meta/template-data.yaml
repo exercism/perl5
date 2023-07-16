@@ -19,7 +19,7 @@ properties:
   roster:
     test: |-
       use Data::Dmp;
-      '$grade_school = GradeSchool->new;'
+      "\$grade_school = GradeSchool->new;\n"
       . sprintf(<<'END', join("\n", map {'$grade_school->add(' . dmp($_->[0]) . ',' . $_->[1] . ');'} @{$case->{input}{students}}), map {dmp($_)} @{$case}{qw<expected description>});
       %s
       is(
@@ -32,7 +32,7 @@ properties:
   grade:
     test: |-
       use Data::Dmp;
-      '$grade_school = GradeSchool->new;'
+      "\$grade_school = GradeSchool->new;\n"
       . sprintf(<<'END', join("\n", map {'$grade_school->add(' . dmp($_->[0]) . ',' . $_->[1] . ');'} @{$case->{input}{students}}), $case->{input}{desiredGrade} ,map {dmp($_)} @{$case}{qw<expected description>});
       %s
       is(
