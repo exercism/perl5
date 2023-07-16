@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use AllYourBase qw<rebase>;
 
-imported_ok qw<rebase> or bail_out;
-
 is( # begin: 5ce422f9-7a4b-4f44-ad29-49c67cb32d2c
     rebase( [1], 2, 10 ),
     [1],

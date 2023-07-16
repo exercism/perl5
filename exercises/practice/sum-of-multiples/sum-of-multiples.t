@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use SumOfMultiples qw<sum_of_multiples>;
 
-imported_ok qw<sum_of_multiples> or bail_out;
-
 is( # begin: 54aaab5a-ce86-4edc-8b40-d3ab2400a279
     sum_of_multiples( [ 3, 5 ], 1 ),
     0,

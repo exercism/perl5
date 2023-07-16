@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use BinarySearchTree ();
 
-can_ok 'BinarySearchTree', qw<add sort> or bail_out;
-
 my $bst;
 my $init;
 

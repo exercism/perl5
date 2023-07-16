@@ -4,7 +4,6 @@ plan_comment: '# This is how many tests we expect to run.'
 feature_comment: '# Use the `say` function to output debugging info in the online editor.'
 
 moo: true
-methods: new name reset_name
 
 plan: 7
   # plan includes can_ok of `methods` plus the tests below.

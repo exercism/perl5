@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use Hamming qw<hamming_distance>;
 
-imported_ok qw<hamming_distance> or bail_out;
-
 is( # begin: f6dcb64f-03b0-4b60-81b1-3c9dbf47e887
     hamming_distance( "", "" ),
     0,

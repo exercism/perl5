@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use Proverb qw<proverb>;
 
-imported_ok qw<proverb> or bail_out;
-
 is( # begin: e974b73e-7851-484f-8d6d-92e07fe742fc
     proverb( [] ),
     "",

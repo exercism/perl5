@@ -19,8 +19,6 @@ modules:
 
 # For exports
 subs: 'foo bar'
-# For class methods
-methods: 'foo bar'
 
 # This is a string containing Perl code, to be inserted before any properties
 tests: |-

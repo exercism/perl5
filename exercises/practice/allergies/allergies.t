@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use Allergies qw<allergic_to list_allergies>;
 
-imported_ok qw<allergic_to list_allergies> or bail_out;
-
 is( # begin: 17fc7296-2440-4ac4-ad7b-d07c321bc5a0
     allergic_to( "eggs", 0 ),
     DF, # Defined but False

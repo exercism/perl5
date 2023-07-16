@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use PascalsTriangle qw<pascal_rows>;
 
-imported_ok qw<pascal_rows> or bail_out;
-
 is( # begin: 9920ce55-9629-46d5-85d6-4201f4a4234d
     pascal_rows(0),
     <<'TRIANGLE' =~ s/\n$//r,

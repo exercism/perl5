@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use Matrix ();
 
-can_ok 'Matrix', qw<row column> or bail_out;
-
 is( # begin: ca733dab-9d85-4065-9ef6-a880a951dafd
     Matrix->new( string => "1" )->row(1),
     ["1"],

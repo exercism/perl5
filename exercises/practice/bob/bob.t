@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5"; # Find modules in the same dir as this fil
 
 use Bob qw<hey>;
 
-imported_ok qw<hey> or bail_out;
-
 is( # begin: e162fead-606f-437a-a166-d051915cea8e
     hey("Tom-ay-to, tom-aaaah-to."),
     "Whatever.",

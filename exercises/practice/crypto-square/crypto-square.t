@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use CryptoSquare qw<cipher>;
 
-imported_ok qw<cipher> or bail_out;
-
 is( # begin: 407c3837-9aa7-4111-ab63-ec54b58e8e9f
     cipher(""),
     "",

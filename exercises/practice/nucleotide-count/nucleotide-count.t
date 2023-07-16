@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use NucleotideCount qw<count_nucleotides>;
 
-imported_ok qw<count_nucleotides> or bail_out;
-
 is( # begin: 3e5c30a8-87e2-4845-a815-a49671ade970
     count_nucleotides(""),
     { A => 0, C => 0, G => 0, T => 0 },

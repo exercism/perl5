@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use SimpleCipher ();
 
-can_ok 'SimpleCipher', qw<key encode decode> or bail_out;
-
 my $cipher;
 
 $cipher = SimpleCipher->new; # begin: b8bdfbe1-bea3-41bb-a999-b41403f2b15d

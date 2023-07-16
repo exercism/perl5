@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use SaddlePoints qw<saddle_points>;
 
-imported_ok qw<saddle_points> or bail_out;
-
 is( # begin: 3e374e63-a2e0-4530-a39a-d53c560382bd
     saddle_points( [ [ 9, 8, 7 ], [ 5, 3, 2 ], [ 6, 6, 7 ] ] ),
     bag {

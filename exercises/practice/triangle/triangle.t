@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use Triangle qw<is_equilateral is_isosceles is_scalene>;
 
-imported_ok qw<is_equilateral is_isosceles is_scalene> or bail_out;
-
 is( # begin: 8b2c43ac-7257-43f9-b552-7631a91988af
     is_equilateral( [ 2, 2, 2 ] ),
     T,

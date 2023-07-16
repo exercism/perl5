@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use ETL qw<transform>;
 
-imported_ok qw<transform> or bail_out;
-
 is( # begin: 78a7a9f9-4490-4a47-8ee9-5a38bb47d28f
     transform(
         {

@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use LargestSeriesProduct qw<largest_product>;
 
-imported_ok qw<largest_product> or bail_out;
-
 is( # begin: 7c82f8b7-e347-48ee-8a22-f672323324d4
     largest_product( "29", 2 ),
     18,

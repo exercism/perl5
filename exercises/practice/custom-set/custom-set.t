@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use CustomSet ();
 
-can_ok 'CustomSet', qw<is_empty contains is_subset_of is_disjoint_of is_equal_to add intersection difference union> or bail_out;
-
 my ( $set1, $set2 );
 
 $set1 = CustomSet->new( elements => [] ); # begin: 20c5f855-f83a-44a7-abdd-fe75c6cf022b

@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use Sublist qw<compare_lists>;
 
-imported_ok qw<compare_lists> or bail_out;
-
 is( # begin: 97319c93-ebc5-47ab-a022-02a1980e1d29
     compare_lists( [], [] ),
     "equal",

@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use Wordy qw<answer>;
 
-imported_ok qw<answer> or bail_out;
-
 is( # begin: 88bf4b28-0de3-4883-93c7-db1b14aa806e
     answer("What is 5?"),
     5,

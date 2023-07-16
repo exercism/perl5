@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use Gigasecond qw<add_gigasecond>;
 
-imported_ok qw<add_gigasecond> or bail_out;
-
 is( # begin: 92fbe71c-ea52-4fac-bd77-be38023cacf7
     add_gigasecond("2011-04-25"),
     "2043-01-01T01:46:40",
