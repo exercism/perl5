@@ -1,156 +1,79 @@
 #!/usr/bin/env perl
 use Test2::V0;
-use JSON::PP;
-use constant JSON => JSON::PP->new;
 
 use FindBin qw<$Bin>;
 use lib $Bin, "$Bin/local/lib/perl5";
 
 use Series qw<slices>;
 
-my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };
-
 imported_ok qw<slices> or bail_out;
 
-for my $case (@test_cases) {
-    if ( ref $case->{expected} ne 'HASH' ) {
-        is(
-            slices( $case->{input} ),
-            $case->{expected},
-            $case->{description},
-        );
-    }
-    else {
-        like dies( sub { slices( $case->{input} ) } ),
-            qr/$case->{expected}{error}/, $case->{description};
-    }
-}
+is(
+    slices( "1", 1 ),
+    ["1"],
+    "slices of one from one",
+);
+
+is(
+    slices( "12", 1 ),
+    [ "1", "2" ],
+    "slices of one from two",
+);
+
+is(
+    slices( "35", 2 ),
+    ["35"],
+    "slices of two",
+);
+
+is(
+    slices( "9142", 2 ),
+    [ "91", "14", "42" ],
+    "slices of two overlap",
+);
+
+is(
+    slices( "777777", 3 ),
+    [ "777", "777", "777", "777" ],
+    "slices can include duplicates",
+);
+
+is(
+    slices( "918493904243", 5 ),
+    [   "91849", "18493", "84939", "49390", "93904", "39042", "90424",
+        "04243"
+    ],
+    "slices of a long series",
+);
+
+like(
+    dies( sub { slices "12345", 6 } ),
+    qr/slice length cannot be greater than series length/,
+    "slice length is too large",
+);
+
+like(
+    dies( sub { slices "12345", 42 } ),
+    qr/slice length cannot be greater than series length/,
+    "slice length is way too large",
+);
+
+like(
+    dies( sub { slices "12345", 0 } ),
+    qr/slice length cannot be zero/,
+    "slice length cannot be zero",
+);
+
+like(
+    dies( sub { slices "123", -1 } ),
+    qr/slice length cannot be negative/,
+    "slice length cannot be negative",
+);
+
+like(
+    dies( sub { slices "", 1 } ),
+    qr/series cannot be empty/,
+    "empty series is invalid",
+);
 
 done_testing;
-
-__DATA__
-[
-  {
-    "description": "slices of one from one",
-    "expected": [
-      "1"
-    ],
-    "input": {
-      "series": "1",
-      "sliceLength": 1
-    },
-    "property": "slices"
-  },
-  {
-    "description": "slices of one from two",
-    "expected": [
-      "1",
-      "2"
-    ],
-    "input": {
-      "series": "12",
-      "sliceLength": 1
-    },
-    "property": "slices"
-  },
-  {
-    "description": "slices of two",
-    "expected": [
-      "35"
-    ],
-    "input": {
-      "series": "35",
-      "sliceLength": 2
-    },
-    "property": "slices"
-  },
-  {
-    "description": "slices of two overlap",
-    "expected": [
-      "91",
-      "14",
-      "42"
-    ],
-    "input": {
-      "series": "9142",
-      "sliceLength": 2
-    },
-    "property": "slices"
-  },
-  {
-    "description": "slices can include duplicates",
-    "expected": [
-      "777",
-      "777",
-      "777",
-      "777"
-    ],
-    "input": {
-      "series": "777777",
-      "sliceLength": 3
-    },
-    "property": "slices"
-  },
-  {
-    "description": "slices of a long series",
-    "expected": [
-      "91849",
-      "18493",
-      "84939",
-      "49390",
-      "93904",
-      "39042",
-      "90424",
-      "04243"
-    ],
-    "input": {
-      "series": "918493904243",
-      "sliceLength": 5
-    },
-    "property": "slices"
-  },
-  {
-    "description": "slice length is too large",
-    "expected": {
-      "error": "slice length cannot be greater than series length"
-    },
-    "input": {
-      "series": "12345",
-      "sliceLength": 6
-    },
-    "property": "slices"
-  },
-  {
-    "description": "slice length cannot be zero",
-    "expected": {
-      "error": "slice length cannot be zero"
-    },
-    "input": {
-      "series": "12345",
-      "sliceLength": 0
-    },
-    "property": "slices"
-  },
-  {
-    "description": "slice length cannot be negative",
-    "expected": {
-      "error": "slice length cannot be negative"
-    },
-    "input": {
-      "series": "123",
-      "sliceLength": -1
-    },
-    "property": "slices"
-  },
-  {
-    "description": "empty series is invalid",
-    "expected": {
-      "error": "series cannot be empty"
-    },
-    "input": {
-      "series": "",
-      "sliceLength": 1
-    },
-    "property": "slices"
-  }
-]
