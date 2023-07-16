@@ -1,28 +1,35 @@
+package: Scrabble
 subs: scrabble_score
-tests: |-
-  for my $case (@test_cases) {
-    is(
-      scrabble_score( $case->{input}{word} ),
-      $case->{expected},
-      $case->{description},
-    );
-  }
+
+properties:
+  score:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<'END', map {dmp $_} $case->{input}{word}, $case->@{qw<expected description>});
+      is(
+          scrabble_score(%s),
+          %s,
+          %s,
+      );
+      END
 
 example: |-
-  use lib 'lib';
-  use Exercism::QuickSolve;
-
-  sub scrabble_score {
-    my ($word) = @_;
-
-    quicksolve(
-      input     => $word,
-      input_key => 'word',
-    );
+  sub scrabble_score ($word) {
+      my $sum = 0;
+      for ( split //, lc($word) ) {
+          if (/[aeioulnrst]/) { $sum += 1 }
+          if (/[dg]/)         { $sum += 2 }
+          if (/[bcmp]/)       { $sum += 3 }
+          if (/[fhvwy]/)      { $sum += 4 }
+          if (/[k]/)          { $sum += 5 }
+          if (/[jx]/)         { $sum += 8 }
+          if (/[qz]/)         { $sum += 10 }
+      }
+      return $sum;
   }
 
 stub: |-
   sub scrabble_score {
-    my ($word) = @_;
-    return undef;
+      my ($word) = @_;
+      return undef;
   }
