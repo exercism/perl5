@@ -5,6 +5,7 @@ use experimental qw<signatures postderef postderef_qq>;
 
 package BinarySearchTree::Node {
     use Moo;
+    no warnings qw<experimental::signatures>;
 
     has data => (
         is => 'ro',

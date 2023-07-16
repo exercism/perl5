@@ -26,6 +26,7 @@ moo: 1
 example: |-
   package BinarySearchTree::Node {
       use Moo;
+      no warnings qw<experimental::signatures>;
 
       has data => (
           is => 'ro',
