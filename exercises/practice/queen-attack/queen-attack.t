@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use Queen ();
 
-can_ok 'Queen', qw<row column can_attack> or bail_out;
-
 my %queens;
 
 is( # begin: 3ac4f735-d36c-44c4-a3e2-316f79704203

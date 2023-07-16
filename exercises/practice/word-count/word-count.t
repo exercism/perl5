@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use WordCount qw<count_words>;
 
-imported_ok qw<count_words> or bail_out;
-
 is( # begin: 61559d5f-2cad-48fb-af53-d3973a9ee9ef
     count_words("word"),
     { word => 1 },

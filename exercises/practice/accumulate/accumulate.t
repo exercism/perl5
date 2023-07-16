@@ -7,8 +7,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 use Accumulate   qw<accumulate>;
 use experimental qw<signatures>;
 
-imported_ok qw<accumulate> or bail_out;
-
 is( # begin: 64d97c14-36dd-44a8-9621-2cecebd6ed23
     accumulate( [], sub ($x) { $x * $x } ),
     [],

@@ -1,4 +1,3 @@
-methods: is_empty contains is_subset_of is_disjoint_of is_equal_to add intersection difference union
 moo: true
 tests: |
   my ($set1, $set2);

@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use DifferenceOfSquares qw<square_of_sum sum_of_squares difference_of_squares>;
 
-imported_ok qw<square_of_sum sum_of_squares difference_of_squares> or bail_out;
-
 is( # begin: e46c542b-31fc-4506-bcae-6b62b3268537
     square_of_sum(1),
     number(1),

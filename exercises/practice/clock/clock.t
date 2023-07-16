@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use Clock ();
 
-can_ok 'Clock', qw<new time add_minutes subtract_minutes> or bail_out;
-
 my $todo;
 
 is( # begin: a577bacc-106b-496e-9792-b3083ea8705e

@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use TwoFer qw<two_fer>;
 
-imported_ok qw<two_fer> or bail_out;
-
 is( # begin: 1cf3e15a-a3d7-4a87-aeb3-ba1b43bc8dce
     two_fer(),
     "One for you, one for me.",

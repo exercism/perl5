@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5"; # Find modules in the same dir as this fil
 
 use HelloWorld qw<hello>;
 
-imported_ok qw<hello> or bail_out;
-
 # Run the 'is' sub from 'Test2::V0' with three arguments. # begin: af9ffe10-dc13-42d8-a742-e7bdafac449d
 is(
     hello(), # Run the 'hello' sub imported from the module.

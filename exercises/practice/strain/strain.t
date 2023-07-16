@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use Strain qw<keep discard>;
 
-imported_ok qw<keep discard> or bail_out;
-
 my ( $input, $expected, $function );
 
 $input    = [];

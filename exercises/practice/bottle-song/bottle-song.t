@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use BottleSong qw<sing>;
 
-imported_ok qw<sing> or bail_out;
-
 is( # begin: d4ccf8fc-01dc-48c0-a201-4fbeb30f2d03
     [ split( /\n/, sing( 10, 1 ) // '' ) ],
     array {

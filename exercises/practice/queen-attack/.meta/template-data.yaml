@@ -1,6 +1,5 @@
 package: Queen
 moo: true
-methods: row column can_attack
 tests: |
   my %queens;
 properties:

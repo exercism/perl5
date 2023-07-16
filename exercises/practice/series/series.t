@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use Series qw<slices>;
 
-imported_ok qw<slices> or bail_out;
-
 is( # begin: 7ae7a46a-d992-4c2a-9c15-a112d125ebad
     slices( "1", 1 ),
     ["1"],

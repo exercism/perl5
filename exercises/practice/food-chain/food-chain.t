@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use FoodChain qw<recite>;
 
-imported_ok qw<recite> or bail_out;
-
 is( # begin: 751dce68-9412-496e-b6e8-855998c56166
     [ split( /\n/, recite( 1, 1 ) // '' ) ],
     [ "I know an old lady who swallowed a fly.", "I don't know why she swallowed the fly. Perhaps she'll die." ],

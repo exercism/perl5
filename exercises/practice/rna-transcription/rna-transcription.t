@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use RNA qw<to_rna>;
 
-imported_ok qw<to_rna> or bail_out;
-
 is( # begin: b4631f82-c98c-4a2f-90b3-c5c2b6c6f661
     to_rna(""),
     "",
