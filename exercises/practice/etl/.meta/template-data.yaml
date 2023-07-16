@@ -5,9 +5,14 @@ properties:
   transform:
     test: |-
       use Data::Dmp;
-      sprintf(<<'END', map {dmp($_)} $case->{input}{legacy}, @{$case}{qw<expected description>});
+      use List::Util qw<pairs>;
+      my $input    = dmp($case->{input}{legacy}) =~ s/({|(?:],))/$1\n/gr =~ s/}/\n}/gr;
+      my $expected = "hash {\n" . ( join '', map { "field $_->[0] => $_->[1];\n" } sort {$a->[0] cmp $b->[0]} pairs $case->{expected}->%* ) . "end;\n}";
+      sprintf(<<'END', $input, $expected, dmp($case->{description}));
       is(
-          transform(%s),
+          transform(
+              %s
+          ),
           %s,
           %s,
       );

@@ -3,7 +3,8 @@ properties:
   tripletsWithSum:
     test: |-
       use Data::Dmp;
-      sprintf(<<~'END', $case->{input}{n}, map {dmp($_)} @{$case}{qw<expected description>});
+      my $expected = "array {\n" . ( join '', map { 'item ' . dmp($_) . ";\n" } $case->{expected}->@* ) . "end;\n}";
+      sprintf(<<~'END', $case->{input}{n}, $expected, dmp($case->{description}));
       is(
           triplets_with_sum(%d),
           %s,
