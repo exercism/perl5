@@ -1,15 +1,22 @@
-plan: 9
 subs: pascal_rows
-tests: |
-  for my $case ( @test_cases ) {
-    is pascal_rows($case->{input}{count}),
-    join( "\n", map { join ' ', @$_ } @{ $case->{expected} } ),
-    $case->{description};
-  }
+
+properties:
+  rows:
+    test: |-
+      use Data::Dmp;
+      my $expected = join( "\n", map { join ' ', @$_ } @{ $case->{expected} } );
+      sprintf(<<~'END', $case->{input}{count}, $expected, dmp($case->{description}));
+      is(
+          pascal_rows(%s),
+          <<'TRIANGLE' =~ s/\n$//r,
+      %s
+      TRIANGLE
+          %s,
+      );
+      END
 
 example: |
-  sub pascal_rows {
-    my ($rows) = @_;
+  sub pascal_rows ($rows) {
     return '' if !$rows;
 
     my @result = ( [1] );
@@ -20,8 +27,9 @@ example: |
       } 0 .. $n-1 ), 1];
     }
   }
+
 stub: |
   sub pascal_rows {
-    my ($rows) = @_;
-    return undef;
+      my ($rows) = @_;
+      return undef;
   }

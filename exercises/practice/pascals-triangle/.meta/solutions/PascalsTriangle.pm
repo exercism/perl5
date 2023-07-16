@@ -8,8 +8,7 @@ use experimental qw<signatures postderef postderef_qq>;
 use Exporter qw<import>;
 our @EXPORT_OK = qw<pascal_rows>;
 
-sub pascal_rows {
-    my ($rows) = @_;
+sub pascal_rows ($rows) {
     return '' if !$rows;
 
     my @result = ( [1] );
