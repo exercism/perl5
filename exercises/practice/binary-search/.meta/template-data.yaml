@@ -23,8 +23,7 @@ properties:
       }
 
 example: |-
-  sub binary_search {
-    my ($array, $value, $low, $high) = @_;
+  sub binary_search ($array, $value, $low = undef, $high = undef) {
 
     return binary_search($array, $value, 0, scalar(@{$array}) - 1) unless defined $high;
 
@@ -45,7 +44,6 @@ example: |-
   }
 
 stub: |-
-  sub binary_search {
-    my ($array, $value) = @_;
+  sub binary_search ($array, $value) {
     return undef;
   }

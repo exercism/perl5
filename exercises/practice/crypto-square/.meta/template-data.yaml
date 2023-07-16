@@ -12,8 +12,7 @@ properties:
       END
 
 example: |-
-  sub cipher {
-      my ($text) = @_;
+  sub cipher ($text) {
 
       $text = lc($text);
       $text =~ s/[^a-z0-9]//g;
@@ -47,7 +46,6 @@ example: |-
   }
 
 stub: |-
-  sub cipher {
-      my ($text) = @_;
+  sub cipher ($text) {
       return undef;
   }

@@ -1,25 +1,18 @@
 package DifferenceOfSquares;
 
-use strict;
-use warnings;
-use feature qw<say>;
+use v5.38;
 
 use Exporter qw<import>;
 our @EXPORT_OK = qw<square_of_sum sum_of_squares difference_of_squares>;
 
-sub square_of_sum {
-    my ($number) = @_;
+sub square_of_sum ($number) {
     return undef;
 }
 
-sub sum_of_squares {
-    my ($number) = @_;
+sub sum_of_squares ($number) {
     return undef;
 }
 
-sub difference_of_squares {
-    my ($number) = @_;
+sub difference_of_squares ($number) {
     return undef;
 }
-
-1;

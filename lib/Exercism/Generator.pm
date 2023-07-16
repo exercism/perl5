@@ -82,7 +82,7 @@ sub _render {
     }
 
     if ( $is_example ) {
-        $data{experimental} = 1;
+        $data{older_perl_support} = 1;
     }
 
     my $rendered = Template::Mustache->render(

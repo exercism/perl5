@@ -13,8 +13,7 @@ properties:
       END
 
 example: |-
-  sub recite {
-      my ($start, $end) = @_;
+  sub recite ($start, $end) {
 
       return
       join "\n\n", (map { join "\n", @{$_} }
@@ -79,7 +78,6 @@ example: |-
   }
 
 stub: |-
-  sub recite {
-      my ($start, $end) = @_;
+  sub recite ($start, $end) {
       return undef;
   }

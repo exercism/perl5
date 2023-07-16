@@ -25,8 +25,7 @@ properties:
       }
 
 example: |-
-  sub recite {
-      my ($start, $end) = @_;
+  sub recite ($start, $end) {
       return join "\n", @{[
         "This is the house that Jack built.",
         "This is the malt that lay in the house that Jack built.",
@@ -44,7 +43,6 @@ example: |-
   }
 
 stub: |-
-  sub recite {
-      my ($start, $end) = @_;
+  sub recite ($start, $end) {
       return undef;
   }

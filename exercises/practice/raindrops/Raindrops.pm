@@ -1,15 +1,10 @@
 package Raindrops;
 
-use strict;
-use warnings;
-use feature qw<say>;
+use v5.38;
 
 use Exporter qw<import>;
 our @EXPORT_OK = qw<raindrop>;
 
-sub raindrop {
-    my ($number) = @_;
+sub raindrop ($number) {
     return undef;
 }
-
-1;

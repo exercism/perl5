@@ -2,7 +2,6 @@ package AllYourBase;
 
 use strict;
 use warnings;
-use feature      qw<say>;
 use experimental qw<signatures postderef postderef_qq>;
 
 use Exporter qw<import>;
@@ -14,8 +13,7 @@ my @errors = (
     'all digits must satisfy 0 <= d < input base',
 );
 
-sub rebase {
-    my ( $digits, $input_base, $output_base ) = @_;
+sub rebase ( $digits, $input_base, $output_base ) {
 
     if ( $input_base < 2 ) {
         die $errors[0];
@@ -33,8 +31,7 @@ sub rebase {
         to_decimal( $input_base, $digits ) );
 }
 
-sub to_decimal {
-    my ( $base, $digits ) = @_;
+sub to_decimal ( $base, $digits ) {
     my $elems = @{$digits};
     for ( @{$digits} ) {
         if ( $_ == 0 ) {
@@ -53,8 +50,7 @@ sub to_decimal {
     return $sum;
 }
 
-sub from_decimal {
-    my ( $base, $number ) = @_;
+sub from_decimal ( $base, $number ) {
     my @digits;
     while ( $number >= $base ) {
         unshift @digits, $number % $base;

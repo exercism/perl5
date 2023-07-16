@@ -2,14 +2,12 @@ package PalindromeProducts;
 
 use strict;
 use warnings;
-use feature      qw<say>;
 use experimental qw<signatures postderef postderef_qq>;
 
 use Exporter qw<import>;
 our @EXPORT_OK = qw<smallest_palindrome largest_palindrome>;
 
-sub smallest_palindrome {
-    my ( $min, $max ) = @_;
+sub smallest_palindrome ( $min, $max ) {
     die 'min must be <= max' if $min > $max;
 
     my %result = (
@@ -36,8 +34,7 @@ sub smallest_palindrome {
     return \%result;
 }
 
-sub largest_palindrome {
-    my ( $min, $max ) = @_;
+sub largest_palindrome ( $min, $max ) {
     die 'min must be <= max' if $min > $max;
 
     my %result = (

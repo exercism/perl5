@@ -1,7 +1,6 @@
 package GradeSchool;
 
 use Moo;
-use feature      qw<say>;
 use experimental qw<signatures postderef postderef_qq>;
 
 has grades => (
@@ -9,8 +8,7 @@ has grades => (
     default => sub { {} },
 );
 
-sub add {
-    my ( $self, $student, $grade ) = @_;
+sub add ( $self, $student, $grade ) {
     my %grades   = %{ $self->grades // {} };
     my %students = map { map { $_ => 1 } @{$_} } values %grades;
 
@@ -24,8 +22,7 @@ sub add {
     return 1;
 }
 
-sub roster {
-    my ( $self, $grade ) = @_;
+sub roster ( $self, $grade ) {
     if ( defined $grade ) {
         return $self->grades->{$grade} // [];
     }

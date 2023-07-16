@@ -35,8 +35,7 @@ example: |
     Fourth => 22,
   };
 
-  sub meetup {
-    my ($desc) = @_;
+  sub meetup ($desc) {
     $desc =~ /^(\w+) (\w+) of (\w+) (\d+)$/;
 
     my $t = Time::Piece->strptime( ( WEEKS->{$1} // 1 ) . " $3 $4",
@@ -54,7 +53,6 @@ example: |
   }
 
 stub: |
-  sub meetup {
-      my ($desc) = @_;
+  sub meetup ($desc) {
       return undef;
   }

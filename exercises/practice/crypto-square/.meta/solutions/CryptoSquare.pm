@@ -2,14 +2,12 @@ package CryptoSquare;
 
 use strict;
 use warnings;
-use feature      qw<say>;
 use experimental qw<signatures postderef postderef_qq>;
 
 use Exporter qw<import>;
 our @EXPORT_OK = qw<cipher>;
 
-sub cipher {
-    my ($text) = @_;
+sub cipher ($text) {
 
     $text = lc($text);
     $text =~ s/[^a-z0-9]//g;

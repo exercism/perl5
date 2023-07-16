@@ -17,11 +17,11 @@ package_comment: "# Declare package 'HelloWorld'"
 feature_comment: '# Use the `say` function to output debugging info in the online editor.'
 
 example: |-
-  sub hello {
+  sub hello () {
       return 'Hello, World!';
   }
 
 stub: |-
-  sub hello {
+  sub hello () {
       return 'Goodbye, Mars!';
   }

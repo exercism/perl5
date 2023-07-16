@@ -2,14 +2,12 @@ package FoodChain;
 
 use strict;
 use warnings;
-use feature      qw<say>;
 use experimental qw<signatures postderef postderef_qq>;
 
 use Exporter qw<import>;
 our @EXPORT_OK = qw<recite>;
 
-sub recite {
-    my ( $start, $end ) = @_;
+sub recite ( $start, $end ) {
 
     return
         join "\n\n", ( map { join "\n", @{$_} }

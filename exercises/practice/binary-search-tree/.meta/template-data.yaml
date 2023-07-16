@@ -34,8 +34,7 @@ example: |-
           is => 'rw',
       );
 
-      sub set {
-          my ($self, $data) = @_;
+      sub set ($self, $data) {
           if ($data > $self->data) {
               if ($self->right) {
                   $self->right->set($data);
@@ -57,13 +56,11 @@ example: |-
       is => 'rw',
   );
 
-  sub add {
-      my ($self, $data) = @_;
+  sub add ($self, $data) {
       $self->root->set($data);
   }
 
-  sub sort {
-      my ($self) = @_;
+  sub sort ($self) {
       my @sorted;
       my $sub;
       $sub = sub {
@@ -98,12 +95,10 @@ stub: |-
       is => 'rw',
   );
 
-  sub add {
-      my ($self) = @_;
+  sub add ($self) {
       # $self->root contains the initial node.
   }
 
-  sub sort {
-      my ($self) = @_;
+  sub sort ($self) {
       return [];
   }

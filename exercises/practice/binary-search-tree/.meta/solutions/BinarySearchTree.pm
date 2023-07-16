@@ -1,7 +1,6 @@
 package BinarySearchTree;
 
 use Moo;
-use feature      qw<say>;
 use experimental qw<signatures postderef postderef_qq>;
 
 package BinarySearchTree::Node {
@@ -14,8 +13,7 @@ package BinarySearchTree::Node {
         is => 'rw',
     );
 
-    sub set {
-        my ( $self, $data ) = @_;
+    sub set ( $self, $data ) {
         if ( $data > $self->data ) {
             if ( $self->right ) {
                 $self->right->set($data);
@@ -37,13 +35,11 @@ has root => (
     is => 'rw',
 );
 
-sub add {
-    my ( $self, $data ) = @_;
+sub add ( $self, $data ) {
     $self->root->set($data);
 }
 
-sub sort {
-    my ($self) = @_;
+sub sort ($self) {
     my @sorted;
     my $sub;
     $sub = sub {

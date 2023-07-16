@@ -29,7 +29,6 @@ example: |-
   }
 
 stub: |-
-  sub find_primes {
-      my ($limit) = @_;
+  sub find_primes ($limit) {
       return undef;
   }

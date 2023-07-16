@@ -16,13 +16,11 @@ package_comment: "# Declare package 'Leap'"
 feature_comment: '# Use the `say` function to output debugging info in the online editor.'
 
 example: |-
-  sub is_leap_year {
-      my ($year) = @_;
+  sub is_leap_year ($year) {
       return $year % 4 == 0 && $year % 100 != 0 || $year % 400 == 0;
   }
 
 stub: |-
-  sub is_leap_year {
-      my ($year) = @_;
+  sub is_leap_year ($year) {
       return undef; # Replace this with your own code to pass the tests.
   }

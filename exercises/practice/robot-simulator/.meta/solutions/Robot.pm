@@ -1,7 +1,6 @@
 package Robot;
 
 use Moo;
-use feature      qw<say>;
 use experimental qw<signatures postderef postderef_qq>;
 
 use List::Util qw<none>;
@@ -21,8 +20,7 @@ has direction => (
     },
 );
 
-sub enact {
-    my ( $self, $instructions ) = @_;
+sub enact ( $self, $instructions ) {
 
     for my $step ( split //, $instructions ) {
         if ( $step eq 'A' ) {

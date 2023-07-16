@@ -2,7 +2,6 @@ package BottleSong;
 
 use strict;
 use warnings;
-use feature      qw<say>;
 use experimental qw<signatures postderef postderef_qq>;
 
 use Exporter qw<import>;
@@ -21,8 +20,7 @@ my %numbers = (
     10 => 'ten',
 );
 
-sub sing {
-    my ( $bottles, $verses ) = @_;
+sub sing ( $bottles, $verses ) {
     my @verses;
     for ( 1 .. $verses ) {
         my $s = $bottles > 1 ? 's' : '';

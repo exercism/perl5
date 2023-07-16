@@ -1,20 +1,17 @@
 package Matrix;
 
 use Moo;
-use feature      qw<say>;
 use experimental qw<signatures postderef postderef_qq>;
 
 has string => (
     is => 'ro',
 );
 
-sub row {
-    my ( $self, $index ) = @_;
+sub row ( $self, $index ) {
     return [ split / /, [ split /\n/, $self->string ]->[ $index - 1 ] ];
 }
 
-sub column {
-    my ( $self, $index ) = @_;
+sub column ( $self, $index ) {
     return [ map { [ split / /, $_ ]->[ $index - 1 ] } split /\n/, $self->string ];
 }
 

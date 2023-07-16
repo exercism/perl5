@@ -1,15 +1,10 @@
 package Series;
 
-use strict;
-use warnings;
-use feature qw<say>;
+use v5.38;
 
 use Exporter qw<import>;
 our @EXPORT_OK = qw<slices>;
 
-sub slices {
-    my ( $series, $slice_length ) = @_;
+sub slices ( $series, $slice_length ) {
     return undef;
 }
-
-1;

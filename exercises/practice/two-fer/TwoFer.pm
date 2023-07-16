@@ -1,14 +1,11 @@
 package TwoFer;
 
-use strict;
-use warnings;
-use feature qw<say>;
+use v5.38;
 
 use Exporter qw<import>;
 our @EXPORT_OK = qw<two_fer>;
 
-sub two_fer {
-    my ($name) = @_;
+sub two_fer ($name) {
     return undef;
 }
 
@@ -22,5 +19,3 @@ with the following code:
 use feature qw(signatures);
 
 sub two_fer ($name = undef) {}
-
-1;

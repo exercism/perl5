@@ -48,7 +48,6 @@ example: |-
   }
 
 stub: |-
-  sub slices {
-      my ($series, $slice_length) = @_;
+  sub slices ($series, $slice_length) {
       return undef;
   }

@@ -31,7 +31,6 @@ example: |-
   }
 
 stub: |-
-  sub raindrop {
-      my ($number) = @_;
+  sub raindrop ($number) {
       return undef;
   }

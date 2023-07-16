@@ -2,14 +2,12 @@ package PhoneNumber;
 
 use strict;
 use warnings;
-use feature      qw<say>;
 use experimental qw<signatures postderef postderef_qq>;
 
 use Exporter qw<import>;
 our @EXPORT_OK = qw<clean_number>;
 
-sub clean_number {
-    my ($number) = @_;
+sub clean_number ($number) {
     $number =~ s/[()-. ]//g;
     if ( $number =~ /^ 1? (\d{10}) $/x ) {
         for ( [ area => substr( $1, 0, 1 ) ], [ exchange => substr( $1, 3, 1 ) ] ) {

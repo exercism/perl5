@@ -29,7 +29,6 @@ example: |-
   }
 
 stub: |-
-  sub scrabble_score {
-      my ($word) = @_;
+  sub scrabble_score ($word) {
       return undef;
   }

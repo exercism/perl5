@@ -47,7 +47,6 @@ example: |-
   }
 
 stub: |-
-  sub say_number {
-    my ($number) = @_;
+  sub say_number ($number) {
     return undef;
   }

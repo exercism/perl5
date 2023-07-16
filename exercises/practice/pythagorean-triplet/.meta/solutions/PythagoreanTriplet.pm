@@ -2,14 +2,12 @@ package PythagoreanTriplet;
 
 use strict;
 use warnings;
-use feature      qw<say>;
 use experimental qw<signatures postderef postderef_qq>;
 
 use Exporter qw<import>;
 our @EXPORT_OK = qw<triplets_with_sum>;
 
-sub triplets_with_sum {
-    my ($sum) = @_;
+sub triplets_with_sum ($sum) {
     my @solutions;
     for my $side_a ( 1 .. $sum ) {
         my $numerator   = 2 * $side_a**2 + $sum**2 - 2 * $sum * $side_a;

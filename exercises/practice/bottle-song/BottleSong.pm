@@ -1,8 +1,6 @@
 package BottleSong;
 
-use strict;
-use warnings;
-use feature qw<say>;
+use v5.38;
 
 use Exporter qw<import>;
 our @EXPORT_OK = qw<sing>;
@@ -20,9 +18,6 @@ my %numbers = (
     10 => 'ten',
 );
 
-sub sing {
-    my ( $bottles, $verses ) = @_;
+sub sing ( $bottles, $verses ) {
     return undef;
 }
-
-1;

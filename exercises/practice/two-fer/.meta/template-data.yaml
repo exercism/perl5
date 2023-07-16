@@ -18,8 +18,7 @@ example: |-
   }
 
 stub: |-
-  sub two_fer {
-      my ($name) = @_;
+  sub two_fer ($name) {
       return undef;
   }
 

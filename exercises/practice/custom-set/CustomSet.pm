@@ -1,7 +1,7 @@
 package CustomSet;
 
+use v5.38;
 use Moo;
-use feature qw<say>;
 
 has elements => (
     is => 'ro',
@@ -12,49 +12,38 @@ has elements => (
    # would be to use the 'coerce' option: https://metacpan.org/pod/Moo#coerce
 );
 
-sub is_empty {
-    my ($self) = @_;
+sub is_empty ($self) {
     return undef;
 }
 
-sub contains {
-    my ( $self, $element ) = @_;
+sub contains ( $self, $element ) {
     return undef;
 }
 
-sub is_subset_of {
-    my ( $self, $other ) = @_;
+sub is_subset_of ( $self, $other ) {
     return undef;
 }
 
-sub is_disjoint_of {
-    my ( $self, $other ) = @_;
+sub is_disjoint_of ( $self, $other ) {
     return undef;
 }
 
-sub is_equal_to {
-    my ( $self, $other ) = @_;
+sub is_equal_to ( $self, $other ) {
     return undef;
 }
 
-sub add {
-    my ( $self, $element ) = @_;
+sub add ( $self, $element ) {
     return undef;
 }
 
-sub intersection {
-    my ( $self, $other ) = @_;
+sub intersection ( $self, $other ) {
     return undef;
 }
 
-sub difference {
-    my ( $self, $other ) = @_;
+sub difference ( $self, $other ) {
     return undef;
 }
 
-sub union {
-    my ( $self, $other ) = @_;
+sub union ( $self, $other ) {
     return undef;
 }
-
-1;

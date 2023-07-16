@@ -25,13 +25,11 @@ example: |-
   # read-only to consumers, but settable using $self->_set_name
   has name => ( is => 'rwp' );
 
-  sub BUILD {
-    my ($self) = @_;
+  sub BUILD ($self) {
     $self->reset_name;
   }
 
-  sub reset_name {
-    my ($self) = @_;
+  sub reset_name ($self) {
     $self->_set_name( _rand_letter() . _rand_letter() . _suffix() );
     return $self->name;
   }
@@ -50,7 +48,6 @@ stub: |-
   # read-only to consumers, but settable using $self->_set_name
   has name => ( is => 'rwp' );
 
-  sub reset_name {
-    my ($self) = @_;
+  sub reset_name ($self) {
     return undef;   # Replace this with your own code to pass the tests.
   }
