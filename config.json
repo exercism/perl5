@@ -566,7 +566,8 @@
         "practices": [],
         "prerequisites": [],
         "difficulty": 1,
-        "topics": []
+        "topics": [],
+        "status": "beta"
       },
       {
         "slug": "simple-linked-list",
