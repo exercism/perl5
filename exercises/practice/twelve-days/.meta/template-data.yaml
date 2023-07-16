@@ -16,7 +16,7 @@ properties:
       else {
           sprintf(<<~'END', $case->{input}->@{qw<startVerse endVerse>}, dmp($case->{expected}), dmp($case->{description}));
           is(
-              [ split /\n/, recite( %s, %s ) ],
+              [ split /\n/, recite( %s, %s ) // '' ],
               %s,
               %s,
           );
