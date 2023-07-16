@@ -1,6 +1,7 @@
 package Matrix;
 
-use Moo; use feature qw<say>;
+use Moo;
+use feature qw<say>;
 
 has string => (
     is => 'ro',
