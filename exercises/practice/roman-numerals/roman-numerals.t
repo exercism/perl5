@@ -1,215 +1,167 @@
 #!/usr/bin/env perl
 use Test2::V0;
-use JSON::PP;
-use constant JSON => JSON::PP->new;
 
 use FindBin qw<$Bin>;
 use lib $Bin, "$Bin/local/lib/perl5";
 
 use RomanNumerals qw<to_roman>;
 
-my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };
-plan 25;
-
 imported_ok qw<to_roman> or bail_out;
 
-for my $case (@test_cases) {
-    is to_roman( $case->{input}{number} ), $case->{expected},
-        $case->{description};
-}
+is(
+    to_roman(1),
+    "I",
+    "1 is I",
+);
 
-__DATA__
-[
-  {
-    "description": "1 is I",
-    "expected": "I",
-    "input": {
-      "number": 1
-    },
-    "property": "roman"
-  },
-  {
-    "description": "2 is II",
-    "expected": "II",
-    "input": {
-      "number": 2
-    },
-    "property": "roman"
-  },
-  {
-    "description": "3 is III",
-    "expected": "III",
-    "input": {
-      "number": 3
-    },
-    "property": "roman"
-  },
-  {
-    "description": "4 is IV",
-    "expected": "IV",
-    "input": {
-      "number": 4
-    },
-    "property": "roman"
-  },
-  {
-    "description": "5 is V",
-    "expected": "V",
-    "input": {
-      "number": 5
-    },
-    "property": "roman"
-  },
-  {
-    "description": "6 is VI",
-    "expected": "VI",
-    "input": {
-      "number": 6
-    },
-    "property": "roman"
-  },
-  {
-    "description": "9 is IX",
-    "expected": "IX",
-    "input": {
-      "number": 9
-    },
-    "property": "roman"
-  },
-  {
-    "description": "16 is XVI",
-    "expected": "XVI",
-    "input": {
-      "number": 16
-    },
-    "property": "roman"
-  },
-  {
-    "description": "27 is XXVII",
-    "expected": "XXVII",
-    "input": {
-      "number": 27
-    },
-    "property": "roman"
-  },
-  {
-    "description": "48 is XLVIII",
-    "expected": "XLVIII",
-    "input": {
-      "number": 48
-    },
-    "property": "roman"
-  },
-  {
-    "description": "49 is XLIX",
-    "expected": "XLIX",
-    "input": {
-      "number": 49
-    },
-    "property": "roman"
-  },
-  {
-    "description": "59 is LIX",
-    "expected": "LIX",
-    "input": {
-      "number": 59
-    },
-    "property": "roman"
-  },
-  {
-    "description": "66 is LXVI",
-    "expected": "LXVI",
-    "input": {
-      "number": 66
-    },
-    "property": "roman"
-  },
-  {
-    "description": "93 is XCIII",
-    "expected": "XCIII",
-    "input": {
-      "number": 93
-    },
-    "property": "roman"
-  },
-  {
-    "description": "141 is CXLI",
-    "expected": "CXLI",
-    "input": {
-      "number": 141
-    },
-    "property": "roman"
-  },
-  {
-    "description": "163 is CLXIII",
-    "expected": "CLXIII",
-    "input": {
-      "number": 163
-    },
-    "property": "roman"
-  },
-  {
-    "description": "166 is CLXVI",
-    "expected": "CLXVI",
-    "input": {
-      "number": 166
-    },
-    "property": "roman"
-  },
-  {
-    "description": "402 is CDII",
-    "expected": "CDII",
-    "input": {
-      "number": 402
-    },
-    "property": "roman"
-  },
-  {
-    "description": "575 is DLXXV",
-    "expected": "DLXXV",
-    "input": {
-      "number": 575
-    },
-    "property": "roman"
-  },
-  {
-    "description": "666 is DCLXVI",
-    "expected": "DCLXVI",
-    "input": {
-      "number": 666
-    },
-    "property": "roman"
-  },
-  {
-    "description": "911 is CMXI",
-    "expected": "CMXI",
-    "input": {
-      "number": 911
-    },
-    "property": "roman"
-  },
-  {
-    "description": "1024 is MXXIV",
-    "expected": "MXXIV",
-    "input": {
-      "number": 1024
-    },
-    "property": "roman"
-  },
-  {
-    "description": "1666 is MDCLXVI",
-    "expected": "MDCLXVI",
-    "input": {
-      "number": 1666
-    },
-    "property": "roman"
-  },
-  {
-    "description": "3000 is MMM",
-    "expected": "MMM",
-    "input": {
-      "number": 3000
-    },
-    "property": "roman"
-  }
-]
+is(
+    to_roman(2),
+    "II",
+    "2 is II",
+);
+
+is(
+    to_roman(3),
+    "III",
+    "3 is III",
+);
+
+is(
+    to_roman(4),
+    "IV",
+    "4 is IV",
+);
+
+is(
+    to_roman(5),
+    "V",
+    "5 is V",
+);
+
+is(
+    to_roman(6),
+    "VI",
+    "6 is VI",
+);
+
+is(
+    to_roman(9),
+    "IX",
+    "9 is IX",
+);
+
+is(
+    to_roman(16),
+    "XVI",
+    "16 is XVI",
+);
+
+is(
+    to_roman(27),
+    "XXVII",
+    "27 is XXVII",
+);
+
+is(
+    to_roman(48),
+    "XLVIII",
+    "48 is XLVIII",
+);
+
+is(
+    to_roman(49),
+    "XLIX",
+    "49 is XLIX",
+);
+
+is(
+    to_roman(59),
+    "LIX",
+    "59 is LIX",
+);
+
+is(
+    to_roman(66),
+    "LXVI",
+    "66 is LXVI",
+);
+
+is(
+    to_roman(93),
+    "XCIII",
+    "93 is XCIII",
+);
+
+is(
+    to_roman(141),
+    "CXLI",
+    "141 is CXLI",
+);
+
+is(
+    to_roman(163),
+    "CLXIII",
+    "163 is CLXIII",
+);
+
+is(
+    to_roman(166),
+    "CLXVI",
+    "166 is CLXVI",
+);
+
+is(
+    to_roman(402),
+    "CDII",
+    "402 is CDII",
+);
+
+is(
+    to_roman(575),
+    "DLXXV",
+    "575 is DLXXV",
+);
+
+is(
+    to_roman(666),
+    "DCLXVI",
+    "666 is DCLXVI",
+);
+
+is(
+    to_roman(911),
+    "CMXI",
+    "911 is CMXI",
+);
+
+is(
+    to_roman(1024),
+    "MXXIV",
+    "1024 is MXXIV",
+);
+
+is(
+    to_roman(1666),
+    "MDCLXVI",
+    "1666 is MDCLXVI",
+);
+
+is(
+    to_roman(3000),
+    "MMM",
+    "3000 is MMM",
+);
+
+is(
+    to_roman(3001),
+    "MMMI",
+    "3001 is MMMI",
+);
+
+is(
+    to_roman(3999),
+    "MMMCMXCIX",
+    "3999 is MMMCMXCIX",
+);
+
+done_testing;
