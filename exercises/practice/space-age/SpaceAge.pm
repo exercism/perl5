@@ -8,7 +8,7 @@ use Exporter qw<import>;
 our @EXPORT_OK = qw<age_on_planet>;
 
 sub age_on_planet {
-    my ($args) = @_;
+    my ( $planet, $seconds ) = @_;
     return undef;
 }
 
