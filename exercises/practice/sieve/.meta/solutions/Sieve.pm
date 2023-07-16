@@ -8,16 +8,19 @@ use experimental qw<signatures postderef postderef_qq>;
 use Exporter qw<import>;
 our @EXPORT_OK = qw<find_primes>;
 
-use lib 'lib';
-use Exercism::QuickSolve;
+# Solved by GitHub Copilot
+sub find_primes ($n) {
+    my @primes = (1) x ( $n + 1 );
+    $primes[0] = $primes[1] = 0;
 
-sub find_primes {
-    my ($limit) = @_;
+    for my $i ( 2 .. int( sqrt($n) ) ) {
+        next unless $primes[$i];
+        for ( my $j = $i**2; $j <= $n; $j += $i ) {
+            $primes[$j] = 0;
+        }
+    }
 
-    quicksolve(
-        input     => $limit,
-        input_key => 'limit',
-    );
+    return [ grep { $primes[$_] } 2 .. $n ];
 }
 
 1;
