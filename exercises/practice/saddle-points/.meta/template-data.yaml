@@ -3,7 +3,7 @@ properties:
   saddlePoints:
     test: |-
       use Data::Dmp;
-      my $expected = 'bag {' . ( join "\n", map { 'item ' . dmp($_) . ';'} $case->{expected}->@* ) . 'end;}';
+      my $expected = "bag {\n" . ( join '', map { 'item ' . dmp($_) . ";\n"} $case->{expected}->@* ) . "end;\n}";
       sprintf(<<'END', dmp($case->{input}{matrix}), $expected, dmp($case->{description}));
       is(
           saddle_points(%s),
