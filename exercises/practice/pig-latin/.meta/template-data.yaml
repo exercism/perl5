@@ -1,14 +1,19 @@
 subs: translate
-plan: 23
-tests: |
-  for my $case ( @test_cases ) {
-    is translate($case->{input}{phrase}), $case->{expected}, $case->{description};
-  }
+
+properties:
+  translate:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<~'END', map {dmp $_} $case->{input}{phrase}, $case->@{qw<expected description>});
+      is(
+          translate(%s),
+          %s,
+          %s,
+      );
+      END
 
 example: |
-  sub translate {
-    my ($phrase) = @_;
-
+  sub translate ($phrase) {
     return join(' ', map {
       if (/^(?:[aeiou]|[yx][^aeiou])/) {
         "${phrase}ay"
