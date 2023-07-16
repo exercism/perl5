@@ -1,7 +1,6 @@
 package BinarySearchTree;
 
-use Moo;
-use feature qw<say>;
+use Moo; use feature qw<say>;
 
 package BinarySearchTree::Node {
     use Moo;

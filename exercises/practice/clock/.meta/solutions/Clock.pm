@@ -1,7 +1,6 @@
 package Clock;
 
-use Moo;
-use feature      qw<say>;
+use Moo; use feature qw<say>;
 use experimental qw<signatures postderef postderef_qq>;
 
 use POSIX ();
@@ -29,8 +28,7 @@ sub subtract_minutes {
 
 sub BUILD {
     my ($self) = @_;
-    $self->_set_hour(
-        ( $self->hour + POSIX::floor( $self->minute / 60 ) ) % 24 );
+    $self->_set_hour( ( $self->hour + POSIX::floor( $self->minute / 60 ) ) % 24 );
     $self->_set_minute( $self->minute % 60 );
     return $self;
 }

@@ -1,7 +1,6 @@
 package CustomSet;
 
-use Moo;
-use feature      qw<say>;
+use Moo; use feature qw<say>;
 use experimental qw<signatures postderef postderef_qq>;
 
 use Types::Common qw<-types>;
@@ -10,10 +9,7 @@ use namespace::clean;
 has elements => (
     is  => 'ro',
     isa => ( HashRef [Bool] )->plus_coercions(
-        ArrayRef,
-        sub {
-            +{ map { $_ => 1 } @{ $_[0] } };
-        },
+        ArrayRef, sub { +{ map { $_ => 1 } @{ $_[0] } } },
     ),
     coerce => 1,
 );
@@ -63,23 +59,12 @@ sub add {
 
 sub intersection {
     my ( $self, $other ) = @_;
-    return __PACKAGE__->new(
-        elements => [
-            grep { $self->contains($_) && $other->contains($_) } $self->_keys,
-            $other->_keys
-        ]
-    );
+    return __PACKAGE__->new( elements => [ grep { $self->contains($_) && $other->contains($_) } $self->_keys, $other->_keys ] );
 }
 
 sub difference {
     my ( $self, $other ) = @_;
-    return __PACKAGE__->new(
-        elements => [
-            grep { $self->contains($_) && !$other->contains($_) }
-                $self->_keys,
-            $other->_keys
-        ]
-    );
+    return __PACKAGE__->new( elements => [ grep { $self->contains($_) && !$other->contains($_) } $self->_keys, $other->_keys ] );
 }
 
 sub union {

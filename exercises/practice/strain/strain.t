@@ -18,7 +18,8 @@ is( keep( $input, $function ), $expected, "empty list" );
 $input    = [ 2, 4, 6, 8, 10 ];
 $expected = [];
 $function = sub { my $x = shift; $x % 2 == 1 };
-is( keep( $input, $function ), $expected, "keep odd numbers. empty result " );
+is( keep( $input, $function ),
+    $expected, "keep odd numbers. empty result " );
 
 $input    = [ 2, 4, 6, 8, 10 ];
 $expected = [];
@@ -41,7 +42,8 @@ is( discard( $input, $function ),
 $input    = [qw(zebra arizona apple google mozilla)];
 $expected = [qw(zebra arizona mozilla)];
 $function = sub { my $x = shift; $x =~ /z/ };
-is( keep( $input, $function ), $expected, "keep input with 'z'" );
+is( keep( $input, $function ),
+    $expected, "keep input with 'z'" );
 
 $input    = [ '1,2,3', 'one', 'almost!', 'love' ];
 $expected = [];
