@@ -1,16 +1,23 @@
 package: RNA
-plan: 7
 subs: to_rna
-tests: |-
-  for my $case ( @test_cases ) {
-    is to_rna($case->{input}{dna}), $case->{expected}, $case->{description};
-  }
+
+properties:
+  toRna:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<~'END', map {dmp $_} $case->{input}{dna}, $case->@{qw<expected description>});
+      is(
+          to_rna(%s),
+          %s,
+          %s,
+      );
+      END
 
 example: |-
-  sub to_rna {shift =~ tr/CGTA/GCAU/r}
+  sub to_rna ($dna) {$dna =~ tr/CGTA/GCAU/r}
 
 stub: |-
   sub to_rna {
-    my ($dna) = @_;
-    return undef;
+      my ($dna) = @_;
+      return undef;
   }
