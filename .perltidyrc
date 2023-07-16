@@ -1,4 +1,7 @@
 --perl-best-practices
 --nostandard-output
 --ignore-side-comment-lengths
+--minimum-space-to-comment=1
+--novalign-side-comments
+--freeze-newlines
 --keep-old-breakpoints-after='('

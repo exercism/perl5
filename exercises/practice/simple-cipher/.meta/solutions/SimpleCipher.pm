@@ -1,7 +1,6 @@
 package SimpleCipher;
 
-use Moo;
-use feature      qw<say>;
+use Moo; use feature qw<say>;
 use experimental qw<signatures postderef postderef_qq>;
 
 has key => (
@@ -16,8 +15,7 @@ sub encode ( $self, $plaintext ) {
         my $char     = substr( $plaintext, $i,               1 );
         my $key_char = substr( $key,       $i % $key_length, 1 );
         my $shift    = ord($key_char) - ord('a');
-        my $new_char
-            = chr( ( ord($char) - ord('a') + $shift ) % 26 + ord('a') );
+        my $new_char = chr( ( ord($char) - ord('a') + $shift ) % 26 + ord('a') );
         $ciphertext .= $new_char;
     }
     return $ciphertext;
@@ -31,8 +29,7 @@ sub decode ( $self, $ciphertext ) {
         my $char     = substr( $ciphertext, $i,               1 );
         my $key_char = substr( $key,        $i % $key_length, 1 );
         my $shift    = ord($key_char) - ord('a');
-        my $new_char
-            = chr( ( ord($char) - ord('a') - $shift + 26 ) % 26 + ord('a') );
+        my $new_char = chr( ( ord($char) - ord('a') - $shift + 26 ) % 26 + ord('a') );
         $plaintext .= $new_char;
     }
     return $plaintext;

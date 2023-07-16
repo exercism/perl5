@@ -11,9 +11,10 @@ our @EXPORT_OK = qw<count_words>;
 sub count_words {
     my ($sentence) = @_;
 
-    my $words = lc($sentence) =~ s/\s+/ /gr            # Any whitespace character becomes a space
-        =~ s/([a-z0-9]+[a-z0-9']*[a-z0-9]+)/ $1 /gr    # Space separate words that might have apostrophes
-        =~ s/[^a-z0-9']/ /gr;                          # Remove unwanted characters
+    my $words = lc($sentence)
+        =~ s/\s+/ /gr # Any whitespace character becomes a space
+        =~ s/([a-z0-9]+[a-z0-9']*[a-z0-9]+)/ $1 /gr # Space separate words that might have apostrophes
+        =~ s/[^a-z0-9']/ /gr; # Remove unwanted characters
 
     my %bag;
     for my $word ( split / +/, $words ) {

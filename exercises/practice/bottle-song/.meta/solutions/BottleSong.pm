@@ -26,9 +26,9 @@ sub sing {
     my @verses;
     for ( 1 .. $verses ) {
         my $s = $bottles > 1 ? 's' : '';
-        push @verses, ucfirst(
-            "$numbers{$bottles} green bottle$s hanging on the wall,\n"
-            ) x 2
+        push @verses,
+            ucfirst(
+            "$numbers{$bottles} green bottle$s hanging on the wall,\n") x 2
             . "And if one green bottle should accidentally fall,\n"
             . "There'll be "
             . ( $numbers{ --$bottles } || 'no' )

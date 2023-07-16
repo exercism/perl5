@@ -17,8 +17,7 @@ sub triplets_with_sum {
         if ( $denominator > 0 and $numerator % $denominator == 0 ) {
             my $side_c = $numerator / $denominator;
             my $side_b = $sum - $side_a - $side_c;
-            push @solutions, [ $side_a, $side_b, $side_c ]
-                if $side_b > $side_a;
+            push @solutions, [ $side_a, $side_b, $side_c ] if $side_b > $side_a;
         }
     }
     return [@solutions];
