@@ -1,34 +1,78 @@
 subs: answer
-tests: |-
-  for my $case (@test_cases) {
-    if ( !ref $case->{expected} ) {
-      is(
-        answer( $case->{input}{question} ),
-        $case->{expected},
-        $case->{description},
-      );
-    }
-    else {
-      like dies( sub { answer( $case->{input}{question} ) } ),
-      qr/$case->{expected}{error}/, $case->{description};
-    }
-  }
+
+properties:
+  answer:
+    test: |-
+      use Data::Dmp;
+      if (!ref $case->{expected}) {
+          sprintf(<<~'END', dmp($case->{input}{question}), $case->{expected}, dmp($case->{description}));
+          is(
+            answer(%s),
+            %s,
+            %s,
+          );
+          END
+      }
+      else {
+          sprintf(<<~'END', dmp($case->{input}{question}), $case->{expected}{error}, dmp($case->{description}));
+          like(
+            dies( sub { answer %s } ),
+            qr/%s/,
+            %s,
+          );
+          END
+      }
 
 example: |-
-  use lib 'lib';
-  use Exercism::QuickSolve;
+  # Solution (mostly) by GitHub Copilot
+  sub answer ($question) {
+      # Remove the "What is " prefix and "?" suffix from the question
+      $question =~ s/^What is ?(.*)\?$/$1/;
 
-  sub answer {
-    my ($question) = @_;
+      # Remove "by" from the question
+      $question =~ s/\bby\b//g;
 
-    quicksolve(
-      input => $question,
-      input_key => 'question',
-    );
+      # Split the question into tokens
+      my @tokens = split /\s+/, $question;
+
+      # Initialize the result to the first number
+      my $result = shift @tokens;
+      die 'syntax error' unless defined $result;
+
+      # Process the remaining tokens
+      while (@tokens) {
+          my $op = shift @tokens;
+
+          # Get the next number
+          my $num = shift @tokens // '';
+          
+          die "syntax error" if $op =~ /^-?\d+$/;
+          
+          # Check if the operator is valid
+          die "unknown operation" unless $op =~ /^(plus|minus|multiplied|divided)$/;
+
+          # Check if the number is valid
+          die "syntax error" unless $num =~ /^-?\d+$/;
+
+          # Apply the operator to the result and the number
+          if ($op eq "plus") {
+              $result += $num;
+          } elsif ($op eq "minus") {
+              $result -= $num;
+          } elsif ($op eq "multiplied") {
+              $result *= $num;
+          } elsif ($op eq "divided") {
+              die "division by zero" if $num == 0;
+              $result /= $num;
+          }
+      }
+
+      # Return the result
+      return $result;
   }
 
 stub: |-
   sub answer {
-    my ($question) = @_;
-    return undef;
+      my ($question) = @_;
+      return undef;
   }
