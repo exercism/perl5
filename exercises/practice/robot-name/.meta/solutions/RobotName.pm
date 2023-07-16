@@ -8,7 +8,7 @@ use experimental qw<signatures postderef postderef_qq>;
 # read-only to consumers, but settable using $self->_set_name
 has name => ( is => 'rwp' );
 
-sub BUILD ($self) {
+sub BUILD ( $self, @ ) {
     $self->reset_name;
 }
 

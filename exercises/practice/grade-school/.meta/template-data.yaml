@@ -60,7 +60,7 @@ example: |-
       return 1;
   }
 
-  sub roster ($self, $grade) {
+  sub roster ($self, $grade = undef) {
       if (defined $grade) {
           return $self->grades->{$grade} // [];
       }
@@ -72,6 +72,6 @@ stub: |-
       return undef;
   }
 
-  sub roster ($self, $grade) {
+  sub roster ($self, $grade = undef) {
       return undef;
   }

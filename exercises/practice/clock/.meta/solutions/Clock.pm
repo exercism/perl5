@@ -23,7 +23,7 @@ sub subtract_minutes ( $self, $amount ) {
     return $self->add_minutes( -$amount );
 }
 
-sub BUILD ($self) {
+sub BUILD ( $self, @ ) {
     $self->_set_hour( ( $self->hour + POSIX::floor( $self->minute / 60 ) ) % 24 );
     $self->_set_minute( $self->minute % 60 );
     return $self;

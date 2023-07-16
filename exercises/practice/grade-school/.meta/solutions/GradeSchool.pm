@@ -22,7 +22,7 @@ sub add ( $self, $student, $grade ) {
     return 1;
 }
 
-sub roster ( $self, $grade ) {
+sub roster ( $self, $grade = undef ) {
     if ( defined $grade ) {
         return $self->grades->{$grade} // [];
     }

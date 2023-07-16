@@ -7,6 +7,6 @@ sub add ( $self, $student, $grade ) {
     return undef;
 }
 
-sub roster ( $self, $grade ) {
+sub roster ( $self, $grade = undef ) {
     return undef;
 }
