@@ -1,25 +1,53 @@
 subs: age_on_planet
-tests: |-
-  for my $case (@test_cases) {
-    is(
-      age_on_planet( $case->{input} ),
-      $case->{expected},
-      $case->{description},
-    );
-  }
+
+properties:
+  age:
+    test: |-
+      use Data::Dmp;
+      if (!ref $case->{expected}) {
+          sprintf(<<~'END', map {dmp $_} $case->{input}->@{qw<planet seconds>}, $case->@{qw<expected description>});
+          is(
+              age_on_planet( %s, %s ),
+              %s,
+              %s,
+          );
+          END
+      }
+      else {
+          sprintf(<<~'END', ( map {dmp $_} $case->{input}->@{qw<planet seconds>} ), $case->{expected}{error}, dmp($case->{description}));
+          like(
+              dies( sub { age_on_planet %s, %s } ),
+              qr/%s/,
+              %s,
+          );
+          END
+
+      }
 
 example: |-
-  use lib 'lib';
-  use Exercism::QuickSolve;
+  # Solved by GitHub Copilot
+  sub age_on_planet ($planet, $seconds) {
+      my %orbital_periods = (
+          Mercury => 0.2408467,
+          Venus   => 0.61519726,
+          Earth   => 1.0,
+          Mars    => 1.8808158,
+          Jupiter => 11.862615,
+          Saturn  => 29.447498,
+          Uranus  => 84.016846,
+          Neptune => 164.79132,
+      );
 
-  sub age_on_planet {
-    my ($args) = @_;
+      die "not a planet" unless exists $orbital_periods{$planet};
 
-    quicksolve( input => $args );
+      my $earth_years = $seconds / 31557600;
+      my $age_on_planet = $earth_years / $orbital_periods{$planet};
+
+      return sprintf "%.2f", $age_on_planet;
   }
 
 stub: |-
   sub age_on_planet {
-    my ($args) = @_;
-    return undef;
+      my ($planet, $seconds) = @_;
+      return undef;
   }
