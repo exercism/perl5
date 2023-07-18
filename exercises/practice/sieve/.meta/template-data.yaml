@@ -1,28 +1,35 @@
 subs: find_primes
-tests: |-
-  for my $case (@test_cases) {
-    is(
-      find_primes( $case->{input}{limit} ),
-      $case->{expected},
-      $case->{description},
-    );
-  }
+  
+properties:
+  primes:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<~'END', $case->{input}{limit}, dmp($case->{expected}), dmp($case->{description}));
+      is(
+          find_primes(%s),
+          %s,
+          %s,
+      );
+      END
 
 example: |-
-  use lib 'lib';
-  use Exercism::QuickSolve;
+  # Solved by GitHub Copilot
+  sub find_primes ($n) {
+      my @primes = (1) x ($n + 1);
+      $primes[0] = $primes[1] = 0;
 
-  sub find_primes {
-    my ($limit) = @_;
+      for my $i (2 .. int(sqrt($n))) {
+          next unless $primes[$i];
+          for (my $j = $i**2; $j <= $n; $j += $i) {
+              $primes[$j] = 0;
+          }
+      }
 
-    quicksolve(
-      input     => $limit,
-      input_key => 'limit',
-    );
+      return [ grep { $primes[$_] } 2 .. $n ];
   }
 
 stub: |-
   sub find_primes {
-    my ($limit) = @_;
-    return undef;
+      my ($limit) = @_;
+      return undef;
   }
