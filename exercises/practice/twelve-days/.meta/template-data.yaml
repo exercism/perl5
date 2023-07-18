@@ -1,19 +1,27 @@
 subs: recite
-plan: 16
-tests: |
-  for my $case ( @test_cases ) {
-    is [
-      split(
-        /\n/,
-        recite(
-          { start => $case->{input}{startVerse},
-            end   => $case->{input}{endVerse},
-          }
-        )
-      )
-      ],
-      $case->{expected}, $case->{description};
-  }
+
+properties:
+  recite:
+    test: |-
+      use Data::Dmp;
+      if ($case->{input}{startVerse} == $case->{input}{endVerse}) {
+          sprintf(<<~'END', $case->{input}->@{qw<startVerse endVerse>}, dmp($case->{expected}[0]), dmp($case->{description}));
+          is(
+              recite( %s, %s ),
+              %s,
+              %s,
+          );
+          END
+      }
+      else {
+          sprintf(<<~'END', $case->{input}->@{qw<startVerse endVerse>}, dmp($case->{expected}), dmp($case->{description}));
+          is(
+              [ split /\n/, recite( %s, %s ) // '' ],
+              %s,
+              %s,
+          );
+          END
+      }
 
 example: |
   my %parts = (
@@ -67,17 +75,18 @@ example: |
     },
   );
 
-  sub recite {
+  sub recite ($start, $end) {
     join "\n", map {
       "On the $parts{$_}{nth} day of Christmas my true love gave to me: "
         . (
         join( ', ', map { $parts{$_}{items} } reverse 2 .. $_ )
           . ', and ' ) x !!( $_ > 1 )
         . "$parts{1}{items}."
-    } $_[0]->{start} .. $_[0]->{end};
+    } $start .. $end;
   }
 
 stub: |
   sub recite {
-    return '';
+      my ($start, $end) = @_;
+      return '';
   }
