@@ -9,7 +9,7 @@ tests: |-
   my $robot = RobotName->new; # begin: 1
   isa_ok $robot, 'RobotName'; # end: 1
 
-  my $name = $robot->name; # begin: 1
+  my $name = $robot->name; # begin: 2
   my $schema = qr/^[A-Z]{2}[0-9]{3}$/;
   like $robot->name, $schema, 'Name should match schema'; # end: 2
 
