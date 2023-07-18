@@ -24,7 +24,7 @@ properties:
           $func = q|sub ($x) { substr($x, 0, 1) eq 'z' }|;
       }
       elsif ($case->{input}{predicate} eq 'fn(x) -> contains(x, 5)' ) {
-          $func = 'sub ($x) { any { $_ == 5 } $x->@* }';
+          $func = 'sub ($x) { any { $_ == 5 } @{$x} }';
       }
       
       sprintf(<<~'END', dmp($case->{input}{list}), $func, dmp($case->{expected}), dmp($case->{description}));
@@ -58,7 +58,7 @@ properties:
           $func = q|sub ($x) { substr($x, 0, 1) eq 'z' }|;
       }
       elsif ($case->{input}{predicate} eq 'fn(x) -> contains(x, 5)' ) {
-          $func = 'sub ($x) { any { $_ == 5 } $x->@* }';
+          $func = 'sub ($x) { any { $_ == 5 } @{$x} }';
       }
       
       sprintf(<<~'END', dmp($case->{input}{list}), $func, dmp($case->{expected}), dmp($case->{description}));
