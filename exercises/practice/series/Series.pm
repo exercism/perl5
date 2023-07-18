@@ -8,7 +8,7 @@ use Exporter qw<import>;
 our @EXPORT_OK = qw<slices>;
 
 sub slices {
-    my ($args) = @_;
+    my ( $series, $slice_length ) = @_;
     return undef;
 }
 
