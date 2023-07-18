@@ -4,62 +4,154 @@ use Test2::V0;
 use FindBin qw<$Bin>;
 use lib $Bin, "$Bin/local/lib/perl5";
 
-use Strain qw<keep discard>;
+use Strain       qw<keep discard>;
+use experimental qw<signatures>;
+use List::Util   qw<any>;
 
 imported_ok qw<keep discard> or bail_out;
 
-my ( $input, $expected, $function );
-
-$input    = [];
-$expected = [];
-$function = sub { my $x = shift; $x % 2 == 0 };
-is( keep( $input, $function ), $expected, "empty list" );
-
-$input    = [ 2, 4, 6, 8, 10 ];
-$expected = [];
-$function = sub { my $x = shift; $x % 2 == 1 };
-is( keep( $input, $function ), $expected, "keep odd numbers. empty result " );
-
-$input    = [ 2, 4, 6, 8, 10 ];
-$expected = [];
-$function = sub { my $x = shift; $x % 2 == 0 };
-is( discard( $input, $function ),
-    $expected, "discard even numbers. empty result" );
-
-$input    = [ 2, 4, 6, 8, 10 ];
-$expected = [ 2, 4, 6, 8, 10 ];
-$function = sub { my $x = shift; $x % 2 == 0 };
-is( keep( $input, $function ),
-    $expected, "keep even numbers. result == input" );
-
-$input    = [qw(dough cash plough though through enough)];
-$expected = ['cash'];
-$function = sub { my $x = shift; $x =~ m/ough$/ };
-is( discard( $input, $function ),
-    $expected, "discard input endswith 'ough'" );
-
-$input    = [qw(zebra arizona apple google mozilla)];
-$expected = [qw(zebra arizona mozilla)];
-$function = sub { my $x = shift; $x =~ /z/ };
-is( keep( $input, $function ), $expected, "keep input with 'z'" );
-
-$input    = [ '1,2,3', 'one', 'almost!', 'love' ];
-$expected = [];
-$function = sub { my $x = shift; $x =~ /\p{IsAlpha}/ };
-is( discard( keep( $input, $function ) // [], $function ),
-    $expected, "keep then discard" );
-
-$input    = [ '1,2,3', 'one', 'almost!', 'love' ];
-$expected = [ '1,2,3', 'one', 'almost!', 'love' ];
-$function = sub { my $x = shift; $x =~ /\p{Alpha}/ };
-my $combined = [
-    @{ keep( $input, $function )    // [] },
-    @{ discard( $input, $function ) // [] }
-];
 is(
-    [ sort @$combined ],
-    [ sort @$expected ],
-    "combine keep and discard results. keep + discard"
+    keep(
+        [],
+        sub ($x) {1},
+    ),
+    [],
+    "keep on empty list returns empty list",
+);
+
+is(
+    keep(
+        [ 1, 3, 5 ],
+        sub ($x) {1},
+    ),
+    [ 1, 3, 5 ],
+    "keeps everything",
+);
+
+is(
+    keep(
+        [ 1, 3, 5 ],
+        sub ($x) {0},
+    ),
+    [],
+    "keeps nothing",
+);
+
+is(
+    keep(
+        [ 1, 2, 3 ],
+        sub ($x) { $x % 2 == 1 },
+    ),
+    [ 1, 3 ],
+    "keeps first and last",
+);
+
+is(
+    keep(
+        [ 1, 2, 3 ],
+        sub ($x) { $x % 2 == 0 },
+    ),
+    [2],
+    "keeps neither first nor last",
+);
+
+is(
+    keep(
+        [ "apple", "zebra", "banana", "zombies", "cherimoya", "zealot" ],
+        sub ($x) { substr( $x, 0, 1 ) eq 'z' },
+    ),
+    [ "zebra", "zombies", "zealot" ],
+    "keeps strings",
+);
+
+is(
+    keep(
+        [   [ 1, 2, 3 ],
+            [ 5, 5, 5 ],
+            [ 5, 1, 2 ],
+            [ 2, 1, 2 ],
+            [ 1, 5, 2 ],
+            [ 2, 2, 1 ],
+            [ 1, 2, 5 ]
+        ],
+        sub ($x) {
+            any { $_ == 5 } @{$x};
+        },
+    ),
+    [ [ 5, 5, 5 ], [ 5, 1, 2 ], [ 1, 5, 2 ], [ 1, 2, 5 ] ],
+    "keeps lists",
+);
+
+is(
+    discard(
+        [],
+        sub ($x) {1},
+    ),
+    [],
+    "discard on empty list returns empty list",
+);
+
+is(
+    discard(
+        [ 1, 3, 5 ],
+        sub ($x) {1},
+    ),
+    [],
+    "discards everything",
+);
+
+is(
+    discard(
+        [ 1, 3, 5 ],
+        sub ($x) {0},
+    ),
+    [ 1, 3, 5 ],
+    "discards nothing",
+);
+
+is(
+    discard(
+        [ 1, 2, 3 ],
+        sub ($x) { $x % 2 == 1 },
+    ),
+    [2],
+    "discards first and last",
+);
+
+is(
+    discard(
+        [ 1, 2, 3 ],
+        sub ($x) { $x % 2 == 0 },
+    ),
+    [ 1, 3 ],
+    "discards neither first nor last",
+);
+
+is(
+    discard(
+        [ "apple", "zebra", "banana", "zombies", "cherimoya", "zealot" ],
+        sub ($x) { substr( $x, 0, 1 ) eq 'z' },
+    ),
+    [ "apple", "banana", "cherimoya" ],
+    "discards strings",
+);
+
+is(
+    discard(
+        [   [ 1, 2, 3 ],
+            [ 5, 5, 5 ],
+            [ 5, 1, 2 ],
+            [ 2, 1, 2 ],
+            [ 1, 5, 2 ],
+            [ 2, 2, 1 ],
+            [ 1, 2, 5 ]
+        ],
+        sub ($x) {
+            any { $_ == 5 } @{$x};
+        },
+    ),
+    [ [ 1, 2, 3 ], [ 2, 1, 2 ], [ 2, 2, 1 ] ],
+    "discards lists",
 );
 
 done_testing;
