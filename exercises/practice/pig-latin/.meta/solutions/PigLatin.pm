@@ -8,9 +8,7 @@ use experimental qw<signatures postderef postderef_qq>;
 use Exporter qw<import>;
 our @EXPORT_OK = qw<translate>;
 
-sub translate {
-    my ($phrase) = @_;
-
+sub translate ($phrase) {
     return join(
         ' ',
         map {
