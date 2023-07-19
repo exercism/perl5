@@ -19,16 +19,14 @@ sub is_equilateral ($sides) {
 }
 
 sub is_isosceles ($sides) {
-    my ( $first_side, $second_side, $third_side )
-        = sort { $a <=> $b } @$sides;
+    my ( $first_side, $second_side, $third_side ) = sort { $a <=> $b } @$sides;
     return 0 if $first_side + $second_side <= $third_side;
     return 1 if $first_side == $second_side || $second_side == $third_side;
     return 0;
 }
 
 sub is_scalene ($sides) {
-    my ( $first_side, $second_side, $third_side )
-        = sort { $a <=> $b } @$sides;
+    my ( $first_side, $second_side, $third_side ) = sort { $a <=> $b } @$sides;
     return 0 if $first_side + $second_side <= $third_side;
     return 1 if $first_side != $second_side && $second_side != $third_side;
     return 0;

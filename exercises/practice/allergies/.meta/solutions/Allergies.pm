@@ -26,10 +26,8 @@ sub allergic_to {
 
 sub list_allergies {
     my ($score) = @_;
-    return [
-        grep { allergic_to $_, $score }
-            keys %{ +ALLERGENS }
-    ];
+    return [ grep { allergic_to $_, $score }
+            keys %{ +ALLERGENS } ];
 }
 
 1;

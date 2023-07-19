@@ -151,8 +151,7 @@ is(
     "Follow series of instructions: moving east and north from README",
 );
 
-$robot
-    = Robot->new( x => 0, y => 0, direction => "north" )->enact("LAAARALA");
+$robot = Robot->new( x => 0, y => 0, direction => "north" )->enact("LAAARALA");
 is(
     $robot,
     object {
@@ -163,8 +162,7 @@ is(
     "Follow series of instructions: moving west and north",
 );
 
-$robot
-    = Robot->new( x => 2, y => -7, direction => "east" )->enact("RRAAAAALA");
+$robot = Robot->new( x => 2, y => -7, direction => "east" )->enact("RRAAAAALA");
 is(
     $robot,
     object {
@@ -175,8 +173,7 @@ is(
     "Follow series of instructions: moving west and south",
 );
 
-$robot = Robot->new( x => 8, y => 4, direction => "south" )
-    ->enact("LAAARRRALLLL");
+$robot = Robot->new( x => 8, y => 4, direction => "south" )->enact("LAAARRRALLLL");
 is(
     $robot,
     object {

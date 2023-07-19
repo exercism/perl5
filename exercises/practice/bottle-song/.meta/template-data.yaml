@@ -3,7 +3,8 @@ properties:
   recite:
     test: |-
       use Data::Dmp;
-      sprintf(<<'END', @{$case->{input}}{qw<startBottles takeDown>}, dmp($case->{expected}), dmp($case->{description}));
+      my $expected = "array {\n" . ( join '', map { 'item ' . dmp($_) . ";\n" } $case->{expected}->@* ) . "end;\n}";
+      sprintf(<<'END', @{$case->{input}}{qw<startBottles takeDown>}, $expected, dmp($case->{description}));
       is(
           [split(/\n/, sing( %s, %s ) // '')],
           %s,

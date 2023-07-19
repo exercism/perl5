@@ -2,7 +2,7 @@
 use Test2::V0;
 
 use FindBin qw<$Bin>;
-use lib $Bin, "$Bin/local/lib/perl5";    # Find modules in the same dir as this file.
+use lib $Bin, "$Bin/local/lib/perl5"; # Find modules in the same dir as this file.
 
 use Bob qw<hey>;
 

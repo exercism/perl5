@@ -34,8 +34,7 @@ sub answer ($question) {
         die "syntax error" if $op =~ /^-?\d+$/;
 
         # Check if the operator is valid
-        die "unknown operation"
-            unless $op =~ /^(plus|minus|multiplied|divided)$/;
+        die "unknown operation" unless $op =~ /^(plus|minus|multiplied|divided)$/;
 
         # Check if the number is valid
         die "syntax error" unless $num =~ /^-?\d+$/;
@@ -43,14 +42,11 @@ sub answer ($question) {
         # Apply the operator to the result and the number
         if ( $op eq "plus" ) {
             $result += $num;
-        }
-        elsif ( $op eq "minus" ) {
+        } elsif ( $op eq "minus" ) {
             $result -= $num;
-        }
-        elsif ( $op eq "multiplied" ) {
+        } elsif ( $op eq "multiplied" ) {
             $result *= $num;
-        }
-        elsif ( $op eq "divided" ) {
+        } elsif ( $op eq "divided" ) {
             die "division by zero" if $num == 0;
             $result /= $num;
         }

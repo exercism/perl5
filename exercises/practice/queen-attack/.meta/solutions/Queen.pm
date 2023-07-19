@@ -1,7 +1,6 @@
 package Queen;
 
-use Moo;
-use feature      qw<say>;
+use Moo; use feature qw<say>;
 use experimental qw<signatures postderef postderef_qq>;
 
 has row => (
@@ -25,9 +24,7 @@ sub can_attack {
     return 1 if $self->row == $other->row || $self->column == $other->column;
 
     # Same diagonal
-    return 1
-        if abs( $self->row - $other->row )
-        == abs( $self->column - $other->column );
+    return 1 if abs( $self->row - $other->row ) == abs( $self->column - $other->column );
 
     return 0;
 }
