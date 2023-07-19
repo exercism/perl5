@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use Say qw<say_number>;
 
-imported_ok qw<say_number> or bail_out;
-
 is(
     say_number(0),
     "zero",

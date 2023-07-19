@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use Luhn qw<is_luhn_valid>;
 
-imported_ok qw<is_luhn_valid> or bail_out;
-
 is(
     is_luhn_valid("1"),
     DF, # Defined but False

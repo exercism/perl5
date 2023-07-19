@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use PalindromeProducts qw<smallest_palindrome largest_palindrome>;
 
-imported_ok qw<smallest_palindrome largest_palindrome> or bail_out;
-
 is(
     smallest_palindrome( 1, 9 ),
     { factors => [ [ 1, 1 ] ], value => 1 },

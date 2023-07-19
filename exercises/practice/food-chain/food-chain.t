@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use FoodChain qw<recite>;
 
-imported_ok qw<recite> or bail_out;
-
 is(
     [ split( /\n/, recite( 1, 1 ) // '' ) ],
     array {

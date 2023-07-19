@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use SpaceAge qw<age_on_planet>;
 
-imported_ok qw<age_on_planet> or bail_out;
-
 is(
     age_on_planet( "Earth", 1000000000 ),
     31.69,

@@ -104,27 +104,9 @@ subtest 'Rendered test files' => sub {
 
       use TestExercise qw<foo>;
 
-      imported_ok qw<foo> or bail_out;
-
       done_testing;
       TEST
     }, 'Subs';
-
-    is new_generator( data => { methods => 'foo' } ), object {
-        call test => <<~'TEST';
-      #!/usr/bin/env perl
-      use Test2::V0;
-
-      use FindBin qw<$Bin>;
-      use lib $Bin, "$Bin/local/lib/perl5";
-
-      use TestExercise ();
-
-      can_ok 'TestExercise', qw<foo> or bail_out;
-
-      done_testing;
-      TEST
-    }, 'Methods';
 };
 
 done_testing;

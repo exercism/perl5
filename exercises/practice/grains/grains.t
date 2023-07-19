@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use Grains qw<grains_on_square total_grains>;
 
-imported_ok qw<grains_on_square total_grains> or bail_out;
-
 is(
     grains_on_square(1),
     1,

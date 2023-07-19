@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use AtbashCipher qw<encode_atbash decode_atbash>;
 
-imported_ok qw<encode_atbash decode_atbash> or bail_out;
-
 is(
     encode_atbash("yes"),
     "bvh",

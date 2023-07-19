@@ -10,11 +10,7 @@ use {{&package}} {{#subs}}qw<{{&subs}}>{{/subs}}{{^subs}}(){{/subs}};{{#modules}
 use {{&use}};{{/modules}}{{#cases}}
 
 my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };{{/cases}}{{#plan}}
-plan {{&plan}};{{#plan_comment}} {{&plan_comment}}{{/plan_comment}}{{/plan}}{{#subs}}
-
-imported_ok qw<{{&subs}}> or bail_out;{{/subs}}{{#methods}}
-
-can_ok '{{&package}}', qw<{{&methods}}> or bail_out;{{/methods}}{{#tests}}
+plan {{&plan}};{{#plan_comment}} {{&plan_comment}}{{/plan_comment}}{{/plan}}{{#tests}}
 
 {{&tests}}{{/tests}}{{^plan}}
 

@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use TwelveDays qw<recite>;
 
-imported_ok qw<recite> or bail_out;
-
 is(
     recite( 1, 1 ),
     "On the first day of Christmas my true love gave to me: a Partridge in a Pear Tree.",

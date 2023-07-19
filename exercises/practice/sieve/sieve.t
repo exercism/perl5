@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use Sieve qw<find_primes>;
 
-imported_ok qw<find_primes> or bail_out;
-
 is(
     find_primes(1),
     [],

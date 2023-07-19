@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use BinarySearch qw<binary_search>;
 
-imported_ok qw<binary_search> or bail_out;
-
 is(
     binary_search( [6], 6 ),
     0,

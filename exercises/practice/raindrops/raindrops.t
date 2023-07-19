@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use Raindrops qw<raindrop>;
 
-imported_ok qw<raindrop> or bail_out;
-
 is(
     raindrop(1),
     "1",

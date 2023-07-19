@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use Anagram qw<match_anagrams>;
 
-imported_ok qw<match_anagrams> or bail_out;
-
 is(
     match_anagrams( "diaper", [ "hello", "world", "zombies", "pants" ] ),
     bag {
