@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use PythagoreanTriplet qw<triplets_with_sum>;
 
-imported_ok qw<triplets_with_sum> or bail_out;
-
 is(
     triplets_with_sum(12),
     array {

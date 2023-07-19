@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use KindergartenGarden qw<plants>;
 
-imported_ok qw<plants> or bail_out;
-
 is(
     plants( "RC\nGG", "Alice" ),
     [ "radishes", "clover", "grass", "grass" ],

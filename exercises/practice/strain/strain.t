@@ -8,8 +8,6 @@ use Strain       qw<keep discard>;
 use experimental qw<signatures>;
 use List::Util   qw<any>;
 
-imported_ok qw<keep discard> or bail_out;
-
 is(
     keep(
         [],

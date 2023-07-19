@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use ETL qw<transform>;
 
-imported_ok qw<transform> or bail_out;
-
 is(
     transform(
         {

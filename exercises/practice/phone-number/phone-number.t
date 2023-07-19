@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use PhoneNumber qw<clean_number>;
 
-imported_ok qw<clean_number> or bail_out;
-
 is(
     clean_number("(223) 456-7890"),
     "2234567890",

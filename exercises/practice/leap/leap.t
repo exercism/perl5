@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5"; # Find modules in the same dir as this fil
 
 use Leap qw<is_leap_year>;
 
-imported_ok qw<is_leap_year> or bail_out;
-
 is(
     is_leap_year(2015),
     DF, # Defined but False

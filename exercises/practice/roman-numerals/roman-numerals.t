@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use RomanNumerals qw<to_roman>;
 
-imported_ok qw<to_roman> or bail_out;
-
 is(
     to_roman(1),
     "I",

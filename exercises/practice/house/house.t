@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use House qw<recite>;
 
-imported_ok qw<recite> or bail_out;
-
 is(
     recite( 1, 1 ),
     "This is the house that Jack built.",
