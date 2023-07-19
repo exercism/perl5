@@ -1,6 +1,7 @@
 package Queen;
 
-use Moo; use feature qw<say>;
+use Moo;
+use feature qw<say>;
 
 has row => (
     is => 'ro',
