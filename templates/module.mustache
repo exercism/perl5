@@ -4,8 +4,8 @@
 {{#moo}}
 use Moo;{{/moo}}{{^moo}}
 use strict;
-use warnings;
-{{/moo}}use feature qw<say>;{{#feature_comment}} {{&feature_comment}}{{/feature_comment}}{{#experimental}}
+use warnings;{{/moo}}
+use feature qw<say>;{{#feature_comment}} {{&feature_comment}}{{/feature_comment}}{{#experimental}}
 use experimental qw<signatures postderef postderef_qq>;{{/experimental}}
 {{#subs}}
 use Exporter qw<import>;

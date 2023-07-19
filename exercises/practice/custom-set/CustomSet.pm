@@ -1,6 +1,7 @@
 package CustomSet;
 
-use Moo; use feature qw<say>;
+use Moo;
+use feature qw<say>;
 
 has elements => (
     is => 'ro',

@@ -1,6 +1,7 @@
 package CustomSet;
 
-use Moo; use feature qw<say>;
+use Moo;
+use feature      qw<say>;
 use experimental qw<signatures postderef postderef_qq>;
 
 use Types::Common qw<-types>;
