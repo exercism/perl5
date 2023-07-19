@@ -17,12 +17,12 @@ sub reset_name ($self) {
     return $self->name;
 }
 
-sub _rand_letter {
+sub _rand_letter () {
     my @letters = 'A' .. 'Z';
     return $letters[ int rand $#letters ];
 }
 
-sub _suffix {
+sub _suffix () {
     return sprintf( '%03d', int rand 1000 );
 }
 
