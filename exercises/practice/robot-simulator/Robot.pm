@@ -1,7 +1,6 @@
 package Robot;
 
-use Moo;
-use feature qw<say>;
+use Moo; use feature qw<say>;
 
 use List::Util qw<none>;
 

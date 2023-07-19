@@ -45,9 +45,7 @@ is(
 );
 
 is(
-    largest_product(
-        "73167176531330624919225119674426574742355349194934", 6
-    ),
+    largest_product( "73167176531330624919225119674426574742355349194934", 6 ),
     23520,
     "can get the largest product of a big number",
 );

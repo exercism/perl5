@@ -51,9 +51,7 @@ is(
 );
 
 is(
-    cipher(
-        "If man was meant to stay on the ground, god would have given us roots."
-    ),
+    cipher("If man was meant to stay on the ground, god would have given us roots."),
     "imtgdvs fearwer mayoogo anouuio ntnnlvt wttddes aohghn  sseoau ",
     "54 character plaintext results in 7 chunks, the last two with trailing spaces"
 );

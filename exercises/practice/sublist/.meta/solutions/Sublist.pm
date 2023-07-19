@@ -9,6 +9,8 @@ use Exporter qw<import>;
 our @EXPORT_OK = qw<compare_lists>;
 
 sub compare_lists ( $list1, $list2 ) {
+
+    # Solution by GitHub Copilot
     my $len1 = scalar @$list1;
     my $len2 = scalar @$list2;
 

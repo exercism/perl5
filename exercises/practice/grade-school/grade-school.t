@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use GradeSchool ();
 
-can_ok 'GradeSchool', qw<add roster> or bail_out;
-
 my $grade_school;
 
 $grade_school = GradeSchool->new;

@@ -2,20 +2,23 @@
 use Test2::V0;
 
 use FindBin qw<$Bin>;
-use lib $Bin, "$Bin/local/lib/perl5";    # Find modules in the same dir as this file.
+use lib $Bin, "$Bin/local/lib/perl5"; # Find modules in the same dir as this file.
 
 use RobotName ();
-plan 7;                                  # This is how many tests we expect to run.
 
-can_ok 'RobotName', qw<new name reset_name> or bail_out;
+my $robot = RobotName->new; # begin: 1
+isa_ok $robot, 'RobotName'; # end: 1
 
-my $robot = RobotName->new;
-isa_ok $robot, 'RobotName';
-
-my $name   = $robot->name;
+my $name = $robot->name; # begin: 2
 my $schema = qr/^[A-Z]{2}[0-9]{3}$/;
-like $robot->name, $schema, 'Name should match schema';
-is $name,          $robot->name,         'Name should be persistent';
-isnt $robot->name, RobotName->new->name, 'Robots should have different names';
-isnt $robot->reset_name, $name, 'reset_name should change the robot name';
-like $robot->name, $schema, 'New name should match schema';
+like $robot->name, $schema, 'Name should match schema'; # end: 2
+
+is $name, $robot->name, 'Name should be persistent'; # case: 3
+
+isnt $robot->name, RobotName->new->name, 'Robots should have different names'; # case: 4
+
+isnt $robot->reset_name, $name, 'reset_name should change the robot name'; # case: 5
+
+like $robot->name, $schema, 'New name should match schema'; # case: 6
+
+done_testing;

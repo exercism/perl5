@@ -29,7 +29,8 @@ sub rebase {
         }
     }
 
-    return from_decimal( $output_base, to_decimal( $input_base, $digits ) );
+    return from_decimal( $output_base,
+        to_decimal( $input_base, $digits ) );
 }
 
 sub to_decimal {

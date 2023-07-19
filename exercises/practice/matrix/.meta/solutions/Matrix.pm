@@ -1,7 +1,6 @@
 package Matrix;
 
-use Moo;
-use feature      qw<say>;
+use Moo; use feature qw<say>;
 use experimental qw<signatures postderef postderef_qq>;
 
 has string => (
@@ -15,10 +14,7 @@ sub row {
 
 sub column {
     my ( $self, $index ) = @_;
-    return [
-        map { [ split / /, $_ ]->[ $index - 1 ] } split /\n/,
-        $self->string
-    ];
+    return [ map { [ split / /, $_ ]->[ $index - 1 ] } split /\n/, $self->string ];
 }
 
 1;

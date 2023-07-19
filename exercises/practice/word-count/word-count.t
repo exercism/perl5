@@ -58,15 +58,7 @@ is(
 
 is(
     count_words("'First: don't laugh. Then: don't cry. You're getting it.'"),
-    {   cry      => 1,
-        "don't"  => 2,
-        first    => 1,
-        getting  => 1,
-        it       => 1,
-        laugh    => 1,
-        then     => 1,
-        "you're" => 1
-    },
+    { cry => 1, "don't" => 2, first => 1, getting => 1, it => 1, laugh => 1, then => 1, "you're" => 1 },
     "with apostrophes",
 );
 
@@ -78,15 +70,7 @@ is(
 
 is(
     count_words("Joe can't tell between app, apple and a."),
-    {   a       => 1,
-        and     => 1,
-        app     => 1,
-        apple   => 1,
-        between => 1,
-        "can't" => 1,
-        joe     => 1,
-        tell    => 1
-    },
+    { a => 1, and => 1, app => 1, apple => 1, between => 1, "can't" => 1, joe => 1, tell => 1 },
     "substrings from the beginning",
 );
 

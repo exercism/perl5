@@ -42,9 +42,7 @@ TEXT
 );
 
 is(
-    proverb(
-        [ "nail", "shoe", "horse", "rider", "message", "battle", "kingdom" ]
-    ),
+    proverb( [ "nail", "shoe", "horse", "rider", "message", "battle", "kingdom" ] ),
     <<'TEXT' =~ s/\n$//r,
 For want of a nail the shoe was lost.
 For want of a shoe the horse was lost.

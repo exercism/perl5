@@ -27,9 +27,7 @@ is(
 );
 
 is(
-    count_nucleotides(
-        "AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC"
-    ),
+    count_nucleotides("AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC"),
     { A => 20, C => 12, G => 17, T => 21 },
     "strand with multiple nucleotides",
 );

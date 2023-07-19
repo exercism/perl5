@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use Clock ();
 
-can_ok 'Clock', qw<new time add_minutes subtract_minutes> or bail_out;
-
 my $todo;
 
 is(
@@ -226,8 +224,7 @@ is(
     "Subtract minutes: subtract more than two days",
 );
 
-$todo = todo 'experimental feature'
-    if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
+$todo = todo 'experimental feature' if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
 is(
     Clock->new( hour => 15, minute => 37 ),
     Clock->new( hour => 15, minute => 37 ),
@@ -235,8 +232,7 @@ is(
 );
 $todo = undef;
 
-$todo = todo 'experimental feature'
-    if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
+$todo = todo 'experimental feature' if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
 isnt(
     Clock->new( hour => 15, minute => 36 ),
     Clock->new( hour => 15, minute => 37 ),
@@ -244,8 +240,7 @@ isnt(
 );
 $todo = undef;
 
-$todo = todo 'experimental feature'
-    if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
+$todo = todo 'experimental feature' if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
 isnt(
     Clock->new( hour => 14, minute => 37 ),
     Clock->new( hour => 15, minute => 37 ),
@@ -253,8 +248,7 @@ isnt(
 );
 $todo = undef;
 
-$todo = todo 'experimental feature'
-    if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
+$todo = todo 'experimental feature' if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
 is(
     Clock->new( hour => 10, minute => 37 ),
     Clock->new( hour => 34, minute => 37 ),
@@ -262,8 +256,7 @@ is(
 );
 $todo = undef;
 
-$todo = todo 'experimental feature'
-    if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
+$todo = todo 'experimental feature' if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
 is(
     Clock->new( hour => 3,  minute => 11 ),
     Clock->new( hour => 99, minute => 11 ),
@@ -271,8 +264,7 @@ is(
 );
 $todo = undef;
 
-$todo = todo 'experimental feature'
-    if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
+$todo = todo 'experimental feature' if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
 is(
     Clock->new( hour => 22, minute => 40 ),
     Clock->new( hour => -2, minute => 40 ),
@@ -280,8 +272,7 @@ is(
 );
 $todo = undef;
 
-$todo = todo 'experimental feature'
-    if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
+$todo = todo 'experimental feature' if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
 is(
     Clock->new( hour => 17,  minute => 3 ),
     Clock->new( hour => -31, minute => 3 ),
@@ -289,8 +280,7 @@ is(
 );
 $todo = undef;
 
-$todo = todo 'experimental feature'
-    if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
+$todo = todo 'experimental feature' if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
 is(
     Clock->new( hour => 13,  minute => 49 ),
     Clock->new( hour => -83, minute => 49 ),
@@ -298,8 +288,7 @@ is(
 );
 $todo = undef;
 
-$todo = todo 'experimental feature'
-    if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
+$todo = todo 'experimental feature' if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
 is(
     Clock->new( hour => 0, minute => 1 ),
     Clock->new( hour => 0, minute => 1441 ),
@@ -307,8 +296,7 @@ is(
 );
 $todo = undef;
 
-$todo = todo 'experimental feature'
-    if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
+$todo = todo 'experimental feature' if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
 is(
     Clock->new( hour => 2, minute => 2 ),
     Clock->new( hour => 2, minute => 4322 ),
@@ -316,8 +304,7 @@ is(
 );
 $todo = undef;
 
-$todo = todo 'experimental feature'
-    if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
+$todo = todo 'experimental feature' if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
 is(
     Clock->new( hour => 2, minute => 40 ),
     Clock->new( hour => 3, minute => -20 ),
@@ -325,8 +312,7 @@ is(
 );
 $todo = undef;
 
-$todo = todo 'experimental feature'
-    if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
+$todo = todo 'experimental feature' if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
 is(
     Clock->new( hour => 4, minute => 10 ),
     Clock->new( hour => 5, minute => -1490 ),
@@ -334,8 +320,7 @@ is(
 );
 $todo = undef;
 
-$todo = todo 'experimental feature'
-    if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
+$todo = todo 'experimental feature' if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
 is(
     Clock->new( hour => 6, minute => 15 ),
     Clock->new( hour => 6, minute => -4305 ),
@@ -343,8 +328,7 @@ is(
 );
 $todo = undef;
 
-$todo = todo 'experimental feature'
-    if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
+$todo = todo 'experimental feature' if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
 is(
     Clock->new( hour => 7,   minute => 32 ),
     Clock->new( hour => -12, minute => -268 ),
@@ -352,8 +336,7 @@ is(
 );
 $todo = undef;
 
-$todo = todo 'experimental feature'
-    if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
+$todo = todo 'experimental feature' if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
 is(
     Clock->new( hour => 18,  minute => 7 ),
     Clock->new( hour => -54, minute => -11513 ),
@@ -361,8 +344,7 @@ is(
 );
 $todo = undef;
 
-$todo = todo 'experimental feature'
-    if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
+$todo = todo 'experimental feature' if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/;
 is(
     Clock->new( hour => 24, minute => 0 ),
     Clock->new( hour => 0,  minute => 0 ),

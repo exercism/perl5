@@ -9,26 +9,56 @@ use ETL qw<transform>;
 imported_ok qw<transform> or bail_out;
 
 is(
-    transform( { 1 => ["A"] } ),
-    { a => 1 },
+    transform(
+        {
+            1 => ["A"]
+        }
+    ),
+    hash {
+        field a => 1;
+        end;
+    },
     "single letter",
 );
 
 is(
-    transform( { 1 => [ "A", "E", "I", "O", "U" ] } ),
-    { a => 1, e => 1, i => 1, o => 1, u => 1 },
+    transform(
+        {
+            1 => [ "A", "E", "I", "O", "U" ]
+        }
+    ),
+    hash {
+        field a => 1;
+        field e => 1;
+        field i => 1;
+        field o => 1;
+        field u => 1;
+        end;
+    },
     "single score with multiple letters",
 );
 
 is(
-    transform( { 1 => [ "A", "E" ], 2 => [ "D", "G" ] } ),
-    { a => 1, d => 2, e => 1, g => 2 },
+    transform(
+        {
+            1 => [ "A", "E" ],
+            2 => [ "D", "G" ]
+        }
+    ),
+    hash {
+        field a => 1;
+        field d => 2;
+        field e => 1;
+        field g => 2;
+        end;
+    },
     "multiple scores with multiple letters",
 );
 
 is(
     transform(
-        {   1  => [ "A", "E", "I", "O", "U", "L", "N", "R", "S", "T" ],
+        {
+            1  => [ "A", "E", "I", "O", "U", "L", "N", "R", "S", "T" ],
             10 => [ "Q", "Z" ],
             2  => [ "D", "G" ],
             3  => [ "B", "C", "M", "P" ],
@@ -37,32 +67,34 @@ is(
             8  => [ "J", "X" ]
         }
     ),
-    {   a => 1,
-        b => 3,
-        c => 3,
-        d => 2,
-        e => 1,
-        f => 4,
-        g => 2,
-        h => 4,
-        i => 1,
-        j => 8,
-        k => 5,
-        l => 1,
-        m => 3,
-        n => 1,
-        o => 1,
-        p => 3,
-        q => 10,
-        r => 1,
-        s => 1,
-        t => 1,
-        u => 1,
-        v => 4,
-        w => 4,
-        x => 8,
-        y => 4,
-        z => 10
+    hash {
+        field a => 1;
+        field b => 3;
+        field c => 3;
+        field d => 2;
+        field e => 1;
+        field f => 4;
+        field g => 2;
+        field h => 4;
+        field i => 1;
+        field j => 8;
+        field k => 5;
+        field l => 1;
+        field m => 3;
+        field n => 1;
+        field o => 1;
+        field p => 3;
+        field q => 10;
+        field r => 1;
+        field s => 1;
+        field t => 1;
+        field u => 1;
+        field v => 4;
+        field w => 4;
+        field x => 8;
+        field y => 4;
+        field z => 10;
+        end;
     },
     "multiple scores with differing numbers of letters",
 );
