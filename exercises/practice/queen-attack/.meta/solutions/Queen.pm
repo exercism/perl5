@@ -1,7 +1,6 @@
 package Queen;
 
-use Moo;
-use feature      qw<say>;
+use Moo; use feature qw<say>;
 use experimental qw<signatures postderef postderef_qq>;
 
 has row => (
