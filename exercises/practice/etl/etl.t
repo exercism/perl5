@@ -6,7 +6,7 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use ETL qw<transform>;
 
-is(
+is( # begin: 78a7a9f9-4490-4a47-8ee9-5a38bb47d28f
     transform(
         {
             1 => ["A"]
@@ -17,9 +17,9 @@ is(
         end;
     },
     "single letter",
-);
+); # end: 78a7a9f9-4490-4a47-8ee9-5a38bb47d28f
 
-is(
+is( # begin: 60dbd000-451d-44c7-bdbb-97c73ac1f497
     transform(
         {
             1 => [ "A", "E", "I", "O", "U" ]
@@ -34,9 +34,9 @@ is(
         end;
     },
     "single score with multiple letters",
-);
+); # end: 60dbd000-451d-44c7-bdbb-97c73ac1f497
 
-is(
+is( # begin: f5c5de0c-301f-4fdd-a0e5-df97d4214f54
     transform(
         {
             1 => [ "A", "E" ],
@@ -51,9 +51,9 @@ is(
         end;
     },
     "multiple scores with multiple letters",
-);
+); # end: f5c5de0c-301f-4fdd-a0e5-df97d4214f54
 
-is(
+is( # begin: 5db8ea89-ecb4-4dcd-902f-2b418cc87b9d
     transform(
         {
             1  => [ "A", "E", "I", "O", "U", "L", "N", "R", "S", "T" ],
@@ -95,6 +95,6 @@ is(
         end;
     },
     "multiple scores with differing numbers of letters",
-);
+); # end: 5db8ea89-ecb4-4dcd-902f-2b418cc87b9d
 
 done_testing;
