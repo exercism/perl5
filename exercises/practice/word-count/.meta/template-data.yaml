@@ -13,8 +13,7 @@ properties:
       END
 
 example: |-
-  sub count_words {
-    my ($sentence) = @_;
+  sub count_words ($sentence) {
 
     my $words = lc($sentence)
       =~ s/\s+/ /gr                               # Any whitespace character becomes a space
@@ -32,7 +31,6 @@ example: |-
   }
 
 stub: |-
-  sub count_words {
-    my ($sentence) = @_;
+  sub count_words ($sentence) {
     return undef;
   }

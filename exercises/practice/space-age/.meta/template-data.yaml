@@ -47,7 +47,6 @@ example: |-
   }
 
 stub: |-
-  sub age_on_planet {
-      my ($planet, $seconds) = @_;
+  sub age_on_planet ($planet, $seconds) {
       return undef;
   }

@@ -1,7 +1,6 @@
 package CustomSet;
 
 use Moo;
-use feature      qw<say>;
 use experimental qw<signatures postderef postderef_qq>;
 
 use Types::Common qw<-types>;
@@ -23,29 +22,25 @@ sub is_empty {
     !$_[0]->_keys;
 }
 
-sub contains {
-    my ( $self, $element ) = @_;
+sub contains ( $self, $element ) {
     return !!$self->elements->{$element};
 }
 
-sub is_subset_of {
-    my ( $self, $other ) = @_;
+sub is_subset_of ( $self, $other ) {
     for my $key ( $self->_keys ) {
         return 0 unless $other->contains($key);
     }
     return 1;
 }
 
-sub is_disjoint_of {
-    my ( $self, $other ) = @_;
+sub is_disjoint_of ( $self, $other ) {
     for my $key ( $self->_keys ) {
         return 0 if $other->contains($key);
     }
     return 1;
 }
 
-sub is_equal_to {
-    my ( $self, $other ) = @_;
+sub is_equal_to ( $self, $other ) {
     return 0 if $self->_keys != $other->_keys;
     for my $key ( $self->_keys ) {
         return 0 unless $other->contains($key);
@@ -53,23 +48,19 @@ sub is_equal_to {
     return 1;
 }
 
-sub add {
-    my ( $self, $element ) = @_;
+sub add ( $self, $element ) {
     return __PACKAGE__->new( elements => [ $self->_keys, $element ] );
 }
 
-sub intersection {
-    my ( $self, $other ) = @_;
+sub intersection ( $self, $other ) {
     return __PACKAGE__->new( elements => [ grep { $self->contains($_) && $other->contains($_) } $self->_keys, $other->_keys ] );
 }
 
-sub difference {
-    my ( $self, $other ) = @_;
+sub difference ( $self, $other ) {
     return __PACKAGE__->new( elements => [ grep { $self->contains($_) && !$other->contains($_) } $self->_keys, $other->_keys ] );
 }
 
-sub union {
-    my ( $self, $other ) = @_;
+sub union ( $self, $other ) {
     return __PACKAGE__->new( elements => [ $self->_keys, $other->_keys ] );
 }
 

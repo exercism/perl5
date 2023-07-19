@@ -1,8 +1,6 @@
 package AllYourBase;
 
-use strict;
-use warnings;
-use feature qw<say>;
+use v5.38;
 
 use Exporter qw<import>;
 our @EXPORT_OK = qw<rebase>;
@@ -13,9 +11,6 @@ my @errors = (
     'all digits must satisfy 0 <= d < input base',
 );
 
-sub rebase {
-    my ( $digits, $input_base, $output_base ) = @_;
+sub rebase ( $digits, $input_base, $output_base ) {
     return undef;
 }
-
-1;

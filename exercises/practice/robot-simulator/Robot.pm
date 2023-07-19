@@ -1,7 +1,7 @@
 package Robot;
 
+use v5.38;
 use Moo;
-use feature qw<say>;
 
 use List::Util qw<none>;
 
@@ -20,9 +20,6 @@ has direction => (
     },
 );
 
-sub enact {
-    my ( $self, $instructions ) = @_;
+sub enact ( $self, $instructions ) {
     return $self;
 }
-
-1;

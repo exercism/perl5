@@ -19,8 +19,7 @@ properties:
       END
 
 example: |-
-  sub transform {
-    my ($data) = @_;
+  sub transform ($data) {
     return {
       map {
         my $val = $_;
@@ -30,7 +29,6 @@ example: |-
   }
 
 stub: |-
-  sub transform {
-    my ($data) = @_;
+  sub transform ($data) {
     return undef;
   }

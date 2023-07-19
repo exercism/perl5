@@ -13,8 +13,7 @@ properties:
       END
 
 example: |-
-  sub handshake {
-      my ($number) = @_;
+  sub handshake ($number) {
       my @result;
       push @result, 'wink'            if 0b00001 & $number;
       push @result, 'double blink'    if 0b00010 & $number;
@@ -25,7 +24,6 @@ example: |-
   }
 
 stub: |-
-  sub handshake {
-      my ($number) = @_;
+  sub handshake ($number) {
       return undef;
   }

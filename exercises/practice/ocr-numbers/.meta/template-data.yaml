@@ -30,8 +30,7 @@ properties:
 
 
 example: |-
-  sub convert_ocr {
-      my ($input) = @_;
+  sub convert_ocr ($input) {
 
       my %digits = (
           ' _ | ||_|   ' => 0,
@@ -67,7 +66,6 @@ example: |-
   }
 
 stub: |-
-  sub convert_ocr {
-      my ($string) = @_;
+  sub convert_ocr ($string) {
       return undef;
   }

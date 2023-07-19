@@ -1,83 +1,66 @@
 subs: keep discard
-modules:
-  - use: experimental qw<signatures>;
-  - use: List::Util qw<any>;
+tests: |-
+  my ( $input, $expected, $function );
 
-properties:
-  keep:
-    test: |-
-      use Data::Dmp;
-      my $func = '';
-      if ($case->{input}{predicate} eq 'fn(x) -> true') {
-          $func = 'sub ($x) { 1 }';
-      }
-      elsif ($case->{input}{predicate} eq 'fn(x) -> false') {
-          $func = 'sub ($x) { 0 }';
-      }
-      elsif ($case->{input}{predicate} eq 'fn(x) -> x % 2 == 1') {
-          $func = 'sub ($x) { $x % 2 == 1 }';
-      }
-      elsif ($case->{input}{predicate} eq 'fn(x) -> x % 2 == 0') {
-          $func = 'sub ($x) { $x % 2 == 0 }';
-      }
-      elsif ($case->{input}{predicate} eq "fn(x) -> starts_with(x, 'z')") {
-          $func = q|sub ($x) { substr($x, 0, 1) eq 'z' }|;
-      }
-      elsif ($case->{input}{predicate} eq 'fn(x) -> contains(x, 5)' ) {
-          $func = 'sub ($x) { any { $_ == 5 } @{$x} }';
-      }
-      
-      sprintf(<<~'END', dmp($case->{input}{list}), $func, dmp($case->{expected}), dmp($case->{description}));
-      is(
-          keep(
-            %s,
-            %s,
-          ),
-          %s,
-          %s,
-      );
-      END
+  $input    = [];
+  $expected = [];
+  $function = sub { my $x = shift; $x % 2 == 0 };
+  is( keep( $input, $function ), $expected, "empty list" );
 
-  discard:
-    test: |-
-      use Data::Dmp;
-      my $func = '';
-      if ($case->{input}{predicate} eq 'fn(x) -> true') {
-          $func = 'sub ($x) { 1 }';
-      }
-      elsif ($case->{input}{predicate} eq 'fn(x) -> false') {
-          $func = 'sub ($x) { 0 }';
-      }
-      elsif ($case->{input}{predicate} eq 'fn(x) -> x % 2 == 1') {
-          $func = 'sub ($x) { $x % 2 == 1 }';
-      }
-      elsif ($case->{input}{predicate} eq 'fn(x) -> x % 2 == 0') {
-          $func = 'sub ($x) { $x % 2 == 0 }';
-      }
-      elsif ($case->{input}{predicate} eq "fn(x) -> starts_with(x, 'z')") {
-          $func = q|sub ($x) { substr($x, 0, 1) eq 'z' }|;
-      }
-      elsif ($case->{input}{predicate} eq 'fn(x) -> contains(x, 5)' ) {
-          $func = 'sub ($x) { any { $_ == 5 } @{$x} }';
-      }
-      
-      sprintf(<<~'END', dmp($case->{input}{list}), $func, dmp($case->{expected}), dmp($case->{description}));
-      is(
-          discard(
-            %s,
-            %s,
-          ),
-          %s,
-          %s,
-      );
-      END
+  $input    = [ 2, 4, 6, 8, 10 ];
+  $expected = [];
+  $function = sub { my $x = shift; $x % 2 == 1 };
+  is( keep( $input, $function ),
+    $expected, "keep odd numbers. empty result " );
+
+  $input    = [ 2, 4, 6, 8, 10 ];
+  $expected = [];
+  $function = sub { my $x = shift; $x % 2 == 0 };
+  is( discard( $input, $function ),
+    $expected, "discard even numbers. empty result" );
+
+  $input    = [ 2, 4, 6, 8, 10 ];
+  $expected = [ 2, 4, 6, 8, 10 ];
+  $function = sub { my $x = shift; $x % 2 == 0 };
+  is( keep( $input, $function ),
+    $expected, "keep even numbers. result == input" );
+
+  $input    = [qw(dough cash plough though through enough)];
+  $expected = ['cash'];
+  $function = sub { my $x = shift; $x =~ m/ough$/ };
+  is( discard( $input, $function ),
+    $expected, "discard input endswith 'ough'" );
+
+  $input    = [qw(zebra arizona apple google mozilla)];
+  $expected = [qw(zebra arizona mozilla)];
+  $function = sub { my $x = shift; $x =~ /z/ };
+  is( keep( $input, $function ),
+    $expected, "keep input with 'z'" );
+
+  $input    = [ '1,2,3', 'one', 'almost!', 'love' ];
+  $expected = [];
+  $function = sub { my $x = shift; $x =~ /\p{IsAlpha}/ };
+  is( discard( keep( $input, $function ) // [], $function ),
+    $expected, "keep then discard" );
+
+  $input    = [ '1,2,3', 'one', 'almost!', 'love' ];
+  $expected = [ '1,2,3', 'one', 'almost!', 'love' ];
+  $function = sub { my $x = shift; $x =~ /\p{Alpha}/ };
+  my $combined = [
+    @{ keep( $input, $function ) // [] },
+    @{ discard( $input, $function ) // [] }
+  ];
+  is(
+    [ sort @$combined ],
+    [ sort @$expected ],
+    "combine keep and discard results. keep + discard"
+  );
 
 example: |-
   sub keep    { [ _filter( @_, 1 ) ] }
   sub discard { [ _filter( @_, 0 ) ] }
 
-  sub _filter {
-    my ( $list, $function, $is_keeping ) = @_;
+  sub _filter ( $list, $function, $is_keeping ) {
 
     die "ArgumentError: 2nd parameter must be a function reference"
       unless ref $function eq 'CODE';
@@ -98,12 +81,10 @@ example: |-
   }
 
 stub: |-
-  sub keep {
-    my ($input, $function) = @_;
+  sub keep ($input, $function) {
     return undef;
   }
 
-  sub discard {
-    my ($input, $function) = @_;
+  sub discard ($input, $function) {
     return undef;
   }

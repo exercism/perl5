@@ -1,25 +1,20 @@
 package Clock;
 
+use v5.38;
 use Moo;
-use feature qw<say>;
 
 # rwp = read-write protected
 has hour   => ( is => 'rwp' );
 has minute => ( is => 'rwp' );
 
-sub time {
-    my ($self) = @_;
+sub time ($self) {
     return undef;
 }
 
-sub add_minutes {
-    my ( $self, $amount ) = @_;
+sub add_minutes ( $self, $amount ) {
     return $self;
 }
 
-sub subtract_minutes {
-    my ( $self, $amount ) = @_;
+sub subtract_minutes ( $self, $amount ) {
     return $self;
 }
-
-1;

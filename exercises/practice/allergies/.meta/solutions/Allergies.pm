@@ -2,7 +2,6 @@ package Allergies;
 
 use strict;
 use warnings;
-use feature      qw<say>;
 use experimental qw<signatures postderef postderef_qq>;
 
 use Exporter qw<import>;
@@ -19,13 +18,11 @@ use constant ALLERGENS => {
     cats         => 128,
 };
 
-sub allergic_to {
-    my ( $item, $score ) = @_;
+sub allergic_to ( $item, $score ) {
     ALLERGENS->{$item} & $score;
 }
 
-sub list_allergies {
-    my ($score) = @_;
+sub list_allergies ($score) {
     return [ grep { allergic_to $_, $score }
             keys %{ +ALLERGENS } ];
 }

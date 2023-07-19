@@ -34,33 +34,27 @@ properties:
 example: |-
   use List::Util qw<sum>;
 
-  sub square_of_sum {
-    my ($number) = @_;
+  sub square_of_sum ($number) {
     return sum(1..$number) ** 2;
   }
 
-  sub sum_of_squares {
-    my ($number) = @_;
+  sub sum_of_squares ($number) {
     return sum(map {$_ ** 2} 1..$number);
   }
 
-  sub difference_of_squares {
-    my ($number) = @_;
+  sub difference_of_squares ($number) {
     return square_of_sum($number) - sum_of_squares($number);
   }
 
 stub: |-
-  sub square_of_sum {
-    my ($number) = @_;
+  sub square_of_sum ($number) {
     return undef;
   }
 
-  sub sum_of_squares {
-    my ($number) = @_;
+  sub sum_of_squares ($number) {
     return undef;
   }
 
-  sub difference_of_squares {
-    my ($number) = @_;
+  sub difference_of_squares ($number) {
     return undef;
   }

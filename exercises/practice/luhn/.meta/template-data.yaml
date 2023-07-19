@@ -15,8 +15,7 @@ properties:
 
 
 example: |-
-  sub is_luhn_valid {
-      my ($number) = @_;
+  sub is_luhn_valid ($number) {
       $number =~ s/\s+//g;
       if (length $number < 2 || $number =~ /\D+/) {return 0}
 
@@ -42,7 +41,6 @@ example: |-
   }
 
 stub: |-
-  sub is_luhn_valid {
-      my ($number) = @_;
+  sub is_luhn_valid ($number) {
       return undef;
   }

@@ -1,7 +1,6 @@
 package Queen;
 
 use Moo;
-use feature      qw<say>;
 use experimental qw<signatures postderef postderef_qq>;
 
 has row => (
@@ -18,8 +17,7 @@ has column => (
     },
 );
 
-sub can_attack {
-    my ( $self, $other ) = @_;
+sub can_attack ( $self, $other ) {
 
     # Same row or column
     return 1 if $self->row == $other->row || $self->column == $other->column;

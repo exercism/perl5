@@ -44,7 +44,6 @@ example: |-
   }
 
 stub: |-
-  sub saddle_points {
-      my ($matrix) = @_;
+  sub saddle_points ($matrix) {
       return undef;
   }

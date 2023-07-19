@@ -13,8 +13,7 @@ properties:
       END
 
 example: |-
-  sub match_anagrams {
-    my ($subject, $candidates) = @_;
+  sub match_anagrams ($subject, $candidates) {
 
     return [
       grep {
@@ -26,7 +25,6 @@ example: |-
   }
 
 stub: |-
-  sub match_anagrams {
-      my ($subject, $candidates) = @_;
+  sub match_anagrams ($subject, $candidates) {
       return undef;
   }

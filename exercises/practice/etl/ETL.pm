@@ -1,15 +1,10 @@
 package ETL;
 
-use strict;
-use warnings;
-use feature qw<say>;
+use v5.38;
 
 use Exporter qw<import>;
 our @EXPORT_OK = qw<transform>;
 
-sub transform {
-    my ($data) = @_;
+sub transform ($data) {
     return undef;
 }
-
-1;

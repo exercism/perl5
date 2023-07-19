@@ -1,15 +1,11 @@
 package TwelveDays;
 
-use strict;
-use warnings;
-use feature qw<say>;
+use v5.38;
 
 use Exporter qw<import>;
 our @EXPORT_OK = qw<recite>;
 
-sub recite {
-    my ( $start, $end ) = @_;
+sub recite ( $start, $end ) {
     return '';
 }
 
-1;

@@ -1,20 +1,14 @@
 package AtbashCipher;
 
-use strict;
-use warnings;
-use feature qw<say>;
+use v5.38;
 
 use Exporter qw<import>;
 our @EXPORT_OK = qw<encode_atbash decode_atbash>;
 
-sub encode_atbash {
-    my ($phrase) = @_;
+sub encode_atbash ($phrase) {
     return undef;
 }
 
-sub decode_atbash {
-    my ($phrase) = @_;
+sub decode_atbash ($phrase) {
     return undef;
 }
-
-1;

@@ -2,14 +2,12 @@ package BinarySearch;
 
 use strict;
 use warnings;
-use feature      qw<say>;
 use experimental qw<signatures postderef postderef_qq>;
 
 use Exporter qw<import>;
 our @EXPORT_OK = qw<binary_search>;
 
-sub binary_search {
-    my ( $array, $value, $low, $high ) = @_;
+sub binary_search ( $array, $value, $low = undef, $high = undef ) {
 
     return binary_search( $array, $value, 0, scalar( @{$array} ) - 1 ) unless defined $high;
 

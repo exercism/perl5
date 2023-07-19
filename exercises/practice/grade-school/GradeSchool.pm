@@ -1,16 +1,12 @@
 package GradeSchool;
 
+use v5.38;
 use Moo;
-use feature qw<say>;
 
-sub add {
-    my ( $self, $student, $grade ) = @_;
+sub add ( $self, $student, $grade ) {
     return undef;
 }
 
-sub roster {
-    my ( $self, $grade ) = @_;
+sub roster ( $self, $grade = undef ) {
     return undef;
 }
-
-1;

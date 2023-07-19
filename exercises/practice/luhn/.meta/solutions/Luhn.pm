@@ -2,14 +2,12 @@ package Luhn;
 
 use strict;
 use warnings;
-use feature      qw<say>;
 use experimental qw<signatures postderef postderef_qq>;
 
 use Exporter qw<import>;
 our @EXPORT_OK = qw<is_luhn_valid>;
 
-sub is_luhn_valid {
-    my ($number) = @_;
+sub is_luhn_valid ($number) {
     $number =~ s/\s+//g;
     if ( length $number < 2 || $number =~ /\D+/ ) { return 0 }
 
