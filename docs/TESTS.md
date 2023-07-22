@@ -49,5 +49,7 @@ flag `-v` (for 'verbose') to the above command, like so:
 As well as showing optional tests, it will include all of the tests that
 your solution currently passes.
 
+Documentation about the assertions used in the test files can be found in
+[Test2::Manual::Testing::Introduction](https://metacpan.org/pod/Test2::Manual::Testing::Introduction).
 You can find a more in-depth explanation of `Test2` on
 [perldoc](https://perldoc.pl/Test2).
