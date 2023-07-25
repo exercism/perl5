@@ -2,7 +2,6 @@ package Meetup;
 
 use strict;
 use warnings;
-use feature      qw<say>;
 use experimental qw<signatures postderef postderef_qq>;
 
 use Exporter qw<import>;
@@ -19,8 +18,7 @@ use constant WEEKS => {
     Fourth => 22,
 };
 
-sub meetup {
-    my ($desc) = @_;
+sub meetup ($desc) {
     $desc =~ /^(\w+) (\w+) of (\w+) (\d+)$/;
 
     my $t = Time::Piece->strptime( ( WEEKS->{$1} // 1 ) . " $3 $4",

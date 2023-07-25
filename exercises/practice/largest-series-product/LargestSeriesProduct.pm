@@ -1,15 +1,10 @@
 package LargestSeriesProduct;
 
-use strict;
-use warnings;
-use feature qw<say>;
+use v5.38;
 
 use Exporter qw<import>;
 our @EXPORT_OK = qw<largest_product>;
 
-sub largest_product {
-    my ( $digits, $span ) = @_;
+sub largest_product ( $digits, $span ) {
     return undef;
 }
-
-1;

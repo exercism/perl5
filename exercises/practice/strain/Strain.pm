@@ -1,20 +1,14 @@
 package Strain;
 
-use strict;
-use warnings;
-use feature qw<say>;
+use v5.38;
 
 use Exporter qw<import>;
 our @EXPORT_OK = qw<keep discard>;
 
-sub keep {
-    my ( $input, $function ) = @_;
+sub keep ( $input, $function ) {
     return undef;
 }
 
-sub discard {
-    my ( $input, $function ) = @_;
+sub discard ( $input, $function ) {
     return undef;
 }
-
-1;

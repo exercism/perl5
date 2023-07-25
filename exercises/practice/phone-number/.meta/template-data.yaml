@@ -24,8 +24,7 @@ properties:
       }
 
 example: |
-  sub clean_number {
-    my ($number) = @_;
+  sub clean_number ($number) {
     $number =~ s/[()-. ]//g;
     if ($number =~ /^ 1? (\d{10}) $/x) {
       for ([area => substr($1, 0, 1)], [exchange => substr($1, 3, 1)]) {
@@ -55,7 +54,6 @@ stub: |
      'exchange code cannot start with one',
   );
 
-  sub clean_number {
-      my ($number) = @_;
+  sub clean_number ($number) {
       return undef;
   }

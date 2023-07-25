@@ -1,16 +1,16 @@
 {{#package_comment}}{{&package_comment}}
 {{/package_comment}}package {{&package}};
 
-{{#moo}}
-use Moo;{{/moo}}{{^moo}}
+{{^older_perl_support}}
+use v5.38;{{/older_perl_support}}{{#moo}}
+use Moo;{{/moo}}{{#older_perl_support}}{{^moo}}
 use strict;
 use warnings;{{/moo}}
-use feature qw<say>;{{#feature_comment}} {{&feature_comment}}{{/feature_comment}}{{#experimental}}
-use experimental qw<signatures postderef postderef_qq>;{{/experimental}}
+use experimental qw<signatures postderef postderef_qq>;{{/older_perl_support}}
 {{#subs}}
 use Exporter qw<import>;
 our @EXPORT_OK = qw<{{&subs}}>;{{/subs}}{{#module_file}}
 
-{{&module_file}}{{/module_file}}
+{{&module_file}}{{/module_file}}{{#older_perl_support}}
 
-1;
+1;{{/older_perl_support}}

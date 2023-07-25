@@ -29,7 +29,6 @@ example: |
   }
 
 stub: |
-  sub pascal_rows {
-      my ($rows) = @_;
+  sub pascal_rows ($rows) {
       return undef;
   }

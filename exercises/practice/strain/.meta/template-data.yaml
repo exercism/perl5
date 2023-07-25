@@ -26,7 +26,7 @@ properties:
       elsif ($case->{input}{predicate} eq 'fn(x) -> contains(x, 5)' ) {
           $func = 'sub ($x) { any { $_ == 5 } @{$x} }';
       }
-      
+
       sprintf(<<~'END', dmp($case->{input}{list}), $func, dmp($case->{expected}), dmp($case->{description}));
       is(
           keep(
@@ -60,7 +60,7 @@ properties:
       elsif ($case->{input}{predicate} eq 'fn(x) -> contains(x, 5)' ) {
           $func = 'sub ($x) { any { $_ == 5 } @{$x} }';
       }
-      
+
       sprintf(<<~'END', dmp($case->{input}{list}), $func, dmp($case->{expected}), dmp($case->{description}));
       is(
           discard(
@@ -76,8 +76,7 @@ example: |-
   sub keep    { [ _filter( @_, 1 ) ] }
   sub discard { [ _filter( @_, 0 ) ] }
 
-  sub _filter {
-    my ( $list, $function, $is_keeping ) = @_;
+  sub _filter ( $list, $function, $is_keeping ) {
 
     die "ArgumentError: 2nd parameter must be a function reference"
       unless ref $function eq 'CODE';
@@ -98,12 +97,10 @@ example: |-
   }
 
 stub: |-
-  sub keep {
-    my ($input, $function) = @_;
+  sub keep ($input, $function) {
     return undef;
   }
 
-  sub discard {
-    my ($input, $function) = @_;
+  sub discard ($input, $function) {
     return undef;
   }

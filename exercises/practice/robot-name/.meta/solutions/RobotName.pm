@@ -2,30 +2,27 @@
 package RobotName;
 
 use Moo;
-use feature qw<say>; # Use the `say` function to output debugging info in the online editor.
 use experimental qw<signatures postderef postderef_qq>;
 
 # Declare a "name" attribute that is is 'rwp', read-write protected:
 # read-only to consumers, but settable using $self->_set_name
 has name => ( is => 'rwp' );
 
-sub BUILD {
-    my ($self) = @_;
+sub BUILD ( $self, @ ) {
     $self->reset_name;
 }
 
-sub reset_name {
-    my ($self) = @_;
+sub reset_name ($self) {
     $self->_set_name( _rand_letter() . _rand_letter() . _suffix() );
     return $self->name;
 }
 
-sub _rand_letter {
+sub _rand_letter () {
     my @letters = 'A' .. 'Z';
     return $letters[ int rand $#letters ];
 }
 
-sub _suffix {
+sub _suffix () {
     return sprintf( '%03d', int rand 1000 );
 }
 

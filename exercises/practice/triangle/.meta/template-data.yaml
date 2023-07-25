@@ -60,17 +60,14 @@ example: |-
   }
 
 stub: |-
-  sub is_equilateral {
-    my ($triangle) = @_;
+  sub is_equilateral ($triangle) {
     return undef;
   }
 
-  sub is_isosceles {
-    my ($triangle) = @_;
+  sub is_isosceles ($triangle) {
     return undef;
   }
 
-  sub is_scalene {
-    my ($triangle) = @_;
+  sub is_scalene ($triangle) {
     return undef;
   }

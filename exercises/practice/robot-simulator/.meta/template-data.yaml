@@ -37,8 +37,7 @@ example: |-
       },
   );
   
-  sub enact {
-      my ( $self, $instructions ) = @_;
+  sub enact ( $self, $instructions ) {
 
       for my $step (split //, $instructions) {
           if ( $step eq 'A' ) {
@@ -106,7 +105,6 @@ stub: |-
       },
   );
 
-  sub enact {
-      my ( $self, $instructions ) = @_;
+  sub enact ( $self, $instructions ) {
       return $self;
   }

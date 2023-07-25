@@ -126,16 +126,14 @@ stub: |-
       is => 'lazy',
   );
   
-  sub encode {
-      my ($self) = @_;
+  sub encode ($self) {
       return undef;
   }
   
-  sub decode {
-      my ($self) = @_;
+  sub decode ($self) {
       return undef;
   }
   
-  sub _build_key {
+  sub _build_key ($self) {
       return undef;
   }

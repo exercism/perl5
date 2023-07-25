@@ -1,15 +1,11 @@
 package PigLatin;
 
-use strict;
-use warnings;
-use feature qw<say>;
+use v5.38;
 
 use Exporter qw<import>;
 our @EXPORT_OK = qw<translate>;
 
-sub translate {
-    my ($phrase) = @_;
+sub translate ($phrase) {
     return undef;
 }
 
-1;

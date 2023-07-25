@@ -1,15 +1,10 @@
 package SaddlePoints;
 
-use strict;
-use warnings;
-use feature qw<say>;
+use v5.38;
 
 use Exporter qw<import>;
 our @EXPORT_OK = qw<saddle_points>;
 
-sub saddle_points {
-    my ($matrix) = @_;
+sub saddle_points ($matrix) {
     return undef;
 }
-
-1;

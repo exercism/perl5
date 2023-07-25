@@ -1,8 +1,6 @@
 package PhoneNumber;
 
-use strict;
-use warnings;
-use feature qw<say>;
+use v5.38;
 
 use Exporter qw<import>;
 our @EXPORT_OK = qw<clean_number>;
@@ -19,9 +17,7 @@ my @errors = (
     'exchange code cannot start with one',
 );
 
-sub clean_number {
-    my ($number) = @_;
+sub clean_number ($number) {
     return undef;
 }
 
-1;

@@ -87,7 +87,6 @@ example: |
   }
 
 stub: |
-  sub recite {
-      my ($start, $end) = @_;
+  sub recite ($start, $end) {
       return '';
   }

@@ -13,8 +13,7 @@ properties:
       END
 
 example: |-
-  sub triplets_with_sum {
-      my ($sum) = @_;
+  sub triplets_with_sum ($sum) {
       my @solutions;
       for my $side_a ( 1 .. $sum ) {
           my $numerator   = 2*$side_a**2 + $sum**2 - 2*$sum*$side_a;
@@ -29,7 +28,6 @@ example: |-
   }
 
 stub: |-
-  sub triplets_with_sum {
-      my ($sum) = @_;
+  sub triplets_with_sum ($sum) {
       return undef;
   }

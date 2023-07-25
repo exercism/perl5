@@ -1,15 +1,10 @@
 package WordCount;
 
-use strict;
-use warnings;
-use feature qw<say>;
+use v5.38;
 
 use Exporter qw<import>;
 our @EXPORT_OK = qw<count_words>;
 
-sub count_words {
-    my ($sentence) = @_;
+sub count_words ($sentence) {
     return undef;
 }
-
-1;

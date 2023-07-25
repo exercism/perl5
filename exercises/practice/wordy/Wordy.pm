@@ -1,15 +1,10 @@
 package Wordy;
 
-use strict;
-use warnings;
-use feature qw<say>;
+use v5.38;
 
 use Exporter qw<import>;
 our @EXPORT_OK = qw<answer>;
 
-sub answer {
-    my ($question) = @_;
+sub answer ($question) {
     return undef;
 }
-
-1;

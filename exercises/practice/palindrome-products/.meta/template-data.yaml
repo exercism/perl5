@@ -44,8 +44,7 @@ properties:
       }
 
 example: |-
-  sub smallest_palindrome {
-      my ( $min, $max ) = @_;
+  sub smallest_palindrome ( $min, $max ) {
       die 'min must be <= max' if $min > $max;
 
       my %result = (
@@ -72,8 +71,7 @@ example: |-
       return \%result;
   }
 
-  sub largest_palindrome {
-      my ( $min, $max ) = @_;
+  sub largest_palindrome ( $min, $max ) {
       die 'min must be <= max' if $min > $max;
 
       my %result = (
@@ -101,12 +99,10 @@ example: |-
   }
 
 stub: |-
-  sub smallest_palindrome {
-      my ( $min, $max ) = @_;
+  sub smallest_palindrome ( $min, $max ) {
       return undef;
   }
 
-  sub largest_palindrome {
-      my ( $min, $max ) = @_;
+  sub largest_palindrome ( $min, $max ) {
       return undef;
   }

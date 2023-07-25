@@ -46,7 +46,6 @@ example: |-
   }
 
 stub: |-
-  sub to_roman {
-      my ($number) = @_;
+  sub to_roman ($number) {
       return undef;
   }

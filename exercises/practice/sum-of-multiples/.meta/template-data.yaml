@@ -13,8 +13,7 @@ properties:
       END
 
 example: |-
-  sub sum_of_multiples {
-      my ($factors, $limit) = @_;
+  sub sum_of_multiples ($factors, $limit) {
 
       $factors = [ grep { $_ > 0 } @{$factors} ];
       my %multiples;
@@ -33,7 +32,6 @@ example: |-
   }
 
 stub: |-
-  sub sum_of_multiples {
-      my ( $factors, $limit ) = @_;
+  sub sum_of_multiples ( $factors, $limit ) {
       return undef;
   }

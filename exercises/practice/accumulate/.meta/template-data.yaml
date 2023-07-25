@@ -32,8 +32,7 @@ properties:
       END
 
 example: |-
-  sub accumulate {
-    my ( $list, $func ) = @_;
+  sub accumulate ( $list, $func ) {
     my @results;
 
     for ( @{ $list } ) {
@@ -44,7 +43,6 @@ example: |-
   }
 
 stub: |-
-  sub accumulate {
-    my ( $list, $func ) = @_;
+  sub accumulate ( $list, $func ) {
     return undef;
   }

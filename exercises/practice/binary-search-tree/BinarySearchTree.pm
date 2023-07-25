@@ -1,7 +1,7 @@
 package BinarySearchTree;
 
+use v5.38;
 use Moo;
-use feature qw<say>;
 
 package BinarySearchTree::Node {
     use Moo;
@@ -18,15 +18,11 @@ has root => (
     is => 'rw',
 );
 
-sub add {
-    my ($self) = @_;
+sub add ($self) {
 
     # $self->root contains the initial node.
 }
 
-sub sort {
-    my ($self) = @_;
+sub sort ($self) {
     return [];
 }
-
-1;

@@ -2,14 +2,12 @@ package SumOfMultiples;
 
 use strict;
 use warnings;
-use feature      qw<say>;
 use experimental qw<signatures postderef postderef_qq>;
 
 use Exporter qw<import>;
 our @EXPORT_OK = qw<sum_of_multiples>;
 
-sub sum_of_multiples {
-    my ( $factors, $limit ) = @_;
+sub sum_of_multiples ( $factors, $limit ) {
 
     $factors = [ grep { $_ > 0 } @{$factors} ];
     my %multiples;

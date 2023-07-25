@@ -1,15 +1,10 @@
 package NucleotideCount;
 
-use strict;
-use warnings;
-use feature qw<say>;
+use v5.38;
 
 use Exporter qw<import>;
 our @EXPORT_OK = qw<count_nucleotides>;
 
-sub count_nucleotides {
-    my ($strand) = @_;
+sub count_nucleotides ($strand) {
     return undef;
 }
-
-1;
