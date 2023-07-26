@@ -2,14 +2,12 @@ package SecretHandshake;
 
 use strict;
 use warnings;
-use feature      qw<say>;
 use experimental qw<signatures postderef postderef_qq>;
 
 use Exporter qw<import>;
 our @EXPORT_OK = qw<handshake>;
 
-sub handshake {
-    my ($number) = @_;
+sub handshake ($number) {
     my @result;
     push @result, 'wink'            if 0b00001 & $number;
     push @result, 'double blink'    if 0b00010 & $number;

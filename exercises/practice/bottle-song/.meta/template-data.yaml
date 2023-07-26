@@ -26,8 +26,7 @@ example: |-
       10 => 'ten',
   );
 
-  sub sing {
-    my ($bottles, $verses) = @_;
+  sub sing ($bottles, $verses) {
     my @verses;
     for ( 1..$verses ) {
         my $s = $bottles > 1 ? 's' : '';
@@ -58,7 +57,6 @@ stub: |-
       10 => 'ten',
   );
 
-  sub sing {
-    my ($bottles, $verses) = @_;
+  sub sing ($bottles, $verses) {
     return undef;
   }

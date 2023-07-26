@@ -1,14 +1,11 @@
 package KindergartenGarden;
 
-use strict;
-use warnings;
-use feature qw<say>;
+use v5.38;
 
 use Exporter qw<import>;
 our @EXPORT_OK = qw<plants>;
 
-sub plants {
-    my ( $diagram, $student ) = @_;
+sub plants ( $diagram, $student ) {
     my %plants = (
         C => 'clover',
         G => 'grass',
@@ -18,5 +15,3 @@ sub plants {
 
     return undef;
 }
-
-1;

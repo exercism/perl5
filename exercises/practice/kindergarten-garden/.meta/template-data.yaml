@@ -13,8 +13,7 @@ properties:
       END
 
 example: |-
-  sub plants {
-      my ($diagram, $student) = @_;
+  sub plants ($diagram, $student) {
       my %plants = (
           C => 'clover',
           G => 'grass',
@@ -34,8 +33,7 @@ example: |-
   }
 
 stub: |-
-  sub plants {
-      my ($diagram, $student) = @_;
+  sub plants ($diagram, $student) {
       my %plants = (
           C => 'clover',
           G => 'grass',

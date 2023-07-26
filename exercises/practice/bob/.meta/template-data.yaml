@@ -16,8 +16,7 @@ package_comment: "# Declare package 'Bob'"
 feature_comment: '# Use the `say` function to output debugging info in the online editor.'
 
 example: |-
-  sub hey {
-    my ($text) = @_;
+  sub hey ($text) {
     if (uc($text) eq $text && $text =~ /\p{Uppercase}/) {
       return 'Calm down, I know what I\'m doing!' if $text =~ /\?\s*$/;
       return 'Whoa, chill out!';
@@ -28,7 +27,6 @@ example: |-
   }
 
 stub: |-
-  sub hey {
-    my ($msg) = @_;
+  sub hey ($msg) {
     return undef; # Replace this with your own code to pass the tests.
   }

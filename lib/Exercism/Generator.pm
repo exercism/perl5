@@ -82,7 +82,7 @@ sub _render {
     }
 
     if ( $is_example ) {
-        $data{experimental} = 1;
+        $data{older_perl_support} = 1;
     }
 
     my $rendered = Template::Mustache->render(
@@ -215,7 +215,7 @@ sub _build_cases {
     }
     elsif ( any { $_ eq $obj->{uuid} } @{ $self->case_uuids } ) {
         return [
-            {   %{$obj}{qw<input expected property>},
+            {   %{$obj}{qw<input expected property uuid>},
                 description => $description . $obj->{description}
             }
         ];
@@ -251,8 +251,17 @@ sub _build_property_tests {
     for my $case ( @{ $self->cases } ) {
         if ( my $eval = $self->data->{properties}{ $case->{property} }{test} )
         {
-            push @tests, eval "$eval";
+            my @output = split /\n/, eval "$eval";
             warn $@ if $@;
+            if (@output > 1) {
+               $output[0]  .= " # begin: $case->{uuid}";
+               $output[-1] .= " # end: $case->{uuid}";
+            }
+            else {
+                $output[0] .= " # case: $case->{uuid}";
+            }
+
+            push @tests, join("\n", @output) . "\n";
         }
     }
     return [@tests];

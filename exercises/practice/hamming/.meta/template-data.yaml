@@ -24,8 +24,7 @@ properties:
       }
 
 example: |-
-  sub hamming_distance {
-    my ($strand1, $strand2) = @_;
+  sub hamming_distance ($strand1, $strand2) {
     if ( length $strand1 != length $strand2 ) {
       die 'left and right strands must be of equal length';
     }
@@ -33,7 +32,6 @@ example: |-
   }
 
 stub: |-
-  sub hamming_distance {
-    my ($strand1, $strand2) = @_;
+  sub hamming_distance ($strand1, $strand2) {
     return undef;
   }

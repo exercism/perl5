@@ -72,7 +72,6 @@ example: |-
   }
 
 stub: |-
-  sub answer {
-      my ($question) = @_;
+  sub answer ($question) {
       return undef;
   }

@@ -18,18 +18,6 @@ example: |-
   }
 
 stub: |-
-  sub two_fer {
-      my ($name) = @_;
+  sub two_fer ($name = undef) {
       return undef;
   }
-
-  1;
-
-  __END__
-  If you are using perl v5.20 or newer, you
-  can replace the existing sub declaration
-  with the following code:
-
-  use feature qw(signatures);
-
-  sub two_fer ($name = undef) {}

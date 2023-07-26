@@ -1,15 +1,10 @@
 package Minesweeper;
 
-use strict;
-use warnings;
-use feature qw<say>;
+use v5.38;
 
 use Exporter qw<import>;
 our @EXPORT_OK = qw<annotate>;
 
-sub annotate {
-    my ($minefield) = @_;
+sub annotate ($minefield) {
     return undef;
 }
-
-1;

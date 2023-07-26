@@ -3,14 +3,12 @@ package Bob;
 
 use strict;
 use warnings;
-use feature qw<say>; # Use the `say` function to output debugging info in the online editor.
 use experimental qw<signatures postderef postderef_qq>;
 
 use Exporter qw<import>;
 our @EXPORT_OK = qw<hey>;
 
-sub hey {
-    my ($text) = @_;
+sub hey ($text) {
     if ( uc($text) eq $text && $text =~ /\p{Uppercase}/ ) {
         return 'Calm down, I know what I\'m doing!' if $text =~ /\?\s*$/;
         return 'Whoa, chill out!';

@@ -19,7 +19,6 @@ example: |
   }
 
 stub: |
-  sub add_gigasecond {
-      my ($time) = @_;
+  sub add_gigasecond ($time) {
       return undef;
   }

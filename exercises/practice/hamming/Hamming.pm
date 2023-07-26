@@ -1,15 +1,10 @@
 package Hamming;
 
-use strict;
-use warnings;
-use feature qw<say>;
+use v5.38;
 
 use Exporter qw<import>;
 our @EXPORT_OK = qw<hamming_distance>;
 
-sub hamming_distance {
-    my ( $strand1, $strand2 ) = @_;
+sub hamming_distance ( $strand1, $strand2 ) {
     return undef;
 }
-
-1;

@@ -1,20 +1,16 @@
 package Matrix;
 
+use v5.38;
 use Moo;
-use feature qw<say>;
 
 has string => (
     is => 'ro',
 );
 
-sub row {
-    my ( $self, $index ) = @_;
+sub row ( $self, $index ) {
     return undef;
 }
 
-sub column {
-    my ( $self, $index ) = @_;
+sub column ( $self, $index ) {
     return undef;
 }
-
-1;

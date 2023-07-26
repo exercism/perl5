@@ -2,14 +2,12 @@ package ETL;
 
 use strict;
 use warnings;
-use feature      qw<say>;
 use experimental qw<signatures postderef postderef_qq>;
 
 use Exporter qw<import>;
 our @EXPORT_OK = qw<transform>;
 
-sub transform {
-    my ($data) = @_;
+sub transform ($data) {
     return {
         map {
             my $val = $_;

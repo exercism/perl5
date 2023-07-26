@@ -44,7 +44,6 @@ example: |-
   }
 
 stub: |-
-  sub annotate {
-      my ($minefield) = @_;
+  sub annotate ($minefield) {
       return undef;
   }

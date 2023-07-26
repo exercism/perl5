@@ -1,7 +1,7 @@
 package Queen;
 
+use v5.38;
 use Moo;
-use feature qw<say>;
 
 has row => (
     is => 'ro',
@@ -11,9 +11,6 @@ has column => (
     is => 'ro',
 );
 
-sub can_attack {
-    my ( $self, $other ) = @_;
+sub can_attack ( $self, $other ) {
     return undef;
 }
-
-1;
