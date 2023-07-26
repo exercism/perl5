@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use Proverb qw<proverb>;
 
-imported_ok qw<proverb> or bail_out;
-
 is(
     proverb( [] ),
     "",
@@ -42,9 +40,7 @@ TEXT
 );
 
 is(
-    proverb(
-        [ "nail", "shoe", "horse", "rider", "message", "battle", "kingdom" ]
-    ),
+    proverb( [ "nail", "shoe", "horse", "rider", "message", "battle", "kingdom" ] ),
     <<'TEXT' =~ s/\n$//r,
 For want of a nail the shoe was lost.
 For want of a shoe the horse was lost.

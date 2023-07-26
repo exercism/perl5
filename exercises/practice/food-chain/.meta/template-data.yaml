@@ -3,7 +3,8 @@ properties:
   recite:
     test: |-
       use Data::Dmp;
-      sprintf(<<'END', @{$case->{input}}{qw<startVerse endVerse>}, map {dmp($_)} @{$case}{qw<expected description>});
+      my $expected = "array {\n" . ( join '', map { 'item ' . dmp($_) . ";\n" } $case->{expected}->@* ) . "end;\n}";
+      sprintf(<<'END', $case->{input}->@{qw<startVerse endVerse>}, $expected, dmp($case->{description}));
       is(
           [ split( /\n/, recite( %s, %s ) // '' ) ],
           %s,

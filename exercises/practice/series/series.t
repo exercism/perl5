@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use Series qw<slices>;
 
-imported_ok qw<slices> or bail_out;
-
 is(
     slices( "1", 1 ),
     ["1"],
@@ -40,9 +38,7 @@ is(
 
 is(
     slices( "918493904243", 5 ),
-    [   "91849", "18493", "84939", "49390", "93904", "39042", "90424",
-        "04243"
-    ],
+    [ "91849", "18493", "84939", "49390", "93904", "39042", "90424", "04243" ],
     "slices of a long series",
 );
 

@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use OCRNumbers qw<convert_ocr>;
 
-imported_ok qw<convert_ocr> or bail_out;
-
 is(
     convert_ocr( <<'OCR' =~ s/\n\z//r ),
  _ 

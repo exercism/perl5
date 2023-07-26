@@ -64,8 +64,7 @@ sub recite ( $start, $end ) {
         "On the $parts{$_}{nth} day of Christmas my true love gave to me: "
             . (
             join( ', ', map { $parts{$_}{items} } reverse 2 .. $_ )
-                . ', and '
-            ) x !!( $_ > 1 )
+                . ', and ' ) x !!( $_ > 1 )
             . "$parts{1}{items}."
     } $start .. $end;
 }

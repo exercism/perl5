@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use SecretHandshake qw<handshake>;
 
-imported_ok qw<handshake> or bail_out;
-
 is(
     handshake(1),
     ["wink"],

@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use BinarySearch qw<binary_search>;
 
-imported_ok qw<binary_search> or bail_out;
-
 is(
     binary_search( [6], 6 ),
     0,
@@ -33,9 +31,7 @@ is(
 );
 
 is(
-    binary_search(
-        [ 1, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 634 ], 144
-    ),
+    binary_search( [ 1, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 634 ], 144 ),
     9,
     "finds a value in an array of odd length",
 );

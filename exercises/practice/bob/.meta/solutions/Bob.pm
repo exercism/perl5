@@ -3,7 +3,7 @@ package Bob;
 
 use strict;
 use warnings;
-use feature      qw<say>;                                 # Use the `say` function to output debugging info in the online editor.
+use feature qw<say>; # Use the `say` function to output debugging info in the online editor.
 use experimental qw<signatures postderef postderef_qq>;
 
 use Exporter qw<import>;

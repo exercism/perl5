@@ -10,10 +10,7 @@ use namespace::clean;
 has elements => (
     is  => 'ro',
     isa => ( HashRef [Bool] )->plus_coercions(
-        ArrayRef,
-        sub {
-            +{ map { $_ => 1 } @{ $_[0] } };
-        },
+        ArrayRef, sub { +{ map { $_ => 1 } @{ $_[0] } } },
     ),
     coerce => 1,
 );
@@ -65,8 +62,7 @@ sub intersection {
     my ( $self, $other ) = @_;
     return __PACKAGE__->new(
         elements => [
-            grep { $self->contains($_) && $other->contains($_) } $self->_keys,
-            $other->_keys
+            grep { $self->contains($_) && $other->contains($_) } $self->_keys, $other->_keys
         ]
     );
 }
@@ -75,9 +71,7 @@ sub difference {
     my ( $self, $other ) = @_;
     return __PACKAGE__->new(
         elements => [
-            grep { $self->contains($_) && !$other->contains($_) }
-                $self->_keys,
-            $other->_keys
+            grep { $self->contains($_) && !$other->contains($_) } $self->_keys, $other->_keys
         ]
     );
 }

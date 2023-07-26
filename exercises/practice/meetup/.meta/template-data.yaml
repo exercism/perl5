@@ -4,14 +4,14 @@ properties:
   meetup:
     test: |-
       use Data::Dmp;
-      use constant MONTHS => qw<
+      my @months = (qw<
         January February March     April   May      June
         July    August   September October November December
-      >;
+      >);
       my $input_string = sprintf( '%s %s of %s %u',
         ucfirst( $case->{input}{week} ),
         $case->{input}{dayofweek},
-        (MONTHS)[ $case->{input}{month} - 1 ],
+        $months[ $case->{input}{month} - 1 ],
         $case->{input}{year} );
 
       sprintf(<<'END', map {dmp($_)} $input_string, @{$case}{qw<expected description>});

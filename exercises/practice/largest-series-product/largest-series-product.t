@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use LargestSeriesProduct qw<largest_product>;
 
-imported_ok qw<largest_product> or bail_out;
-
 is(
     largest_product( "29", 2 ),
     18,
@@ -45,9 +43,7 @@ is(
 );
 
 is(
-    largest_product(
-        "73167176531330624919225119674426574742355349194934", 6
-    ),
+    largest_product( "73167176531330624919225119674426574742355349194934", 6 ),
     23520,
     "can get the largest product of a big number",
 );

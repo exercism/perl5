@@ -1,4 +1,3 @@
-methods: add roster
 tests: |
   my $grade_school;
 
@@ -19,10 +18,9 @@ properties:
   roster:
     test: |-
       use Data::Dmp;
-      '$grade_school = GradeSchool->new;'
-      . sprintf(<<'END', join("\n", map {'$grade_school->add(' . dmp($_->[0]) . ',' . $_->[1] . ');'} @{$case->{input}{students}}), map {dmp($_)} @{$case}{qw<expected description>});
-      %s
-      is(
+      "\$grade_school = GradeSchool->new;\n"
+      . sprintf(<<'END', join('', map {'$grade_school->add(' . dmp($_->[0]) . ',' . $_->[1] . ");\n"} @{$case->{input}{students}}), map {dmp($_)} @{$case}{qw<expected description>});
+      %sis(
           $grade_school->roster,
           %s,
           %s,
@@ -32,10 +30,9 @@ properties:
   grade:
     test: |-
       use Data::Dmp;
-      '$grade_school = GradeSchool->new;'
-      . sprintf(<<'END', join("\n", map {'$grade_school->add(' . dmp($_->[0]) . ',' . $_->[1] . ');'} @{$case->{input}{students}}), $case->{input}{desiredGrade} ,map {dmp($_)} @{$case}{qw<expected description>});
-      %s
-      is(
+      "\$grade_school = GradeSchool->new;\n"
+      . sprintf(<<'END', join('', map {'$grade_school->add(' . dmp($_->[0]) . ',' . $_->[1] . ");\n"} @{$case->{input}{students}}), $case->{input}{desiredGrade} ,map {dmp($_)} @{$case}{qw<expected description>});
+      %sis(
           $grade_school->roster(%s),
           %s,
           %s,

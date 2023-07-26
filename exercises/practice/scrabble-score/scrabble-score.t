@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use Scrabble qw<scrabble_score>;
 
-imported_ok qw<scrabble_score> or bail_out;
-
 is(
     scrabble_score("a"),
     1,

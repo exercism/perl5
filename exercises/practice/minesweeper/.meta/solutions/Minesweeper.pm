@@ -23,11 +23,7 @@ sub annotate ($input) {
                     next if $dx == 0 && $dy == 0;
                     my $nx = $x + $dx;
                     my $ny = $y + $dy;
-                    next
-                        if $nx < 0
-                        || $nx >= $width
-                        || $ny < 0
-                        || $ny >= $height;
+                    next if $nx < 0 || $nx >= $width || $ny < 0 || $ny >= $height;
                     $count++ if $grid[$ny][$nx] eq '*';
                 }
             }

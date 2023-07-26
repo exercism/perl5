@@ -2,7 +2,7 @@
 package RobotName;
 
 use Moo;
-use feature      qw<say>;                                 # Use the `say` function to output debugging info in the online editor.
+use feature qw<say>; # Use the `say` function to output debugging info in the online editor.
 use experimental qw<signatures postderef postderef_qq>;
 
 # Declare a "name" attribute that is is 'rwp', read-write protected:

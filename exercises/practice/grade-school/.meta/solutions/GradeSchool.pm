@@ -12,9 +12,7 @@ has grades => (
 sub add {
     my ( $self, $student, $grade ) = @_;
     my %grades   = %{ $self->grades // {} };
-    my %students = map {
-        map { $_ => 1 } @{$_}
-    } values %grades;
+    my %students = map { map { $_ => 1 } @{$_} } values %grades;
 
     if ( $students{$student} ) {
         return 0;
@@ -31,8 +29,7 @@ sub roster {
     if ( defined $grade ) {
         return $self->grades->{$grade} // [];
     }
-    return [ map { @{ $self->grades->{$_} } }
-            sort( keys %{ $self->grades } ) ];
+    return [ map { @{ $self->grades->{$_} } } sort( keys %{ $self->grades } ) ];
 }
 
 1;

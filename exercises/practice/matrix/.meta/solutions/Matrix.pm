@@ -15,10 +15,7 @@ sub row {
 
 sub column {
     my ( $self, $index ) = @_;
-    return [
-        map { [ split / /, $_ ]->[ $index - 1 ] } split /\n/,
-        $self->string
-    ];
+    return [ map { [ split / /, $_ ]->[ $index - 1 ] } split /\n/, $self->string ];
 }
 
 1;

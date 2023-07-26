@@ -11,8 +11,7 @@ our @EXPORT_OK = qw<binary_search>;
 sub binary_search {
     my ( $array, $value, $low, $high ) = @_;
 
-    return binary_search( $array, $value, 0, scalar( @{$array} ) - 1 )
-        unless defined $high;
+    return binary_search( $array, $value, 0, scalar( @{$array} ) - 1 ) unless defined $high;
 
     die 'value not in array' if $low > $high;
 

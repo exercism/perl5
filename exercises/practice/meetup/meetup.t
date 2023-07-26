@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use Meetup qw<meetup>;
 
-imported_ok qw<meetup> or bail_out;
-
 is(
     meetup("Teenth Monday of May 2013"),
     "2013-05-13",

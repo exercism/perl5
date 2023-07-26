@@ -6,23 +6,28 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use SaddlePoints qw<saddle_points>;
 
-imported_ok qw<saddle_points> or bail_out;
-
 is(
     saddle_points( [ [ 9, 8, 7 ], [ 5, 3, 2 ], [ 6, 6, 7 ] ] ),
-    bag { item { column => 1, row => 2 }; end; },
+    bag {
+        item { column => 1, row => 2 };
+        end;
+    },
     "Can identify single saddle point",
 );
 
 is(
     saddle_points( [ [] ] ),
-    bag { end; },
+    bag {
+        end;
+    },
     "Can identify that empty matrix has no saddle points",
 );
 
 is(
     saddle_points( [ [ 1, 2, 3 ], [ 3, 1, 2 ], [ 2, 3, 1 ] ] ),
-    bag { end; },
+    bag {
+        end;
+    },
     "Can identify lack of saddle points when there are none",
 );
 
@@ -50,7 +55,10 @@ is(
 
 is(
     saddle_points( [ [ 8, 7, 9 ], [ 6, 7, 6 ], [ 3, 2, 5 ] ] ),
-    bag { item { column => 3, row => 3 }; end; },
+    bag {
+        item { column => 3, row => 3 };
+        end;
+    },
     "Can identify saddle point in bottom right corner",
 );
 

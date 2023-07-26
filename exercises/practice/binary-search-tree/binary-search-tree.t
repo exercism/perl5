@@ -6,16 +6,13 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use BinarySearchTree ();
 
-can_ok 'BinarySearchTree', qw<add sort> or bail_out;
-
 my $bst;
 my $init;
 
 $init = 1;
 for my $data (2) {
     if ($init) {
-        $bst = BinarySearchTree->new(
-            root => BinarySearchTree::Node->new( data => $data ) );
+        $bst = BinarySearchTree->new( root => BinarySearchTree::Node->new( data => $data ) );
         $init = 0;
         next;
     }
@@ -30,8 +27,7 @@ is(
 $init = 1;
 for my $data ( 2, 1 ) {
     if ($init) {
-        $bst = BinarySearchTree->new(
-            root => BinarySearchTree::Node->new( data => $data ) );
+        $bst = BinarySearchTree->new( root => BinarySearchTree::Node->new( data => $data ) );
         $init = 0;
         next;
     }
@@ -46,8 +42,7 @@ is(
 $init = 1;
 for my $data ( 2, 2 ) {
     if ($init) {
-        $bst = BinarySearchTree->new(
-            root => BinarySearchTree::Node->new( data => $data ) );
+        $bst = BinarySearchTree->new( root => BinarySearchTree::Node->new( data => $data ) );
         $init = 0;
         next;
     }
@@ -62,8 +57,7 @@ is(
 $init = 1;
 for my $data ( 2, 3 ) {
     if ($init) {
-        $bst = BinarySearchTree->new(
-            root => BinarySearchTree::Node->new( data => $data ) );
+        $bst = BinarySearchTree->new( root => BinarySearchTree::Node->new( data => $data ) );
         $init = 0;
         next;
     }
@@ -78,8 +72,7 @@ is(
 $init = 1;
 for my $data ( 2, 1, 3, 6, 7, 5 ) {
     if ($init) {
-        $bst = BinarySearchTree->new(
-            root => BinarySearchTree::Node->new( data => $data ) );
+        $bst = BinarySearchTree->new( root => BinarySearchTree::Node->new( data => $data ) );
         $init = 0;
         next;
     }

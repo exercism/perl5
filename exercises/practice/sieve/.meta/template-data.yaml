@@ -4,7 +4,10 @@ properties:
   primes:
     test: |-
       use Data::Dmp;
-      sprintf(<<~'END', $case->{input}{limit}, dmp($case->{expected}), dmp($case->{description}));
+      my $expected = $case->{input}{limit} == 1000
+          ? "array {\n" . ( join '', map { 'item ' . dmp($_) . ";\n" } $case->{expected}->@* ) . "end;\n}"
+          : dmp($case->{expected});
+      sprintf(<<~'END', $case->{input}{limit}, $expected, dmp($case->{description}));
       is(
           find_primes(%s),
           %s,

@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use PigLatin qw<translate>;
 
-imported_ok qw<translate> or bail_out;
-
 is(
     translate("apple"),
     "appleay",

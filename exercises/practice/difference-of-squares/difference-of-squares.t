@@ -4,11 +4,7 @@ use Test2::V0;
 use FindBin qw<$Bin>;
 use lib $Bin, "$Bin/local/lib/perl5";
 
-use DifferenceOfSquares
-    qw<square_of_sum sum_of_squares difference_of_squares>;
-
-imported_ok qw<square_of_sum sum_of_squares difference_of_squares>
-    or bail_out;
+use DifferenceOfSquares qw<square_of_sum sum_of_squares difference_of_squares>;
 
 is(
     square_of_sum(1),

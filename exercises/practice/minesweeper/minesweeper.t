@@ -6,8 +6,6 @@ use lib $Bin, "$Bin/local/lib/perl5";
 
 use Minesweeper qw<annotate>;
 
-imported_ok qw<annotate> or bail_out;
-
 is(
     annotate( <<'INPUT' =~ s/\n$//r ),
 
