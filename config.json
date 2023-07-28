@@ -676,7 +676,7 @@
   "concepts": [],
   "key_features": [
     {
-      "title": "Vibrant and active community",
+      "title": "Vibrant & active community",
       "content": "Be they Mongers, Monks, or residents of Planet Perl - they are eager to share knowledge and tips.",
       "icon": "community"
     },
@@ -696,12 +696,12 @@
       "icon": "extensible"
     },
     {
-      "title": "First class text and unicode support",
+      "title": "1st class text & Unicode",
       "content": "Powerful tools for HTML XML, and all manner of natural languages. Full Unicode support baked in.",
       "icon": "fun"
     },
     {
-      "title": "The duct-tape of the internet",
+      "title": "Duct-tape of the internet",
       "content": "Underpinning the web since the beginning. The general purpose language for getting things done.",
       "icon": "web"
     }
