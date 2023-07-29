@@ -6,7 +6,7 @@ use Test2::V0;
 use Lasagna ();
 
 is( # begin: var task: 1
-    $Lasagna::EXPECTED_MINUTES_IN_OVEN,
+    $Lasagna::ExpectedMinutesInOven,
     40,
     'expected minutes in oven',
 ); # end: var
@@ -48,7 +48,7 @@ is( # begin: total2 task: 4
 ); # end: total2
 
 is( # begin: alarm task: 5
-    Lasagna::alarm(),
+    Lasagna::oven_alarm(),
     'Ding!',
     'notification message',
 ); # end: alarm
