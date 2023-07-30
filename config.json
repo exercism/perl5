@@ -674,7 +674,38 @@
     ]
   },
   "concepts": [],
-  "key_features": [],
+  "key_features": [
+    {
+      "title": "Vibrant community",
+      "content": "Be they Mongers, Monks, or residents of Planet Perl - they are eager to share knowledge and tips.",
+      "icon": "community"
+    },
+    {
+      "title": "Embeddable",
+      "content": "The Perl interpreter can be embedded into a wide variety of systems like web servers and databases.",
+      "icon": "embeddable"
+    },
+    {
+      "title": "Multi-paradigm",
+      "content": "Code your way. Full support for functional, procedural, and object-oriented programming.",
+      "icon": "multi-paradigm"
+    },
+    {
+      "title": "Easily Extensible",
+      "content": "Leverage over 25, 000 modules available on CPAN, or write your very own for distribution.",
+      "icon": "extensible"
+    },
+    {
+      "title": "1st class text & Unicode",
+      "content": "Powerful tools for HTML XML, and all manner of natural languages. Full Unicode support baked in.",
+      "icon": "fun"
+    },
+    {
+      "title": "Duct-tape of the internet",
+      "content": "Underpinning the web since the beginning. The general purpose language for getting things done.",
+      "icon": "web"
+    }
+  ],
   "tags": [
     "paradigm/imperative",
     "paradigm/procedural",
