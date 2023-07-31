@@ -1,0 +1,18 @@
+{
+  "authors": [
+    "m-dango"
+  ],
+  "files": {
+    "solution": [
+      "lib/Lasagna.pm"
+    ],
+    "test": [
+      "t/lasagna.t"
+    ],
+    "exemplar": [
+      ".meta/Lasagna.pm"
+    ]
+  },
+  "language_versions": ">=5.38",
+  "blurb": "wip"
+}
