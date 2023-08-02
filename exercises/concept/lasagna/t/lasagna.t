@@ -36,13 +36,13 @@ is( # begin: prep2 task: 3
 ); # end: prep2
 
 is( # begin: total1 task: 4
-    Lasagna::total_time_in_minutes(1, 30),
+    Lasagna::total_time_in_minutes( 1, 30 ),
     32,
     'total time in minutes for one layer',
 ); # end: total1
 
 is( # begin: total2 task: 4
-    Lasagna::total_time_in_minutes(4, 8),
+    Lasagna::total_time_in_minutes( 4, 8 ),
     16,
     'total time in minutes for multiple layers',
 ); # end: total2
