@@ -22,14 +22,14 @@ subtest 'add_language()' => sub { # begin: add_language
     LanguageList::add_language('Raku');
     is(
         \@LanguageList::Languages,
-        ['Perl', 'Raku'],
+        [ 'Perl', 'Raku' ],
         'add_language() adds Raku to the @Languages array',
     );
 
     LanguageList::add_language('Ruby');
     is(
         \@LanguageList::Languages,
-        ['Perl', 'Raku', 'Ruby'],
+        [ 'Perl', 'Raku', 'Ruby' ],
         'add_language() adds Ruby to the @Languages array',
     );
 }; # end: add_language
@@ -38,7 +38,7 @@ subtest 'remove_language()' => sub { # begin: remove_language
     LanguageList::remove_language();
     is(
         \@LanguageList::Languages,
-        ['Perl', 'Raku'],
+        [ 'Perl', 'Raku' ],
         'remove_language() removes Ruby from the @Languages array',
     );
 
@@ -61,7 +61,7 @@ subtest 'first_language()' => sub { # begin: first_language
     is(
         LanguageList::first_language(),
         undef,
-        'first_language() returns undef from empty @Languages array',
+        'first_language() returns undef from the empty @Languages array',
     );
 
     LanguageList::add_language('Ruby');
