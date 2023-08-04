@@ -47,6 +47,18 @@
         ],
         "prerequisites": [],
         "status": "wip"
+      },
+      {
+        "slug": "language-list",
+        "name": "Language List",
+        "uuid": "073a255f-011e-4264-89ea-69748d5fe71e",
+        "concepts": [
+          "arrays"
+        ],
+        "prerequisites": [
+          "basics"
+        ],
+        "status": "wip"
       }
     ],
     "practice": [
