@@ -689,6 +689,21 @@
       "uuid": "2fd4c866-ac28-4663-9386-e31b8e603667",
       "slug": "basics",
       "name": "Basics"
+    },
+    {
+      "uuid": "9bf709d9-0667-4b1c-bd02-9b1c5ee292f9",
+      "slug": "arrays",
+      "name": "Arrays"
+    },
+    {
+      "uuid": "2d3c030e-0300-4b3e-8e1b-d115b86cdfa1",
+      "slug": "hashes",
+      "name": "Hashes"
+    },
+    {
+      "uuid": "06bb4181-279c-4159-9fe4-fdd189ebe7c3",
+      "slug": "references",
+      "name": "References"
     }
   ],
   "key_features": [
