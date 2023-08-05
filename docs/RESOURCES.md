@@ -2,7 +2,7 @@
 
 ## Modules
 
-Perl 5 comes equipped with a set of core modules which you can find
+Perl comes equipped with a set of core modules which you can find
 listed on [perldoc](https://perldoc.pl/modules). Typically you will be
 able to use any of these modules immediately. (Some distributions may
 require you to install core modules separately).
@@ -10,7 +10,7 @@ require you to install core modules separately).
 [Awesome Perl](https://github.com/hachiojipm/awesome-perl) is a curated list of
 useful modules, and also refers to a selection of other lists of recommendations.
 
-There are several module installers available for Perl 5, which will allow
+There are several module installers available for Perl, which will allow
 you to install a wide variety of modules available on [CPAN](https://metacpan.org/).
 
 ### App::cpm

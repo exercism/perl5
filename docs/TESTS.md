@@ -2,7 +2,7 @@
 
 ## Run All Tests
 
-There is a Perl 5 script with the extension `.t`, which will be used to test
+There is a Perl script with the extension `.t`, which will be used to test
 your solution. You can run through the tests by using the command:
 
 `prove .`
