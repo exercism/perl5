@@ -1,0 +1,18 @@
+{
+  "authors": [
+    "m-dango"
+  ],
+  "files": {
+    "solution": [
+      "lib/LanguageList.pm"
+    ],
+    "test": [
+      "t/language-list.t"
+    ],
+    "exemplar": [
+      ".meta/LanguageList.pm"
+    ]
+  },
+  "language_versions": ">=5.38",
+  "blurb": "Learn about arrays in Perl by modifying a list of languages."
+}
