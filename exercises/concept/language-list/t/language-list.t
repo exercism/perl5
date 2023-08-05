@@ -164,7 +164,7 @@ subtest 'has_language($language)' => sub { # begin: has_language task: 6
     );
 
     is(
-        LanguageList::has_language('Gleam'),
+        scalar LanguageList::has_language('Gleam'),
         DF,
         '@Languages array does not contain Gleam',
     );
