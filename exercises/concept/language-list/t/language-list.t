@@ -5,11 +5,11 @@ use Test2::V0;
 
 use LanguageList ();
 
-is(
+is( # begin: array
     \@LanguageList::Languages,
     [],
     '@Languages array is empty',
-);
+); # end: array
 
 subtest 'add_language()' => sub { # begin: add_language
     LanguageList::add_language('Perl');
