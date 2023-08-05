@@ -1,0 +1,18 @@
+{
+  "authors": [
+    "m-dango"
+  ],
+  "files": {
+    "solution": [
+      "lib/HighScoreBoard.pm"
+    ],
+    "test": [
+      "t/high-score-board.t"
+    ],
+    "exemplar": [
+      ".meta/HighScoreBoard.pm"
+    ]
+  },
+  "language_versions": ">=5.38",
+  "blurb": "Learn about hashes in Perl by modifying a scoreboard."
+}
