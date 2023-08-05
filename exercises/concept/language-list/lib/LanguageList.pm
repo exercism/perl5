@@ -16,5 +16,8 @@ sub first_language () {
 sub last_language () {
 }
 
-sub nth_language ($n) {
+sub get_languages (@elements) {
+}
+
+sub has_language ($language) {
 }

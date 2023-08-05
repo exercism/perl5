@@ -5,12 +5,6 @@ use Test2::V0;
 
 use LanguageList ();
 
-is(
-    \@LanguageList::Languages,
-    [],
-    '@Languages array is empty',
-);
-
 subtest 'add_language()' => sub { # begin: add_language
     LanguageList::add_language('Perl');
     is(
@@ -109,27 +103,27 @@ subtest 'last_language()' => sub { # begin: last_language
     );
 }; # end: last_language
 
-subtest 'nth_language($n)' => sub { # begin: nth_language
+subtest 'get_languages(@elements)' => sub { # begin: get_languages
     LanguageList::add_language('Raku');
     LanguageList::add_language('Ruby');
     LanguageList::add_language('Perl');
 
     is(
-        LanguageList::nth_language(1),
-        'Raku',
-        'nth_language(1) returns Raku from the @Languages array',
+        [ LanguageList::get_languages(1) ],
+        ['Raku'],
+        'Get the 1st language from the @Languages array',
     );
 
     is(
-        LanguageList::nth_language(2),
-        'Ruby',
-        'nth_language(2) returns Ruby from the @Languages array',
+        [ LanguageList::get_languages( 2, 3 ) ],
+        [ 'Ruby', 'Perl' ],
+        'Get the 2nd and 3rd languages from the @Languages array',
     );
 
     is(
-        LanguageList::nth_language(3),
-        'Perl',
-        'nth_language(3) returns Perl from the @Languages array',
+        [ LanguageList::get_languages( 3, 1, 2 ) ],
+        [ 'Perl', 'Raku', 'Ruby' ],
+        'Get reordered languages from the @Languages array',
     );
 
     LanguageList::remove_language();
@@ -138,16 +132,42 @@ subtest 'nth_language($n)' => sub { # begin: nth_language
     LanguageList::add_language('Ruby');
 
     is(
-        LanguageList::nth_language(2),
-        'Perl',
-        'nth_language(2) returns Perl from the @Languages array',
+        [ LanguageList::get_languages( 1, 3 ) ],
+        [ 'Raku', 'Ruby' ],
+        'Get the 1st and 3rd languages from the @Languages array',
     );
 
     is(
-        LanguageList::nth_language(3),
-        'Ruby',
-        'nth_language(3) returns Ruby from the @Languages array',
+        [ LanguageList::get_languages( 2, 1 ) ],
+        [ 'Perl', 'Raku' ],
+        'Get the 2nd and 1st languages from the @Languages array',
     );
-}; # end: nth_language
+}; # end: get_languages
+
+subtest 'has_language($language)' => sub { # begin: has_language
+    is(
+        scalar LanguageList::has_language('Perl'),
+        T,
+        '@Languages array contains Perl',
+    );
+
+    is(
+        scalar LanguageList::has_language('Raku'),
+        T,
+        '@Languages array contains Raku',
+    );
+
+    is(
+        scalar LanguageList::has_language('JavaScript'),
+        DF,
+        '@Languages array does not contain JavaScript',
+    );
+
+    is(
+        LanguageList::has_language('Gleam'),
+        DF,
+        '@Languages array does not contain Gleam',
+    );
+}; # end: has_language
 
 done_testing;
