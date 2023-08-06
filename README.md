@@ -1,6 +1,6 @@
-# Exercism Perl 5 Track
+# Exercism Perl Track
 
-Exercism exercises in Perl 5
+Exercism exercises in Perl
 
 ## Dependencies
 
@@ -41,7 +41,7 @@ the test will run using the example in the `.meta/solutions` directory.
 Please see the [contributing guide] for information from Exercism.
 When editing Markdown files in this repository, please use one line &harr; one sentence.
 
-### Perl 5 icon
+### Perl icon
 
 The onion is the logo of the [Perl Foundation].
 It is trademarked, and we have adapted it--changing the color--with their permission.
