@@ -1,6 +1,7 @@
 package LanguageList;
 
 use v5.38;
+use List::Util qw<any>;
 
 our @Languages;
 
@@ -20,6 +21,10 @@ sub last_language () {
     return $Languages[-1];
 }
 
-sub nth_language ($n) {
-    return $Languages[$n - 1];
+sub get_languages (@elems) {
+    return @Languages[ map { $_ - 1 } @elems ];
+}
+
+sub has_language ($language) {
+    return any { $_ eq $language } @Languages;
 }
