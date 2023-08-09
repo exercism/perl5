@@ -53,7 +53,7 @@
         "name": "Language List",
         "uuid": "073a255f-011e-4264-89ea-69748d5fe71e",
         "concepts": [
-          "arrays"
+          "arrays-and-lists"
         ],
         "prerequisites": [
           "basics"
@@ -704,8 +704,8 @@
     },
     {
       "uuid": "9bf709d9-0667-4b1c-bd02-9b1c5ee292f9",
-      "slug": "arrays",
-      "name": "Arrays"
+      "slug": "arrays-and-lists",
+      "name": "Arrays and Lists"
     },
     {
       "uuid": "2d3c030e-0300-4b3e-8e1b-d115b86cdfa1",

@@ -1,0 +1,10 @@
+[
+  {
+    "description": "What is the difference between a list and an array?",
+    "url": "https://perldoc.pl/perlfaq4#What-is-the-difference-between-a-list-and-an-array?"
+  },
+  {
+    "description": "What is the difference between $array[1] and @array[1]?",
+    "url": "https://perldoc.pl/perlfaq4#What-is-the-difference-between-$array%5B1%5D-and-@array%5B1%5D?"
+  }
+]
