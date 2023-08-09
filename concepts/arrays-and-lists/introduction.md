@@ -24,7 +24,7 @@ $names[0]; # 'Alice'      <- A scalar
 @names[0]; # ('Alice')    <- A slice (with only one index, this probably isn't what you want. There will be a warning.)
 %names[0]; # (0, 'Alice') <- A key/index + value slice
 
-$names[1, 2]; # 'Charlie'                <- (A relic superseded by references, which will be covered later. Probably not what you want. There will be a warning.)
+$names[1, 2]; # 'Charlie'                <- A scalar (via unsupported syntax for an ancient feature. Probably not what you want. There will be a warning.)
 @names[1, 2]; # ('Bob', 'Charlie')       <- A slice
 %names[1, 2]; # (1, 'Bob', 2, 'Charlie') <- A key/index + value slice
 ```
