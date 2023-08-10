@@ -1,5 +1,5 @@
 {
-  "blurb": "Arrays are a data type in Perl which contain a list of scalars.",
+  "blurb": "Arrays and lists in Perl contain an ordered collection of scalars.",
   "authors": [
     "m.dango"
   ],
