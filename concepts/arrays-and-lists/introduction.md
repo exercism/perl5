@@ -1,7 +1,7 @@
 # Introduction
 
 Arrays and lists contain an ordered collection of scalars.
-Outside of using references (which will be covered in a separate concept), this means that arrays and lists are always flat i.e. they cannot contain other arrays or lists.
+Outside of using references (which will be covered in a separate concept), this means that arrays and lists are always flat, i.e., they cannot contain other arrays or lists.
 
 In most cases, lists are surrounded by parentheses `()` with their elements separated by commas `,`.
 
