@@ -6,5 +6,21 @@
   {
     "description": "What is the difference between $array[1] and @array[1]?",
     "url": "https://perldoc.pl/perlfaq4#What-is-the-difference-between-$array%5B1%5D-and-@array%5B1%5D?"
+  },
+  {
+    "description": "List Value Constructors",
+    "url": "https://perldoc.pl/perldata#List-value-constructors"
+  },
+  {
+    "description": "Subscripts",
+    "url": "https://perldoc.pl/perldata#Subscripts"
+  },
+  {
+    "description": "Slices",
+    "url": "https://perldoc.pl/perldata#Slices"
+  },
+  {
+    "description": "Index/Value Array Slices",
+    "url": "https://perldoc.perl.org/perldata#Index/Value-Array-Slices"
   }
 ]
