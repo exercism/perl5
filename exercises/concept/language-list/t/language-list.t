@@ -6,6 +6,12 @@ use Test2::V0;
 use LanguageList ();
 
 subtest 'add_language()' => sub { # begin: add_language task: 1
+    is(
+        \@LanguageList::Languages,
+        [],
+        'The @Languages array is empty',
+    );
+
     LanguageList::add_language('Perl');
     is(
         \@LanguageList::Languages,
@@ -26,9 +32,13 @@ subtest 'add_language()' => sub { # begin: add_language task: 1
         [ 'Perl', 'Raku', 'Ruby' ],
         'add_language() adds Ruby to the @Languages array',
     );
+
+    undef @LanguageList::Languages;
 }; # end: add_language
 
 subtest 'remove_language()' => sub { # begin: remove_language task: 2
+    @LanguageList::Languages = qw< Perl Raku Ruby >;
+
     LanguageList::remove_language();
     is(
         \@LanguageList::Languages,
@@ -49,6 +59,8 @@ subtest 'remove_language()' => sub { # begin: remove_language task: 2
         [],
         'remove_language() removes Perl from the @Languages array',
     );
+
+    undef @LanguageList::Languages;
 }; # end: remove_language
 
 subtest 'first_language()' => sub { # begin: first_language task: 3
@@ -71,9 +83,29 @@ subtest 'first_language()' => sub { # begin: first_language task: 3
         'Ruby',
         'first_language() returns Ruby from the 2 element @Languages array',
     );
+
+    undef @LanguageList::Languages;
+
+    LanguageList::add_language('Perl');
+    is(
+        LanguageList::first_language(),
+        'Perl',
+        'first_language() returns Perl from the 1 element @Languages array',
+    );
+
+    LanguageList::add_language('Raku');
+    is(
+        LanguageList::first_language(),
+        'Perl',
+        'first_language() returns Perl from the 2 element @Languages array',
+    );
+
+    undef @LanguageList::Languages;
 }; # end: first_language
 
 subtest 'last_language()' => sub { # begin: last_language task: 4
+    @LanguageList::Languages = qw< Ruby Perl >;
+
     LanguageList::add_language('Raku');
     is(
         LanguageList::last_language(),
@@ -101,12 +133,12 @@ subtest 'last_language()' => sub { # begin: last_language task: 4
         undef,
         'last_language() returns undef from the empty @Languages array',
     );
+
+    undef @LanguageList::Languages;
 }; # end: last_language
 
 subtest 'get_languages(@elements)' => sub { # begin: get_languages task: 5
-    LanguageList::add_language('Raku');
-    LanguageList::add_language('Ruby');
-    LanguageList::add_language('Perl');
+    @LanguageList::Languages = qw< Raku Ruby Perl >;
 
     is(
         [ LanguageList::get_languages(1) ],
@@ -126,10 +158,7 @@ subtest 'get_languages(@elements)' => sub { # begin: get_languages task: 5
         'Get reordered languages from the @Languages array',
     );
 
-    LanguageList::remove_language();
-    LanguageList::remove_language();
-    LanguageList::add_language('Perl');
-    LanguageList::add_language('Ruby');
+    @LanguageList::Languages = qw< Raku Perl Ruby >;
 
     is(
         [ LanguageList::get_languages( 1, 3 ) ],
@@ -142,32 +171,38 @@ subtest 'get_languages(@elements)' => sub { # begin: get_languages task: 5
         [ 'Perl', 'Raku' ],
         'Get the 2nd and 1st languages from the @Languages array',
     );
+
+    undef @LanguageList::Languages;
 }; # end: get_languages
 
 subtest 'has_language($language)' => sub { # begin: has_language task: 6
+    @LanguageList::Languages = qw< Raku Perl >;
+
     is(
-        scalar LanguageList::has_language('Perl'),
+        LanguageList::has_language('Perl'),
         T,
         '@Languages array contains Perl',
     );
 
     is(
-        scalar LanguageList::has_language('Raku'),
+        LanguageList::has_language('Raku'),
         T,
         '@Languages array contains Raku',
     );
 
     is(
-        scalar LanguageList::has_language('JavaScript'),
+        LanguageList::has_language('JavaScript'),
         DF,
         '@Languages array does not contain JavaScript',
     );
 
     is(
-        scalar LanguageList::has_language('Gleam'),
+        LanguageList::has_language('Gleam'),
         DF,
         '@Languages array does not contain Gleam',
     );
+
+    undef @LanguageList::Languages;
 }; # end: has_language
 
 done_testing;
