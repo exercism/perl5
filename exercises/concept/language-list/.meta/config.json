@@ -14,5 +14,5 @@
     ]
   },
   "language_versions": ">=5.38",
-  "blurb": "Learn about arrays in Perl by modifying a list of languages."
+  "blurb": "Learn about arrays and lists in Perl by modifying a collection of languages."
 }
