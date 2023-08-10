@@ -47,7 +47,9 @@ say $Foo::bar;
 
 ## Subroutines
 
-The `sub` keyword declares a [subroutine][perlsub]. The `return` keyword exits the subroutine, giving the specified values, or an empty list if nothing is given. Without a specified `return`, the returned value will be determined by the context (scalar, list, or void) of the used subroutine and its final statement.
+The `sub` keyword declares a [subroutine][perlsub].
+The `return` keyword exits the subroutine, giving the specified values, or an empty list if nothing is given.
+Without a specified `return`, the returned value will be determined by the context (scalar, list, or void) of the used subroutine and its final statement.
 
 ```perl
 sub hello () {
