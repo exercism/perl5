@@ -5,7 +5,7 @@ Outside of using references (which will be covered in a separate concept), this 
 
 In most cases, lists are surrounded by parentheses `()` with their elements separated by commas `,`.
 
-An array variable is usually populated by assigning a list to it e.g. `my @names = ('Alice', 'Bob', 'Charlie');`.
+An array variable is usually populated by assigning a list to it, e.g., `my @names = ('Alice', 'Bob', 'Charlie');`.
 
 Elements of an array or list can be accessed by specifying indexes via a subscript e.g. `('Alice', 'Bob', 'Charlie')[1] # 'Bob'`.
 
