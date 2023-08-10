@@ -68,7 +68,7 @@
           "hashes"
         ],
         "prerequisites": [
-          "basics"
+          "arrays-and-lists"
         ],
         "status": "wip"
       }
