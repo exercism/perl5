@@ -7,10 +7,10 @@ In most cases, lists are surrounded by parentheses `()` with their elements sepa
 
 An array variable is usually populated by assigning a list to it, e.g., `my @names = ('Alice', 'Bob', 'Charlie');`.
 
-Elements of an array or list can be accessed by specifying indexes via a subscript e.g. `('Alice', 'Bob', 'Charlie')[1] # 'Bob'`.
+Elements of an array or list can be accessed by specifying indexes via a subscript, e.g., `('Alice', 'Bob', 'Charlie')[1] # 'Bob'`.
 
 Indexes in Perl start at `0`.
-Negative indexes will count from the end of the array or list e.g. `('Alice', 'Bob', 'Charlie')[-1] # 'Charlie'`.
+Negative indexes will count from the end of the array or list, e.g., `('Alice', 'Bob', 'Charlie')[-1] # 'Charlie'`.
 
 ## Functions
 
