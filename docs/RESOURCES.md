@@ -73,7 +73,7 @@ The tool has many, many configuration tweaks, see its
 [PBP]:            http://shop.oreilly.com/product/9780596001735.do
 [PerlTidy]:       https://metacpan.org/release/Perl-Tidy
 [cpanminus]:      http://search.cpan.org/~miyagawa/App-cpanminus-1.7042
-[perltidyDocs]:   https://metacpan.org/pod/distribution/Perl-Tidy/docs/stylekey.pod
+[perltidyDocs]:   https://perltidy.sourceforge.net/stylekey.html
 [tidyview]:       https://sourceforge.net/projects/tidyview/
 [perlcritic]:     https://metacpan.org/release/Perl-Critic
 [perlcriticdocs]: https://metacpan.org/pod/distribution/Perl-Critic/bin/perlcritic
