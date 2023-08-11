@@ -718,6 +718,11 @@
       "name": "References"
     },
     {
+      "uuid": "3d650c94-907c-490f-ba84-b42e460af2b5",
+      "slug": "booleans",
+      "name": "Booleans"
+    },
+    {
       "uuid": "aa9143db-b7e6-455b-b3f3-3dcf537f9985",
       "slug": "numbers",
       "name": "Numbers"
