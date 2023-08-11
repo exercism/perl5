@@ -716,6 +716,41 @@
       "uuid": "06bb4181-279c-4159-9fe4-fdd189ebe7c3",
       "slug": "references",
       "name": "References"
+    },
+    {
+      "uuid": "aa9143db-b7e6-455b-b3f3-3dcf537f9985",
+      "slug": "numbers",
+      "name": "Numbers"
+    },
+    {
+      "uuid": "38fbcacb-7d39-4e00-af56-01b1569c9a6b",
+      "slug": "strings",
+      "name": "Strings"
+    },
+    {
+      "uuid": "ea79d3e9-c60b-4bd9-9d4f-590ca5e43f40",
+      "slug": "exceptions",
+      "name": "Exceptions"
+    },
+    {
+      "uuid": "e1e1c778-455c-438d-87fb-749e96d3df0a",
+      "slug": "subroutines",
+      "name": "Subroutines"
+    },
+    {
+      "uuid": "0232e4bb-9359-4399-8574-bf5aa00fd7f4",
+      "slug": "regular-expressions",
+      "name": "Regular Expressions"
+    },
+    {
+      "uuid": "39207ad7-c8f2-42f7-bb6b-ad909d5f0d69",
+      "slug": "packages-and-modules",
+      "name": "Packages and Modules"
+    },
+    {
+      "uuid": "b4d4f735-62a4-47d3-ac1d-49a8d0d73fd0",
+      "slug": "object-orientation",
+      "name": "Object Orientation"
     }
   ],
   "key_features": [
