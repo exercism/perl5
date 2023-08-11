@@ -1,5 +1,5 @@
 {
-  "blurb": "Hashes are a data type in Perl which contain an unordered list of string keys paired with scalar values.",
+  "blurb": "Hashes are a data type in Perl which contain an unordered collection of string keys paired with scalar values.",
   "authors": [
     "m.dango"
   ],
