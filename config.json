@@ -223,7 +223,7 @@
         "slug": "gigasecond",
         "name": "Gigasecond",
         "uuid": "0f2e5082-9d97-414d-aa82-d03aed48d81a",
-        "practices": ["dates-and-times"],
+        "practices": ["packages-and-modules"],
         "prerequisites": [],
         "difficulty": 1
       },
@@ -671,11 +671,6 @@
       "uuid": "b4d4f735-62a4-47d3-ac1d-49a8d0d73fd0",
       "slug": "object-orientation",
       "name": "Object Orientation"
-    },
-    {
-      "uuid": "27a84e5f-d6e7-457c-bff3-c4732366c3a2",
-      "slug": "dates-and-times",
-      "name": "Dates and Times"
     }
   ],
   "key_features": [
