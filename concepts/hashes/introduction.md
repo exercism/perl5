@@ -29,8 +29,8 @@ The subscript `{}` at the end of the variable name is what tells Perl that you a
 ```perl
 my %names = (Alice => 10, Bob => 15, Charlie => 20);
 
-$names{Alice}; # 10      <- A scalar
-@names{Alice}; # (10)    <- A slice (with only one key, this probably isn't what you want. There will be a warning.)
+$names{Alice}; # 10            <- A scalar
+@names{Alice}; # (10)          <- A slice (with only one key, this probably isn't what you want. There will be a warning.)
 %names{Alice}; # ('Alice', 10) <- A key/index + value slice
 
 $names{'Bob', 'Charlie'}; #                            <- An error (disabled syntax for an ancient feature.)
