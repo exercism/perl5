@@ -1,7 +1,7 @@
 # Introduction
 
 Understanding references is a fundamental element to using Perl effectively.
-Since references are scalars, and arrays and hashes can only contain scalars, references are the key to nesting these data structures.
+Since references are scalars, and arrays and hashes can only contain scalars, references are key to nesting these data structures.
 
 References can be created for existing variables and subroutines by using the backslash operator `\`:
 
