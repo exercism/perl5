@@ -1,0 +1,18 @@
+{
+  "authors": [
+    "m-dango"
+  ],
+  "files": {
+    "solution": [
+      "lib/InventoryManagement.pm"
+    ],
+    "test": [
+      "t/inventory-management.t"
+    ],
+    "exemplar": [
+      ".meta/InventoryManagement.pm"
+    ]
+  },
+  "language_versions": ">=5.38",
+  "blurb": "Learn about references in Perl by modifying an inventory of materials."
+}

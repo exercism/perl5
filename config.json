@@ -59,6 +59,18 @@
           "basics"
         ],
         "status": "wip"
+      },
+      {
+        "slug": "inventory-management",
+        "name": "Inventory Management",
+        "uuid": "0a541d07-42bf-43e5-97f4-8c15f45b7ead",
+        "concepts": [
+          "references"
+        ],
+        "prerequisites": [
+          "hashes"
+        ],
+        "status": "wip"
       }
     ],
     "practice": [
