@@ -61,6 +61,18 @@
         "status": "wip"
       },
       {
+        "slug": "high-score-board",
+        "name": "High Score Board",
+        "uuid": "64cfc71e-f495-4b4e-be64-a2047f31bb24",
+        "concepts": [
+          "hashes"
+        ],
+        "prerequisites": [
+          "arrays-and-lists"
+        ],
+        "status": "wip"
+      },
+      {
         "slug": "inventory-management",
         "name": "Inventory Management",
         "uuid": "0a541d07-42bf-43e5-97f4-8c15f45b7ead",
