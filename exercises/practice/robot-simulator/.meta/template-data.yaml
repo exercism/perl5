@@ -1,22 +1,16 @@
 moo: true
 package: Robot
-tests: |
-  my $robot;
 properties:
   move:
     test: |-
       use Data::Dmp;
-      sprintf(<<~'END', @{$case->{input}{position}}{qw<x y>}, dmp($case->{input}{direction}), dmp($case->{input}{instructions}), @{$case->{expected}{position}}{qw<x y>}, dmp($case->{expected}{direction}), dmp($case->{description}));
-      $robot = Robot->new( x => %d, y => %d, direction => %s )->enact( %s );
-      is(
-          $robot,
-          object {
-              call x         => %d;
-              call y         => %d;
-              call direction => %s;
-          },
-          %s,
-      );
+      sprintf(<<~'END', dmp($case->{description}), @{$case->{input}{position}}{qw<x y>}, dmp($case->{input}{direction}), dmp($case->{input}{instructions}), @{$case->{expected}{position}}{qw<x y>}, dmp($case->{expected}{direction}));
+      subtest %s => sub {
+          my $robot = Robot->new( x => %d, y => %d, direction => %s )->enact( %s );
+          is( $robot->x, %d, "x" );
+          is( $robot->y, %d, "y" );
+          is( $robot->direction, %s, "direction");
+      };
       END
 
 example: |-
