@@ -1,20 +1,12 @@
 tests: |
   my $bst;
-  my $init;
 properties:
   sortedData:
     test: |-
       use Data::Dmp;
-      sprintf(<<'END', join(', ', @{$case->{input}{treeData}}), map {dmp($_)} @{$case}{qw<expected description>});
-      $init = 1;
-      for my $data (%s) {
-          if ($init) {
-            $bst = BinarySearchTree->new( root => BinarySearchTree::Node->new( data => $data ) );
-              $init = 0;
-              next;
-          }
-          $bst->add($data);
-      }
+      my @tree_data = @{$case->{input}{treeData}};
+      sprintf(<<'END', $tree_data[0], join('', map {"\n\$bst->add($_);"}  @tree_data[1..$#tree_data]), map {dmp($_)} @{$case}{qw<expected description>});
+      $bst = BinarySearchTree->new( root => BinarySearchTree::Node->new( data => %d ) );%s
       is(
           $bst->sort,
           %s,
