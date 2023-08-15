@@ -127,7 +127,7 @@
         "name": "Accumulate",
         "uuid": "f9fcab93-a6d8-4e36-aee5-3333a1c874ce",
         "practices": ["arrays-and-lists", "references", "subroutines"],
-        "prerequisites": [],
+        "prerequisites": ["references"],
         "difficulty": 1
       },
       {
@@ -151,7 +151,7 @@
         "name": "Anagram",
         "uuid": "c95418a3-d868-42dc-b39d-2505d255fecf",
         "practices": ["arrays-and-lists", "references", "strings"],
-        "prerequisites": [],
+        "prerequisites": ["references"],
         "difficulty": 1
       },
       {
@@ -216,7 +216,7 @@
         "name": "Custom Set",
         "uuid": "500cf4b8-d442-423a-957a-b95325b8a718",
         "practices": ["arrays-and-lists", "booleans-and-conditionals", "object-orientation", "references"],
-        "prerequisites": [],
+        "prerequisites": ["references"],
         "difficulty": 1
       },
       {
@@ -232,7 +232,7 @@
         "name": "ETL",
         "uuid": "e193fb19-5122-405f-88e0-59e5ee94f64b",
         "practices": ["arrays-and-lists", "hashes", "references"],
-        "prerequisites": [],
+        "prerequisites": ["references"],
         "difficulty": 1
       },
       {
@@ -436,7 +436,7 @@
         "name": "Pythagorean Triplet",
         "uuid": "239a4e5e-9a09-4a2d-af2d-252dcf36a3a7",
         "practices": ["arrays-and-lists", "numbers", "references"],
-        "prerequisites": [],
+        "prerequisites": ["references"],
         "difficulty": 1
       },
       {
@@ -492,7 +492,7 @@
         "name": "Saddle Points",
         "uuid": "ea8450d8-85a3-4530-a5cc-7314abe554eb",
         "practices": ["arrays-and-lists", "booleans-and-conditionals", "hashes", "references"],
-        "prerequisites": [],
+        "prerequisites": ["references"],
         "difficulty": 1
       },
       {
@@ -566,7 +566,7 @@
         "name": "Strain",
         "uuid": "fe458d54-f002-4a96-a49f-1ca40e679f72",
         "practices": ["arrays-and-lists", "booleans-and-conditionals", "references", "subroutines"],
-        "prerequisites": [],
+        "prerequisites": ["references"],
         "difficulty": 1
       },
       {
@@ -574,7 +574,7 @@
         "name": "Sublist",
         "uuid": "4e2c69bc-b83f-45b4-872b-43bbdc559ece",
         "practices": ["arrays-and-lists", "booleans-and-conditionals", "references"],
-        "prerequisites": [],
+        "prerequisites": ["references"],
         "difficulty": 1
       },
       {
