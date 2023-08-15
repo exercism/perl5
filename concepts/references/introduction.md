@@ -16,6 +16,8 @@ You can also create what is known as an anonymous reference for arrays, hashes, 
 * `{foo => 'a', bar => 'b', baz => 'c'}` to create an anonymous hash reference.
 * `sub { return 1 }` to create an anonymous code reference.
 
+WARNING: Curly brackets in Perl can be ambiguous in certain contexts. If you're not getting the hash reference you expect, add a leading plus to disambiguate it, e.g., `+{}`. See [Curly Brackets][perlrefcurlybrackets] for more info.
+
 References can be accessed by using the arrow operator `->`:
 
 * `$ref->[0]` to access an element inside an array reference.
@@ -27,3 +29,5 @@ Data inside complicated data structures, such as multidimensional arrays and nes
 If you want to dereference an entire array or hash, you can use the arrow operator followed by either `@*` or `%*` respectively, e.g., `$ref->@*` or `$ref->%*`.
 You can also obtain slices of an array or hash reference by replacing the `*` with a subscript, e.g., `$ref->@[0..2]` or `$ref->@{'Foo', 'Bar'}`.
 For slices, sigil variance applies here in the same way it does with array and hash variables.
+
+[perlrefcurlybrackets]: https://perldoc.pl/perlref#Curly-Brackets

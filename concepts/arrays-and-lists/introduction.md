@@ -18,6 +18,8 @@ There are many functions implemented for operating on arrays and lists, some of 
 
 Functions for manipulating arrays include [push][push] to add elements to the end, [pop][pop] to remove the last element, [shift][shift] to remove the first element, [unshift][unshift] to add elements to the start, and [splice][splice] for more complex modifications.
 
+Iterating over arrays and lists with a [for(each)][perlsynforeach] statement will also be something you will encounter frequently.
+
 ## Sigil Variance
 
 When accessing the elements of an array, the given sigil determines the result.
@@ -43,7 +45,9 @@ Arrays and lists share many similarities, and in a lot of places can be used int
 A list is a fixed and immutable collection of scalars.
 An array is a variable collection of scalars where the contents and the size of the array itself can be changed.
 
-They have different behaviors in some contexts, for example, an array used in scalar context will give you the size of the array, while a list used in scalar context will give you the last element in the list, and potentially some warnings about the rest of its contents being used in void context.
+They have different behaviors in some contexts.
+An array used in scalar context will give you the size of the array.
+A list used in scalar context will give you the last element in the list, and potentially some warnings about the rest of its contents being used in void context.
 
 ```perl
 my @names = ('Alice', 'Bob', 'Charlie');
@@ -63,3 +67,4 @@ Read more in the folowing FAQ: [What is the difference between a list and an arr
 [shift]: https://perldoc.pl/functions/shift
 [unshift]: https://perldoc.pl/functions/unshift
 [splice]: https://perldoc.pl/functions/splice
+[perlsynforeach]: https://perldoc.pl/perlsyn#Foreach-Loops
