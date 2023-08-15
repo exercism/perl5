@@ -45,7 +45,9 @@ Arrays and lists share many similarities, and in a lot of places can be used int
 A list is a fixed and immutable collection of scalars.
 An array is a variable collection of scalars where the contents and the size of the array itself can be changed.
 
-They have different behaviors in some contexts, for example, an array used in scalar context will give you the size of the array, while a list used in scalar context will give you the last element in the list, and potentially some warnings about the rest of its contents being used in void context.
+They have different behaviors in some contexts.
+An array used in scalar context will give you the size of the array.
+A list used in scalar context will give you the last element in the list, and potentially some warnings about the rest of its contents being used in void context.
 
 ```perl
 my @names = ('Alice', 'Bob', 'Charlie');
