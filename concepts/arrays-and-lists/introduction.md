@@ -18,6 +18,8 @@ There are many functions implemented for operating on arrays and lists, some of 
 
 Functions for manipulating arrays include [push][push] to add elements to the end, [pop][pop] to remove the last element, [shift][shift] to remove the first element, [unshift][unshift] to add elements to the start, and [splice][splice] for more complex modifications.
 
+Iterating over arrays and lists with a [for(each)][perlsynforeach] statement will also be something you will encounter frequently.
+
 ## Sigil Variance
 
 When accessing the elements of an array, the given sigil determines the result.
@@ -63,3 +65,4 @@ Read more in the folowing FAQ: [What is the difference between a list and an arr
 [shift]: https://perldoc.pl/functions/shift
 [unshift]: https://perldoc.pl/functions/unshift
 [splice]: https://perldoc.pl/functions/splice
+[perlsynforeach]: https://perldoc.pl/perlsyn#Foreach-Loops

@@ -15,7 +15,7 @@ $Lasagna::ExpectedMinutesInOven
 
 ## 2. Calculate the remaining oven time in minutes
 
-Define the `Lasagna::remaining_minutes_in_oven` subroutine that takes the actual minutes the lasagna has been in the oven as an argument and returns how many minutes the lasagna still has to remain in the oven, based on the expected oven time in minutes from the previous task.
+Modify the `Lasagna::remaining_minutes_in_oven` subroutine, which takes the actual minutes the lasagna has been in the oven as an argument, to return how many minutes the lasagna still has to remain in the oven, based on the expected oven time in minutes from the previous task.
 
 ```perl
 Lasagna::remaining_minutes_in_oven(30)
@@ -24,7 +24,7 @@ Lasagna::remaining_minutes_in_oven(30)
 
 ## 3. Calculate the preparation time in minutes
 
-Define the `Lasagna::preparation_time_in_minutes` subroutine that takes the number of layers you added to the lasagna as an argument and returns how many minutes you spent preparing the lasagna, assuming each layer takes you 2 minutes to prepare.
+Modify the `Lasagna::preparation_time_in_minutes` subroutine, which takes the number of layers you added to the lasagna as an argument, to return how many minutes you spent preparing the lasagna, assuming each layer takes you 2 minutes to prepare.
 
 ```perl
 Lasagna::preparation_time_in_minutes(2)
@@ -33,7 +33,8 @@ Lasagna::preparation_time_in_minutes(2)
 
 ## 4. Calculate the total working time in minutes
 
-Define the `Lasagna::total_time_in_minutes` subroutine that takes two arguments: the first argument is the number of layers you added to the lasagna, and the second argument is the number of minutes the lasagna has been in the oven. The subroutine should return how many minutes in total you've worked on cooking the lasagna, which is the sum of the preparation time in minutes, and the time in minutes the lasagna has spent in the oven at the moment.
+Modify the `Lasagna::total_time_in_minutes` subroutine that takes two arguments: the first argument is the number of layers you added to the lasagna, and the second argument is the number of minutes the lasagna has been in the oven.
+The subroutine should return how many minutes in total you've worked on cooking the lasagna, which is the sum of the preparation time in minutes, and the time in minutes the lasagna has spent in the oven at the moment.
 
 ```perl
 Lasagna::total_time_in_minutes(3, 20)
@@ -42,7 +43,7 @@ Lasagna::total_time_in_minutes(3, 20)
 
 ## 5. Create a notification that the lasagna is ready
 
-Define the `Lasagna::oven_alarm` subroutine that does not take any arguments and returns a message indicating that the lasagna is ready to eat.
+Modify the `Lasagna::oven_alarm` subroutine, which does not take any arguments, to return a message indicating that the lasagna is ready to eat.
 
 ```perl
 Lasagna::oven_alarm()
