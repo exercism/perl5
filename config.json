@@ -46,7 +46,7 @@
           "basics"
         ],
         "prerequisites": [],
-        "status": "wip"
+        "status": "beta"
       },
       {
         "slug": "language-list",
@@ -58,7 +58,7 @@
         "prerequisites": [
           "basics"
         ],
-        "status": "wip"
+        "status": "beta"
       },
       {
         "slug": "high-score-board",
@@ -70,7 +70,7 @@
         "prerequisites": [
           "arrays-and-lists"
         ],
-        "status": "wip"
+        "status": "beta"
       },
       {
         "slug": "inventory-management",
@@ -82,7 +82,7 @@
         "prerequisites": [
           "hashes"
         ],
-        "status": "wip"
+        "status": "beta"
       }
     ],
     "practice": [
