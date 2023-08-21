@@ -9,7 +9,7 @@ Modify the `LanguageList::add_language` subroutine, which takes a language name 
 
 ## 2. Remove a language from the @Languages array
 
-Modify the `LanguageList::add_language` subroutine, which takes a language name as an argument, to remove the language from the `@LanguageList::Languages` array.
+Modify the `LanguageList::remove_language` subroutine to remove the last language from the `@LanguageList::Languages` array.
 
 ## 3. Fetch the first language from the @Languages array
 
