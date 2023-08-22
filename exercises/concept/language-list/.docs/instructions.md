@@ -5,7 +5,7 @@ The list will be contained in an array called `@LanguageList::Languages`.
 
 ## 1. Add a language to the @Languages array
 
-Modify the `LanguageList::add_language` subroutine, which takes a language name as an argument, to add the language to the `@LanguageList::Languages` array.
+Modify the `LanguageList::add_language` subroutine, which takes a language name as an argument, to add the language to the end of the `@LanguageList::Languages` array.
 
 ## 2. Remove a language from the @Languages array
 
