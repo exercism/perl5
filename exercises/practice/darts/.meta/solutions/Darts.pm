@@ -1,14 +1,14 @@
 package Darts;
 
-use Moo;
+use strict;
+use warnings;
 use experimental qw<signatures postderef postderef_qq>;
 
-has [qw< x y >] => (
-    is => 'ro',
-);
+use Exporter qw<import>;
+our @EXPORT_OK = qw<score_dart>;
 
-sub score ($self) {
-    my $sqrt = sqrt $self->x**2 + $self->y**2;
+sub score_dart ( $x, $y ) {
+    my $sqrt = sqrt $x**2 + $y**2;
 
     return 10 if $sqrt <= 1;
     return 5  if $sqrt <= 5;

@@ -1,11 +1,9 @@
 package Darts;
 
 use v5.38;
-use Moo;
 
-has [qw< x y >] => (
-    is => 'ro',
-);
+use Exporter qw<import>;
+our @EXPORT_OK = qw<score_dart>;
 
-sub score ($self) {
+sub score_dart ( $x, $y ) {
 }
