@@ -1,5 +1,7 @@
 {
-  "authors": [],
+  "authors": [
+    "m-dango"
+  ],
   "files": {
     "solution": [
       "Darts.pm",
