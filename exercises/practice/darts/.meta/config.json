@@ -4,17 +4,13 @@
   ],
   "files": {
     "solution": [
-      "Darts.pm",
-      "cpanfile",
-      "vendor/cache/modules/02packages.details.txt.gz"
+      "Darts.pm"
     ],
     "test": [
       "darts.t"
     ],
     "example": [
-      ".meta/solutions/Darts.pm",
-      ".meta/solutions/cpanfile",
-      ".meta/solutions/vendor/cache/modules/02packages.details.txt.gz"
+      ".meta/solutions/Darts.pm"
     ]
   },
   "blurb": "Write a function that returns the earned points in a single toss of a Darts game.",
