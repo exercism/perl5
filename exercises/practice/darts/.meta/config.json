@@ -1,0 +1,20 @@
+{
+  "authors": [],
+  "files": {
+    "solution": [
+      "Darts.pm",
+      "cpanfile",
+      "vendor/cache/modules/02packages.details.txt.gz"
+    ],
+    "test": [
+      "darts.t"
+    ],
+    "example": [
+      ".meta/solutions/Darts.pm",
+      ".meta/solutions/cpanfile",
+      ".meta/solutions/vendor/cache/modules/02packages.details.txt.gz"
+    ]
+  },
+  "blurb": "Write a function that returns the earned points in a single toss of a Darts game.",
+  "source": "Inspired by an exercise created by a professor Della Paolera in Argentina"
+}

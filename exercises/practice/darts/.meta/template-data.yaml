@@ -1,0 +1,35 @@
+moo: true
+properties:
+  score:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<'END', map {dmp $_} $case->{input}->@{qw<x y>}, $case->@{qw<expected description>});
+      is(
+          Darts->new( x => %s, y => %s )->score,
+          %s,
+          %s,
+      );
+      END
+
+
+example: |-
+  has [qw< x y >] => (
+      is => 'ro',
+  );
+
+  sub score ($self) {
+      my $sqrt = sqrt $self->x ** 2 + $self->y ** 2;
+
+      return 10 if $sqrt <=  1;
+      return  5 if $sqrt <=  5;
+      return  1 if $sqrt <= 10;
+      return  0;
+  }
+
+stub: |-
+  has [qw< x y >] => (
+      is => 'ro',
+  );
+
+  sub score ($self) {
+  }
