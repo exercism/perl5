@@ -1,0 +1,27 @@
+subs: score_dart
+properties:
+  score:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<'END', map {dmp $_} $case->{input}->@{qw<x y>}, $case->@{qw<expected description>});
+      is(
+          score_dart( %s, %s ),
+          %s,
+          %s,
+      );
+      END
+
+
+example: |-
+  sub score_dart ( $x, $y ) {
+      my $sqrt = sqrt $x ** 2 + $y ** 2;
+
+      return 10 if $sqrt <=  1;
+      return  5 if $sqrt <=  5;
+      return  1 if $sqrt <= 10;
+      return  0;
+  }
+
+stub: |-
+  sub score_dart ( $x, $y ) {
+  }
