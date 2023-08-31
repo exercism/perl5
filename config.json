@@ -83,6 +83,18 @@
           "hashes"
         ],
         "status": "beta"
+      },
+      {
+        "slug": "booking-up-for-beauty",
+        "name": "Booking up for Beauty",
+        "uuid": "1e2e8e84-2592-4a6e-a7b4-711217797252",
+        "concepts": [
+          "packages-and-modules"
+        ],
+        "prerequisites": [
+          "arrays-and-lists"
+        ],
+        "status": "wip"
       }
     ],
     "practice": [
