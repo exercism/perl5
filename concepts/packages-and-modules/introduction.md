@@ -9,7 +9,7 @@ Symbols in the package's `@EXPORT_OK` array must be imported explicitly.
 ## Exporting
 
 For a symbol to be imported, it must first be exported.
-The [`Export`][Export] module is included with Perl and is one of the most convenient options for exporting.
+The [Exporter][Exporter] module is included with Perl and is one of the most convenient options for exporting.
 
 Defining the module:
 ```perl
@@ -30,7 +30,7 @@ bar();
 
 ## Core Modules
 
-Along with `Exporter`, Perl has a large variety of [core modules][perl-core-modules] available to use.
+Along with [Exporter][Exporter], Perl has a large variety of [core modules][perl-core-modules] available to use.
 Some examples useful for exercises you may encounter here include [List::Util][List::Util], [Time::Piece][Time::Piece], and [Math::BigRat][Math::BigRat].
 
 ## CPAN
@@ -41,6 +41,7 @@ The Perl track uses a [cpanfile][test-runner-cpanfile] to install a selection of
 [perl-core-modules]: https://perldoc.pl/modules
 [metacpan]: https://metacpan.org/
 [test-runner-cpanfile]: https://github.com/exercism/perl5-test-runner/blob/main/cpanfile
+[Exporter]: https://perldoc.pl/Exporter
 [List::Util]: https://perldoc.pl/List::Util
 [Time::Piece]: https://perldoc.pl/Time::Piece
 [Math::BigRat]: https://perldoc.pl/Math::BigRat
