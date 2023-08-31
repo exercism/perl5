@@ -31,7 +31,7 @@ bar();
 ## Core Modules
 
 Along with [Exporter][Exporter], Perl has a large variety of [core modules][perl-core-modules] available to use.
-Some examples useful for exercises you may encounter here include `List::Util`, `Time::Piece`, and `Math::BigRat`.
+Some examples useful for exercises you may encounter here include [List::Util][List::Util], [Time::Piece][Time::Piece], and [Math::BigRat][Math::BigRat].
 
 ## CPAN
 
@@ -42,3 +42,6 @@ The Perl track uses a [cpanfile][test-runner-cpanfile] to install a selection of
 [metacpan]: https://metacpan.org/
 [test-runner-cpanfile]: https://github.com/exercism/perl5-test-runner/blob/main/cpanfile
 [Exporter]: https://perldoc.pl/Exporter
+[List::Util]: https://perldoc.pl/List::Util
+[Time::Piece]: https://perldoc.pl/Time::Piece
+[Math::BigRat]: https://perldoc.pl/Math::BigRat
