@@ -1,0 +1,17 @@
+{
+    "blurb": "Learn about importing and exporting modules in Perl by building an appointment scheduler for a beauty salon.",
+    "authors": [
+        "m-dango"
+    ],
+    "files": {
+        "solution": [
+            "lib/BookingUpForBeauty.pm"
+        ],
+        "test": [
+            "t/booking-up-for-beauty.t"
+        ],
+        "exemplar": [
+            ".meta/BookingUpForBeauty.pm"
+        ]
+    }
+}
