@@ -2,4 +2,4 @@
 
 ## 2. Check if a given date is in the afternoon
 
-## 3. Parse the date into a string describing an appointment
+## 3. Parse a date into a string describing an appointment
