@@ -6,6 +6,9 @@ This will both load and call the `import` method on it, importing any exported s
 Symbols in the package's `@EXPORT` array will be imported by default.
 Symbols in the package's `@EXPORT_OK` array must be imported explicitly.
 
+Before Perl `v5.37`, a module would have to end in a true value (usually `1`) to indicate the module had loaded successfully.
+This is no longer necessary when using the [`module_true`][module_true] feature.
+
 ## Exporting
 
 For a symbol to be imported, it must first be exported.
@@ -28,6 +31,17 @@ use Foo ('bar');
 bar();
 ```
 
+## Pragma
+
+A pragma is a module which influences some aspect of the behavior of Perl.
+
+The pragmas [`strict`][strict] and [`warnings`][warnings] are commonly recommended, to restrict unsafe constructs and flag potential problems respectively.
+The `strict` pragma is enabled along with `use v5.12` or higher.
+The `warnings` pragma is enabled along with `use v5.35` or higher.
+
+The [`feature`][feature] pragma allows you to enable newer and experimental Perl features.
+When the `use` keyword is given a specific version of Perl, it will enable the feature bundle for that version.
+
 ## Core Modules
 
 Along with [Exporter][Exporter], Perl has a large variety of [core modules][perl-core-modules] available to use.
@@ -45,3 +59,7 @@ The Perl track uses a [cpanfile][test-runner-cpanfile] to install a selection of
 [List::Util]: https://perldoc.pl/List::Util
 [Time::Piece]: https://perldoc.pl/Time::Piece
 [Math::BigRat]: https://perldoc.pl/Math::BigRat
+[module_true]: https://perldoc.pl/feature#The-'module_true'-feature
+[strict]: https://perldoc.pl/strict
+[warnings]: https://perldoc.pl/warnings
+[feature]: https://perldoc.pl/feature
