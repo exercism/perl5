@@ -9,13 +9,13 @@
   ],
   "files": {
     "solution": [
-      "PigLatin.pm"
+      "lib/PigLatin.pm"
     ],
     "test": [
-      "pig-latin.t"
+      "t/pig-latin.t"
     ],
     "example": [
-      ".meta/solutions/PigLatin.pm"
+      ".meta/solutions/lib/PigLatin.pm"
     ]
   },
   "blurb": "Implement a program that translates from English to Pig Latin.",

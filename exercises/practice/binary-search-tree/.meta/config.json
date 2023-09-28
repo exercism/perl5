@@ -9,13 +9,13 @@
   ],
   "files": {
     "solution": [
-      "BinarySearchTree.pm"
+      "lib/BinarySearchTree.pm"
     ],
     "test": [
-      "binary-search-tree.t"
+      "t/binary-search-tree.t"
     ],
     "example": [
-      ".meta/solutions/BinarySearchTree.pm"
+      ".meta/solutions/lib/BinarySearchTree.pm"
     ]
   },
   "blurb": "Insert and search for numbers in a binary tree.",

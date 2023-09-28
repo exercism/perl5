@@ -12,13 +12,13 @@
   ],
   "files": {
     "solution": [
-      "Leap.pm"
+      "lib/Leap.pm"
     ],
     "test": [
-      "leap.t"
+      "t/leap.t"
     ],
     "example": [
-      ".meta/solutions/Leap.pm"
+      ".meta/solutions/lib/Leap.pm"
     ]
   },
   "blurb": "Given a year, report if it is a leap year.",

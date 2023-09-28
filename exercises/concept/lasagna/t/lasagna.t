@@ -1,7 +1,9 @@
 #!/usr/bin/env perl
 
-use v5.38;
 use Test2::V0;
+
+use FindBin qw<$Bin>;
+use lib "$Bin/../lib", "$Bin/../local/lib/perl5";
 
 use Lasagna ();
 

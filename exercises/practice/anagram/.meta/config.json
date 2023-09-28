@@ -10,13 +10,13 @@
   ],
   "files": {
     "solution": [
-      "Anagram.pm"
+      "lib/Anagram.pm"
     ],
     "test": [
-      "anagram.t"
+      "t/anagram.t"
     ],
     "example": [
-      ".meta/solutions/Anagram.pm"
+      ".meta/solutions/lib/Anagram.pm"
     ]
   },
   "blurb": "Given a word and a list of possible anagrams, select the correct sublist.",

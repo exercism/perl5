@@ -7,13 +7,13 @@
   ],
   "files": {
     "solution": [
-      "BinarySearch.pm"
+      "lib/BinarySearch.pm"
     ],
     "test": [
-      "binary-search.t"
+      "t/binary-search.t"
     ],
     "example": [
-      ".meta/solutions/BinarySearch.pm"
+      ".meta/solutions/lib/BinarySearch.pm"
     ]
   },
   "blurb": "Implement a binary search algorithm.",

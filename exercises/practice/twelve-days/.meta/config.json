@@ -10,13 +10,13 @@
   ],
   "files": {
     "solution": [
-      "TwelveDays.pm"
+      "lib/TwelveDays.pm"
     ],
     "test": [
-      "twelve-days.t"
+      "t/twelve-days.t"
     ],
     "example": [
-      ".meta/solutions/TwelveDays.pm"
+      ".meta/solutions/lib/TwelveDays.pm"
     ]
   },
   "blurb": "Output the lyrics to 'The Twelve Days of Christmas'.",

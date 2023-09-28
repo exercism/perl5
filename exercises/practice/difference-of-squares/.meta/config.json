@@ -10,13 +10,13 @@
   ],
   "files": {
     "solution": [
-      "DifferenceOfSquares.pm"
+      "lib/DifferenceOfSquares.pm"
     ],
     "test": [
-      "difference-of-squares.t"
+      "t/difference-of-squares.t"
     ],
     "example": [
-      ".meta/solutions/DifferenceOfSquares.pm"
+      ".meta/solutions/lib/DifferenceOfSquares.pm"
     ]
   },
   "blurb": "Find the difference between the square of the sum and the sum of the squares of the first N natural numbers.",

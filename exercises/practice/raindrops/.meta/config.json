@@ -10,13 +10,13 @@
   ],
   "files": {
     "solution": [
-      "Raindrops.pm"
+      "lib/Raindrops.pm"
     ],
     "test": [
-      "raindrops.t"
+      "t/raindrops.t"
     ],
     "example": [
-      ".meta/solutions/Raindrops.pm"
+      ".meta/solutions/lib/Raindrops.pm"
     ]
   },
   "blurb": "Convert a number to a string, the content of which depends on the number's factors.",

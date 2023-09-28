@@ -9,13 +9,13 @@
   ],
   "files": {
     "solution": [
-      "Wordy.pm"
+      "lib/Wordy.pm"
     ],
     "test": [
-      "wordy.t"
+      "t/wordy.t"
     ],
     "example": [
-      ".meta/solutions/Wordy.pm"
+      ".meta/solutions/lib/Wordy.pm"
     ]
   },
   "blurb": "Parse and evaluate simple math word problems returning the answer as an integer.",

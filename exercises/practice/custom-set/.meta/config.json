@@ -10,13 +10,13 @@
   ],
   "files": {
     "solution": [
-      "CustomSet.pm"
+      "lib/CustomSet.pm"
     ],
     "test": [
-      "custom-set.t"
+      "t/custom-set.t"
     ],
     "example": [
-      ".meta/solutions/CustomSet.pm"
+      ".meta/solutions/lib/CustomSet.pm"
     ]
   },
   "blurb": "Create a custom set type."

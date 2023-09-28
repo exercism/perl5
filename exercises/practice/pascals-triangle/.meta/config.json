@@ -10,13 +10,13 @@
   ],
   "files": {
     "solution": [
-      "PascalsTriangle.pm"
+      "lib/PascalsTriangle.pm"
     ],
     "test": [
-      "pascals-triangle.t"
+      "t/pascals-triangle.t"
     ],
     "example": [
-      ".meta/solutions/PascalsTriangle.pm"
+      ".meta/solutions/lib/PascalsTriangle.pm"
     ]
   },
   "blurb": "Compute Pascal's triangle up to a given number of rows.",

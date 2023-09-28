@@ -1,0 +1,1 @@
+../../../t/palindrome-products.t

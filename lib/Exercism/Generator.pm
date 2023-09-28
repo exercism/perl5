@@ -110,37 +110,39 @@ sub create_files {
         = BASE_DIR->child( 'exercises', 'practice', $self->exercise );
 
     # Test
-    my $testfile = $exercise_dir->child( $self->exercise . '.t' )->touchpath;
+    my $testfile = $exercise_dir->child( 't', $self->exercise . '.t' )->touchpath;
     $testfile->spew_utf8( $self->test );
     $testfile->chmod(0755);
 
     # Stub
-    $exercise_dir->child( $self->package . '.pm' )->spew_utf8( $self->stub );
+    $exercise_dir->child( 'lib', $self->package . '.pm' )->touchpath->spew_utf8( $self->stub );
 
     # Examples
     for my $key ( keys %{ $self->examples } ) {
         my $value = $self->examples->{$key};
         if ( $key eq 'base' ) {
-            $exercise_dir->child( '.meta', 'solutions',
+            $exercise_dir->child( '.meta', 'solutions', 'lib',
                 $self->package . '.pm' )->touchpath->spew_utf8($value);
+            my $example_test_path = $exercise_dir->child(
+                        '.meta', 'solutions', 't'
+            )->mkdir;
             eval {
                 symlink(
-                    '../../' . $testfile->basename,
-                    $exercise_dir->child(
-                        '.meta', 'solutions', $testfile->basename
-                    )
+                    '../../../t/' . $testfile->basename,
+                    $example_test_path->child($testfile->basename)
                 );
             };
         }
         else {
-            $exercise_dir->child( '.meta', 'solutions', $key,
+            $exercise_dir->child( '.meta', 'solutions', $key, 'lib',
                 $self->package . '.pm' )->touchpath->spew_utf8($value);
+            my $example_test_path = $exercise_dir->child(
+                        '.meta', 'solutions', $key, 't'
+            )->mkdir;
             eval {
                 symlink(
-                    '../../../' . $testfile->basename,
-                    $exercise_dir->child(
-                        '.meta', 'solutions', $key, $testfile->basename
-                    )
+                    '../../../../t/' . $testfile->basename,
+                    $example_test_path->child($testfile->basename)
                 );
             };
         }

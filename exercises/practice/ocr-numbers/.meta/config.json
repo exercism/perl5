@@ -9,13 +9,13 @@
   ],
   "files": {
     "solution": [
-      "OCRNumbers.pm"
+      "lib/OCRNumbers.pm"
     ],
     "test": [
-      "ocr-numbers.t"
+      "t/ocr-numbers.t"
     ],
     "example": [
-      ".meta/solutions/OCRNumbers.pm"
+      ".meta/solutions/lib/OCRNumbers.pm"
     ]
   },
   "blurb": "Given a 3 x 4 grid of pipes, underscores, and spaces, determine which number is represented, or whether it is garbled.",

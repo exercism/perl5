@@ -9,13 +9,13 @@
   ],
   "files": {
     "solution": [
-      "Triangle.pm"
+      "lib/Triangle.pm"
     ],
     "test": [
-      "triangle.t"
+      "t/triangle.t"
     ],
     "example": [
-      ".meta/solutions/Triangle.pm"
+      ".meta/solutions/lib/Triangle.pm"
     ]
   },
   "blurb": "Determine if a triangle is equilateral, isosceles, or scalene.",

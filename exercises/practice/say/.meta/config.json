@@ -9,13 +9,13 @@
   ],
   "files": {
     "solution": [
-      "Say.pm"
+      "lib/Say.pm"
     ],
     "test": [
-      "say.t"
+      "t/say.t"
     ],
     "example": [
-      ".meta/solutions/Say.pm"
+      ".meta/solutions/lib/Say.pm"
     ]
   },
   "blurb": "Given a number from 0 to 999,999,999,999, spell out that number in English.",

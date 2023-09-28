@@ -8,13 +8,13 @@
   ],
   "files": {
     "solution": [
-      "HelloWorld.pm"
+      "lib/HelloWorld.pm"
     ],
     "test": [
-      "hello-world.t"
+      "t/hello-world.t"
     ],
     "example": [
-      ".meta/solutions/HelloWorld.pm"
+      ".meta/solutions/lib/HelloWorld.pm"
     ]
   },
   "blurb": "The classical introductory exercise. Just say \"Hello, World!\".",

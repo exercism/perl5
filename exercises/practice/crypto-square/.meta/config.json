@@ -10,13 +10,13 @@
   ],
   "files": {
     "solution": [
-      "CryptoSquare.pm"
+      "lib/CryptoSquare.pm"
     ],
     "test": [
-      "crypto-square.t"
+      "t/crypto-square.t"
     ],
     "example": [
-      ".meta/solutions/CryptoSquare.pm"
+      ".meta/solutions/lib/CryptoSquare.pm"
     ]
   },
   "blurb": "Implement the classic method for composing secret messages called a square code.",

@@ -9,13 +9,13 @@
   ],
   "files": {
     "solution": [
-      "PalindromeProducts.pm"
+      "lib/PalindromeProducts.pm"
     ],
     "test": [
-      "palindrome-products.t"
+      "t/palindrome-products.t"
     ],
     "example": [
-      ".meta/solutions/PalindromeProducts.pm"
+      ".meta/solutions/lib/PalindromeProducts.pm"
     ]
   },
   "blurb": "Detect palindrome products in a given range.",

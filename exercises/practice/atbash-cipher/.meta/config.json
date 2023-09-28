@@ -10,13 +10,13 @@
   ],
   "files": {
     "solution": [
-      "AtbashCipher.pm"
+      "lib/AtbashCipher.pm"
     ],
     "test": [
-      "atbash-cipher.t"
+      "t/atbash-cipher.t"
     ],
     "example": [
-      ".meta/solutions/AtbashCipher.pm"
+      ".meta/solutions/lib/AtbashCipher.pm"
     ]
   },
   "blurb": "Create an implementation of the atbash cipher, an ancient encryption system created in the Middle East.",

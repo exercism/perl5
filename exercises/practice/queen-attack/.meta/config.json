@@ -10,13 +10,13 @@
   ],
   "files": {
     "solution": [
-      "Queen.pm"
+      "lib/Queen.pm"
     ],
     "test": [
-      "queen-attack.t"
+      "t/queen-attack.t"
     ],
     "example": [
-      ".meta/solutions/Queen.pm"
+      ".meta/solutions/lib/Queen.pm"
     ]
   },
   "blurb": "Given the position of two queens on a chess board, indicate whether or not they are positioned so that they can attack each other.",

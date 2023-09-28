@@ -1,0 +1,1 @@
+../../../t/difference-of-squares.t

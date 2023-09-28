@@ -1,10 +1,12 @@
 #!/usr/bin/env perl
 
-use v5.38;
 use Test2::V0;
 
 use Time::Piece;
 use Time::Seconds;
+
+use FindBin qw<$Bin>;
+use lib "$Bin/../lib", "$Bin/../local/lib/perl5";
 
 use BookingUpForBeauty qw<
     appointment_has_passed

@@ -9,13 +9,13 @@
   ],
   "files": {
     "solution": [
-      "Sieve.pm"
+      "lib/Sieve.pm"
     ],
     "test": [
-      "sieve.t"
+      "t/sieve.t"
     ],
     "example": [
-      ".meta/solutions/Sieve.pm"
+      ".meta/solutions/lib/Sieve.pm"
     ]
   },
   "blurb": "Use the Sieve of Eratosthenes to find all the primes from 2 up to a given number.",

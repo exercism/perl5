@@ -10,13 +10,13 @@
   ],
   "files": {
     "solution": [
-      "Allergies.pm"
+      "lib/Allergies.pm"
     ],
     "test": [
-      "allergies.t"
+      "t/allergies.t"
     ],
     "example": [
-      ".meta/solutions/Allergies.pm"
+      ".meta/solutions/lib/Allergies.pm"
     ]
   },
   "blurb": "Given a person's allergy score, determine whether or not they're allergic to a given item, and their full list of allergies.",

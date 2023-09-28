@@ -11,13 +11,13 @@
   ],
   "files": {
     "solution": [
-      "Luhn.pm"
+      "lib/Luhn.pm"
     ],
     "test": [
-      "luhn.t"
+      "t/luhn.t"
     ],
     "example": [
-      ".meta/solutions/Luhn.pm"
+      ".meta/solutions/lib/Luhn.pm"
     ]
   },
   "blurb": "Given a number determine whether or not it is valid per the Luhn formula.",

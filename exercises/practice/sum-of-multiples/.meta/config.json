@@ -11,13 +11,13 @@
   ],
   "files": {
     "solution": [
-      "SumOfMultiples.pm"
+      "lib/SumOfMultiples.pm"
     ],
     "test": [
-      "sum-of-multiples.t"
+      "t/sum-of-multiples.t"
     ],
     "example": [
-      ".meta/solutions/SumOfMultiples.pm"
+      ".meta/solutions/lib/SumOfMultiples.pm"
     ]
   },
   "blurb": "Given a number, find the sum of all the multiples of particular numbers up to but not including that number.",

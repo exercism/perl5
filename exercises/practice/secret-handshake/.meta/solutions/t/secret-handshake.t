@@ -1,0 +1,1 @@
+../../../t/secret-handshake.t

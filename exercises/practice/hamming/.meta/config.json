@@ -11,13 +11,13 @@
   ],
   "files": {
     "solution": [
-      "Hamming.pm"
+      "lib/Hamming.pm"
     ],
     "test": [
-      "hamming.t"
+      "t/hamming.t"
     ],
     "example": [
-      ".meta/solutions/Hamming.pm"
+      ".meta/solutions/lib/Hamming.pm"
     ]
   },
   "blurb": "Calculate the Hamming difference between two DNA strands.",

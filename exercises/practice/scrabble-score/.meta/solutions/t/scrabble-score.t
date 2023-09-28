@@ -1,0 +1,1 @@
+../../../t/scrabble-score.t

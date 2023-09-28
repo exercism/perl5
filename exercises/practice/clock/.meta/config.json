@@ -9,13 +9,13 @@
   ],
   "files": {
     "solution": [
-      "Clock.pm"
+      "lib/Clock.pm"
     ],
     "test": [
-      "clock.t"
+      "t/clock.t"
     ],
     "example": [
-      ".meta/solutions/Clock.pm"
+      ".meta/solutions/lib/Clock.pm"
     ]
   },
   "blurb": "Implement a clock that handles times without dates.",
