@@ -1,0 +1,3 @@
+requires 'Moo';
+requires 'Type::Tiny';
+requires 'namespace::clean';
