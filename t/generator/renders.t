@@ -9,7 +9,7 @@ subtest 'Rendered test files' => sub {
       use Test2::V0;
 
       use FindBin qw<$Bin>;
-      use lib $Bin, "$Bin/local/lib/perl5";
+      use lib "$Bin/../lib", "$Bin/../local/lib/perl5";
 
       use TestExercise ();
 
@@ -23,7 +23,7 @@ subtest 'Rendered test files' => sub {
       use Test2::V0;
 
       use FindBin qw<$Bin>;
-      use lib $Bin, "$Bin/local/lib/perl5";
+      use lib "$Bin/../lib", "$Bin/../local/lib/perl5";
 
       use TestExercise ();
       plan 1;
@@ -36,7 +36,7 @@ subtest 'Rendered test files' => sub {
       use Test2::V0;
 
       use FindBin qw<$Bin>;
-      use lib $Bin, "$Bin/local/lib/perl5";
+      use lib "$Bin/../lib", "$Bin/../local/lib/perl5";
 
       use TestExercise ();
 
@@ -54,7 +54,7 @@ subtest 'Rendered test files' => sub {
       use constant JSON => JSON::PP->new;
 
       use FindBin qw<$Bin>;
-      use lib $Bin, "$Bin/local/lib/perl5";
+      use lib "$Bin/../lib", "$Bin/../local/lib/perl5";
 
       use TestExercise ();
 
@@ -79,7 +79,7 @@ subtest 'Rendered test files' => sub {
       use constant JSON => JSON::PP->new;
 
       use FindBin qw<$Bin>;
-      use lib $Bin, "$Bin/local/lib/perl5";
+      use lib "$Bin/../lib", "$Bin/../local/lib/perl5";
 
       use TestExercise ();
 
@@ -100,7 +100,7 @@ subtest 'Rendered test files' => sub {
       use Test2::V0;
 
       use FindBin qw<$Bin>;
-      use lib $Bin, "$Bin/local/lib/perl5";
+      use lib "$Bin/../lib", "$Bin/../local/lib/perl5";
 
       use TestExercise qw<foo>;
 
