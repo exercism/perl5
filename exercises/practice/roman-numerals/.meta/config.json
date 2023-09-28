@@ -9,13 +9,13 @@
   ],
   "files": {
     "solution": [
-      "RomanNumerals.pm"
+      "lib/RomanNumerals.pm"
     ],
     "test": [
-      "roman-numerals.t"
+      "t/roman-numerals.t"
     ],
     "example": [
-      ".meta/solutions/RomanNumerals.pm"
+      ".meta/solutions/lib/RomanNumerals.pm"
     ]
   },
   "blurb": "Write a function to convert from normal numbers to Roman Numerals.",

@@ -9,13 +9,13 @@
   ],
   "files": {
     "solution": [
-      "SimpleCipher.pm"
+      "lib/SimpleCipher.pm"
     ],
     "test": [
-      "simple-cipher.t"
+      "t/simple-cipher.t"
     ],
     "example": [
-      ".meta/solutions/SimpleCipher.pm"
+      ".meta/solutions/lib/SimpleCipher.pm"
     ]
   },
   "blurb": "Implement a simple shift cipher like Caesar and a more secure substitution cipher.",

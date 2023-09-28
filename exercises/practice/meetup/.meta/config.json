@@ -10,13 +10,13 @@
   ],
   "files": {
     "solution": [
-      "Meetup.pm"
+      "lib/Meetup.pm"
     ],
     "test": [
-      "meetup.t"
+      "t/meetup.t"
     ],
     "example": [
-      ".meta/solutions/Meetup.pm"
+      ".meta/solutions/lib/Meetup.pm"
     ]
   },
   "blurb": "Calculate the date of meetups.",

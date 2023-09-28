@@ -9,13 +9,13 @@
   ],
   "files": {
     "solution": [
-      "Gigasecond.pm"
+      "lib/Gigasecond.pm"
     ],
     "test": [
-      "gigasecond.t"
+      "t/gigasecond.t"
     ],
     "example": [
-      ".meta/solutions/Gigasecond.pm"
+      ".meta/solutions/lib/Gigasecond.pm"
     ]
   },
   "blurb": "Given a moment, determine the moment that would be after a gigasecond has passed.",

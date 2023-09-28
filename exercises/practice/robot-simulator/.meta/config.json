@@ -10,13 +10,13 @@
   ],
   "files": {
     "solution": [
-      "Robot.pm"
+      "lib/Robot.pm"
     ],
     "test": [
-      "robot-simulator.t"
+      "t/robot-simulator.t"
     ],
     "example": [
-      ".meta/solutions/Robot.pm"
+      ".meta/solutions/lib/Robot.pm"
     ]
   },
   "blurb": "Write a robot simulator.",

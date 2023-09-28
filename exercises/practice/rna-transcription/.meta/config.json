@@ -11,13 +11,13 @@
   ],
   "files": {
     "solution": [
-      "RNA.pm"
+      "lib/RNA.pm"
     ],
     "test": [
-      "rna-transcription.t"
+      "t/rna-transcription.t"
     ],
     "example": [
-      ".meta/solutions/RNA.pm"
+      ".meta/solutions/lib/RNA.pm"
     ]
   },
   "blurb": "Given a DNA strand, return its RNA Complement Transcription.",

@@ -9,13 +9,13 @@
   ],
   "files": {
     "solution": [
-      "Series.pm"
+      "lib/Series.pm"
     ],
     "test": [
-      "series.t"
+      "t/series.t"
     ],
     "example": [
-      ".meta/solutions/Series.pm"
+      ".meta/solutions/lib/Series.pm"
     ]
   },
   "blurb": "Given a string of digits, output all the contiguous substrings of length `n` in that string.",

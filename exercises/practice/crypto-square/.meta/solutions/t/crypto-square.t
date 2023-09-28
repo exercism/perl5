@@ -1,0 +1,1 @@
+../../../t/crypto-square.t

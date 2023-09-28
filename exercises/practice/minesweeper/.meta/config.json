@@ -10,13 +10,13 @@
   ],
   "files": {
     "solution": [
-      "Minesweeper.pm"
+      "lib/Minesweeper.pm"
     ],
     "test": [
-      "minesweeper.t"
+      "t/minesweeper.t"
     ],
     "example": [
-      ".meta/solutions/Minesweeper.pm"
+      ".meta/solutions/lib/Minesweeper.pm"
     ]
   },
   "blurb": "Add the numbers to a minesweeper board."

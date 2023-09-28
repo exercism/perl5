@@ -4,13 +4,13 @@
   ],
   "files": {
     "solution": [
-      "BottleSong.pm"
+      "lib/BottleSong.pm"
     ],
     "test": [
-      "bottle-song.t"
+      "t/bottle-song.t"
     ],
     "example": [
-      ".meta/solutions/BottleSong.pm"
+      ".meta/solutions/lib/BottleSong.pm"
     ]
   },
   "blurb": "Produce the lyrics to the popular children's repetitive song: Ten Green Bottles.",

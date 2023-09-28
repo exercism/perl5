@@ -12,13 +12,13 @@
   ],
   "files": {
     "solution": [
-      "RobotName.pm"
+      "lib/RobotName.pm"
     ],
     "test": [
-      "robot-name.t"
+      "t/robot-name.t"
     ],
     "example": [
-      ".meta/solutions/RobotName.pm"
+      ".meta/solutions/lib/RobotName.pm"
     ]
   },
   "blurb": "Manage robot factory settings.",

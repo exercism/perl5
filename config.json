@@ -20,15 +20,15 @@
   },
   "files": {
     "solution": [
-      "%{pascal_slug}.pm",
+      "lib/%{pascal_slug}.pm",
       "cpanfile",
       "vendor/cache/modules/02packages.details.txt.gz"
     ],
     "test": [
-      "%{kebab_slug}.t"
+      "t/%{kebab_slug}.t"
     ],
     "example": [
-      ".meta/solutions/%{pascal_slug}.pm",
+      ".meta/solutions/lib/%{pascal_slug}.pm",
       ".meta/solutions/cpanfile",
       ".meta/solutions/vendor/cache/modules/02packages.details.txt.gz"
     ],

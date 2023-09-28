@@ -9,13 +9,13 @@
   ],
   "files": {
     "solution": [
-      "AllYourBase.pm"
+      "lib/AllYourBase.pm"
     ],
     "test": [
-      "all-your-base.t"
+      "t/all-your-base.t"
     ],
     "example": [
-      ".meta/solutions/AllYourBase.pm"
+      ".meta/solutions/lib/AllYourBase.pm"
     ]
   },
   "blurb": "Convert a number, represented as a sequence of digits in one base, to any other base."

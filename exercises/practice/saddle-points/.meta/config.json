@@ -9,13 +9,13 @@
   ],
   "files": {
     "solution": [
-      "SaddlePoints.pm"
+      "lib/SaddlePoints.pm"
     ],
     "test": [
-      "saddle-points.t"
+      "t/saddle-points.t"
     ],
     "example": [
-      ".meta/solutions/SaddlePoints.pm"
+      ".meta/solutions/lib/SaddlePoints.pm"
     ]
   },
   "blurb": "Detect saddle points in a matrix.",

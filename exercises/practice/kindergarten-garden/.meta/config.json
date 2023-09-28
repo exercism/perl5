@@ -9,13 +9,13 @@
   ],
   "files": {
     "solution": [
-      "KindergartenGarden.pm"
+      "lib/KindergartenGarden.pm"
     ],
     "test": [
-      "kindergarten-garden.t"
+      "t/kindergarten-garden.t"
     ],
     "example": [
-      ".meta/solutions/KindergartenGarden.pm"
+      ".meta/solutions/lib/KindergartenGarden.pm"
     ]
   },
   "blurb": "Given a diagram, determine which plants each child in the kindergarten class is responsible for.",

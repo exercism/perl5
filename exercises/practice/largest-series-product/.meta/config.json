@@ -11,13 +11,13 @@
   ],
   "files": {
     "solution": [
-      "LargestSeriesProduct.pm"
+      "lib/LargestSeriesProduct.pm"
     ],
     "test": [
-      "largest-series-product.t"
+      "t/largest-series-product.t"
     ],
     "example": [
-      ".meta/solutions/LargestSeriesProduct.pm"
+      ".meta/solutions/lib/LargestSeriesProduct.pm"
     ]
   },
   "blurb": "Given a string of digits, calculate the largest product for a contiguous substring of digits of length n.",

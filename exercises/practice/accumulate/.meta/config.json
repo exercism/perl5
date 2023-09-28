@@ -10,13 +10,13 @@
   ],
   "files": {
     "solution": [
-      "Accumulate.pm"
+      "lib/Accumulate.pm"
     ],
     "test": [
-      "accumulate.t"
+      "t/accumulate.t"
     ],
     "example": [
-      ".meta/solutions/Accumulate.pm"
+      ".meta/solutions/lib/Accumulate.pm"
     ]
   },
   "blurb": "Implement the `accumulate` operation, which, given a collection and an operation to perform on each element of the collection, returns a new collection containing the result of applying that operation to each element of the input collection.",

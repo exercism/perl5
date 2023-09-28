@@ -1,0 +1,1 @@
+../../../t/queen-attack.t

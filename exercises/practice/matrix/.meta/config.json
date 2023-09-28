@@ -9,13 +9,13 @@
   ],
   "files": {
     "solution": [
-      "Matrix.pm"
+      "lib/Matrix.pm"
     ],
     "test": [
-      "matrix.t"
+      "t/matrix.t"
     ],
     "example": [
-      ".meta/solutions/Matrix.pm"
+      ".meta/solutions/lib/Matrix.pm"
     ]
   },
   "blurb": "Given a string representing a matrix of numbers, return the rows and columns of that matrix.",

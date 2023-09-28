@@ -1,0 +1,1 @@
+../../../t/minesweeper.t

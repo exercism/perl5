@@ -7,13 +7,13 @@
   ],
   "files": {
     "solution": [
-      "TwoFer.pm"
+      "lib/TwoFer.pm"
     ],
     "test": [
-      "two-fer.t"
+      "t/two-fer.t"
     ],
     "example": [
-      ".meta/solutions/TwoFer.pm"
+      ".meta/solutions/lib/TwoFer.pm"
     ]
   },
   "blurb": "Create a sentence of the form \"One for X, one for me.\".",

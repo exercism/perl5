@@ -10,13 +10,13 @@
   ],
   "files": {
     "solution": [
-      "FoodChain.pm"
+      "lib/FoodChain.pm"
     ],
     "test": [
-      "food-chain.t"
+      "t/food-chain.t"
     ],
     "example": [
-      ".meta/solutions/FoodChain.pm"
+      ".meta/solutions/lib/FoodChain.pm"
     ]
   },
   "blurb": "Generate the lyrics of the song 'I Know an Old Lady Who Swallowed a Fly'.",

@@ -9,13 +9,13 @@
   ],
   "files": {
     "solution": [
-      "WordCount.pm"
+      "lib/WordCount.pm"
     ],
     "test": [
-      "word-count.t"
+      "t/word-count.t"
     ],
     "example": [
-      ".meta/solutions/WordCount.pm"
+      ".meta/solutions/lib/WordCount.pm"
     ]
   },
   "blurb": "Given a phrase, count the occurrences of each word in that phrase.",

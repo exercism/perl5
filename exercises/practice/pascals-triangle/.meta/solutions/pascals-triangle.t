@@ -1,1 +1,0 @@
-../../pascals-triangle.t

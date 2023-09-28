@@ -9,13 +9,13 @@
   ],
   "files": {
     "solution": [
-      "NucleotideCount.pm"
+      "lib/NucleotideCount.pm"
     ],
     "test": [
-      "nucleotide-count.t"
+      "t/nucleotide-count.t"
     ],
     "example": [
-      ".meta/solutions/NucleotideCount.pm"
+      ".meta/solutions/lib/NucleotideCount.pm"
     ]
   },
   "blurb": "Given a DNA string, compute how many times each nucleotide occurs in the string.",

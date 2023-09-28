@@ -10,13 +10,13 @@
   ],
   "files": {
     "solution": [
-      "ETL.pm"
+      "lib/ETL.pm"
     ],
     "test": [
-      "etl.t"
+      "t/etl.t"
     ],
     "example": [
-      ".meta/solutions/ETL.pm"
+      ".meta/solutions/lib/ETL.pm"
     ]
   },
   "blurb": "We are going to do the `Transform` step of an Extract-Transform-Load.",

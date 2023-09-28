@@ -1,1 +1,0 @@
-../../grade-school.t

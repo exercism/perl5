@@ -1,1 +1,0 @@
-../../pythagorean-triplet.t

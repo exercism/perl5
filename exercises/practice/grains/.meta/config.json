@@ -14,13 +14,13 @@
   ],
   "files": {
     "solution": [
-      "Grains.pm"
+      "lib/Grains.pm"
     ],
     "test": [
-      "grains.t"
+      "t/grains.t"
     ],
     "example": [
-      ".meta/solutions/Grains.pm"
+      ".meta/solutions/lib/Grains.pm"
     ]
   },
   "blurb": "Calculate the number of grains of wheat on a chessboard given that the number on each square doubles.",

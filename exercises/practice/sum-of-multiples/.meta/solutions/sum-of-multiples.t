@@ -1,1 +1,0 @@
-../../sum-of-multiples.t

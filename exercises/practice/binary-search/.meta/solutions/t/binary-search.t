@@ -1,0 +1,1 @@
+../../../t/binary-search.t
