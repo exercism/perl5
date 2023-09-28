@@ -51,19 +51,19 @@ is( # begin: c73b470a-5efb-4d53-9ac6-c5f6487f227b
 like( # begin: 1d47d832-3e85-4974-9466-5bd35af484e3
     dies( sub { grains_on_square(0) } ),
     qr/square must be between 1 and 64/,
-    "returns the number of grains on the square: square 0 raises an exception",
+    "returns the number of grains on the square: square 0 is invalid",
 ); # end: 1d47d832-3e85-4974-9466-5bd35af484e3
 
 like( # begin: 61974483-eeb2-465e-be54-ca5dde366453
     dies( sub { grains_on_square(-1) } ),
     qr/square must be between 1 and 64/,
-    "returns the number of grains on the square: negative square raises an exception",
+    "returns the number of grains on the square: negative square is invalid",
 ); # end: 61974483-eeb2-465e-be54-ca5dde366453
 
 like( # begin: a95e4374-f32c-45a7-a10d-ffec475c012f
     dies( sub { grains_on_square(65) } ),
     qr/square must be between 1 and 64/,
-    "returns the number of grains on the square: square greater than 64 raises an exception",
+    "returns the number of grains on the square: square greater than 64 is invalid",
 ); # end: a95e4374-f32c-45a7-a10d-ffec475c012f
 
 is( # begin: 6eb07385-3659-4b45-a6be-9dc474222750
