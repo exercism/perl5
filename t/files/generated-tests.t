@@ -26,7 +26,7 @@ for ( sort { $a cmp $b }
 
         { no warnings qw<once>; $Data::Dmp::OPT_STRINGIFY_NUMBERS = 0; }    # Option is used in several exercises, reset to default before running generator.
         is(
-            [ split( /\n/, $_->child( $_->basename . '.t' )->slurp_utf8 ) ],
+            [ split( /\n/, $_->child( 't', $_->basename . '.t' )->slurp_utf8 ) ],
             [   split(
                     /\n/,
                     Exercism::Generator->new( { exercise => $_->basename } )
