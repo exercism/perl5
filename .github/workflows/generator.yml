@@ -10,13 +10,13 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
 
       - run: bin/fetch-configlet
       - run: bin/configlet sync || true
 
       - name: Set up perl
-        uses: shogo82148/actions-setup-perl@v1
+        uses: shogo82148/actions-setup-perl@a898263d06c9cf32dd8b6d3ea28790baf8d30cd5
 
       - run: carton install
       - run: cpm install App::Yath
