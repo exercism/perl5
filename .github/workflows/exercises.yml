@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
 
       - name: Set up perl
-        uses: shogo82148/actions-setup-perl@a898263d06c9cf32dd8b6d3ea28790baf8d30cd5
+        uses: shogo82148/actions-setup-perl@f83288c4caf8fec7aed4a51ebd00e51d5fd004b1
         with:
           perl-version: ${{ matrix.perl }}
           distribution: strawberry
