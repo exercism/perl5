@@ -16,7 +16,7 @@ jobs:
       - run: bin/configlet sync || true
 
       - name: Set up perl
-        uses: shogo82148/actions-setup-perl@a898263d06c9cf32dd8b6d3ea28790baf8d30cd5
+        uses: shogo82148/actions-setup-perl@16c2635046967c17c139af8e8da7dd64bedf00df
 
       - run: carton install
       - run: cpm install App::Yath
