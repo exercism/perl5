@@ -1,0 +1,34 @@
+subs: factors
+
+properties:
+  factors:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<'END', $case->{input}{value}, map {dmp($_)} @{$case}{qw<expected description>});
+      is(
+          factors( %s ),
+          %s,
+          %s,
+      );
+      END
+
+example: |-
+  sub factors ($number) {
+      my @factors;
+
+      for (my $i = 2; $i * $i <= $number; $i++) {
+          while ($number % $i == 0) {
+              push @factors, $i;
+              $number /= $i;
+          }
+      }
+
+      push @factors, $number if $number > 1;
+
+      return \@factors;
+  }
+
+stub: |-
+  sub factors ($number) {
+      return undef;
+  }

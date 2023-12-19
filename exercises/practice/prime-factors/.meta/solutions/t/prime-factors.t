@@ -1,0 +1,1 @@
+../../../t/prime-factors.t
