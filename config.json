@@ -432,8 +432,7 @@
         "uuid": "bcfc5046-ec4e-4b6e-a5c6-811883f021a0",
         "practices": [],
         "prerequisites": [],
-        "difficulty": 1,
-        "status": "wip"
+        "difficulty": 1
       },
       {
         "slug": "proverb",
