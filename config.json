@@ -138,8 +138,14 @@
         "slug": "accumulate",
         "name": "Accumulate",
         "uuid": "f9fcab93-a6d8-4e36-aee5-3333a1c874ce",
-        "practices": ["arrays-and-lists", "references", "subroutines"],
-        "prerequisites": ["references"],
+        "practices": [
+          "arrays-and-lists",
+          "references",
+          "subroutines"
+        ],
+        "prerequisites": [
+          "references"
+        ],
         "difficulty": 1
       },
       {
@@ -162,8 +168,14 @@
         "slug": "anagram",
         "name": "Anagram",
         "uuid": "c95418a3-d868-42dc-b39d-2505d255fecf",
-        "practices": ["arrays-and-lists", "references", "strings"],
-        "prerequisites": ["references"],
+        "practices": [
+          "arrays-and-lists",
+          "references",
+          "strings"
+        ],
+        "prerequisites": [
+          "references"
+        ],
         "difficulty": 1
       },
       {
@@ -203,7 +215,11 @@
         "slug": "bob",
         "name": "Bob",
         "uuid": "835a4c46-c837-4684-a1ed-7d257c786d77",
-        "practices": ["booleans-and-conditionals", "regular-expressions", "strings"],
+        "practices": [
+          "booleans-and-conditionals",
+          "regular-expressions",
+          "strings"
+        ],
         "prerequisites": [],
         "difficulty": 1
       },
@@ -211,7 +227,11 @@
         "slug": "clock",
         "name": "Clock",
         "uuid": "163f929c-206b-430b-8ac7-ad7b5c062f3d",
-        "practices": ["numbers", "object-orientation", "strings"],
+        "practices": [
+          "numbers",
+          "object-orientation",
+          "strings"
+        ],
         "prerequisites": [],
         "difficulty": 1
       },
@@ -227,15 +247,24 @@
         "slug": "custom-set",
         "name": "Custom Set",
         "uuid": "500cf4b8-d442-423a-957a-b95325b8a718",
-        "practices": ["arrays-and-lists", "booleans-and-conditionals", "object-orientation", "references"],
-        "prerequisites": ["references"],
+        "practices": [
+          "arrays-and-lists",
+          "booleans-and-conditionals",
+          "object-orientation",
+          "references"
+        ],
+        "prerequisites": [
+          "references"
+        ],
         "difficulty": 1
       },
       {
         "slug": "difference-of-squares",
         "name": "Difference of Squares",
         "uuid": "590270ac-b638-4292-bbdc-eee1705904f1",
-        "practices": ["numbers"],
+        "practices": [
+          "numbers"
+        ],
         "prerequisites": [],
         "difficulty": 1
       },
@@ -243,8 +272,14 @@
         "slug": "etl",
         "name": "ETL",
         "uuid": "e193fb19-5122-405f-88e0-59e5ee94f64b",
-        "practices": ["arrays-and-lists", "hashes", "references"],
-        "prerequisites": ["references"],
+        "practices": [
+          "arrays-and-lists",
+          "hashes",
+          "references"
+        ],
+        "prerequisites": [
+          "references"
+        ],
         "difficulty": 1
       },
       {
@@ -259,7 +294,9 @@
         "slug": "gigasecond",
         "name": "Gigasecond",
         "uuid": "0f2e5082-9d97-414d-aa82-d03aed48d81a",
-        "practices": ["packages-and-modules"],
+        "practices": [
+          "packages-and-modules"
+        ],
         "prerequisites": [],
         "difficulty": 1
       },
@@ -267,7 +304,9 @@
         "slug": "grade-school",
         "name": "Grade School",
         "uuid": "89a265f6-37b9-47fb-9ea5-5dba09852e48",
-        "practices": ["object-orientation"],
+        "practices": [
+          "object-orientation"
+        ],
         "prerequisites": [],
         "difficulty": 1
       },
@@ -275,7 +314,10 @@
         "slug": "grains",
         "name": "Grains",
         "uuid": "55316f62-e3b0-4be7-a478-9fc5ea827d15",
-        "practices": ["exceptions", "numbers"],
+        "practices": [
+          "exceptions",
+          "numbers"
+        ],
         "prerequisites": [],
         "difficulty": 1
       },
@@ -283,7 +325,10 @@
         "slug": "hamming",
         "name": "Hamming",
         "uuid": "5c35f654-8689-4fb3-af81-71fbe0c165f9",
-        "practices": ["exceptions", "strings"],
+        "practices": [
+          "exceptions",
+          "strings"
+        ],
         "prerequisites": [],
         "difficulty": 1
       },
@@ -323,7 +368,10 @@
         "slug": "leap",
         "name": "Leap",
         "uuid": "0b512415-2dcf-4dfb-a58f-2765f9a1427b",
-        "practices": ["booleans-and-conditionals", "numbers"],
+        "practices": [
+          "booleans-and-conditionals",
+          "numbers"
+        ],
         "prerequisites": [],
         "difficulty": 1
       },
@@ -357,7 +405,10 @@
         "slug": "matrix",
         "name": "Matrix",
         "uuid": "ee231adc-6770-47b0-88b2-6a7cf3140224",
-        "practices": ["arrays-and-lists", "object-orientation"],
+        "practices": [
+          "arrays-and-lists",
+          "object-orientation"
+        ],
         "prerequisites": [],
         "difficulty": 1
       },
@@ -382,7 +433,11 @@
         "slug": "nucleotide-count",
         "name": "Nucleotide Count",
         "uuid": "2e7e50a5-9790-4479-a26a-0e57823b00de",
-        "practices": ["exceptions", "hashes", "strings"],
+        "practices": [
+          "exceptions",
+          "hashes",
+          "strings"
+        ],
         "prerequisites": [],
         "difficulty": 1
       },
@@ -406,7 +461,10 @@
         "slug": "pascals-triangle",
         "name": "Pascal's Triangle",
         "uuid": "3fc3e55d-ecf0-4c5b-8612-937c96a0cb45",
-        "practices": ["numbers", "strings"],
+        "practices": [
+          "numbers",
+          "strings"
+        ],
         "prerequisites": [],
         "difficulty": 1
       },
@@ -414,7 +472,10 @@
         "slug": "phone-number",
         "name": "Phone Number",
         "uuid": "802e2ef6-68e5-4116-a94a-ae0ddb33406d",
-        "practices": ["exceptions", "strings"],
+        "practices": [
+          "exceptions",
+          "strings"
+        ],
         "prerequisites": [],
         "difficulty": 1
       },
@@ -446,15 +507,24 @@
         "slug": "pythagorean-triplet",
         "name": "Pythagorean Triplet",
         "uuid": "239a4e5e-9a09-4a2d-af2d-252dcf36a3a7",
-        "practices": ["arrays-and-lists", "numbers", "references"],
-        "prerequisites": ["references"],
+        "practices": [
+          "arrays-and-lists",
+          "numbers",
+          "references"
+        ],
+        "prerequisites": [
+          "references"
+        ],
         "difficulty": 1
       },
       {
         "slug": "queen-attack",
         "name": "Queen Attack",
         "uuid": "b190f24e-134f-402b-b2b4-98b3a6f84465",
-        "practices": ["exceptions", "object-orientation"],
+        "practices": [
+          "exceptions",
+          "object-orientation"
+        ],
         "prerequisites": [],
         "difficulty": 1
       },
@@ -462,7 +532,11 @@
         "slug": "raindrops",
         "name": "Raindrops",
         "uuid": "85154a10-06e3-4543-8513-4de30b43d015",
-        "practices": ["booleans-and-conditionals", "numbers", "strings"],
+        "practices": [
+          "booleans-and-conditionals",
+          "numbers",
+          "strings"
+        ],
         "prerequisites": [],
         "difficulty": 1
       },
@@ -502,8 +576,15 @@
         "slug": "saddle-points",
         "name": "Saddle Points",
         "uuid": "ea8450d8-85a3-4530-a5cc-7314abe554eb",
-        "practices": ["arrays-and-lists", "booleans-and-conditionals", "hashes", "references"],
-        "prerequisites": ["references"],
+        "practices": [
+          "arrays-and-lists",
+          "booleans-and-conditionals",
+          "hashes",
+          "references"
+        ],
+        "prerequisites": [
+          "references"
+        ],
         "difficulty": 1
       },
       {
@@ -534,7 +615,11 @@
         "slug": "series",
         "name": "Series",
         "uuid": "35e90496-58a6-48be-ad55-14e3a145bd5c",
-        "practices": ["booleans-and-conditionals", "exceptions", "strings"],
+        "practices": [
+          "booleans-and-conditionals",
+          "exceptions",
+          "strings"
+        ],
         "prerequisites": [],
         "difficulty": 1
       },
@@ -542,7 +627,11 @@
         "slug": "sieve",
         "name": "Sieve",
         "uuid": "edcec766-70fb-41bd-a2fd-09815a01d76e",
-        "practices": ["arrays-and-lists", "booleans-and-conditionals", "numbers"],
+        "practices": [
+          "arrays-and-lists",
+          "booleans-and-conditionals",
+          "numbers"
+        ],
         "prerequisites": [],
         "difficulty": 1
       },
@@ -568,7 +657,10 @@
         "slug": "space-age",
         "name": "Space Age",
         "uuid": "8f6d6a60-426c-4da0-af4e-7395b2c880d3",
-        "practices": ["exceptions", "numbers"],
+        "practices": [
+          "exceptions",
+          "numbers"
+        ],
         "prerequisites": [],
         "difficulty": 1
       },
@@ -576,23 +668,38 @@
         "slug": "strain",
         "name": "Strain",
         "uuid": "fe458d54-f002-4a96-a49f-1ca40e679f72",
-        "practices": ["arrays-and-lists", "booleans-and-conditionals", "references", "subroutines"],
-        "prerequisites": ["references"],
+        "practices": [
+          "arrays-and-lists",
+          "booleans-and-conditionals",
+          "references",
+          "subroutines"
+        ],
+        "prerequisites": [
+          "references"
+        ],
         "difficulty": 1
       },
       {
         "slug": "sublist",
         "name": "Sublist",
         "uuid": "4e2c69bc-b83f-45b4-872b-43bbdc559ece",
-        "practices": ["arrays-and-lists", "booleans-and-conditionals", "references"],
-        "prerequisites": ["references"],
+        "practices": [
+          "arrays-and-lists",
+          "booleans-and-conditionals",
+          "references"
+        ],
+        "prerequisites": [
+          "references"
+        ],
         "difficulty": 1
       },
       {
         "slug": "sum-of-multiples",
         "name": "Sum of Multiples",
         "uuid": "9c855ef0-08b4-4810-9a58-285a44082b94",
-        "practices": ["numbers"],
+        "practices": [
+          "numbers"
+        ],
         "prerequisites": [],
         "difficulty": 1
       },
@@ -616,7 +723,11 @@
         "slug": "two-fer",
         "name": "Two Fer",
         "uuid": "749dac4a-a746-4af7-aca6-db9e69ccad8c",
-        "practices": ["booleans-and-conditionals", "strings", "subroutines"],
+        "practices": [
+          "booleans-and-conditionals",
+          "strings",
+          "subroutines"
+        ],
         "prerequisites": [],
         "difficulty": 1
       },
@@ -749,15 +860,15 @@
     }
   ],
   "tags": [
+    "execution_mode/interpreted",
     "paradigm/imperative",
     "paradigm/procedural",
+    "platform/linux",
+    "platform/mac",
+    "platform/windows",
+    "runtime/standalone_executable",
     "typing/dynamic",
     "typing/weak",
-    "execution_mode/interpreted",
-    "platform/windows",
-    "platform/mac",
-    "platform/linux",
-    "runtime/standalone_executable",
     "used_for/scripts"
   ]
 }
