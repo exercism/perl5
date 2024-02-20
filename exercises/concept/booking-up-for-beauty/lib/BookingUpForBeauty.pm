@@ -7,13 +7,13 @@ use v5.38;
 #use DateTime::Tiny;
 
 # Recommended, commented out for portability.
-#use Readonly;
+#use Const::Fast;
 
 use Exporter ('import');
 our @EXPORT_OK = ();
 
 my $STRPTIME_FORMAT = '%Y-%m-%d' . 'T' . '%H:%M:%S';
-#Readonly::Scalar $STRPTIME_FORMAT => $STRPTIME_FORMAT;
+#const $STRPTIME_FORMAT => $STRPTIME_FORMAT;
 
 # Private subroutines conventionally start with an underscore.
 # It isn't necessary, but provided for convenience.

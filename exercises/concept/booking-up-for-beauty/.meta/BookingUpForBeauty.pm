@@ -3,7 +3,7 @@ package BookingUpForBeauty;
 use v5.38;
 
 use Time::Piece;
-#use Readonly;
+#use Const::Fast;
 
 use Exporter ('import');
 our @EXPORT_OK = (
@@ -13,7 +13,7 @@ our @EXPORT_OK = (
 );
 
 # Commented for portability
-#Readonly::Scalar
+#const
     my $STRPTIME_FORMAT =#>
     '%Y-%m-%d' . 'T' . '%H:%M:%S';
 
