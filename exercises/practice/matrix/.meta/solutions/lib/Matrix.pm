@@ -1,18 +1,18 @@
 package Matrix;
 
-use Moo;
+use strict;
+use warnings;
 use experimental qw<signatures postderef postderef_qq>;
 
-has string => (
-    is => 'ro',
-);
+use Exporter qw<import>;
+our @EXPORT_OK = qw<extract_row extract_column>;
 
-sub row ( $self, $index ) {
-    return [ split / /, [ split /\n/, $self->string ]->[ $index - 1 ] ];
+sub extract_row ( $matrix, $row ) {
+    return [ split / /, [ split /\n/, $matrix ]->[ $row - 1 ] ];
 }
 
-sub column ( $self, $index ) {
-    return [ map { [ split / /, $_ ]->[ $index - 1 ] } split /\n/, $self->string ];
+sub extract_column ( $matrix, $column ) {
+    return [ map { [ split / /, $_ ]->[ $column - 1 ] } split /\n/, $matrix ];
 }
 
 1;

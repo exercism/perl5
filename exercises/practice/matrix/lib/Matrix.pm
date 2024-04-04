@@ -1,16 +1,14 @@
 package Matrix;
 
 use v5.38;
-use Moo;
 
-has string => (
-    is => 'ro',
-);
+use Exporter qw<import>;
+our @EXPORT_OK = qw<extract_row extract_column>;
 
-sub row ( $self, $index ) {
+sub extract_row ( $matrix, $row ) {
     return undef;
 }
 
-sub column ( $self, $index ) {
+sub extract_column ( $matrix, $column ) {
     return undef;
 }

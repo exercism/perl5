@@ -1,12 +1,13 @@
+subs: extract_row extract_column
 
 properties:
   row:
     test: |-
       use Data::Dmp;
-      $Data::Dmp::OPT_STRINGIFY_NUMBERS = 1;
+      local $Data::Dmp::OPT_STRINGIFY_NUMBERS = 1;
       sprintf(<<'END', dmp($case->{input}{string}), $case->{input}{index}, map {dmp($_)} @{$case}{qw<expected description>});
       is(
-          Matrix->new( string => %s )->row(%s),
+          extract_row(%s, %s),
           %s,
           %s,
       );
@@ -14,39 +15,29 @@ properties:
   column:
     test: |-
       use Data::Dmp;
-      $Data::Dmp::OPT_STRINGIFY_NUMBERS = 1;
+      local $Data::Dmp::OPT_STRINGIFY_NUMBERS = 1;
       sprintf(<<'END', dmp($case->{input}{string}), $case->{input}{index}, map {dmp($_)} @{$case}{qw<expected description>});
       is(
-          Matrix->new( string => %s )->column(%s),
+          extract_column(%s, %s),
           %s,
           %s,
       );
       END
 
-moo: true
-
 example: |-
-  has string => (
-      is => 'ro',
-  );
-
-  sub row ($self, $index) {
-      return [split / /, [split /\n/, $self->string]->[$index - 1]];
+  sub extract_row ($matrix, $row) {
+      return [split / /, [split /\n/, $matrix]->[$row - 1]];
   }
 
-  sub column ($self, $index) {
-      return [map { [split / /, $_]->[$index - 1] } split /\n/, $self->string];
+  sub extract_column ($matrix, $column) {
+      return [map { [split / /, $_]->[$column - 1] } split /\n/, $matrix];
   }
 
 stub: |-
-  has string => (
-      is => 'ro',
-  );
-
-  sub row ($self, $index) {
+  sub extract_row ($matrix, $row) {
       return undef;
   }
 
-  sub column ($self, $index) {
+  sub extract_column ($matrix, $column) {
       return undef;
   }
