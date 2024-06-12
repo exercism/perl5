@@ -22,10 +22,10 @@ jobs:
         uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29
 
       - name: Set up perl
-        uses: shogo82148/actions-setup-perl@28eae78d12c2bba1163aec45d123f6d9228bc307
+        uses: shogo82148/actions-setup-perl@87c3ad5232e6c1b59da33bfde4fb24b0482901f1
         with:
           perl-version: ${{ matrix.perl }}
-          distribution: strawberry
+          distribution: ${{ matrix.distribution }}
 
       - run: cpm install -g Test2::V0
 
