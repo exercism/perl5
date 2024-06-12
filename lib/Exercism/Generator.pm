@@ -7,7 +7,7 @@ use JSON::PP           ();
 use List::Util         qw<any>;
 use Path::Tiny         qw<path>;
 use Perl::Tidy         ();
-use Template::Mustache qw<render>;
+use Template::Mustache ();
 use TOML::Parser       ();
 use YAML               qw<LoadFile>;
 

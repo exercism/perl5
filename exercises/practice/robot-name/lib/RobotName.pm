@@ -1,7 +1,7 @@
 # This will be class 'RobotName', defined using Moo (https://perlmaven.com/oop-with-moo)
 package RobotName;
 
-use v5.38;
+use v5.40;
 use Moo;
 
 # Declare a "name" attribute that is is 'rwp', read-write protected:

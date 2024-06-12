@@ -1,6 +1,6 @@
 package Sublist;
 
-use v5.38;
+use v5.40;
 
 use Exporter qw<import>;
 our @EXPORT_OK = qw<compare_lists>;

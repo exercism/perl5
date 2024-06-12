@@ -1,6 +1,6 @@
 package Lasagna;
 
-use v5.38;
+use v5.40;
 
 our $ExpectedMinutesInOven = 40;
 
