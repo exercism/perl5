@@ -1,6 +1,6 @@
 package Robot;
 
-use v5.38;
+use v5.40;
 use Moo;
 
 use List::Util qw<none>;

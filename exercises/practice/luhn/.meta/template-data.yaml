@@ -4,7 +4,7 @@ properties:
   valid:
     test: |-
       use Data::Dmp;
-      $Data::Dmp::OPT_STRINGIFY_NUMBERS = 1;
+      local $Data::Dmp::OPT_STRINGIFY_NUMBERS = 1;
       sprintf(<<'END', dmp($case->{input}{value}), $case->{expected} ? ('T', '# True') : ('DF', '# Defined but False'), dmp($case->{description}));
       is(
           is_luhn_valid(%s),

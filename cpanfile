@@ -1,4 +1,5 @@
 requires 'lib::gitroot';
+requires 'Data::Dmp';
 requires 'Moo';
 requires 'namespace::autoclean';
 requires 'Path::Tiny';
@@ -6,5 +7,5 @@ requires 'Perl::Tidy';
 requires 'Template::Mustache';
 requires 'Test2::V0';
 requires 'TOML::Parser';
+requires 'UUID';
 requires 'YAML';
-requires 'Data::Dmp';

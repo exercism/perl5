@@ -274,7 +274,7 @@ $todo = undef; # end: 6f8c6541-afac-4a92-b0c2-b10d4e50269f
 
 $todo = todo 'experimental feature' if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/; # begin: bb9d5a68-e324-4bf5-a75e-0e9b1f97a90d
 is(
-    Clock->new( hour => 17,  minute => 3 ),
+    Clock->new( hour =>  17, minute => 3 ),
     Clock->new( hour => -31, minute => 3 ),
     "Compare two clocks for equality: clocks with negative hour that wraps",
 );
@@ -282,7 +282,7 @@ $todo = undef; # end: bb9d5a68-e324-4bf5-a75e-0e9b1f97a90d
 
 $todo = todo 'experimental feature' if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/; # begin: 56c0326d-565b-4d19-a26f-63b3205778b7
 is(
-    Clock->new( hour => 13,  minute => 49 ),
+    Clock->new( hour =>  13, minute => 49 ),
     Clock->new( hour => -83, minute => 49 ),
     "Compare two clocks for equality: clocks with negative hour that wraps multiple times",
 );
@@ -306,7 +306,7 @@ $todo = undef; # end: 533a3dc5-59a7-491b-b728-a7a34fe325de
 
 $todo = todo 'experimental feature' if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/; # begin: fff49e15-f7b7-4692-a204-0f6052d62636
 is(
-    Clock->new( hour => 2, minute => 40 ),
+    Clock->new( hour => 2, minute =>  40 ),
     Clock->new( hour => 3, minute => -20 ),
     "Compare two clocks for equality: clocks with negative minute",
 );
@@ -314,7 +314,7 @@ $todo = undef; # end: fff49e15-f7b7-4692-a204-0f6052d62636
 
 $todo = todo 'experimental feature' if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/; # begin: 605c65bb-21bd-43eb-8f04-878edf508366
 is(
-    Clock->new( hour => 4, minute => 10 ),
+    Clock->new( hour => 4, minute =>  10 ),
     Clock->new( hour => 5, minute => -1490 ),
     "Compare two clocks for equality: clocks with negative minute that wraps",
 );
@@ -322,7 +322,7 @@ $todo = undef; # end: 605c65bb-21bd-43eb-8f04-878edf508366
 
 $todo = todo 'experimental feature' if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/; # begin: b87e64ed-212a-4335-91fd-56da8421d077
 is(
-    Clock->new( hour => 6, minute => 15 ),
+    Clock->new( hour => 6, minute =>  15 ),
     Clock->new( hour => 6, minute => -4305 ),
     "Compare two clocks for equality: clocks with negative minute that wraps multiple times",
 );
@@ -330,7 +330,7 @@ $todo = undef; # end: b87e64ed-212a-4335-91fd-56da8421d077
 
 $todo = todo 'experimental feature' if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/; # begin: 822fbf26-1f3b-4b13-b9bf-c914816b53dd
 is(
-    Clock->new( hour => 7,   minute => 32 ),
+    Clock->new( hour =>  7,  minute =>  32 ),
     Clock->new( hour => -12, minute => -268 ),
     "Compare two clocks for equality: clocks with negative hours and minutes",
 );
@@ -338,7 +338,7 @@ $todo = undef; # end: 822fbf26-1f3b-4b13-b9bf-c914816b53dd
 
 $todo = todo 'experimental feature' if Clock->new( hour => 0, minute => 0 ) =~ /OBJECT/; # begin: e787bccd-cf58-4a1d-841c-ff80eaaccfaa
 is(
-    Clock->new( hour => 18,  minute => 7 ),
+    Clock->new( hour =>  18, minute =>  7 ),
     Clock->new( hour => -54, minute => -11513 ),
     "Compare two clocks for equality: clocks with negative hours and minutes that wrap",
 );

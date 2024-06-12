@@ -1,6 +1,6 @@
 package LanguageList;
 
-use v5.38;
+use v5.40;
 use List::Util qw<any>;
 
 our @Languages;

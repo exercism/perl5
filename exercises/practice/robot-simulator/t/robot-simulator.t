@@ -71,7 +71,7 @@ subtest "Moving forward one: facing north increments Y" => sub { # begin: f0dc23
 
 subtest "Moving forward one: facing south decrements Y" => sub { # begin: 2786cf80-5bbf-44b0-9503-a89a9c5789da
     my $robot = Robot->new( x => 0, y => 0, direction => "south" )->enact("A");
-    is( $robot->x,         0,       "x" );
+    is( $robot->x,          0,      "x" );
     is( $robot->y,         -1,      "y" );
     is( $robot->direction, "south", "direction" );
 }; # end: 2786cf80-5bbf-44b0-9503-a89a9c5789da
@@ -86,7 +86,7 @@ subtest "Moving forward one: facing east increments X" => sub { # begin: 84bf3c8
 subtest "Moving forward one: facing west decrements X" => sub { # begin: bb69c4a7-3bbf-4f64-b415-666fa72d7b04
     my $robot = Robot->new( x => 0, y => 0, direction => "west" )->enact("A");
     is( $robot->x,         -1,     "x" );
-    is( $robot->y,         0,      "y" );
+    is( $robot->y,          0,     "y" );
     is( $robot->direction, "west", "direction" );
 }; # end: bb69c4a7-3bbf-4f64-b415-666fa72d7b04
 
@@ -100,7 +100,7 @@ subtest "Follow series of instructions: moving east and north from README" => su
 subtest "Follow series of instructions: moving west and north" => sub { # begin: f30e4955-4b47-4aa3-8b39-ae98cfbd515b
     my $robot = Robot->new( x => 0, y => 0, direction => "north" )->enact("LAAARALA");
     is( $robot->x,         -4,     "x" );
-    is( $robot->y,         1,      "y" );
+    is( $robot->y,          1,     "y" );
     is( $robot->direction, "west", "direction" );
 }; # end: f30e4955-4b47-4aa3-8b39-ae98cfbd515b
 

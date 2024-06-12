@@ -4,7 +4,7 @@ properties:
   slices:
     test: |-
       use Data::Dmp;
-      $Data::Dmp::OPT_STRINGIFY_NUMBERS = 1;
+      local $Data::Dmp::OPT_STRINGIFY_NUMBERS = 1;
       if (ref $case->{expected} ne 'HASH') {
           sprintf(<<~'END', dmp($case->{input}{series}), $case->{input}{sliceLength}, map {dmp $_} $case->@{qw<expected description>});
           is(

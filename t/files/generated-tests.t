@@ -23,8 +23,6 @@ for ( sort { $a cmp $b }
     BASE_DIR->child( 'exercises', 'practice' )->children )
 {
     if ( $_->child( '.meta', 'template-data.yaml' )->is_file ) {
-
-        { no warnings qw<once>; $Data::Dmp::OPT_STRINGIFY_NUMBERS = 0; }    # Option is used in several exercises, reset to default before running generator.
         is(
             [ split( /\n/, $_->child( 't', $_->basename . '.t' )->slurp_utf8 ) ],
             [   split(

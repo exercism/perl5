@@ -8,11 +8,13 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: ['ubuntu-22.04', 'macos-12']
-        perl: ['5.38', '5.36', '5.34', '5.32', '5.30', '5.28', '5.26', '5.24', '5.22', '5.20']
+        os: ['ubuntu-latest', 'macos-latest']
+        perl: ['5.40', '5.38', '5.36', '5.34', '5.32', '5.30', '5.28', '5.26', '5.24', '5.22', '5.20']
+        distribution: ['default']
         include:
-          - os: 'windows-2022'
-            perl: '5.32'
+          - os: 'windows-latest'
+            perl: '5.38'
+            distribution: strawberry
 
     name: Perl ${{ matrix.perl }} on ${{ matrix.os }}
     steps:
@@ -20,12 +22,12 @@ jobs:
         uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29
 
       - name: Set up perl
-        uses: shogo82148/actions-setup-perl@28eae78d12c2bba1163aec45d123f6d9228bc307
+        uses: shogo82148/actions-setup-perl@87c3ad5232e6c1b59da33bfde4fb24b0482901f1
         with:
           perl-version: ${{ matrix.perl }}
-          distribution: strawberry
+          distribution: ${{ matrix.distribution }}
 
-      - run: cpm install -g Test2::V0
+      - run: cpm install -g Test2::V0 UUID
 
       - name: Exercise modules
         shell: pwsh

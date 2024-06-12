@@ -3,7 +3,7 @@ properties:
   clean:
     test: |-
       use Data::Dmp;
-      $Data::Dmp::OPT_STRINGIFY_NUMBERS = 1;
+      local $Data::Dmp::OPT_STRINGIFY_NUMBERS = 1;
       if (!ref $case->{expected}) {
           sprintf(<<~END, map {dmp $_} $case->{input}{phrase}, @{$case}{qw<expected description>});
           is(

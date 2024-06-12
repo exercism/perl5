@@ -1,6 +1,6 @@
 package BookingUpForBeauty;
 
-use v5.38;
+use v5.40;
 
 # Suggested datetime modules you can use:
 #use Time::Piece;

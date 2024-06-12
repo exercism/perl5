@@ -7,7 +7,7 @@ use JSON::PP           ();
 use List::Util         qw<any>;
 use Path::Tiny         qw<path>;
 use Perl::Tidy         ();
-use Template::Mustache qw<render>;
+use Template::Mustache ();
 use TOML::Parser       ();
 use YAML               qw<LoadFile>;
 
@@ -92,7 +92,6 @@ sub _render {
     );
 
     delete $data{experimental};
-    undef $Data::Dmp::OPT_STRINGIFY_NUMBERS;
 
     Perl::Tidy::perltidy(
         source      => \$rendered,
