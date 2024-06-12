@@ -4,7 +4,7 @@ properties:
   convert:
     test: |-
       use Data::Dmp;
-      $Data::Dmp::OPT_STRINGIFY_NUMBERS = 1;
+      local $Data::Dmp::OPT_STRINGIFY_NUMBERS = 1;
       sprintf(<<'END', $case->{input}{number}, map {dmp $_} $case->@{qw<expected description>});
       is(
           raindrop(%s),

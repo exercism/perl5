@@ -92,7 +92,6 @@ sub _render {
     );
 
     delete $data{experimental};
-    undef $Data::Dmp::OPT_STRINGIFY_NUMBERS;
 
     Perl::Tidy::perltidy(
         source      => \$rendered,
