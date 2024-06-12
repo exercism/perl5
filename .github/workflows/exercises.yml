@@ -27,7 +27,7 @@ jobs:
           perl-version: ${{ matrix.perl }}
           distribution: ${{ matrix.distribution }}
 
-      - run: cpm install -g Test2::V0
+      - run: cpm install -g Test2::V0 UUID
 
       - name: Exercise modules
         shell: pwsh
