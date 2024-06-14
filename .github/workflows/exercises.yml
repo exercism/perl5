@@ -19,7 +19,7 @@ jobs:
     name: Perl ${{ matrix.perl }} on ${{ matrix.os }}
     steps:
       - name: Checkout
-        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
 
       - name: Set up perl
         uses: shogo82148/actions-setup-perl@87c3ad5232e6c1b59da33bfde4fb24b0482901f1
