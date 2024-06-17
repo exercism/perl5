@@ -8,3 +8,5 @@ our @EXPORT_OK = qw<two_fer>;
 sub two_fer ( $name = undef ) {
     return undef;
 }
+
+1;

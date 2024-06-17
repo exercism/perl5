@@ -16,3 +16,5 @@ sub is_isosceles ($triangle) {
 sub is_scalene ($triangle) {
     return undef;
 }
+
+1;

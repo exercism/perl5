@@ -8,3 +8,5 @@ our @EXPORT_OK = qw<annotate>;
 sub annotate ($minefield) {
     return undef;
 }
+
+1;

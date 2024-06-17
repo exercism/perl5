@@ -23,3 +23,5 @@ has direction => (
 sub enact ( $self, $instructions ) {
     return $self;
 }
+
+1;

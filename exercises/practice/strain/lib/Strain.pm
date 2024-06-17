@@ -12,3 +12,5 @@ sub keep ( $input, $function ) {
 sub discard ( $input, $function ) {
     return undef;
 }
+
+1;

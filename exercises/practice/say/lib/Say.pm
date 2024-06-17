@@ -8,3 +8,5 @@ our @EXPORT_OK = qw<say_number>;
 sub say_number ($number) {
     return undef;
 }
+
+1;

@@ -9,3 +9,4 @@ sub add_gigasecond ($time) {
     return undef;
 }
 
+1;

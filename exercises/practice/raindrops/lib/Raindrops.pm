@@ -8,3 +8,5 @@ our @EXPORT_OK = qw<raindrop>;
 sub raindrop ($number) {
     return undef;
 }
+
+1;

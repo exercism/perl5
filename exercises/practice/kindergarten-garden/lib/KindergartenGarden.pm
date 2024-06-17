@@ -15,3 +15,5 @@ sub plants ( $diagram, $student ) {
 
     return undef;
 }
+
+1;

@@ -21,3 +21,5 @@ sub get_languages (@elements) {
 
 sub has_language ($language) {
 }
+
+1;

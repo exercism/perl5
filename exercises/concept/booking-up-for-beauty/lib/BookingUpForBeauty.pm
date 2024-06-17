@@ -35,3 +35,5 @@ sub describe_appointment ($date_string) {
     my $time = _parse_datetime($date_string);
     return sprintf('You have an appointment on %02d/%02d/%04d %d:%02d %s', 1, 31, 2019, 6, 4, 'PM');
 }
+
+1;

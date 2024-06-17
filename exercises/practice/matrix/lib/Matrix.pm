@@ -12,3 +12,5 @@ sub extract_row ( $matrix, $row ) {
 sub extract_column ( $matrix, $column ) {
     return undef;
 }
+
+1;

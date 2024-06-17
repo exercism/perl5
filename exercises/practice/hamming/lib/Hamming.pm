@@ -8,3 +8,5 @@ our @EXPORT_OK = qw<hamming_distance>;
 sub hamming_distance ( $strand1, $strand2 ) {
     return undef;
 }
+
+1;

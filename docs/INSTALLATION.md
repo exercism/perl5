@@ -1,8 +1,19 @@
 # Installation
 
+## Perl Version Notes
+The track targets the latest stable release of Perl, but it is possible to use versions of Perl as old as 5.20.
+If you are unable to use the version specified in the stub files, it is recomended to replace `use v5.XX;` with the following code:
+
+```perl
+use strict;
+use warnings;
+use feature qw<signatures>;
+```
+
 ## Unix/Linux/Mac OSX
-Perl is likely already installed. Run `perl -v` to check which version you have.
-If your version is older than v5.20, or you would like to try out newer versions of Perl, take a look at 'Other Options'.
+Perl is likely already installed, however it is possible that this may not be the latest version.
+Run `perl -v` to check which version you have.
+If you wish to use a later version, check the 'Other Options' section.
 
 If you are using Fedora/Red Hat/CentOS, some core modules are not included with Perl.
 Use the `yum install perl-core` command to install them.

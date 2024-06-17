@@ -9,3 +9,5 @@ our @EXPORT_OK = qw<hello>;
 sub hello () {
     return 'Goodbye, Mars!';
 }
+
+1;

@@ -8,3 +8,5 @@ our @EXPORT_OK = qw<transform>;
 sub transform ($data) {
     return undef;
 }
+
+1;

@@ -9,3 +9,4 @@ sub meetup ($desc) {
     return undef;
 }
 
+1;

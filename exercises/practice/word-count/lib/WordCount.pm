@@ -8,3 +8,5 @@ our @EXPORT_OK = qw<count_words>;
 sub count_words ($sentence) {
     return undef;
 }
+
+1;

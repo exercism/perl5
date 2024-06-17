@@ -7,3 +7,5 @@ our @EXPORT_OK = qw<score_dart>;
 
 sub score_dart ( $x, $y ) {
 }
+
+1;

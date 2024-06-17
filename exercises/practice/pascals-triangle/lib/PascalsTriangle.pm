@@ -9,3 +9,4 @@ sub pascal_rows ($rows) {
     return undef;
 }
 
+1;

@@ -18,3 +18,5 @@ sub add_minutes ( $self, $amount ) {
 sub subtract_minutes ( $self, $amount ) {
     return $self;
 }
+
+1;

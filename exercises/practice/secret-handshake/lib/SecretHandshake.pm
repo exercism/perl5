@@ -8,3 +8,5 @@ our @EXPORT_OK = qw<handshake>;
 sub handshake ($number) {
     return undef;
 }
+
+1;

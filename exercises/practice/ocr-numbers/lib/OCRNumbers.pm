@@ -8,3 +8,5 @@ our @EXPORT_OK = qw<convert_ocr>;
 sub convert_ocr ($string) {
     return undef;
 }
+
+1;

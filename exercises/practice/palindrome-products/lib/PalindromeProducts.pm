@@ -12,3 +12,5 @@ sub smallest_palindrome ( $min, $max ) {
 sub largest_palindrome ( $min, $max ) {
     return undef;
 }
+
+1;
