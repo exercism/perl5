@@ -22,7 +22,10 @@ sub bar () {
 
 There are scalar (`$foo`), array (`@bar`), and hash (`%baz`) variables.
 To keep things simple, only scalar variables will be used here.
-A scalar is either a string, a number, or a [reference][perlreftut] to something.
+A scalar value can be the following: a string, a number, a boolean, or a [reference][perlreftut] to something.
+The absence of a value is `undef`.
+
+```perl
 
 The keywords `my` and `our` will declare a variable in the lexical scope e.g. `my $foo;`.
 With `our`, the variable will also be aliased to a package variable of the same name.
