@@ -8,3 +8,5 @@ our @EXPORT_OK = qw<count_nucleotides>;
 sub count_nucleotides ($strand) {
     return undef;
 }
+
+1;

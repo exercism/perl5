@@ -26,3 +26,5 @@ sub add ($self) {
 sub sort ($self) {
     return [];
 }
+
+1;

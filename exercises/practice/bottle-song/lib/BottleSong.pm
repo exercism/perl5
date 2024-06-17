@@ -21,3 +21,5 @@ my %numbers = (
 sub sing ( $bottles, $verses ) {
     return undef;
 }
+
+1;

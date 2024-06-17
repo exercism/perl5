@@ -12,3 +12,5 @@ sub encode_atbash ($phrase) {
 sub decode_atbash ($phrase) {
     return undef;
 }
+
+1;

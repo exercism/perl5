@@ -12,3 +12,5 @@ sub allergic_to ( $item, $score ) {
 sub list_allergies ($score) {
     return undef;
 }
+
+1;

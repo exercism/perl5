@@ -21,3 +21,5 @@ sub sort_players_by_score {
 
 sub delete_player ($player) {
 }
+
+1;

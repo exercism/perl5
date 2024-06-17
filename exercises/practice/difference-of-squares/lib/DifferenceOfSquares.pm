@@ -16,3 +16,5 @@ sub sum_of_squares ($number) {
 sub difference_of_squares ($number) {
     return undef;
 }
+
+1;

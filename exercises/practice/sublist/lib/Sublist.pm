@@ -8,3 +8,5 @@ our @EXPORT_OK = qw<compare_lists>;
 sub compare_lists ( $list1, $list2 ) {
     return undef;
 }
+
+1;

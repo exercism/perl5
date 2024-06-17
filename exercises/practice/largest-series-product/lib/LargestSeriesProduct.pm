@@ -8,3 +8,5 @@ our @EXPORT_OK = qw<largest_product>;
 sub largest_product ( $digits, $span ) {
     return undef;
 }
+
+1;

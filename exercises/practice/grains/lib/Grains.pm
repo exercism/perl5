@@ -12,3 +12,5 @@ sub grains_on_square ($square) {
 sub total_grains () {
     return undef;
 }
+
+1;

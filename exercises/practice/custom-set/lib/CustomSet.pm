@@ -47,3 +47,5 @@ sub difference ( $self, $other ) {
 sub union ( $self, $other ) {
     return undef;
 }
+
+1;

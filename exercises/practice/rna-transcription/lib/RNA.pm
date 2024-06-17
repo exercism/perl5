@@ -8,3 +8,5 @@ our @EXPORT_OK = qw<to_rna>;
 sub to_rna ($dna) {
     return undef;
 }
+
+1;

@@ -14,3 +14,5 @@ has column => (
 sub can_attack ( $self, $other ) {
     return undef;
 }
+
+1;

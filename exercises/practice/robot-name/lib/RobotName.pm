@@ -11,3 +11,5 @@ has name => ( is => 'rwp' );
 sub reset_name ($self) {
     return undef; # Replace this with your own code to pass the tests.
 }
+
+1;

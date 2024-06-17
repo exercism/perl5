@@ -7,7 +7,7 @@ Symbols in the package's `@EXPORT` array will be imported by default.
 Symbols in the package's `@EXPORT_OK` array must be imported explicitly.
 
 Before Perl `v5.37`, a module would have to end in a true value (usually `1`) to indicate the module had loaded successfully.
-This is no longer necessary when using the [`module_true`][module_true] feature.
+This is not necessary when using the [`module_true`][module_true] feature.
 
 ## Exporting
 

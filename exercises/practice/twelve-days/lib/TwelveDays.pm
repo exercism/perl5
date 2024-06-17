@@ -9,3 +9,4 @@ sub recite ( $start, $end ) {
     return '';
 }
 
+1;

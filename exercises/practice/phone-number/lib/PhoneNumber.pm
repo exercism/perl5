@@ -21,3 +21,4 @@ sub clean_number ($number) {
     return undef;
 }
 
+1;

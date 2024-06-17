@@ -18,3 +18,5 @@ sub decode ($self) {
 sub _build_key ($self) {
     return undef;
 }
+
+1;

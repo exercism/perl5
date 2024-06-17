@@ -8,3 +8,5 @@ our @EXPORT_OK = qw<proverb>;
 sub proverb ($items) {
     return undef;
 }
+
+1;

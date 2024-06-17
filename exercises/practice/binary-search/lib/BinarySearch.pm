@@ -8,3 +8,5 @@ our @EXPORT_OK = qw<binary_search>;
 sub binary_search ( $array, $value ) {
     return undef;
 }
+
+1;

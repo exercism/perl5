@@ -18,3 +18,5 @@ sub remove_items ( $inventory, $items ) {
 sub delete_item ( $inventory, $item ) {
     return $inventory;
 }
+
+1;

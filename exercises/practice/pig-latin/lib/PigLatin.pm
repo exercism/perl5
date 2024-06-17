@@ -9,3 +9,4 @@ sub translate ($phrase) {
     return undef;
 }
 
+1;
