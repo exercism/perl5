@@ -56,7 +56,7 @@ scalar @names; # 3
 scalar ('Alice', 'Bob', 'Charlie'); # 'Charlie' (and some warnings).
 ```
 
-Read more in the following article: [What is the difference between a list and an array?](https://perldoc.pl/perlfaq4#What-is-the-difference-between-a-list-and-an-array?)
+Read more in the following article: [What is the difference between a list and an array?][perlfaq4listarray]
 
 [perlfaq4listarray]: https://perldoc.pl/perlfaq4#What-is-the-difference-between-a-list-and-an-array?
 [grep]: https://perldoc.pl/functions/grep
