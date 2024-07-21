@@ -1,0 +1,17 @@
+{
+  "authors": [
+    "m-dango"
+  ],
+  "files": {
+    "solution": [
+      "lib/MicroBlog.pm"
+    ],
+    "test": [
+      "t/micro-blog.t"
+    ],
+    "example": [
+      ".meta/solutions/lib/MicroBlog.pm"
+    ]
+  },
+  "blurb": "Given an input string, truncate it to 5 characters."
+}

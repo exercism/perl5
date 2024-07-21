@@ -1,0 +1,28 @@
+subs: truncate_post
+
+properties:
+  truncate:
+    test: |-
+      use Data::Dmp;
+      use Encode;
+
+      sprintf(<<'END', dmp(Encode::encode('UTF-8', $case->{input}{phrase})), $case->{expected}, $case->{description});
+      is(
+          truncate_post(%s),
+          '%s',
+          '%s',
+      );
+      END
+
+
+example: |-
+  use Encode;
+
+  sub truncate_post ($utf8_bytes) {
+      return substr(Encode::decode('UTF-8', $utf8_bytes), 0, 5);
+  }
+
+stub: |-
+  sub truncate_post ($utf8_bytes) {
+      return undef;
+  }
