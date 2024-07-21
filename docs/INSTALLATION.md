@@ -36,9 +36,8 @@ You can either install this directly from the site or use the [chocolatey packag
   A free, ready-to-install Perl distribution for Windows, Linux and Mac OS X, designed for community developers or open source projects that are not business- or mission-critical.
 
 ### Installing Necessary Modules
-In addition to Perl, you will also need to install the `Test2::V0` testing bundle.
-Use the following instructions to set this up (or feel free to use your favorite
-module installer if you are already familiar with Perl):
+If you are using a version of Perl older than 5.40, you will need to install the `Test2::V0` testing bundle.
+Use the following instructions to set this up (or feel free to use your favorite module installer if you are already familiar with Perl):
 
 #### local::lib
 * Ensure that the exercism CLI has already been installed and configured.
