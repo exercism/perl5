@@ -1,29 +1,25 @@
-package Queen;
-
-use Moo;
+use strict;
+use warnings;
 use experimental qw<signatures postderef postderef_qq>;
+use Feature::Compat::Class;
 
-has row => (
-    is  => 'ro',
-    isa => sub {
-        die 'row not on board' if $_[0] < 0 || $_[0] > 7;
-    },
-);
+class Queen;
 
-has column => (
-    is  => 'ro',
-    isa => sub {
-        die 'column not on board' if $_[0] < 0 || $_[0] > 7;
-    },
-);
+field $row : reader : param;
+field $column : reader : param;
 
-sub can_attack ( $self, $other ) {
+ADJUST {
+    die 'row not on board'    if $row < 0    || $row > 7;
+    die 'column not on board' if $column < 0 || $column > 7;
+}
+
+method can_attack ($other) {
 
     # Same row or column
-    return 1 if $self->row == $other->row || $self->column == $other->column;
+    return 1 if $row == $other->row || $column == $other->column;
 
     # Same diagonal
-    return 1 if abs( $self->row - $other->row ) == abs( $self->column - $other->column );
+    return 1 if abs( $row - $other->row ) == abs( $column - $other->column );
 
     return 0;
 }

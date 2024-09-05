@@ -1,21 +1,20 @@
-package Clock;
-
 use v5.40;
-use Moo;
+use experimental qw<class>;
 
-# rwp = read-write protected
-has hour   => ( is => 'rwp' );
-has minute => ( is => 'rwp' );
+class Clock;
 
-sub time ($self) {
+field $hour : reader : param;
+field $minute : reader : param;
+
+method time () {
     return undef;
 }
 
-sub add_minutes ( $self, $amount ) {
+method add_minutes ($amount) {
     return $self;
 }
 
-sub subtract_minutes ( $self, $amount ) {
+method subtract_minutes ($amount) {
     return $self;
 }
 

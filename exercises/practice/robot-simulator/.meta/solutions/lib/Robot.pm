@@ -1,68 +1,57 @@
-package Robot;
 
-use Moo;
+use strict;
+use warnings;
 use experimental qw<signatures postderef postderef_qq>;
+use Feature::Compat::Class;
 
-use List::Util qw<none>;
+class Robot;
 
-has x => (
-    is => 'rwp',
-);
+field $x : reader param;
+field $y : reader param;
+field $direction : reader param;
 
-has y => (
-    is => 'rwp',
-);
-
-has direction => (
-    is  => 'rwp',
-    isa => sub {
-        die if none { $_[0] eq $_ } qw<north south east west>;
-    },
-);
-
-sub enact ( $self, $instructions ) {
-
+method enact ($instructions) {
     for my $step ( split //, $instructions ) {
         if ( $step eq 'A' ) {
-            if ( $self->direction eq 'north' ) {
-                $self->_set_y( $self->y + 1 );
+            if ( $direction eq 'north' ) {
+                $y += 1;
             }
-            elsif ( $self->direction eq 'south' ) {
-                $self->_set_y( $self->y - 1 );
+            elsif ( $direction eq 'south' ) {
+                $y -= 1;
             }
-            elsif ( $self->direction eq 'east' ) {
-                $self->_set_x( $self->x + 1 );
+            elsif ( $direction eq 'east' ) {
+                $x += 1;
             }
-            elsif ( $self->direction eq 'west' ) {
-                $self->_set_x( $self->x - 1 );
+            elsif ( $direction eq 'west' ) {
+                $x -= 1;
             }
         }
         elsif ( $step eq 'L' ) {
-            if ( $self->direction eq 'north' ) {
-                $self->_set_direction('west');
+            if ( $direction eq 'north' ) {
+                $direction = 'west';
             }
-            elsif ( $self->direction eq 'west' ) {
-                $self->_set_direction('south');
+            elsif ( $direction eq 'west' ) {
+                $direction = 'south';
             }
-            elsif ( $self->direction eq 'south' ) {
-                $self->_set_direction('east');
+            elsif ( $direction eq 'south' ) {
+                $direction = 'east';
             }
-            elsif ( $self->direction eq 'east' ) {
-                $self->_set_direction('north');
+            elsif ( $direction eq 'east' ) {
+                $direction = 'north';
             }
         }
         elsif ( $step eq 'R' ) {
-            if ( $self->direction eq 'north' ) {
-                $self->_set_direction('east');
+            if ( $direction eq 'north' ) {
+                $direction = 'east';
             }
-            elsif ( $self->direction eq 'east' ) {
-                $self->_set_direction('south');
+            elsif ( $direction eq 'east' ) {
+                $direction = 'south';
             }
-            elsif ( $self->direction eq 'south' ) {
-                $self->_set_direction('west');
+            elsif ( $direction eq 'south' ) {
+                $direction = 'west';
             }
-            elsif ( $self->direction eq 'west' ) {
-                $self->_set_direction('north');
+            elsif ( $direction eq 'west' ) {
+                $direction = 'north';
             }
         }
     }

@@ -1,4 +1,4 @@
-moo: true
+class: true
 tests: |
     my $cipher;
 properties:
@@ -85,12 +85,9 @@ properties:
       }
 
 example: |-
-  has key => (
-      is => 'lazy',
-  );
+  field $key :reader :param = join '', map { ('a'..'z')[rand 26] } 1..100;
 
-  sub encode ($self, $plaintext) {
-      my $key = $self->key;
+  method encode ($plaintext) {
       my $key_length = length $key;
       my $ciphertext = '';
       for my $i (0..length($plaintext)-1) {
@@ -103,8 +100,7 @@ example: |-
       return $ciphertext;
   }
 
-  sub decode ($self, $ciphertext) {
-      my $key = $self->key;
+  method decode ($ciphertext) {
       my $key_length = length $key;
       my $plaintext = '';
       for my $i (0..length($ciphertext)-1) {
@@ -117,23 +113,14 @@ example: |-
       return $plaintext;
   }
   
-  sub _build_key {
-      return join '', map { ('a'..'z')[rand 26] } 1..100;
-  }
 
 stub: |-
-  has key => (
-      is => 'lazy',
-  );
+  field $key :reader :param = '';
   
-  sub encode ($self) {
+  method encode ($plaintext) {
       return undef;
   }
   
-  sub decode ($self) {
-      return undef;
-  }
-  
-  sub _build_key ($self) {
+  method decode ($ciphertext) {
       return undef;
   }

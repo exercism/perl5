@@ -1,14 +1,14 @@
-package SimpleCipher;
 
-use Moo;
+use strict;
+use warnings;
 use experimental qw<signatures postderef postderef_qq>;
+use Feature::Compat::Class;
 
-has key => (
-    is => 'lazy',
-);
+class SimpleCipher;
 
-sub encode ( $self, $plaintext ) {
-    my $key        = $self->key;
+field $key : reader : param = join '', map { ( 'a' .. 'z' )[ rand 26 ] } 1 .. 100;
+
+method encode ($plaintext) {
     my $key_length = length $key;
     my $ciphertext = '';
     for my $i ( 0 .. length($plaintext) - 1 ) {
@@ -21,8 +21,7 @@ sub encode ( $self, $plaintext ) {
     return $ciphertext;
 }
 
-sub decode ( $self, $ciphertext ) {
-    my $key        = $self->key;
+method decode ($ciphertext) {
     my $key_length = length $key;
     my $plaintext  = '';
     for my $i ( 0 .. length($ciphertext) - 1 ) {
@@ -33,10 +32,6 @@ sub decode ( $self, $ciphertext ) {
         $plaintext .= $new_char;
     }
     return $plaintext;
-}
-
-sub _build_key {
-    return join '', map { ( 'a' .. 'z' )[ rand 26 ] } 1 .. 100;
 }
 
 1;

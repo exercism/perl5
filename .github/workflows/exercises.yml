@@ -27,17 +27,7 @@ jobs:
           perl-version: ${{ matrix.perl }}
           distribution: ${{ matrix.distribution }}
 
-      - run: cpm install -g Test2::V0 UUID
-
-      - name: Exercise modules
-        shell: pwsh
-        run: >
-          (Get-ChildItem ./exercises/practice/*/.meta/solutions -Recurse -Include cpanfile).ForEach({
-            cd (Split-Path -Path $_ -Parent);
-            echo "$_";
-            cpm install;
-            cd -;
-          })
+      - run: cpm install -g Test2::V0 UUID Feature::Compat::Class
 
       - name: Test with prove
         run: prove exercises/practice/*/.meta/solutions/ --recurse --jobs 2

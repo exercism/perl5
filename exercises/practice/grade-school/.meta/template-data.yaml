@@ -39,15 +39,11 @@ properties:
       );
       END
 
-moo: true
+class: true
 example: |-
-  has grades => (
-      is => 'rwp',
-      default => sub { {} },
-  );
+  field %grades;
 
-  sub add ($self, $student, $grade) {
-      my %grades = %{$self->grades // {}};
+  method add ($student, $grade) {
       my %students = map { map {$_ => 1} @{$_} } values %grades;
 
       if ($students{$student}) {
@@ -55,23 +51,22 @@ example: |-
       }
 
       $grades{$grade} = [ sort @{ $grades{$grade} // [] }, $student ];
-      $self->_set_grades({%grades});
 
       return 1;
   }
 
-  sub roster ($self, $grade = undef) {
+  method roster ($grade = undef) {
       if (defined $grade) {
-          return $self->grades->{$grade} // [];
+          return $grades{$grade} // [];
       }
-      return [ map { @{$self->grades->{$_}} } sort(keys %{$self->grades}) ];
+      return [ map { @{$grades{$_}} } sort(keys %grades) ];
   }
 
 stub: |-
-  sub add ($self, $student, $grade) {
+  method add ($student, $grade) {
       return undef;
   }
 
-  sub roster ($self, $grade = undef) {
+  method roster ($grade = undef) {
       return undef;
   }

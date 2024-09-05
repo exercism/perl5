@@ -1,30 +1,23 @@
-package BinarySearchTree;
-
 use v5.40;
-use Moo;
+use experimental qw<class>;
 
-package BinarySearchTree::Node {
-    use Moo;
+class BinarySearchTree;
 
-    has data => (
-        is => 'ro',
-    );
-    has [qw<left right>] => (
-        is => 'rw',
-    );
-};
+field $root : param;
 
-has root => (
-    is => 'rw',
-);
+method add () {
 
-sub add ($self) {
-
-    # $self->root contains the initial node.
+    # $root contains the initial node.
 }
 
-sub sort ($self) {
+method sort () {
     return [];
+}
+
+class BinarySearchTree::Node {
+    field $data : reader : param;
+    field $left : reader;
+    field $right : reader;
 }
 
 1;

@@ -1,26 +1,14 @@
-package Robot;
 
 use v5.40;
-use Moo;
+use experimental qw<class>;
 
-use List::Util qw<none>;
+class Robot;
 
-has x => (
-    is => 'rwp',
-);
+field $x : reader param;
+field $y : reader param;
+field $direction : reader param;
 
-has y => (
-    is => 'rwp',
-);
-
-has direction => (
-    is  => 'rwp',
-    isa => sub {
-        die if none { $_[0] eq $_ } qw<north south east west>;
-    },
-);
-
-sub enact ( $self, $instructions ) {
+method enact ($instructions) {
     return $self;
 }
 

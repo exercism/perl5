@@ -1,13 +1,13 @@
-package GradeSchool;
-
 use v5.40;
-use Moo;
+use experimental qw<class>;
 
-sub add ( $self, $student, $grade ) {
+class GradeSchool;
+
+method add ( $student, $grade ) {
     return undef;
 }
 
-sub roster ( $self, $grade = undef ) {
+method roster ( $grade = undef ) {
     return undef;
 }
 

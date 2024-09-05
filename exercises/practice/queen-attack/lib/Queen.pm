@@ -1,17 +1,12 @@
-package Queen;
-
 use v5.40;
-use Moo;
+use experimental qw<class>;
 
-has row => (
-    is => 'ro',
-);
+class Queen;
 
-has column => (
-    is => 'ro',
-);
+field $row : reader : param;
+field $column : reader : param;
 
-sub can_attack ( $self, $other ) {
+method can_attack ($other) {
     return undef;
 }
 

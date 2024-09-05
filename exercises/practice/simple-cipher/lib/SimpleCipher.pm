@@ -1,21 +1,16 @@
-package SimpleCipher;
 
 use v5.40;
-use Moo;
+use experimental qw<class>;
 
-has key => (
-    is => 'lazy',
-);
+class SimpleCipher;
 
-sub encode ($self) {
+field $key : reader : param = '';
+
+method encode ($plaintext) {
     return undef;
 }
 
-sub decode ($self) {
-    return undef;
-}
-
-sub _build_key ($self) {
+method decode ($ciphertext) {
     return undef;
 }
 
