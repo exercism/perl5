@@ -6,7 +6,7 @@ use Feature::Compat::Class;
 class CustomSet;
 
 field $elements : param = [];
-field $set : reader(elements);
+field $set : reader(elements) = {};
 
 ADJUST {
     $set = { map { $_ => 1 } $elements->@* }
@@ -47,11 +47,11 @@ method is_equal_to ($other) {
 }
 
 method add ($element) {
-    return $self->new( elements => [ $self->_keys, $element ] );
+    return __CLASS__->new( elements => [ $self->_keys, $element ] );
 }
 
 method intersection ($other) {
-    return $self->new(
+    return __CLASS__->new(
         elements => [
             grep { $self->contains($_) && $other->contains($_) } $self->_keys, $other->_keys
         ]
@@ -59,7 +59,7 @@ method intersection ($other) {
 }
 
 method difference ($other) {
-    return $self->new(
+    return __CLASS__->new(
         elements => [
             grep { $self->contains($_) && !$other->contains($_) } $self->_keys, $other->_keys
         ]
@@ -67,7 +67,7 @@ method difference ($other) {
 }
 
 method union ($other) {
-    return $self->new( elements => [ $self->_keys, $other->_keys ] );
+    return __CLASS__->new( elements => [ $self->_keys, $other->_keys ] );
 }
 
 1;
