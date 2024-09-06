@@ -5,10 +5,11 @@ use Feature::Compat::Class;
 
 class CustomSet;
 
-field $elements : reader : param;
+field $elements : param = [];
+field $set : reader(elements);
 
 ADJUST {
-    $elements = { map { $_ => 1 } $elements->@* }
+    $set = { map { $_ => 1 } $elements->@* }
 }
 
 method _keys () {

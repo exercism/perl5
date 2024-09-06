@@ -1,9 +1,8 @@
 {{^class}}{{#package_comment}}{{&package_comment}}
 {{/package_comment}}package {{&package}};
-{{/class}}{{^older_perl_support}}
-use v5.40;{{#class}}
-use experimental qw<class>;{{/class}}{{/older_perl_support}}{{#older_perl_support}}
-use strict;
+
+{{/class}}{{^older_perl_support}}use v5.40;{{#class}}
+use experimental qw<class>;{{/class}}{{/older_perl_support}}{{#older_perl_support}}use strict;
 use warnings;
 use experimental qw<signatures postderef postderef_qq>;{{#class}}
 use Feature::Compat::Class;{{/class}}{{/older_perl_support}}{{#class}}
