@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
 
       - name: Set up perl
-        uses: shogo82148/actions-setup-perl@87c3ad5232e6c1b59da33bfde4fb24b0482901f1
+        uses: shogo82148/actions-setup-perl@9c1eca9952ccc07f9ca4a2097b63df93d9d138e9
         with:
           perl-version: ${{ matrix.perl }}
           distribution: ${{ matrix.distribution }}
