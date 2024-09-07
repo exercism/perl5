@@ -1,7 +1,8 @@
 # Installation
 
 ## Perl Version Notes
-The track targets the latest stable release of Perl, but it is possible to use versions of Perl as old as 5.20.
+The track targets the latest stable release of Perl.
+It is possible to use older versions of Perl, but it may be necessary to make adjustments to the provided stub files for compatibility.
 If you are unable to use the version specified in the stub files, it is recomended to replace `use v5.XX;` with the following code:
 
 ```perl
@@ -9,6 +10,8 @@ use strict;
 use warnings;
 use feature qw<signatures>;
 ```
+
+If the stub file contains `use experimental qw<class>;` and the version of Perl you are using does not support this, you may either substitute this with `use Feature::Compat::Class;`, or use an alternative Object Orientation system, e.g., [Moo](https://metacpan.org/pod/Moo).
 
 ## Unix/Linux/Mac OSX
 Perl is likely already installed, however it is possible that this may not be the latest version.
@@ -37,6 +40,7 @@ You can either install this directly from the site or use the [chocolatey packag
 
 ### Installing Necessary Modules
 If you are using a version of Perl older than 5.40, you will need to install the `Test2::V0` testing bundle.
+You will also need to install either `Feature::Compat::Class` or an alternative Object Orientation system for OOP exercises.
 Use the following instructions to set this up (or feel free to use your favorite module installer if you are already familiar with Perl):
 
 #### local::lib
@@ -44,15 +48,15 @@ Use the following instructions to set this up (or feel free to use your favorite
 Running `exercism workspace` should show you the appropriate path.
 
 * Download the `cpm` module installer and use it to install itself,
-`local::lib`, and `Test2::V0` into your `exercism/perl5` directory:
+`local::lib`, `Test2::V0`, and `Feature::Compat::Class` into your `exercism/perl5` directory:
 ```
 # *nix
 curl -sL --compressed https://git.io/cpm | \
-  perl - install -L $(exercism workspace)/perl5 App::cpm local::lib Test2::V0
+  perl - install -L $(exercism workspace)/perl5 App::cpm local::lib Test2::V0 Feature::Compat::Class
 
 # Microsoft PowerShell
 (Invoke-WebRequest -UseBasicParsing 'https://git.io/cpm').Content |
-  perl - install -L "$(exercism workspace)/perl5" App::cpm local::lib Test2::V0
+  perl - install -L "$(exercism workspace)/perl5" App::cpm local::lib Test2::V0 Feature::Compat::Class
 ```
 
 * Run `local::lib` to set up your environment to use the modules you have
@@ -66,16 +70,14 @@ perl -I"$(exercism workspace)/perl5/lib/perl5"
   -M"local::lib=--shelltype=powershell,$(exercism workspace)/perl5" | Invoke-Expression
 ```
 
-The environment changes from the above command will not persist, and will
-need to be rerun if you restart your shell. If you would like your environment
-to be set up automatically each time, modify your `.bashrc` (or \*nix equivalent)
-or your `PowerShell_profile.ps1` to include the above command.
+The environment changes from the above command will not persist, and will need to be rerun if you restart your shell.
+If you would like your environment to be set up automatically each time, modify your `.bashrc` (or \*nix equivalent) or your `PowerShell_profile.ps1` to include the above command.
 
 The documentation for local::lib can be found [here](https://perldoc.pl/local::lib).
 
 #### OS Packages
-Alternatively, the package manager for your OS may have a Test2 Suite package
-available for you to install. Available options include:
+Alternatively, the package manager for your OS may have a Test2 Suite package available for you to install.
+Available options include:
 
 * Ubuntu: [libtest2-suite-perl](https://launchpad.net/ubuntu/+source/libtest2-suite-perl)
 * Debian: [libtest2-suite-perl (via backports)](https://packages.debian.org/stretch-backports/libtest2-suite-perl)
