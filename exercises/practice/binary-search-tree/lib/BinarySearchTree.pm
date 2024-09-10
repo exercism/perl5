@@ -3,7 +3,7 @@ use experimental qw<class>;
 
 class BinarySearchTree;
 
-field $root : param;
+field $root :param;
 
 method add () {
 
@@ -15,9 +15,9 @@ method sort () {
 }
 
 class BinarySearchTree::Node {
-    field $data : reader : param;
-    field $left : reader;
-    field $right : reader;
+    field $data :reader :param;
+    field $left :reader;
+    field $right :reader;
 }
 
 1;

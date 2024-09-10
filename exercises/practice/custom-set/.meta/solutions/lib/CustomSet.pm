@@ -5,8 +5,8 @@ use Feature::Compat::Class;
 
 class CustomSet;
 
-field $elements : param = [];
-field $set : reader(elements) = {};
+field $elements :param = [];
+field $set :reader(elements) = {};
 
 ADJUST {
     $set = { map { $_ => 1 } $elements->@* }

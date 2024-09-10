@@ -3,8 +3,8 @@ use experimental qw<class>;
 
 class Clock;
 
-field $hour : reader : param;
-field $minute : reader : param;
+field $hour :reader :param;
+field $minute :reader :param;
 
 method time () {
     return undef;

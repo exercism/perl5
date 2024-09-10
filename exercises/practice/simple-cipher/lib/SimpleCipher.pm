@@ -3,7 +3,7 @@ use experimental qw<class>;
 
 class SimpleCipher;
 
-field $key : reader : param = '';
+field $key :reader :param = '';
 
 method encode ($plaintext) {
     return undef;

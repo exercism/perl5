@@ -3,7 +3,7 @@ use experimental qw<class>;
 
 class CustomSet;
 
-field $elements : reader : param;
+field $elements :reader :param;
 
 method is_empty () {
     return undef;

@@ -5,7 +5,7 @@ use Feature::Compat::Class;
 
 class BinarySearchTree;
 
-field $root : param;
+field $root :param;
 
 method add ($data) {
     $root->set($data);
@@ -31,9 +31,9 @@ method sort () {
 }
 
 class BinarySearchTree::Node {
-    field $data : reader : param;
-    field $left : reader;
-    field $right : reader;
+    field $data :reader :param;
+    field $left :reader;
+    field $right :reader;
 
     method set ($new_data) {
         if ( $new_data > $data ) {

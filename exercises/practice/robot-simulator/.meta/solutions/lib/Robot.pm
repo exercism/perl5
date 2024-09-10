@@ -5,9 +5,9 @@ use Feature::Compat::Class;
 
 class Robot;
 
-field $x : reader param;
-field $y : reader param;
-field $direction : reader param;
+field $x :reader :param;
+field $y :reader :param;
+field $direction :reader :param;
 
 method enact ($instructions) {
     for my $step ( split //, $instructions ) {

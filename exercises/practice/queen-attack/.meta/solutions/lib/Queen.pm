@@ -5,8 +5,8 @@ use Feature::Compat::Class;
 
 class Queen;
 
-field $row : reader : param;
-field $column : reader : param;
+field $row :reader :param;
+field $column :reader :param;
 
 ADJUST {
     die 'row not on board'    if $row < 0    || $row > 7;

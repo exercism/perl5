@@ -3,7 +3,7 @@ use experimental qw<class>;
 
 class RobotName;
 
-field $name : reader;
+field $name :reader;
 
 method reset_name () {
     return undef;

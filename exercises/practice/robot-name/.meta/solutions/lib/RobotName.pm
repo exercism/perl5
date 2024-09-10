@@ -5,7 +5,7 @@ use Feature::Compat::Class;
 
 class RobotName;
 
-field $name : reader;
+field $name :reader;
 
 ADJUST {
     $name = $self->reset_name();

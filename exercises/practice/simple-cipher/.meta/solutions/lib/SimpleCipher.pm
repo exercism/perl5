@@ -5,7 +5,7 @@ use Feature::Compat::Class;
 
 class SimpleCipher;
 
-field $key : reader : param = join '', map { ( 'a' .. 'z' )[ rand 26 ] } 1 .. 100;
+field $key :reader :param = join '', map { ( 'a' .. 'z' )[ rand 26 ] } 1 .. 100;
 
 method encode ($plaintext) {
     my $key_length = length $key;

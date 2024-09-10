@@ -7,8 +7,8 @@ class Clock;
 
 use POSIX qw<floor>;
 
-field $hour : reader : param   = 0;
-field $minute : reader : param = 0;
+field $hour :reader :param   = 0;
+field $minute :reader :param = 0;
 
 method time () {
     return sprintf '%02d:%02d', $hour, $minute;
