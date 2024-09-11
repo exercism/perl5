@@ -1,12 +1,12 @@
-{{#package_comment}}{{&package_comment}}
+{{^class}}{{#package_comment}}{{&package_comment}}
 {{/package_comment}}package {{&package}};
 
-{{^older_perl_support}}
-use v5.40;{{/older_perl_support}}{{#moo}}
-use Moo;{{/moo}}{{#older_perl_support}}{{^moo}}
-use strict;
-use warnings;{{/moo}}
-use experimental qw<signatures postderef postderef_qq>;{{/older_perl_support}}
+{{/class}}{{^older_perl_support}}use v5.40;{{#class}}
+use experimental qw<class>;{{/class}}{{/older_perl_support}}{{#older_perl_support}}use strict;
+use warnings;
+use experimental qw<signatures postderef postderef_qq>;{{#class}}
+use Feature::Compat::Class;{{/class}}{{/older_perl_support}}{{#class}}
+class {{&package}};{{/class}}
 {{#subs}}
 use Exporter qw<import>;
 our @EXPORT_OK = qw<{{&subs}}>;{{/subs}}{{#module_file}}

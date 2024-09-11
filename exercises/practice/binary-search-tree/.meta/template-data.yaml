@@ -14,46 +14,15 @@ properties:
       );
       END
 
-moo: 1
+class: true
 example: |-
-  package BinarySearchTree::Node {
-      use Moo;
-      no warnings qw<experimental::signatures>;
+  field $root :param;
 
-      has data => (
-          is => 'ro',
-      );
-      has [qw<left right>] => (
-          is => 'rw',
-      );
-
-      sub set ($self, $data) {
-          if ($data > $self->data) {
-              if ($self->right) {
-                  $self->right->set($data);
-              }
-              else {
-                  $self->right(BinarySearchTree::Node->new(data => $data));
-              }
-          }
-          elsif ($self->left) {
-              $self->left->set($data);
-          }
-          else {
-              $self->left(BinarySearchTree::Node->new(data => $data));
-          }
-      }
-  };
-
-  has root => (
-      is => 'rw',
-  );
-
-  sub add ($self, $data) {
-      $self->root->set($data);
+  method add ($data) {
+      $root->set($data);
   }
 
-  sub sort ($self) {
+  method sort () {
       my @sorted;
       my $sub;
       $sub = sub {
@@ -68,30 +37,47 @@ example: |-
               $sub->($node->right);
           }
       };
-      $sub->($self->root);
+      $sub->($root);
       return [@sorted];
   }
 
-stub: |-
-  package BinarySearchTree::Node {
-      use Moo;
+  class BinarySearchTree::Node {
+      field $data  :reader :param;
+      field $left  :reader;
+      field $right :reader;
 
-      has data => (
-        is => 'ro',
-      );
-      has [qw<left right>] => (
-        is => 'rw',
-      );
-  };
-
-  has root => (
-      is => 'rw',
-  );
-
-  sub add ($self) {
-      # $self->root contains the initial node.
+      method set ($new_data) {
+          if ($new_data > $data) {
+              if ($right) {
+                  $right->set($new_data);
+              }
+              else {
+                  $right = BinarySearchTree::Node->new(data => $new_data);
+              }
+          }
+          elsif ($left) {
+              $left->set($new_data);
+          }
+          else {
+              $left = BinarySearchTree::Node->new(data => $new_data);
+          }
+      }
   }
 
-  sub sort ($self) {
+
+stub: |-
+  field $root :param;
+
+  method add () {
+      # $root contains the initial node.
+  }
+
+  method sort () {
       return [];
+  }
+
+  class BinarySearchTree::Node {
+      field $data  :reader :param;
+      field $left  :reader;
+      field $right :reader;
   }

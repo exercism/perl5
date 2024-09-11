@@ -1,46 +1,44 @@
-package CustomSet;
-
-use Moo;
+use strict;
+use warnings;
 use experimental qw<signatures postderef postderef_qq>;
+use Feature::Compat::Class;
 
-use Types::Common qw<-types>;
-use namespace::clean;
+class CustomSet;
 
-has elements => (
-    is  => 'ro',
-    isa => ( HashRef [Bool] )->plus_coercions(
-        ArrayRef, sub { +{ map { $_ => 1 } @{ $_[0] } } },
-    ),
-    coerce => 1,
-);
+field $elements :param = [];
+field $set :reader(elements) = {};
 
-sub _keys {
-    keys %{ $_[0]->elements };
+ADJUST {
+    $set = { map { $_ => 1 } $elements->@* }
 }
 
-sub is_empty {
-    !$_[0]->_keys;
+method _keys () {
+    keys %{ $self->elements };
 }
 
-sub contains ( $self, $element ) {
+method is_empty () {
+    !$self->_keys;
+}
+
+method contains ($element) {
     return !!$self->elements->{$element};
 }
 
-sub is_subset_of ( $self, $other ) {
+method is_subset_of ($other) {
     for my $key ( $self->_keys ) {
         return 0 unless $other->contains($key);
     }
     return 1;
 }
 
-sub is_disjoint_of ( $self, $other ) {
+method is_disjoint_of ($other) {
     for my $key ( $self->_keys ) {
         return 0 if $other->contains($key);
     }
     return 1;
 }
 
-sub is_equal_to ( $self, $other ) {
+method is_equal_to ($other) {
     return 0 if $self->_keys != $other->_keys;
     for my $key ( $self->_keys ) {
         return 0 unless $other->contains($key);
@@ -48,28 +46,28 @@ sub is_equal_to ( $self, $other ) {
     return 1;
 }
 
-sub add ( $self, $element ) {
-    return __PACKAGE__->new( elements => [ $self->_keys, $element ] );
+method add ($element) {
+    return __CLASS__->new( elements => [ $self->_keys, $element ] );
 }
 
-sub intersection ( $self, $other ) {
-    return __PACKAGE__->new(
+method intersection ($other) {
+    return __CLASS__->new(
         elements => [
             grep { $self->contains($_) && $other->contains($_) } $self->_keys, $other->_keys
         ]
     );
 }
 
-sub difference ( $self, $other ) {
-    return __PACKAGE__->new(
+method difference ($other) {
+    return __CLASS__->new(
         elements => [
             grep { $self->contains($_) && !$other->contains($_) } $self->_keys, $other->_keys
         ]
     );
 }
 
-sub union ( $self, $other ) {
-    return __PACKAGE__->new( elements => [ $self->_keys, $other->_keys ] );
+method union ($other) {
+    return __CLASS__->new( elements => [ $self->_keys, $other->_keys ] );
 }
 
 1;

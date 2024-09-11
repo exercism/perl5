@@ -1,6 +1,6 @@
-requires 'lib::gitroot';
 requires 'Data::Dmp';
-requires 'Moo';
+requires 'Feature::Compat::Class';
+requires 'lib::gitroot';
 requires 'namespace::autoclean';
 requires 'Path::Tiny';
 requires 'Perl::Tidy';

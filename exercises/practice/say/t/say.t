@@ -109,7 +109,7 @@ is( # begin: 9a43fed1-c875-4710-8286-5065d73b8a9e
 ); # end: 9a43fed1-c875-4710-8286-5065d73b8a9e
 
 like( # begin: 49a6a17b-084e-423e-994d-a87c0ecc05ef
-    dies( sub { say_number - 1 } ),
+    dies( sub { say_number -1 } ),
     qr/input out of range/,
     "numbers below zero are out of range",
 ); # end: 49a6a17b-084e-423e-994d-a87c0ecc05ef

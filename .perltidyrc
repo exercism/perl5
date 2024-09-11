@@ -5,3 +5,4 @@
 --novalign-side-comments
 --freeze-newlines
 --keep-old-breakpoints-after='('
+--nowant-right-space='A'

@@ -1,4 +1,4 @@
-moo: true
+class: true
 tests: |
   my ($set1, $set2);
 properties:
@@ -109,44 +109,40 @@ properties:
       END
 
 example: |-
-  use Types::Common qw<-types>;
-  use namespace::clean;
-
-  has elements => (
-      is => 'ro',
-      isa => (HashRef[Bool])->plus_coercions(
-          ArrayRef, sub { +{ map { $_ => 1 } @{$_[0]} } },
-      ),
-      coerce => 1,
-  );
-
-  sub _keys {
-      keys %{ $_[0]->elements };
+  field $elements :param = [];
+  field $set :reader(elements) = {};
+  
+  ADJUST {
+      $set = { map { $_ => 1 } $elements->@* }
   }
 
-  sub is_empty {
-      !$_[0]->_keys;
+  method _keys () {
+      keys %{ $self->elements };
   }
 
-  sub contains ($self, $element) {
+  method is_empty () {
+      !$self->_keys;
+  }
+
+  method contains ($element) {
       return !!$self->elements->{$element};
   }
 
-  sub is_subset_of ($self, $other) {
+  method is_subset_of ($other) {
       for my $key ($self->_keys) {
           return 0 unless $other->contains($key);
       }
       return 1;
   }
 
-  sub is_disjoint_of ($self, $other) {
+  method is_disjoint_of ($other) {
       for my $key ($self->_keys) {
           return 0 if $other->contains($key);
       }
       return 1;
   }
 
-  sub is_equal_to ($self, $other) {
+  method is_equal_to ($other) {
       return 0 if $self->_keys != $other->_keys;
       for my $key ($self->_keys) {
           return 0 unless $other->contains($key);
@@ -154,71 +150,65 @@ example: |-
       return 1;
   }
 
-  sub add ($self, $element) {
-      return __PACKAGE__->new(elements => [$self->_keys, $element]);
+  method add ($element) {
+      return __CLASS__->new(elements => [$self->_keys, $element]);
   }
 
-  sub intersection ($self, $other) {
-      return __PACKAGE__->new(
+  method intersection ($other) {
+      return __CLASS__->new(
         elements => [
           grep { $self->contains($_) && $other->contains($_) } $self->_keys, $other->_keys
         ]
       );
   }
 
-  sub difference ($self, $other) {
-      return __PACKAGE__->new(
+  method difference ($other) {
+      return __CLASS__->new(
         elements => [
           grep { $self->contains($_) && !$other->contains($_) } $self->_keys , $other->_keys
         ]
       );
   }
 
-  sub union ($self, $other) {
-      return __PACKAGE__->new(elements => [ $self->_keys, $other->_keys ]);
+  method union ($other) {
+      return __CLASS__->new(elements => [ $self->_keys, $other->_keys ]);
   }
 
 stub: |-
-  has elements => (
-      is => 'ro',
-      #coerce => sub {...},
-      # If you wish, one way of normalizing your objects
-      # e.g. making (elements => [1, 2, 3]) and (elements => [3, 2, 1]) identical
-      # would be to use the 'coerce' option: https://metacpan.org/pod/Moo#coerce
-  );
+  field $elements :reader :param;
 
-  sub is_empty ($self) {
+  method is_empty () {
       return undef;
   }
 
-  sub contains ($self, $element) {
+  method contains ($element) {
       return undef;
   }
 
-  sub is_subset_of ($self, $other) {
+  method is_subset_of ($other) {
       return undef;
   }
 
-  sub is_disjoint_of ($self, $other) {
+  method is_disjoint_of ($other) {
       return undef;
   }
 
-  sub is_equal_to ($self, $other) {
+  method is_equal_to ($other) {
       return undef;
   }
 
-  sub add ($self, $element) {
+  method add ($element) {
       return undef;
   }
 
-  sub intersection ($self, $other) {
+  method intersection ($other) {
       return undef;
   }
 
-  sub difference ($self, $other) {
+  method difference ($other) {
       return undef;
   }
 
-  sub union ($self, $other) {
+  method union ($other) {
       return undef;
   }

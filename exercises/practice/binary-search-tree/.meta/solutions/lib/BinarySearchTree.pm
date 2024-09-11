@@ -1,46 +1,17 @@
-package BinarySearchTree;
-
-use Moo;
+use strict;
+use warnings;
 use experimental qw<signatures postderef postderef_qq>;
+use Feature::Compat::Class;
 
-package BinarySearchTree::Node {
-    use Moo;
-    no warnings qw<experimental::signatures>;
+class BinarySearchTree;
 
-    has data => (
-        is => 'ro',
-    );
-    has [qw<left right>] => (
-        is => 'rw',
-    );
+field $root :param;
 
-    sub set ( $self, $data ) {
-        if ( $data > $self->data ) {
-            if ( $self->right ) {
-                $self->right->set($data);
-            }
-            else {
-                $self->right( BinarySearchTree::Node->new( data => $data ) );
-            }
-        }
-        elsif ( $self->left ) {
-            $self->left->set($data);
-        }
-        else {
-            $self->left( BinarySearchTree::Node->new( data => $data ) );
-        }
-    }
-};
-
-has root => (
-    is => 'rw',
-);
-
-sub add ( $self, $data ) {
-    $self->root->set($data);
+method add ($data) {
+    $root->set($data);
 }
 
-sub sort ($self) {
+method sort () {
     my @sorted;
     my $sub;
     $sub = sub {
@@ -55,8 +26,31 @@ sub sort ($self) {
             $sub->( $node->right );
         }
     };
-    $sub->( $self->root );
+    $sub->($root);
     return [@sorted];
+}
+
+class BinarySearchTree::Node {
+    field $data :reader :param;
+    field $left :reader;
+    field $right :reader;
+
+    method set ($new_data) {
+        if ( $new_data > $data ) {
+            if ($right) {
+                $right->set($new_data);
+            }
+            else {
+                $right = BinarySearchTree::Node->new( data => $new_data );
+            }
+        }
+        elsif ($left) {
+            $left->set($new_data);
+        }
+        else {
+            $left = BinarySearchTree::Node->new( data => $new_data );
+        }
+    }
 }
 
 1;

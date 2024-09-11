@@ -1,5 +1,3 @@
-tests: |
-  my $todo;
 properties:
   create:
     test: |-
@@ -31,61 +29,49 @@ properties:
           %s,
       );
       END
-  equal:
-    test: |-
-      use Data::Dmp;
-      q{$todo = todo 'experimental feature' if Clock->new( hour => 0, minute => 0) =~ /OBJECT/;} . "\n" .
-      ($case->{expected} ? 'is' : 'isnt') . sprintf(<<'END', (map {@{$_}{qw<hour minute>}} @{$case->{input}}{qw<clock1 clock2>} ), dmp($case->{description}));
-      (
-          Clock->new( hour => %s, minute => %s ),
-          Clock->new( hour => %s, minute => %s ),
-          %s,
-      );
-      $todo = undef;
-      END
 
-moo: true
+class: true
 
 stub: |-
-  # rwp = read-write protected
-  has hour   => ( is => 'rwp' );
-  has minute => ( is => 'rwp' );
+  field $hour   :reader :param;
+  field $minute :reader :param;
 
-  sub time ($self) {
+  method time () {
     return undef;
   }
 
-  sub add_minutes ($self, $amount) {
+  method add_minutes ($amount) {
     return $self;
   }
 
-  sub subtract_minutes ($self, $amount) {
+  method subtract_minutes ($amount) {
     return $self;
   }
 
 example: |-
-  use POSIX ();
+  use POSIX qw<floor>;
 
-  has [qw(hour minute)] => (
-    is => 'rwp',
-    default => 0,
-  );
+  field $hour   :reader :param = 0;
+  field $minute :reader :param = 0;
 
-  sub time ($self) {
-    return sprintf '%02d:%02d', $self->hour, $self->minute;
+  method time () {
+      return sprintf '%02d:%02d', $hour, $minute;
   }
 
-  sub add_minutes ($self, $amount) {
-    $self->_set_minute($self->minute + $amount);
-    return $self->BUILD;
+  method add_minutes ($amount) {
+      return $self->_set_time( $hour * 60 + $minute + $amount );
   }
 
-  sub subtract_minutes ($self, $amount) {
-    return $self->add_minutes(-$amount);
+  method subtract_minutes ($amount) {
+      return $self->add_minutes( -$amount );
   }
 
-  sub BUILD ($self, @) {
-    $self->_set_hour( ( $self->hour + POSIX::floor($self->minute / 60) ) % 24 );
-    $self->_set_minute( $self->minute % 60 );
-    return $self;
+  ADJUST {
+      $self->_set_time( $hour * 60 + $minute );
+  }
+
+  method _set_time ($amount) {
+      $hour   = floor( $amount / 60 ) % 24;
+      $minute = $amount % 60;
+      return $self;
   }

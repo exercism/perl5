@@ -1,15 +1,13 @@
-package GradeSchool;
-
-use Moo;
+use strict;
+use warnings;
 use experimental qw<signatures postderef postderef_qq>;
+use Feature::Compat::Class;
 
-has grades => (
-    is      => 'rwp',
-    default => sub { {} },
-);
+class GradeSchool;
 
-sub add ( $self, $student, $grade ) {
-    my %grades   = %{ $self->grades // {} };
+field %grades;
+
+method add ( $student, $grade ) {
     my %students = map { map { $_ => 1 } @{$_} } values %grades;
 
     if ( $students{$student} ) {
@@ -17,16 +15,15 @@ sub add ( $self, $student, $grade ) {
     }
 
     $grades{$grade} = [ sort @{ $grades{$grade} // [] }, $student ];
-    $self->_set_grades( {%grades} );
 
     return 1;
 }
 
-sub roster ( $self, $grade = undef ) {
+method roster ( $grade = undef ) {
     if ( defined $grade ) {
-        return $self->grades->{$grade} // [];
+        return $grades{$grade} // [];
     }
-    return [ map { @{ $self->grades->{$_} } } sort( keys %{ $self->grades } ) ];
+    return [ map { @{ $grades{$_} } } sort( keys %grades ) ];
 }
 
 1;

@@ -1,31 +1,34 @@
-package Clock;
-
-use Moo;
+use strict;
+use warnings;
 use experimental qw<signatures postderef postderef_qq>;
+use Feature::Compat::Class;
 
-use POSIX ();
+class Clock;
 
-has [qw(hour minute)] => (
-    is      => 'rwp',
-    default => 0,
-);
+use POSIX qw<floor>;
 
-sub time ($self) {
-    return sprintf '%02d:%02d', $self->hour, $self->minute;
+field $hour :reader :param   = 0;
+field $minute :reader :param = 0;
+
+method time () {
+    return sprintf '%02d:%02d', $hour, $minute;
 }
 
-sub add_minutes ( $self, $amount ) {
-    $self->_set_minute( $self->minute + $amount );
-    return $self->BUILD;
+method add_minutes ($amount) {
+    return $self->_set_time( $hour * 60 + $minute + $amount );
 }
 
-sub subtract_minutes ( $self, $amount ) {
+method subtract_minutes ($amount) {
     return $self->add_minutes( -$amount );
 }
 
-sub BUILD ( $self, @ ) {
-    $self->_set_hour( ( $self->hour + POSIX::floor( $self->minute / 60 ) ) % 24 );
-    $self->_set_minute( $self->minute % 60 );
+ADJUST {
+    $self->_set_time( $hour * 60 + $minute );
+}
+
+method _set_time ($amount) {
+    $hour   = floor( $amount / 60 ) % 24;
+    $minute = $amount % 60;
     return $self;
 }
 

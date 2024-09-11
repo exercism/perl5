@@ -1,8 +1,4 @@
-package_comment: "# This will be class 'RobotName', defined using Moo (https://perlmaven.com/oop-with-moo)"
-lib_comment: '# Find modules in the same dir as this file.'
-feature_comment: '# Use the `say` function to output debugging info in the online editor.'
-
-moo: true
+class: true
 
 # Tests: inline here, since there is no canonical-data.json for this exercise
 tests: |-
@@ -22,17 +18,15 @@ tests: |-
   like $robot->name, $schema, 'New name should match schema'; # case: 6
 
 example: |-
-  # Declare a "name" attribute that is is 'rwp', read-write protected:
-  # read-only to consumers, but settable using $self->_set_name
-  has name => ( is => 'rwp' );
-
-  sub BUILD ($self, @) {
-      $self->reset_name;
+  field $name :reader;
+  
+  ADJUST {
+      $name = $self->reset_name();
   }
 
-  sub reset_name ($self) {
-      $self->_set_name( _rand_letter() . _rand_letter() . _suffix() );
-      return $self->name;
+  method reset_name () {
+      $name = _rand_letter() . _rand_letter() . _suffix();
+      return $name;
   }
 
   sub _rand_letter () {
@@ -45,10 +39,8 @@ example: |-
   }
 
 stub: |-
-  # Declare a "name" attribute that is is 'rwp', read-write protected:
-  # read-only to consumers, but settable using $self->_set_name
-  has name => ( is => 'rwp' );
+  field $name :reader;
 
-  sub reset_name ($self) {
-      return undef;   # Replace this with your own code to pass the tests.
+  method reset_name () {
+      return undef;
   }

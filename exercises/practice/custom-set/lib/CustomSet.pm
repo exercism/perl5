@@ -1,50 +1,43 @@
-package CustomSet;
-
 use v5.40;
-use Moo;
+use experimental qw<class>;
 
-has elements => (
-    is => 'ro',
+class CustomSet;
 
-   #coerce => sub {...},
-   # If you wish, one way of normalizing your objects
-   # e.g. making (elements => [1, 2, 3]) and (elements => [3, 2, 1]) identical
-   # would be to use the 'coerce' option: https://metacpan.org/pod/Moo#coerce
-);
+field $elements :reader :param;
 
-sub is_empty ($self) {
+method is_empty () {
     return undef;
 }
 
-sub contains ( $self, $element ) {
+method contains ($element) {
     return undef;
 }
 
-sub is_subset_of ( $self, $other ) {
+method is_subset_of ($other) {
     return undef;
 }
 
-sub is_disjoint_of ( $self, $other ) {
+method is_disjoint_of ($other) {
     return undef;
 }
 
-sub is_equal_to ( $self, $other ) {
+method is_equal_to ($other) {
     return undef;
 }
 
-sub add ( $self, $element ) {
+method add ($element) {
     return undef;
 }
 
-sub intersection ( $self, $other ) {
+method intersection ($other) {
     return undef;
 }
 
-sub difference ( $self, $other ) {
+method difference ($other) {
     return undef;
 }
 
-sub union ( $self, $other ) {
+method union ($other) {
     return undef;
 }
 
