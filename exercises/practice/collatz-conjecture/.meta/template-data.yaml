@@ -1,0 +1,39 @@
+subs: steps
+properties:
+  steps:
+    test: |-
+      use Data::Dmp;
+      if (ref $case->{expected}) {
+          sprintf(<<'END', $case->{input}{number}, $case->{expected}{error}, dmp($case->{description}));
+      like(
+          dies( sub { steps(%s) } ),
+          qr/%s/,
+          %s,
+      );
+      END
+      }
+      else {
+          sprintf(<<'END', $case->{input}{number}, $case->{expected}, dmp($case->{description}));
+      is(
+          steps(%s),
+          %s,
+          %s,
+      );
+      END
+      }
+
+stub: |-
+  sub steps ($number) {
+    return undef;
+  }
+
+example: |-
+  sub steps ($number) {
+    die 'Only positive integers are allowed' unless $number > 0;
+    my $count = 0;
+    while ($number > 1) {
+      $number = ($number % 2 == 0) ? ($number / 2) : (3 * $number + 1);
+      $count++;
+    }
+    return $count;
+  }
