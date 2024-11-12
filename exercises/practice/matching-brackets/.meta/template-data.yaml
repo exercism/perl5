@@ -1,0 +1,36 @@
+subs: is_paired
+
+properties:
+  isPaired:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<'END', dmp($case->{input}{value}), $case->{expected} ? ('T', '# True') : ('DF', '# Defined but False'), dmp($case->{description}));
+      is(
+          is_paired(%s),
+          %s, %s
+          %s,
+      );
+      END
+
+stub: |-
+  sub is_paired ($text) {
+  }
+
+example: |-
+  sub is_paired ($text) {
+      my @stack = ();
+      my %pairs = ( ')' => '(', ']' => '[', '}' => '{' );
+
+      my $is_open  = sub { grep {$_[0] eq $_} values %pairs; };
+      my $is_close = sub { exists $pairs{$_[0]}; };
+      
+      foreach my $char (split '', $text) {
+          if ($is_open->($char)) {
+              push @stack, $char;
+          }
+          elsif ($is_close->($char)) {
+              return 0 if @stack == 0 || pop(@stack) ne $pairs{$char};
+          }
+      }
+      return @stack == 0;
+  }
