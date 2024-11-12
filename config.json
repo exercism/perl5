@@ -748,6 +748,14 @@
         "difficulty": 1
       },
       {
+        "slug": "yacht",
+        "name": "Yacht",
+        "uuid": "253f49a3-44f6-42e8-bd79-f2fa7f70a29a",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 4
+      },
+      {
         "slug": "bottle-song",
         "name": "Bottle Song",
         "uuid": "527307e6-95ce-4766-8bb8-9d5adb868333",
