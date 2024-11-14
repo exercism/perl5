@@ -458,6 +458,14 @@
         "difficulty": 1
       },
       {
+        "slug": "pangram",
+        "name": "Pangram",
+        "uuid": "dd2d617f-acfc-4821-b8e8-7323d84852d9",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 2
+      },
+      {
         "slug": "pascals-triangle",
         "name": "Pascal's Triangle",
         "uuid": "3fc3e55d-ecf0-4c5b-8612-937c96a0cb45",
