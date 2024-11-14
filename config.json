@@ -665,6 +665,14 @@
         "difficulty": 1
       },
       {
+        "slug": "spiral-matrix",
+        "name": "Spiral Matrix",
+        "uuid": "d732a67a-f532-423c-9a18-6aaed831afef",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 4
+      },
+      {
         "slug": "strain",
         "name": "Strain",
         "uuid": "fe458d54-f002-4a96-a49f-1ca40e679f72",

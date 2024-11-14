@@ -1,0 +1,39 @@
+subs: spiral_matrix
+
+properties:
+  spiralMatrix:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<~'END', $case->{input}{size}, map {dmp $_} $case->@{qw<expected description>});
+      is(
+          spiral_matrix(%s),
+          %s,
+          %s,
+      );
+      END
+
+stub: |-
+  sub spiral_matrix ($size) {
+      return undef;
+  }
+
+example: |-
+  sub spiral_matrix ($size) {
+      my @mtx;
+      push @mtx, [ (undef) x $size ] for 1..$size;
+
+      my ($x, $y, $dx, $dy) = (0, 0, 0, 1);
+
+      for my $i (1 .. $size * $size) {
+          $mtx[$x][$y] = $i;
+          if ( ($x + $dx == $size || $x + $dx < 0)
+               || ($y + $dy == $size || $y + $dy < 0)
+               || $mtx[$x + $dx][$y + $dy]
+          ) {
+              ($dx, $dy) = ($dy, -$dx);
+          }
+          $x += $dx;
+          $y += $dy;
+      }
+      return \@mtx;
+  }
