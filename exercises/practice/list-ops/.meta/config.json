@@ -3,17 +3,18 @@
   "contributors": [
     "kytrinyx",
     "m-dango",
-    "rfilipo"
+    "rfilipo",
+    "glennj"
   ],
   "files": {
     "solution": [
-      "ListOps.pm"
+      "lib/ListOps.pm"
     ],
     "test": [
-      "list-ops.t"
+      "t/list-ops.t"
     ],
     "example": [
-      ".meta/solutions/ListOps.pm"
+      ".meta/solutions/lib/ListOps.pm"
     ]
   },
   "blurb": "Implement basic list operations."
