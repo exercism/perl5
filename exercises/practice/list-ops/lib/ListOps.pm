@@ -10,7 +10,7 @@ sub concat ($lists) {
     return undef;
 }
 
-sub filter :prototype(&$) ( $func, $list ) {
+sub filter ( $func, $list ) {
     return undef;
 }
 
@@ -18,7 +18,7 @@ sub length ($list) {
     return undef;
 }
 
-sub map :prototype(&$) ( $func, $list ) {
+sub map ( $func, $list ) {
     return undef;
 }
 

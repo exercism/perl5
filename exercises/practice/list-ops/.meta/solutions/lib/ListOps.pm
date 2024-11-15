@@ -21,18 +21,14 @@ sub concat ($lists) {
     foldl sub ( $acc, $list ) { append $acc, $list }, [], $lists;
 }
 
-sub map :prototype(&$) ( $func, $list ) {
-    my $f = sub ( $acc, $el ) {
-        local $_ = $el;
-        append $acc, [ $func->() ];
-    };
+sub map ( $func, $list ) {
+    my $f = sub ( $acc, $el ) { append $acc, [ $func->($el) ] };
     foldl $f, [], $list;
 }
 
-sub filter :prototype(&$) ( $func, $list ) {
+sub filter ( $func, $list ) {
     my $f = sub ( $acc, $el ) {
-        local $_ = $el;
-        $acc = append $acc, [$el] if $func->();
+        $acc = append $acc, [$el] if $func->($el);
         $acc;
     };
     foldl $f, [], $list;

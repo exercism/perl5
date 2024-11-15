@@ -37,9 +37,9 @@ properties:
       if ($case->{input}{function} ne '(x) -> x modulo 2 == 1') {
         die "template-data needs updating for new canonical data: $case->{description}";
       }
-      sprintf(<<'END', '{$_ % 2 == 1}', map {dmp($_)} $case->{input}{list}, $case->{expected}, $case->{description});
+      sprintf(<<'END', 'sub ($el) {$el % 2 == 1}', map {dmp($_)} $case->{input}{list}, $case->{expected}, $case->{description});
       {
-          my $filtered = ListOps::filter %s %s;
+          my $filtered = ListOps::filter %s, %s;
           is(
               $filtered,
               %s,
@@ -68,9 +68,9 @@ properties:
       if ($case->{input}{function} ne '(x) -> x + 1') {
         die "template-data needs updating for new canonical data: $case->{description}";
       }
-      sprintf(<<'END', '{$_ + 1}', map {dmp($_)} $case->{input}{list}, $case->{expected}, $case->{description});
+      sprintf(<<'END', 'sub ($el) {$el + 1}', map {dmp($_)} $case->{input}{list}, $case->{expected}, $case->{description});
       {
-          my $mapped = ListOps::map %s %s;
+          my $mapped = ListOps::map %s, %s;
           is(
               $mapped,
               %s,
@@ -158,7 +158,7 @@ stub: |-
       return undef;
   }
 
-  sub filter :prototype(&$) ($func, $list) {
+  sub filter ($func, $list) {
       return undef;
   }
 
@@ -166,7 +166,7 @@ stub: |-
       return undef;
   }
 
-  sub map :prototype(&$) ($func, $list) {
+  sub map ($func, $list) {
       return undef;
   }
 
@@ -200,18 +200,14 @@ example: |-
       foldl sub ($acc, $list) { append $acc, $list }, [], $lists;
   }
 
-  sub map :prototype(&$) ($func, $list) {
-      my $f = sub ($acc, $el) {
-          local $_ = $el;
-          append $acc, [$func->()]
-      };
+  sub map ($func, $list) {
+      my $f = sub ($acc, $el) { append $acc, [$func->($el)] };
       foldl $f, [], $list;
   }
 
-  sub filter :prototype(&$) ($func, $list) {
+  sub filter ($func, $list) {
       my $f = sub ($acc, $el) {
-          local $_ = $el;
-          $acc = append $acc, [$el] if $func->();
+          $acc = append $acc, [$el] if $func->($el);
           $acc;
       };
       foldl $f, [], $list;

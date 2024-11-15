@@ -71,7 +71,7 @@ use experimental qw<signatures>;
 } # end: d6ecd72c-197f-40c3-89a4-aa1f45827e09
 
 { # begin: 0524fba8-3e0f-4531-ad2b-f7a43da86a16
-    my $filtered = ListOps::filter { $_ % 2 == 1 } [];
+    my $filtered = ListOps::filter sub ($el) { $el % 2 == 1 }, [];
     is(
         $filtered,
         [],
@@ -80,7 +80,7 @@ use experimental qw<signatures>;
 } # end: 0524fba8-3e0f-4531-ad2b-f7a43da86a16
 
 { # begin: 88494bd5-f520-4edb-8631-88e415b62d24
-    my $filtered = ListOps::filter { $_ % 2 == 1 } [ 1, 2, 3, 5 ];
+    my $filtered = ListOps::filter sub ($el) { $el % 2 == 1 }, [ 1, 2, 3, 5 ];
     is(
         $filtered,
         [ 1, 3, 5 ],
@@ -107,7 +107,7 @@ use experimental qw<signatures>;
 } # end: d7b8d2d9-2d16-44c4-9a19-6e5f237cb71e
 
 { # begin: c0bc8962-30e2-4bec-9ae4-668b8ecd75aa
-    my $mapped = ListOps::map { $_ + 1 } [];
+    my $mapped = ListOps::map sub ($el) { $el + 1 }, [];
     is(
         $mapped,
         [],
@@ -116,7 +116,7 @@ use experimental qw<signatures>;
 } # end: c0bc8962-30e2-4bec-9ae4-668b8ecd75aa
 
 { # begin: 11e71a95-e78b-4909-b8e4-60cdcaec0e91
-    my $mapped = ListOps::map { $_ + 1 } [ 1, 3, 5, 7 ];
+    my $mapped = ListOps::map sub ($el) { $el + 1 }, [ 1, 3, 5, 7 ];
     is(
         $mapped,
         [ 2, 4, 6, 8 ],
