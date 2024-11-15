@@ -390,8 +390,7 @@
         "uuid": "21c90e54-55b3-4f23-af90-00323964027b",
         "practices": [],
         "prerequisites": [],
-        "difficulty": 1,
-        "status": "wip"
+        "difficulty": 5
       },
       {
         "slug": "luhn",
