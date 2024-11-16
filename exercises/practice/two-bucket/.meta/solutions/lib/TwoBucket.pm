@@ -49,11 +49,10 @@ sub measure ( $bucketOne, $bucketTwo, $goal, $startBucket ) {
     ( $first, $second ) = ( $second, $first ) if $startBucket eq 'two';
 
     my $moves = 0;
-
     fill $first;
     $moves++;
 
-    if ( $second->{size} == $goal ) {
+    if ( $second->{size} == $goal && $first->{size} != $goal ) {
         fill $second;
         $moves++;
     }
