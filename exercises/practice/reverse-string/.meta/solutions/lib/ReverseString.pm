@@ -8,8 +8,10 @@ use Exporter qw<import>;
 our @EXPORT_OK = qw<str_reverse>;
 
 sub str_reverse ($text) {
-    my $rev   = '';
-    my @chars = split '', $text;
+    my $rev = '';
+
+    # \X matches "extended grapheme clusters"
+    my @chars = $text =~ /(\X)/g;
 
     # the obvious boring solution
     # $rev = reverse $text

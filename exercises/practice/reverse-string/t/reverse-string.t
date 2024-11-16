@@ -48,4 +48,16 @@ is( # begin: 1bed0f8a-13b0-4bd3-9d59-3d0593326fa2
     "wide characters",
 ); # end: 1bed0f8a-13b0-4bd3-9d59-3d0593326fa2
 
+is( # begin: 93d7e1b8-f60f-4f3c-9559-4056e10d2ead
+    str_reverse("Wu\x{308}rstchenstand"),
+    "dnatsnehctsru\x{308}W",
+    "grapheme cluster with pre-combined form",
+); # end: 93d7e1b8-f60f-4f3c-9559-4056e10d2ead
+
+is( # begin: 1028b2c1-6763-4459-8540-2da47ca512d9
+    str_reverse("\x{E1C}\x{E39}\x{E49}\x{E40}\x{E02}\x{E35}\x{E22}\x{E19}\x{E42}\x{E1B}\x{E23}\x{E41}\x{E01}\x{E23}\x{E21}"),
+    "\x{E21}\x{E23}\x{E01}\x{E41}\x{E23}\x{E1B}\x{E42}\x{E19}\x{E22}\x{E02}\x{E35}\x{E40}\x{E1C}\x{E39}\x{E49}",
+    "grapheme clusters",
+); # end: 1028b2c1-6763-4459-8540-2da47ca512d9
+
 done_testing;

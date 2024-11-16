@@ -16,7 +16,9 @@ properties:
 example: |-
   sub str_reverse ($text) {
     my $rev = '';
-    my @chars = split '', $text;
+
+    # \X matches "extended grapheme clusters"
+    my @chars = $text =~ /(\X)/g;
 
     # the obvious boring solution
     # $rev = reverse $text 
