@@ -11,7 +11,7 @@ sub abbreviate ($phrase) {
 
     # capture letters preceded by the start of the string
     # or by a non-(letter or apostrophe)
-    my @letters = $phrase =~ /(?<=^|[^'a-z])([a-z])/ig;
+    my @letters = $phrase =~ /(?:^|[^'a-z])\K([a-z])/ig;
     return uc join "", @letters;
 }
 
