@@ -1,0 +1,33 @@
+subs: caesar_cipher
+properties:
+  rotate:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<'END', dmp($case->{input}{text}), $case->{input}{shiftKey}, dmp($case->{expected}), dmp($case->{description}));
+      is(
+        caesar_cipher(%s, %s),
+        %s,
+        %s
+      );
+      END
+
+stub: |-
+  sub caesar_cipher ($text, $shift_key) {
+    return undef;
+  }
+
+example: |-
+  # from https://perldoc.pl/perlop#tr/SEARCHLIST/REPLACEMENTLIST/cdsr
+  # > Because the transliteration table is built at compile time, neither the
+  # > SEARCHLIST nor the REPLACEMENTLIST are subjected to double quote
+  # > interpolation. That means that if you want to use variables, you must
+  # > use an eval()
+
+  sub caesar_cipher ($text, $shift) {
+    my $alpha = 'abcdefghijklmnopqrstuvwxyz';
+    my $rotated = substr($alpha, $shift % 26) . substr($alpha, 0, $shift % 26);
+    $alpha .= uc $alpha;
+    $rotated .= uc $rotated;
+
+    return eval "\$text =~ tr/$alpha/$rotated/r";
+  }
