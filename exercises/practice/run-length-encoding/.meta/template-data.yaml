@@ -1,0 +1,55 @@
+subs: encode decode
+
+properties:
+  encode:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<'END', map {dmp $_} ($case->{input}{string}, $case->@{qw<expected description>}));
+      is(
+          encode(%s),
+          %s,
+          %s,
+      );
+      END
+
+  decode:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<'END', map {dmp $_} ($case->{input}{string}, $case->@{qw<expected description>}));
+      is(
+          decode(%s),
+          %s,
+          %s,
+      );
+      END
+
+  consistency:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<'END', map {dmp $_} ($case->{input}{string}, $case->@{qw<expected description>}));
+      is(
+          decode(encode(%s)),
+          %s,
+          %s,
+      );
+      END
+
+example: |-
+  sub encode ($string) {
+    (my $encoded = $string) =~ s{(.)(\1+)}{(1 + length $2) . $1}ge;
+    return $encoded;
+  }
+
+  sub decode ($string) {
+    (my $decoded = $string) =~ s{(\d+)(.)}{$2 x $1}ge;
+    return $decoded;
+  }
+
+stub: |-
+  sub encode ($string) {
+    return undef;
+  }
+
+  sub decode ($string) {
+    return undef;
+  }
