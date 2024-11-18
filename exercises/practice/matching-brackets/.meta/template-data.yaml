@@ -1,0 +1,37 @@
+subs: has_matching_brackets
+
+properties:
+  isPaired:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<'END', dmp($case->{input}{value}), $case->{expected} ? ('T', 'True') : ('DF', 'Defined but False'), dmp($case->{description}));
+      is(
+          has_matching_brackets(%s),
+          %s, # %s
+          %s,
+      );
+      END
+
+stub: |-
+  sub has_matching_brackets ($text) {
+      return undef;
+  }
+
+example: |-
+  sub has_matching_brackets ($text) {
+      my @stack = ();
+      my %pairs = ( ')' => '(', ']' => '[', '}' => '{' );
+
+      my $is_open  = sub { grep {$_[0] eq $_} values %pairs; };
+      my $is_close = sub { exists $pairs{$_[0]}; };
+      
+      foreach my $char (split '', $text) {
+          if ($is_open->($char)) {
+              push @stack, $char;
+          }
+          elsif ($is_close->($char)) {
+              return 0 if @stack == 0 || pop(@stack) ne $pairs{$char};
+          }
+      }
+      return @stack == 0;
+  }

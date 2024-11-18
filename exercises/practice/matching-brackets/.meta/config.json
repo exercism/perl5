@@ -1,0 +1,21 @@
+{
+  "authors": [
+    "glennj"
+  ],
+  "contributors": [
+    "m-dango"
+  ],
+  "files": {
+    "solution": [
+      "lib/MatchingBrackets.pm"
+    ],
+    "test": [
+      "t/matching-brackets.t"
+    ],
+    "example": [
+      ".meta/solutions/lib/MatchingBrackets.pm"
+    ]
+  },
+  "blurb": "Make sure the brackets and braces all match.",
+  "source": "Ginna Baker"
+}
