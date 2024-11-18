@@ -9,7 +9,7 @@ our @EXPORT_OK = qw<score>;
 
 use List::Util qw(uniq sum all);
 
-sub score ( $category, $dice ) {
+sub score ( $dice, $category ) {
     if    ( $category eq 'yacht' )  { scalar( uniq @$dice ) == 1 ? 50 : 0; }
     elsif ( $category eq 'choice' ) { sum @$dice; }
     elsif ( $category eq 'ones' )   { single( 1, $dice ); }
