@@ -23,7 +23,7 @@ properties:
       }
 
 stub: |-
-  sub measure ($bucketOne, $bucketTwo, $goal, $startBucket) {
+  sub measure ($bucket_1, $bucket_2, $goal, $start_bucket) {
       return undef;
   }
 

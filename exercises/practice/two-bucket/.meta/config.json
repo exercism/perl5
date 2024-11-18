@@ -2,6 +2,9 @@
   "authors": [
     "glennj"
   ],
+  "contributors": [
+    "m-dango"
+  ],
   "files": {
     "solution": [
       "lib/TwoBucket.pm"
