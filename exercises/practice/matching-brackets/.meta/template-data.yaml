@@ -1,23 +1,24 @@
-subs: is_paired
+subs: has_matching_brackets
 
 properties:
   isPaired:
     test: |-
       use Data::Dmp;
-      sprintf(<<'END', dmp($case->{input}{value}), $case->{expected} ? ('T', '# True') : ('DF', '# Defined but False'), dmp($case->{description}));
+      sprintf(<<'END', dmp($case->{input}{value}), $case->{expected} ? ('T', 'True') : ('DF', 'Defined but False'), dmp($case->{description}));
       is(
-          is_paired(%s),
-          %s, %s
+          has_matching_brackets(%s),
+          %s, # %s
           %s,
       );
       END
 
 stub: |-
-  sub is_paired ($text) {
+  sub has_matching_brackets ($text) {
+      return undef;
   }
 
 example: |-
-  sub is_paired ($text) {
+  sub has_matching_brackets ($text) {
       my @stack = ();
       my %pairs = ( ')' => '(', ']' => '[', '}' => '{' );
 

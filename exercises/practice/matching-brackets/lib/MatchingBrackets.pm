@@ -3,9 +3,10 @@ package MatchingBrackets;
 use v5.40;
 
 use Exporter qw<import>;
-our @EXPORT_OK = qw<is_paired>;
+our @EXPORT_OK = qw<has_matching_brackets>;
 
-sub is_paired ($text) {
+sub has_matching_brackets ($text) {
+    return undef;
 }
 
 1;
