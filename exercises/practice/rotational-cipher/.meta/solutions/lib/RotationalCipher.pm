@@ -5,7 +5,7 @@ use warnings;
 use experimental qw<signatures postderef postderef_qq>;
 
 use Exporter qw<import>;
-our @EXPORT_OK = qw<rotate>;
+our @EXPORT_OK = qw<caesar_cipher>;
 
 # from https://perldoc.pl/perlop#tr/SEARCHLIST/REPLACEMENTLIST/cdsr
 # > Because the transliteration table is built at compile time, neither the
@@ -13,7 +13,7 @@ our @EXPORT_OK = qw<rotate>;
 # > interpolation. That means that if you want to use variables, you must
 # > use an eval()
 
-sub rotate ( $text, $shift ) {
+sub caesar_cipher ( $text, $shift ) {
     my $alpha = 'abcdefghijklmnopqrstuvwxyz';
     my $rotated = substr( $alpha, $shift % 26 ) . substr( $alpha, 0, $shift % 26 );
     $alpha   .= uc $alpha;

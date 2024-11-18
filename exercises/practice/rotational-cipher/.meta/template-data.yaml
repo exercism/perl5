@@ -1,18 +1,18 @@
-subs: rotate
+subs: caesar_cipher
 properties:
   rotate:
     test: |-
       use Data::Dmp;
       sprintf(<<'END', dmp($case->{input}{text}), $case->{input}{shiftKey}, dmp($case->{expected}), dmp($case->{description}));
       is(
-        rotate(%s, %s),
+        caesar_cipher(%s, %s),
         %s,
         %s
       );
       END
 
 stub: |-
-  sub rotate ($text, $shift) {
+  sub caesar_cipher ($text, $shift_key) {
     return undef;
   }
 
@@ -23,7 +23,7 @@ example: |-
   # > interpolation. That means that if you want to use variables, you must
   # > use an eval()
 
-  sub rotate ($text, $shift) {
+  sub caesar_cipher ($text, $shift) {
     my $alpha = 'abcdefghijklmnopqrstuvwxyz';
     my $rotated = substr($alpha, $shift % 26) . substr($alpha, 0, $shift % 26);
     $alpha .= uc $alpha;
