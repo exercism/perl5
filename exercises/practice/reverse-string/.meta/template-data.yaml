@@ -1,0 +1,50 @@
+subs: str_reverse
+  
+properties:
+  reverse:
+    test: |-
+      use Data::Dmp;
+      local $Data::Dmp::OPT_STRINGIFY_NUMBERS = 1;
+      sprintf(<<'END', map {dmp($_)} $case->{input}{value}, $case->@{qw<expected description>});
+      is(
+          str_reverse(%s),
+          %s,
+          %s,
+      );
+      END
+
+example: |-
+  sub str_reverse ($text) {
+    my $rev = '';
+
+    # \X matches "extended grapheme clusters"
+    my @chars = $text =~ /(\X)/g;
+
+    # the obvious boring solution
+    # $rev = reverse $text 
+
+    # iterating
+    # foreach my $char (@chars) {
+    #   $rev = $char . $rev;
+    # }
+    
+    # iterating tersely
+    # $rev = $_ . $rev for @chars;
+
+    # iterating functionally
+    # use List::Util qw(reduce);
+    # $rev = reduce {$b . $a} '', @chars;
+
+    # fewer iterations
+    for (my ($i, $j) = (0, $#chars); $i < $j; $i++, $j--) {
+      ($chars[$i], $chars[$j]) = ($chars[$j], $chars[$i]);
+    }
+    $rev = join '', @chars;
+
+    return $rev;
+  }
+
+stub: |-
+  sub str_reverse ($text) {
+      return undef;
+  }
