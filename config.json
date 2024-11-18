@@ -179,6 +179,14 @@
         "difficulty": 1
       },
       {
+        "slug": "armstrong-numbers",
+        "name": "Armstrong Numbers",
+        "uuid": "bbc8720e-597c-4ae9-b39b-2f0fb8e6578d",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 3
+      },
+      {
         "slug": "atbash-cipher",
         "name": "Atbash Cipher",
         "uuid": "4b9872a8-bb21-4b1a-952b-032efa13b1da",
@@ -390,8 +398,7 @@
         "uuid": "21c90e54-55b3-4f23-af90-00323964027b",
         "practices": [],
         "prerequisites": [],
-        "difficulty": 1,
-        "status": "wip"
+        "difficulty": 5
       },
       {
         "slug": "luhn",
@@ -770,6 +777,14 @@
         "practices": [],
         "prerequisites": [],
         "difficulty": 1
+      },
+      {
+        "slug": "reverse-string",
+        "name": "Reverse String",
+        "uuid": "c73132d4-4f67-4085-ba17-84f38824afe1",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 2
       },
       {
         "slug": "rotational-cipher",

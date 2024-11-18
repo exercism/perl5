@@ -1,0 +1,19 @@
+{
+  "authors": [
+    "glennj"
+  ],
+  "files": {
+    "solution": [
+      "lib/ArmstrongNumbers.pm"
+    ],
+    "test": [
+      "t/armstrong-numbers.t"
+    ],
+    "example": [
+      ".meta/solutions/lib/ArmstrongNumbers.pm"
+    ]
+  },
+  "blurb": "Determine if a number is an Armstrong number.",
+  "source": "Wikipedia",
+  "source_url": "https://en.wikipedia.org/wiki/Narcissistic_number"
+}

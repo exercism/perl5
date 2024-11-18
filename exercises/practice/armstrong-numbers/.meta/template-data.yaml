@@ -1,0 +1,34 @@
+subs: is_armstrong_number
+modules: 
+  - use: bignum;
+properties:
+  isArmstrongNumber:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<'END', $case->{input}{number}, $case->{expected} ? ('T', '# True') : ('DF', '# Defined but False'), dmp($case->{description}));
+      is(
+          is_armstrong_number(%s),
+          %s, %s
+          %s
+      );
+      END
+
+stub: |-
+  sub is_armstrong_number ($number) {
+      return undef;
+  }
+
+example: |-
+  use bignum;
+
+  sub is_armstrong_number ($number) {
+      my $n = $number->copy();
+      my $size = $n->length();
+      my $sum = Math::BigInt->bzero();
+      my $rem;
+      while ($n->is_positive()) {
+          ($n, $rem) = $n->bdiv(10);
+          $sum = $sum->badd($rem->bpow($size));
+      }
+      return $sum->beq($number);
+  }

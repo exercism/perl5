@@ -1,0 +1,227 @@
+subs: 
+modules:
+  - use: experimental qw<signatures>;
+
+properties:
+  append:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<'END', map {dmp($_)} $case->{input}{list1}, $case->{input}{list2}, $case->{expected}, $case->{description});
+      {
+          my $appended = ListOps::append %s, %s;
+          is(
+              $appended,
+              %s,
+              %s,
+          );
+      }
+      END
+
+  concat:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<'END', map {dmp($_)} $case->{input}{lists}, $case->{expected}, $case->{description});
+      {
+          my $concatenated = ListOps::concat %s;
+          is(
+              $concatenated,
+              %s,
+              %s,
+          );
+      }
+      END
+
+  filter:
+    test: |-
+      use Data::Dmp;
+      if ($case->{input}{function} ne '(x) -> x modulo 2 == 1') {
+        die "template-data needs updating for new canonical data: $case->{description}";
+      }
+      sprintf(<<'END', 'sub ($el) {$el % 2 == 1}', map {dmp($_)} $case->{input}{list}, $case->{expected}, $case->{description});
+      {
+          my $filtered = ListOps::filter %s, %s;
+          is(
+              $filtered,
+              %s,
+              %s,
+          );
+      }
+      END
+
+  length:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<'END', dmp($case->{input}{list}), $case->{expected}, dmp($case->{description}));
+      {
+          my $len = ListOps::length %s;
+          is(
+              $len,
+              %s,
+              %s,
+          );
+      }
+      END
+
+  map:
+    test: |-
+      use Data::Dmp;
+      if ($case->{input}{function} ne '(x) -> x + 1') {
+        die "template-data needs updating for new canonical data: $case->{description}";
+      }
+      sprintf(<<'END', 'sub ($el) {$el + 1}', map {dmp($_)} $case->{input}{list}, $case->{expected}, $case->{description});
+      {
+          my $mapped = ListOps::map %s, %s;
+          is(
+              $mapped,
+              %s,
+              %s,
+          );
+      }
+      END
+
+  foldl:
+    test: |-
+      use Data::Dmp;
+      my $func;
+      if ($case->{input}{function} =~ /\*/) {
+        $func = 'sub ($acc, $el) { $acc * $el }';
+      }
+      elsif ($case->{input}{function} =~ /\+/) {
+        $func = 'sub ($acc, $el) { $acc + $el }';
+      }
+      elsif ($case->{input}{function} =~ /\//) {
+        $func = 'sub ($acc, $el) { $el / $acc }';
+      }
+      else {
+        die;
+      }
+      sprintf(<<'END', $func, $case->{input}{initial}, dmp($case->{input}{list}), $case->{expected}, dmp($case->{description}));
+      {
+          my $func = %s;
+          my $result = ListOps::foldl $func, %s, %s;
+          is(
+              $result,
+              %s,
+              %s,
+          );
+      }
+      END
+
+  foldr:
+    test: |-
+      use Data::Dmp;
+      my $func;
+      if ($case->{input}{function} =~ /\*/) {
+        $func = 'sub ($acc, $el) { $el * $acc }';
+      }
+      elsif ($case->{input}{function} =~ /\+/) {
+        $func = 'sub ($acc, $el) { $el + $acc }';
+      }
+      elsif ($case->{input}{function} =~ /\//) {
+        $func = 'sub ($acc, $el) { $el / $acc }';
+      }
+      else {
+        die;
+      }
+      sprintf(<<'END', $func, $case->{input}{initial}, dmp($case->{input}{list}), $case->{expected}, dmp($case->{description}));
+      {
+        my $func = %s;
+        my $result = ListOps::foldr $func, %s, %s;
+        is(
+          $result,
+          %s,
+          %s,
+        );
+      }
+      END
+
+  reverse:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<'END', map {dmp($_)} $case->{input}{list}, $case->{expected}, $case->{description});
+      {
+          my $reversed = ListOps::reverse %s;
+          is(
+              $reversed,
+              %s,
+              %s,
+          );
+      }
+      END
+
+stub: |-
+  sub append ($list1, $list2) {
+      return undef;
+  }
+
+  sub concat ($lists) {
+      return undef;
+  }
+
+  sub filter ($func, $list) {
+      return undef;
+  }
+
+  sub length ($list) {
+      return undef;
+  }
+
+  sub map ($func, $list) {
+      return undef;
+  }
+
+  sub foldl ($func, $initial, $list) {
+      return undef;
+  }
+
+  sub foldr ($func, $initial, $list) {
+      return undef;
+  }
+
+  sub reverse ($list) {
+      return undef;
+  }
+
+example: |-
+  sub append ($list1, $list2) {
+      return [@$list1, @$list2];
+  }
+
+  sub foldl ($func, $initial, $list) {
+      my $a = $initial;
+      foreach my $e (@$list) {
+        $a = $func->($a, $e);
+      }
+      return $a;
+  }
+
+  # all the rest can be implemented with append and foldl
+  sub concat ($lists) {
+      foldl sub ($acc, $list) { append $acc, $list }, [], $lists;
+  }
+
+  sub map ($func, $list) {
+      my $f = sub ($acc, $el) { append $acc, [$func->($el)] };
+      foldl $f, [], $list;
+  }
+
+  sub filter ($func, $list) {
+      my $f = sub ($acc, $el) {
+          $acc = append $acc, [$el] if $func->($el);
+          $acc;
+      };
+      foldl $f, [], $list;
+  }
+
+  sub length ($list) {
+      foldl sub ($len, $el) { $len + 1 }, 0, $list;
+  }
+
+  sub reverse ($list) {
+      my $f = sub ($acc, $el) { append [$el], $acc };
+      foldl $f, [], $list;
+  }
+
+  sub foldr ($func, $initial, $list) {
+      foldl $func, $initial, ListOps::reverse $list;
+  }

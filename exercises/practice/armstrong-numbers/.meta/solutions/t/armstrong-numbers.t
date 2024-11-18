@@ -1,0 +1,1 @@
+../../../t/armstrong-numbers.t
