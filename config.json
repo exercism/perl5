@@ -743,6 +743,14 @@
         "difficulty": 1
       },
       {
+        "slug": "two-bucket",
+        "name": "Two Bucket",
+        "uuid": "1ac50ef0-d6c8-4217-867f-3a72a353ac93",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 4
+      },
+      {
         "slug": "two-fer",
         "name": "Two Fer",
         "uuid": "749dac4a-a746-4af7-aca6-db9e69ccad8c",
