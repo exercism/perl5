@@ -1,0 +1,109 @@
+class: true
+properties:
+  modifier:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<~'END', $case->{input}{score}, $case->{expected}, dmp($case->{description}));
+      is( 
+          DndCharacter->modifier(%d),
+          %d,
+          %s
+      );
+      END
+
+  ability:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<~'END', dmp($case->{description}));
+      ok(
+          lives {
+              for my $i (1..100) {
+                  my $score = DndCharacter->ability();
+                  die if $score < 3 || $score > 18;
+              }
+          },
+          %s
+      );
+      END
+
+  character:
+    test: |-
+      use Data::Dmp;
+      if ($case->{description} eq 'random character is valid') {
+          sprintf(<<~'END', dmp($case->{description}));
+      ok(
+          lives {
+              for my $i (1..100) {
+                  my $character = DndCharacter->new();
+                  die if $character->strength < 3 || $character->strength > 18;
+                  die if $character->dexterity < 3 || $character->dexterity > 18;
+                  die if $character->constitution < 3 || $character->constitution > 18;
+                  die if $character->intelligence < 3 || $character->intelligence > 18;
+                  die if $character->wisdom < 3 || $character->wisdom > 18;
+                  die if $character->charisma < 3 || $character->charisma > 18;
+                  die if $character->hitpoints != 10 + DndCharacter->modifier($character->constitution);
+              }
+          },
+          %s
+      );
+      END
+      }
+      elsif ($case->{description} eq 'each ability is only calculated once') {
+          sprintf(<<~'END', dmp($case->{description}));
+      ok(
+          lives {
+              for my $i (1..100) {
+                  my $character = DndCharacter->new();
+                  die if $character->strength != $character->strength;
+                  die if $character->dexterity != $character->dexterity;
+                  die if $character->constitution != $character->constitution;
+                  die if $character->intelligence != $character->intelligence;
+                  die if $character->wisdom != $character->wisdom;
+                  die if $character->charisma != $character->charisma;
+              }
+          },
+          %s
+      );
+      END
+      }
+
+stub: |-
+  # implement the DndCharacter class
+
+example: |-
+  use POSIX qw<floor>;
+
+  sub modifier ($class, $score) {
+      return floor(($score - 10) / 2);
+  }
+
+  sub ability {
+      my $d6 = sub { 1 + int(rand(6)) };
+      my $min = 6;
+      my $sum = 0;
+      for $_ (1..4) {
+          my $die = $d6->();
+          $sum += $die;
+          $min = $die if $min > $die;
+      }
+      return $sum - $min;
+  }
+
+
+  field $strength :reader;
+  field $dexterity :reader;
+  field $constitution :reader;
+  field $intelligence :reader;
+  field $wisdom :reader;
+  field $charisma :reader;
+  field $hitpoints :reader;
+
+  ADJUST {
+      $strength = __CLASS__->ability;
+      $dexterity = __CLASS__->ability;
+      $constitution = __CLASS__->ability;
+      $intelligence = __CLASS__->ability;
+      $wisdom = __CLASS__->ability;
+      $charisma = __CLASS__->ability;
+      $hitpoints = __CLASS__->modifier($constitution) + 10;
+  }
