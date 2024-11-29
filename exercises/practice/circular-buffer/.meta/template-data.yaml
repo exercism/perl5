@@ -1,0 +1,109 @@
+class: true
+
+properties:
+  run:
+    test: |-
+      use Data::Dmp;
+      (my $_t_name = $case->{description}) =~ s/'//g;
+      $_t_name =~ s/\W+/_/g;
+      my $_t = sprintf(<<'END1', $_t_name, $case->{input}{capacity});
+      subtest %s => sub {
+        my $buff = CircularBuffer->new(capacity => %s);
+      END1
+
+      my $n = 1;
+      foreach my $_op (@{$case->{input}{operations}}) {
+        if ($_op->{operation} eq 'clear') {
+          $_t .= sprintf(<<'END2', $n);
+        ok(lives { $buff->clear() }, "check %d");
+      END2
+        }
+
+        elsif ($_op->{operation} eq 'write') {
+          if ($_op->{should_succeed}) {
+            $_t .= sprintf(<<'END3', $_op->{item}, $n);
+        ok(lives { $buff->write(%s) }, "check %d");
+      END3
+          }
+          else {
+            $_t .= sprintf(<<'END4', $_op->{item}, $n);
+        like(
+          dies { $buff->write(%s) }, 
+          qr/buffer full/,
+          "check %d"
+        );
+      END4
+          }
+        }
+
+        elsif ($_op->{operation} eq 'read') {
+          if ($_op->{should_succeed}) {
+            $_t .= sprintf(<<'END5', $_op->{expected}, $n);
+        is($buff->read(), %s, "check %d");
+      END5
+          }
+          else {
+            $_t .= sprintf(<<'END6', $n);
+        like(
+          dies { $buff->read() }, 
+          qr/buffer empty/,
+          "check %d"
+        );
+      END6
+          }
+        }
+
+        elsif ($_op->{operation} eq 'overwrite') {
+          $_t .= sprintf(<<'END7', $_op->{item}, $n);
+        ok(lives { $buff->overwrite(%s) }, "check %d");
+      END7
+        }
+
+        ++$n;
+      }
+      $_t . "};\n"
+
+stub: |-
+  field $capacity :reader :param;
+
+  method write ($item) {
+    return undef;
+  }
+
+  method read () {
+    return undef;
+  }
+
+  method clear () {
+    return undef;
+  }
+
+  method overwrite ($item) {
+    return undef;
+  }
+
+example: |-
+  field $capacity :reader :param;
+  field @data = (); # kind of cheating to use a non-fixed size array.
+
+  method _isFull { scalar @data == $capacity; }
+  method _isEmpty { scalar @data == 0; }
+
+  method write ($item) {
+    die 'buffer full' if $self->_isFull;
+    push @data, $item;
+  }
+
+  method read () {
+    die 'buffer empty' if $self->_isEmpty;
+    return shift @data;
+  }
+
+  method clear () {
+    @data = ();
+  }
+
+  method overwrite ($item) {
+    $self->read() if $self->_isFull;
+    $self->write($item);
+  }
