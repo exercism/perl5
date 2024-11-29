@@ -1,0 +1,26 @@
+subs: is_pangram
+
+properties:
+  isPangram:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<'END', dmp($case->{input}{sentence}), $case->{expected} ? ('T', '# True') : ('DF', '# Defined but False'), dmp($case->{description}));
+      is(
+        is_pangram(%s),
+        %s, %s
+        %s
+      );
+      END
+
+stub: |-
+  sub is_pangram ($text) {
+    return undef;
+  }
+
+example: |-
+  use List::Util qw(uniq);
+
+  sub is_pangram ($text) {
+    my @letters = grep { /[[:alpha:]]/ } split "", lc $text;
+    return scalar(uniq @letters) == 26;
+  }
