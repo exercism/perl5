@@ -1,0 +1,26 @@
+subs: is_isogram
+properties:
+  isIsogram:
+    test: |-
+      use Data::Dmp;
+      sprintf(<<'END', dmp($case->{input}{phrase}), $case->{expected} ? ('T', '# True') : ('DF', '# Defined but False'), dmp($case->{description}));
+      is(
+        is_isogram(%s),
+        %s, %s
+        %s
+      );
+      END
+
+stub: |-
+  sub is_isogram ($phrase) {
+    return undef;
+  }
+
+example: |-
+  use List::Util qw(uniq);
+
+  sub is_isogram ($phrase) {
+    my @letters = grep { /[[:alpha:]]/ } split "", lc $phrase;
+    return scalar(@letters) == scalar(uniq @letters);
+  }
+

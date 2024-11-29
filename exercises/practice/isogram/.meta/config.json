@@ -1,0 +1,19 @@
+{
+  "authors": [
+    "glennj"
+  ],
+  "files": {
+    "solution": [
+      "lib/Isogram.pm"
+    ],
+    "test": [
+      "t/isogram.t"
+    ],
+    "example": [
+      ".meta/solutions/lib/Isogram.pm"
+    ]
+  },
+  "blurb": "Determine if a word or phrase is an isogram.",
+  "source": "Wikipedia",
+  "source_url": "https://en.wikipedia.org/wiki/Isogram"
+}

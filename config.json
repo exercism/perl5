@@ -389,6 +389,14 @@
         "difficulty": 1
       },
       {
+        "slug": "isogram",
+        "name": "Isogram",
+        "uuid": "bb80818d-3e3e-4b17-b240-a9ffff33acf2",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 2
+      },
+      {
         "slug": "kindergarten-garden",
         "name": "Kindergarten Garden",
         "uuid": "ab72941e-040b-4254-8908-1832b602f4ee",
