@@ -1,0 +1,19 @@
+{
+  "authors": [
+    "glennj"
+  ],
+  "files": {
+    "solution": [
+      "lib/Acronym.pm"
+    ],
+    "test": [
+      "t/acronym.t"
+    ],
+    "example": [
+      ".meta/solutions/lib/Acronym.pm"
+    ]
+  },
+  "blurb": "Convert a long phrase to its acronym.",
+  "source": "Julien Vanier",
+  "source_url": "https://github.com/monkbroc"
+}
