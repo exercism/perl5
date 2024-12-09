@@ -16,7 +16,7 @@
       ".meta/solutions/lib/Yacht.pm"
     ],
     "editor": [
-      "lib/Yacht/Catogory.pm"
+      "lib/Yacht/Category.pm"
     ]
   },
   "blurb": "Score a single throw of dice in the game Yacht.",
