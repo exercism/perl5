@@ -1,0 +1,19 @@
+{
+  "authors": [
+    "JohnMertz"
+  ],
+  "files": {
+    "solution": [
+      "lib/AffineCipher.pm",
+    ],
+    "test": [
+      "t/affine-cipher.t"
+    ],
+    "example": [
+      ".meta/solutions/lib/AffineCipher.pm",
+    ]
+  },
+  "blurb": "Create an implementation of the Affine cipher, an ancient encryption algorithm from the Middle East.",
+  "source": "Wikipedia",
+  "source_url": "https://en.wikipedia.org/wiki/Affine_cipher"
+}

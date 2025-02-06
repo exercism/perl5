@@ -1,0 +1,90 @@
+subs: encode decode
+
+properties:
+  encode:
+    test: |-
+      use Data::Dmp;
+      if (ref $case->{expected} eq ref {}) {
+          sprintf(<<~'END', map {dmp($_)} $case->{input}{phrase}, $case->{input}{key}{a}, $case->{input}{key}{b}, qr/$case->{expected}{error}/, $case->{description});
+          like(
+              dies( sub { encode(%s, %s, %s) } ),
+              %s,
+              %s,
+          );
+          END
+      } else {
+          sprintf(<<~'END', dmp($case->{input}{phrase}), $case->{input}{key}{a}, $case->{input}{key}{b}, dmp($case->{expected}), dmp($case->{description}));
+          is(
+              encode(%s, %s, %s),
+              %s,
+              %s,
+          );
+          END
+      }
+  decode:
+    test: |-
+      use Data::Dmp;
+      if (ref $case->{expected} eq ref {}) {
+          sprintf(<<~'END', map {dmp($_)} $case->{input}{phrase}, $case->{input}{key}{a}, $case->{input}{key}{b}, qr/$case->{expected}{error}/, $case->{description});
+          like(
+              dies( sub { decode(%s, %s, %s) } ),
+              %s,
+              %s,
+          );
+          END
+      } else {
+          sprintf(<<~'END', dmp($case->{input}{phrase}), $case->{input}{key}{a}, $case->{input}{key}{b}, dmp($case->{expected}), dmp($case->{description}));
+          is(
+              decode(%s, %s, %s),
+              %s,
+              %s,
+          );
+          END
+      }
+
+stub: |-
+  sub encode ($phrase, $a, $b) {
+      return undef;
+  }
+
+  sub decode ($phrase, $a, $b) {
+      return undef;
+  }
+
+example: |-
+  sub encode ($phrase, $a, $b) {
+      die "a and m must be coprime." unless _coprime($a);
+      my $ret = '';
+      foreach (split(//, $phrase)) {
+          next if $_ eq ' ';
+          $ret .= ' ' if ($_ =~ /[[:alpha:]\d]/ && !((length($ret)+1) % 6));
+          if (ord(lc($_)) < 97) {
+              $ret .= $_ if ($_ =~ /\d/);
+          } else {
+              $ret .= chr((($a*(ord(lc($_))-97) + $b) % 26)+97);
+          }
+      }
+      return $ret;
+  }
+
+  sub decode ($phrase, $a, $b) {
+      die "a and m must be coprime." unless _coprime($a);
+      my ($mmi, $ret) = (0, '');
+      $mmi++ until ( ($a * $mmi) % 26 == 1 );
+      foreach (split(//, $phrase)) {
+          next if $_ eq ' ';
+          if (ord(lc($_)) < 97) {
+              $ret .= $_ if ($_ =~ /\d/);
+          } else {
+              $ret .= chr(($mmi*((ord(lc($_))-97)-$b) % 26)+97);
+          }
+      }
+      return $ret;
+  }
+
+  sub _coprime ($a) {
+      for (2..26) {
+          return 0 unless ($a % $_ + 26 % $_);
+      }
+      return 1;
+  }
