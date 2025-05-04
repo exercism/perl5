@@ -43,9 +43,8 @@ When editing Markdown files in this repository, please use one line &harr; one s
 
 ### Perl icon
 
-The onion is the logo of the [Perl Foundation].
-It is trademarked, and we have adapted it--changing the color--with their permission.
-The Perl Foundation does not support or endorse Exercism.
+Perl 5 camel from [perl-assets](https://github.com/metacpan/perl-assets/), 
+license [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 
 [Carton]: https://metacpan.org/pod/Carton
 [contributing guide]: https://exercism.org/docs/building
