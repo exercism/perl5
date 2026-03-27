@@ -49,7 +49,7 @@ Some examples useful for exercises you may encounter here include [List::Util][L
 
 ## CPAN
 
-In additon to core modules, [CPAN][metacpan] has thousands of additional modules created by the Perl community available for installation.
+In addition to core modules, [CPAN][metacpan] has thousands of additional modules created by the Perl community available for installation.
 The Perl track uses a [cpanfile][test-runner-cpanfile] to install a selection of modules which can be used with Exercism's Perl test runner.
 
 [perl-core-modules]: https://perldoc.pl/modules
