@@ -3,7 +3,7 @@
 ## Perl Version Notes
 The track targets the latest stable release of Perl.
 It is possible to use older versions of Perl, but it may be necessary to make adjustments to the provided stub files for compatibility.
-If you are unable to use the version specified in the stub files, it is recomended to replace `use v5.XX;` with the following code:
+If you are unable to use the version specified in the stub files, it is recommended to replace `use v5.XX;` with the following code:
 
 ```perl
 use strict;

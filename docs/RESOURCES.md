@@ -38,7 +38,7 @@ locally, or run `cpanm Module::Name` to install globally.
 
 ## Code Style and Linting
 
-If you are looking for good general advices regarding Perl coding,
+If you are looking for good general advice regarding Perl coding,
 Damian Conway's [Perl Best Practices][PBP] is a good reference.
 
 To prettify your code, you can use the module
