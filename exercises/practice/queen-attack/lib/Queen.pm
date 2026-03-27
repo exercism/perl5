@@ -3,7 +3,7 @@ use experimental qw<class>;
 
 class Queen;
 
-field $row :reader :param;
+field $row    :reader :param;
 field $column :reader :param;
 
 method can_attack ($other) {

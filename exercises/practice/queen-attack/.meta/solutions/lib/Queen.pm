@@ -5,7 +5,7 @@ use Feature::Compat::Class;
 
 class Queen;
 
-field $row :reader :param;
+field $row    :reader :param;
 field $column :reader :param;
 
 ADJUST {

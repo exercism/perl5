@@ -15,8 +15,8 @@ method sort () {
 }
 
 class BinarySearchTree::Node {
-    field $data :reader :param;
-    field $left :reader;
+    field $data  :reader :param;
+    field $left  :reader;
     field $right :reader;
 }
 

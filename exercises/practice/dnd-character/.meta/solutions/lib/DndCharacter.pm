@@ -23,13 +23,13 @@ sub ability {
     return $sum - $min;
 }
 
-field $strength :reader;
-field $dexterity :reader;
+field $strength     :reader;
+field $dexterity    :reader;
 field $constitution :reader;
 field $intelligence :reader;
-field $wisdom :reader;
-field $charisma :reader;
-field $hitpoints :reader;
+field $wisdom       :reader;
+field $charisma     :reader;
+field $hitpoints    :reader;
 
 ADJUST {
     $strength     = __CLASS__->ability;
