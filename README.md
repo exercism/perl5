@@ -36,6 +36,12 @@ If a test is run as
 
 the test will run using the example in the `.meta/solutions` directory.
 
+### Running Tests in Docker
+
+Run tests against the test runner Docker image with
+
+    bin/verify-exercises-in-docker
+
 ## Contributing Guide
 
 Please see the [contributing guide] for information from Exercism.
