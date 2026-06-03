@@ -1,6 +1,6 @@
 package HighScoreBoard;
 
-use v5.40;
+use v5.42;
 
 our %Scores;
 

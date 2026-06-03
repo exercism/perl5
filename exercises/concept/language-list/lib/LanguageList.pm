@@ -1,6 +1,6 @@
 package LanguageList;
 
-use v5.40;
+use v5.42;
 
 our @Languages;
 

@@ -1,6 +1,6 @@
 package BinarySearch;
 
-use v5.40;
+use v5.42;
 
 use Exporter qw<import>;
 our @EXPORT_OK = qw<binary_search>;
