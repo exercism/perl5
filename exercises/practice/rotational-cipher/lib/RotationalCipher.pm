@@ -1,7 +1,5 @@
 package RotationalCipher;
 
-use v5.42;
-
 use Exporter qw<import>;
 our @EXPORT_OK = qw<caesar_cipher>;
 

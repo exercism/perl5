@@ -1,7 +1,5 @@
 package LanguageList;
 
-use v5.42;
-
 our @Languages;
 
 sub add_language ($language) {

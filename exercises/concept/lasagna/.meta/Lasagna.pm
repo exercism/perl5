@@ -1,7 +1,5 @@
 package Lasagna;
 
-use v5.42;
-
 our $ExpectedMinutesInOven = 40;
 
 sub remaining_minutes_in_oven ($actual_minutes_in_oven) {

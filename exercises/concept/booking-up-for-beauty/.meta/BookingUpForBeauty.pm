@@ -1,7 +1,5 @@
 package BookingUpForBeauty;
 
-use v5.42;
-
 use Time::Piece;
 #use Const::Fast;
 

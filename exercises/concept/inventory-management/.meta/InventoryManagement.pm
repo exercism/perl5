@@ -1,7 +1,5 @@
 package InventoryManagement;
 
-use v5.42;
-
 sub create_inventory ($items) {
     my %inventory;
     for ( $items->@* ) {

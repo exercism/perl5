@@ -1,8 +1,6 @@
 # Declare package 'Leap'
 package Leap;
 
-use v5.42;
-
 use Exporter qw<import>;
 our @EXPORT_OK = qw<is_leap_year>;
 

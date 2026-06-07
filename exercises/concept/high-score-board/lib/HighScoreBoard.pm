@@ -1,7 +1,5 @@
 package HighScoreBoard;
 
-use v5.42;
-
 our %Scores;
 
 sub set_player_scores (%new_scores) {
