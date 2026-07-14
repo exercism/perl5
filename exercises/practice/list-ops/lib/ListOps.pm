@@ -1,5 +1,7 @@
 package ListOps;
 
+use v5.42;
+
 sub append ( $list1, $list2 ) {
     return undef;
 }
