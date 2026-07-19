@@ -2,7 +2,7 @@
 {{/package_comment}}package {{&package}};
 
 {{/class}}use v{{^older_perl_support}}5.44{{/older_perl_support}}{{#older_perl_support}}5.40{{/older_perl_support}};{{#class}}
-use experimental qw<class>;{{/class}}{{#class}}
+use experimental qw<class>;
 class {{&package}};{{/class}}
 {{#subs}}
 use Exporter qw<import>;
