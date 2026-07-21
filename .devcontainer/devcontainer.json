@@ -1,0 +1,29 @@
+{
+  "name": "exercism-perl5",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "features": {
+    "ghcr.io/devcontainers-extra/features/mise": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "hverlin.mise-vscode"
+      ]
+    }
+  },
+  "mounts": [
+    {
+      "source": "mise-data-volume",
+      "target": "/mnt/mise-data",
+      "type": "volume"
+    }
+  ],
+  "containerEnv": {
+    "MISE_DATA_DIR": "/mnt/mise-data"
+  },
+  "remoteEnv": {
+    "PATH": "/mnt/mise-data/shims:${containerEnv:PATH}"
+  },
+  "postCreateCommand": "sudo chown -R vscode:vscode /mnt/mise-data",
+  "postStartCommand": "mise trust && mise install"
+}

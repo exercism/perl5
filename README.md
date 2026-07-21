@@ -5,16 +5,17 @@ Exercism exercises in Perl
 ## Dependencies
 
 Each exercise has its own cpanfile (if necessary) for any dependencies it might have.
-Other dependencies can be found in and installed with the top level cpanfile.
 
-It is recommended to use [Carton].
-Install the Carton module, run `carton install` to install the dependencies from the cpanfile, then prepend `carton exec` to your commands to include the locally installed dependencies.
+[Mise](https://mise.jdx.dev/) is used to manage installing the latest version of Perl along with the needed dependencies.
+The setup is done automatically with the devcontainer, or can be done manually by running `mise install`.
 
 ## Adding/Updating an Exercise
 
 Each exercise should have a `template-data.yaml` file inside a directory named `.meta` (please add one if the exercise does not have one yet).
 This is used by the `exercise-gen.pl` script in the `bin` directory to generate the module and test for an exercise.
 Documentation for the generator can be found in the `bin` directory.
+
+Running `mise generate-practice-exercise <slug>` will sync with `configlet` and generate the specified exercise.
 
 ## Testing the Tests
 

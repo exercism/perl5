@@ -1,0 +1,22 @@
+[tools.perl]
+version = "5.42.2"
+postinstall = '''
+curl -fsSL https://raw.githubusercontent.com/skaji/cpm/main/cpm | perl - install -g App::cpm Carton App::Yath
+cpm install -g
+'''
+
+[settings]
+experimental = true
+
+[hooks]
+postinstall = "bin/fetch-configlet"
+
+[tasks.generate-practice-exercise]
+usage = 'arg "<slug>"'
+run = '''
+bin/configlet sync --exercise ${usage_slug?} --update --docs --filepaths --metadata --tests
+bin/exercise-gen.pl ${usage_slug?}
+'''
+
+[tasks.test]
+run = 'yath test t exercises/practice/*/.meta'
