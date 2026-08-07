@@ -1,4 +1,4 @@
-use v5.42;
+use v5.44;
 use experimental qw<class>;
 
 class Queen;

@@ -1,8 +1,6 @@
 package Darts;
 
-use strict;
-use warnings;
-use experimental qw<signatures postderef postderef_qq>;
+use v5.40;
 
 use Exporter qw<import>;
 our @EXPORT_OK = qw<score_dart>;
