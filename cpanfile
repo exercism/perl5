@@ -1,5 +1,4 @@
 requires 'Data::Dmp';
-requires 'Feature::Compat::Class';
 requires 'lib::gitroot';
 requires 'namespace::autoclean';
 requires 'Path::Tiny';
