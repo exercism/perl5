@@ -198,7 +198,7 @@ use experimental qw<signatures>;
     is(
         $reversed,
         [ 7, 5, 3, 1 ],
-        "reverse the elements of the list: non-empty list",
+        "reverse the elements of the list: non-empty even-length list",
     );
 } # end: fcc03d1e-42e0-4712-b689-d54ad761f360
 
