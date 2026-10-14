@@ -1,8 +1,6 @@
 package WordCount;
 
-use strict;
-use warnings;
-use experimental qw<signatures postderef postderef_qq>;
+use v5.40;
 
 use Exporter qw<import>;
 our @EXPORT_OK = qw<count_words>;

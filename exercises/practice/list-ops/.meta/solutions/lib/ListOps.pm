@@ -1,8 +1,6 @@
 package ListOps;
 
-use strict;
-use warnings;
-use experimental qw<signatures postderef postderef_qq>;
+use v5.40;
 
 sub append ( $list1, $list2 ) {
     return [ @$list1, @$list2 ];

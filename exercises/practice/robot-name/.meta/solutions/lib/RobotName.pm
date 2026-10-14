@@ -1,7 +1,5 @@
-use strict;
-use warnings;
-use experimental qw<signatures postderef postderef_qq>;
-use Feature::Compat::Class;
+use v5.40;
+use experimental qw<class>;
 
 class RobotName;
 

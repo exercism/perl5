@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         os: ['ubuntu-latest', 'macos-latest']
-        perl: ['5.42', '5.40', '5.38']
+        perl: ['5.44', '5.42', '5.40']
         distribution: ['default']
         include:
           - os: 'windows-latest'
