@@ -1,0 +1,24 @@
+{
+  "authors": [
+    "autark"
+  ],
+  "contributors": [
+    "bistik",
+    "keiravillekode",
+    "kytrinyx",
+    "m-dango",
+    "rfilipo"
+  ],
+  "files": {
+    "solution": [
+      "lib/FlowerField.pm"
+    ],
+    "test": [
+      "t/flower-field.t"
+    ],
+    "example": [
+      ".meta/solutions/lib/FlowerField.pm"
+    ]
+  },
+  "blurb": "Mark all the flowers in a garden."
+}
