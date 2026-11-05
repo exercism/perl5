@@ -490,7 +490,7 @@
         "practices": [],
         "prerequisites": [],
         "difficulty": 1,
-        "status": "beta"
+        "status": "deprecated"
       },
       {
         "slug": "nucleotide-count",
@@ -841,6 +841,14 @@
         "practices": [],
         "prerequisites": [],
         "difficulty": 1
+      },
+      {
+        "slug": "flower-field",
+        "name": "Flower Field",
+        "uuid": "9b9a7e65-8a01-450b-b3a0-fabfbc77c75a",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 4
       },
       {
         "slug": "yacht",
