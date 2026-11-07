@@ -1,0 +1,10 @@
+sub most_common_word {
+    my ($text) = @_;
+    my %counts;
+    my $best = "";
+    for my $word (split / /, lc $text) {
+        $counts{$word}++;
+        $best = $word if $counts{$word} > ($counts{$best} // 0);
+    }
+    return qq{"$best" appears $counts{$best} times};
+}
