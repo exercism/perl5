@@ -11,9 +11,9 @@ use List::Util qw<product>;
 
 sub largest_product ( $digits, $span ) {
 
-    die 'span must be smaller than string length' if length($digits) < $span;
-    die 'digits input must only contain digits'   if $digits =~ /\D/;
-    die 'span must not be negative'               if $span < 0;
+    die 'span must not exceed string length'    if length($digits) < $span;
+    die 'digits input must only contain digits' if $digits =~ /\D/;
+    die 'span must not be negative'             if $span < 0;
 
     return 1 if $span == 0;
 

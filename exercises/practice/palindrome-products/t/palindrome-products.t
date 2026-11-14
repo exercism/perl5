@@ -78,4 +78,10 @@ like( # begin: eeeb5bff-3f47-4b1e-892f-05829277bd74
     "error result for largest if min is more than max",
 ); # end: eeeb5bff-3f47-4b1e-892f-05829277bd74
 
+is( # begin: 16481711-26c4-42e0-9180-e2e4e8b29c23
+    smallest_palindrome( 3215, 4000 ),
+    { factors => [ [ 3297, 3333 ] ], value => 10988901 },
+    "smallest product does not use the smallest factor",
+); # end: 16481711-26c4-42e0-9180-e2e4e8b29c23
+
 done_testing;

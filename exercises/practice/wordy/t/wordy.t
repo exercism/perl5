@@ -12,11 +12,35 @@ is( # begin: 88bf4b28-0de3-4883-93c7-db1b14aa806e
     "just a number",
 ); # end: 88bf4b28-0de3-4883-93c7-db1b14aa806e
 
+is( # begin: 18983214-1dfc-4ebd-ac77-c110dde699ce
+    answer("What is 0?"),
+    0,
+    "just a zero",
+); # end: 18983214-1dfc-4ebd-ac77-c110dde699ce
+
+is( # begin: 607c08ee-2241-4288-916d-dae5455c87e6
+    answer("What is -123?"),
+    -123,
+    "just a negative number",
+); # end: 607c08ee-2241-4288-916d-dae5455c87e6
+
 is( # begin: bb8c655c-cf42-4dfc-90e0-152fcfd8d4e0
     answer("What is 1 plus 1?"),
     2,
     "addition",
 ); # end: bb8c655c-cf42-4dfc-90e0-152fcfd8d4e0
+
+is( # begin: bb9f2082-171c-46ad-ad4e-c3f72087c1b5
+    answer("What is 0 plus 2?"),
+    2,
+    "addition with a left hand zero",
+); # end: bb9f2082-171c-46ad-ad4e-c3f72087c1b5
+
+is( # begin: 6fa05f17-405a-4742-80ae-5d1a8edb0d5d
+    answer("What is 3 plus 0?"),
+    3,
+    "addition with a right hand zero",
+); # end: 6fa05f17-405a-4742-80ae-5d1a8edb0d5d
 
 is( # begin: 79e49e06-c5ae-40aa-a352-7a3a01f70015
     answer("What is 53 plus 2?"),

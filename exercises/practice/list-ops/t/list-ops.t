@@ -202,6 +202,15 @@ use experimental qw<signatures>;
     );
 } # end: fcc03d1e-42e0-4712-b689-d54ad761f360
 
+{ # begin: 64d77184-5f74-4845-b158-545d2dd2df98
+    my $reversed = ListOps::reverse [ 1, 3, 5, 7, 9, 11, 13 ];
+    is(
+        $reversed,
+        [ 13, 11, 9, 7, 5, 3, 1 ],
+        "reverse the elements of the list: non-empty odd-length list",
+    );
+} # end: 64d77184-5f74-4845-b158-545d2dd2df98
+
 { # begin: 40872990-b5b8-4cb8-9085-d91fc0d05d26
     my $reversed = ListOps::reverse [ [ 1, 2 ], [3], [], [ 4, 5, 6 ] ];
     is(

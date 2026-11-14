@@ -42,6 +42,18 @@ is( # begin: eb329c63-5540-4735-b30b-97f7f4df0f84
     "Measure using bucket one of size 2 and bucket two of size 3 - start with bucket one and end with bucket two"
 ); # end: eb329c63-5540-4735-b30b-97f7f4df0f84
 
+is( # begin: 58d70152-bf2b-46bb-ad54-be58ebe94c03
+    measure( 5, 1, 2, "one" ),
+    { goalBucket => "one", moves => 6, otherBucket => 1 },
+    "Measure using bucket one much bigger than bucket two"
+); # end: 58d70152-bf2b-46bb-ad54-be58ebe94c03
+
+is( # begin: 9dbe6499-caa5-4a58-b5ce-c988d71b8981
+    measure( 3, 15, 9, "one" ),
+    { goalBucket => "two", moves => 6, otherBucket => 0 },
+    "Measure using bucket one much smaller than bucket two"
+); # end: 9dbe6499-caa5-4a58-b5ce-c988d71b8981
+
 like( # begin: 449be72d-b10a-4f4b-a959-ca741e333b72
     dies { measure( 6, 15, 5, "one" ) },
     qr/impossible/,
