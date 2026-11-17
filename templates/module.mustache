@@ -1,11 +1,8 @@
 {{^class}}{{#package_comment}}{{&package_comment}}
 {{/package_comment}}package {{&package}};
 
-{{/class}}{{^older_perl_support}}use v5.42;{{#class}}
-use experimental qw<class>;{{/class}}{{/older_perl_support}}{{#older_perl_support}}use strict;
-use warnings;
-use experimental qw<signatures postderef postderef_qq>;{{#class}}
-use Feature::Compat::Class;{{/class}}{{/older_perl_support}}{{#class}}
+{{/class}}use v{{^older_perl_support}}5.44{{/older_perl_support}}{{#older_perl_support}}5.40{{/older_perl_support}};{{#class}}
+use experimental qw<class>;
 class {{&package}};{{/class}}
 {{#subs}}
 use Exporter qw<import>;
