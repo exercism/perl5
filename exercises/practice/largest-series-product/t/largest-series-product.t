@@ -60,17 +60,17 @@ is( # begin: 6ef0df9f-52d4-4a5d-b210-f6fae5f20e19
     "reports zero if all spans include zero",
 ); # end: 6ef0df9f-52d4-4a5d-b210-f6fae5f20e19
 
-like( # begin: 5d81aaf7-4f67-4125-bf33-11493cc7eab7
+like( # begin: 0ae1ce53-d9ba-41bb-827f-2fceb64f058b
     dies( sub { largest_product( "123", 4 ) } ),
-    qr/span must be smaller than string length/,
+    qr/span must not exceed string length/,
     "rejects span longer than string length",
-); # end: 5d81aaf7-4f67-4125-bf33-11493cc7eab7
+); # end: 0ae1ce53-d9ba-41bb-827f-2fceb64f058b
 
-like( # begin: 6d96c691-4374-4404-80ee-2ea8f3613dd4
+like( # begin: 6cf66098-a6af-4223-aab1-26aeeefc7402
     dies( sub { largest_product( "", 1 ) } ),
-    qr/span must be smaller than string length/,
+    qr/span must not exceed string length/,
     "rejects empty string and nonzero span",
-); # end: 6d96c691-4374-4404-80ee-2ea8f3613dd4
+); # end: 6cf66098-a6af-4223-aab1-26aeeefc7402
 
 like( # begin: 7a38f2d6-3c35-45f6-8d6f-12e6e32d4d74
     dies( sub { largest_product( "1234a5", 2 ) } ),

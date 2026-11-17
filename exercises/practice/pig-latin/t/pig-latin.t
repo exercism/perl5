@@ -66,6 +66,12 @@ is( # begin: bce94a7a-a94e-4e2b-80f4-b2bb02e40f71
     "first letter and ay are moved to the end of words that start with consonants: word beginning with q without a following u",
 ); # end: bce94a7a-a94e-4e2b-80f4-b2bb02e40f71
 
+is( # begin: e59dbbe8-ccee-4619-a8e9-ce017489bfc0
+    translate("liquid"),
+    "iquidlay",
+    "first letter and ay are moved to the end of words that start with consonants: word beginning with consonant and vowel containing qu",
+); # end: e59dbbe8-ccee-4619-a8e9-ce017489bfc0
+
 is( # begin: c01e049a-e3e2-451c-bf8e-e2abb7e438b8
     translate("chair"),
     "airchay",
@@ -132,10 +138,10 @@ is( # begin: 29b4ca3d-efe5-4a95-9a54-8467f2e5e59a
     "position of y in a word determines if it is a consonant or a vowel: y as second letter in two letter word",
 ); # end: 29b4ca3d-efe5-4a95-9a54-8467f2e5e59a
 
-is( # begin: 44616581-5ce3-4a81-82d0-40c7ab13d2cf
-    translate("quick fast run"),
-    "ickquay astfay unray",
+is( # begin: 44616581-5ce3-4a81-82d0-40c7ab13d2d1
+    translate("why do squids enjoy xrays"),
+    "ywhay oday idssquay enjoyay xraysay",
     "phrases are translated: a whole phrase",
-); # end: 44616581-5ce3-4a81-82d0-40c7ab13d2cf
+); # end: 44616581-5ce3-4a81-82d0-40c7ab13d2d1
 
 done_testing;

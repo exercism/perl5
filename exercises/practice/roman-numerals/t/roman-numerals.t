@@ -156,6 +156,12 @@ is( # begin: 3bc4b41c-c2e6-49d9-9142-420691504336
     "3001 is MMMI",
 ); # end: 3bc4b41c-c2e6-49d9-9142-420691504336
 
+is( # begin: 2f89cad7-73f6-4d1b-857b-0ef531f68b7e
+    to_roman(3888),
+    "MMMDCCCLXXXVIII",
+    "3888 is MMMDCCCLXXXVIII",
+); # end: 2f89cad7-73f6-4d1b-857b-0ef531f68b7e
+
 is( # begin: 4e18e96b-5fbb-43df-a91b-9cb511fe0856
     to_roman(3999),
     "MMMCMXCIX",

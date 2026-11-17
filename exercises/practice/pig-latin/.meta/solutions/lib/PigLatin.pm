@@ -10,7 +10,7 @@ our @EXPORT_OK = qw<translate>;
 sub translate ($phrase) {
     return join( ' ', map {
             if (/^(?:[aeiou]|[yx][^aeiou])/) {
-                "${phrase}ay";
+                "${_}ay";
             }
             elsif (/^(y|[^aeiou]*qu|[^aeiouy]+)(.+)/) {
                 "$2${1}ay";
